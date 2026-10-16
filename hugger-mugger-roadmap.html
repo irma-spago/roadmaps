@@ -1,0 +1,781 @@
+<title>Hugger Mugger Content Roadmap</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;700&display=swap">
+<style>
+
+  :root {
+    --mint-300:#7EEFC1; --mint-400:#54E399; --mint-500:#31C97A; --mint-700:#1A7A4A;
+    --ink-800:#0A2224; --ink-850:#071E20; --ink-900:#051F21; --ink-950:#030F10;
+    --paper:#F8FAF9; --paper-sunken:#F0F4F2;
+    --teal-300:#5EC6A9; --teal-400:#3AADA6; --teal-500:#2A8C8A;
+    color-scheme:light;
+  }
+
+  * { margin:0; padding:0; box-sizing:border-box; }
+
+  html { scroll-behavior:smooth; }
+
+  body {
+    font-family:'Geist',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+    color:var(--ink-900);
+    background:var(--ink-950);
+    -webkit-font-smoothing:antialiased;
+    line-height:1.6;
+  }
+  @media (prefers-reduced-motion:reduce) { html { scroll-behavior:auto; } }
+
+  .mono { font-family:'Geist Mono',ui-monospace,Consolas,monospace; }
+
+  /* ---------- Section frame ---------- */
+  .slide {
+    position:relative;
+    min-height:100vh;
+    display:flex; flex-direction:column; justify-content:center;
+    padding:96px 48px;
+  }
+  .slide-inner { width:100%; max-width:1080px; margin:0 auto; position:relative; z-index:2; }
+  .slide-inner.wide { max-width:1240px; }
+
+  .s-dark { background:var(--ink-900); color:#fff; }
+  .s-paper { background:var(--paper); }
+  .s-light { background:#fff; }
+  .s-sunken { background:var(--paper-sunken); }
+
+  .marker {
+    position:absolute; top:40px; right:48px; z-index:3;
+    font-family:'Geist Mono',ui-monospace,Consolas,monospace;
+    font-size:11px; font-weight:700; letter-spacing:0.14em; text-transform:uppercase;
+  }
+  .s-dark .marker { color:rgba(255,255,255,0.55); }
+  .s-paper .marker, .s-light .marker, .s-sunken .marker { color:rgba(5,31,33,0.40); }
+
+  .eyebrow {
+    font-family:'Geist Mono',ui-monospace,Consolas,monospace;
+    font-size:11px; font-weight:700; letter-spacing:0.14em; text-transform:uppercase;
+    display:inline-flex; align-items:center; gap:8px;
+    margin-bottom:24px;
+  }
+  .s-dark .eyebrow { color:var(--mint-400); }
+  .s-paper .eyebrow, .s-light .eyebrow, .s-sunken .eyebrow { color:var(--teal-500); }
+
+  .dot { width:6px; height:6px; border-radius:9999px; background:var(--mint-400); display:inline-block;
+         animation:pulse 2.4s ease-in-out infinite; }
+  @keyframes pulse { 0%,100%{opacity:1;transform:scale(1);} 50%{opacity:0.4;transform:scale(0.7);} }
+
+  h1.display { font-size:56px; font-weight:700; letter-spacing:-0.032em; line-height:1.06; }
+  h2 { font-size:32px; font-weight:700; letter-spacing:-0.028em; line-height:1.12; }
+  h3 { font-size:24px; font-weight:700; letter-spacing:-0.022em; line-height:1.2; }
+  h4 { font-size:20px; font-weight:600; letter-spacing:-0.015em; }
+  .lead { font-size:18px; font-weight:400; line-height:1.6; }
+  h4.title-sm { font-size:17px; letter-spacing:-0.01em; line-height:1.3; }
+  h4.title-xs { font-size:16px; letter-spacing:-0.008em; line-height:1.3; }
+  .body { font-size:16px; line-height:1.6; }
+  .bodys { font-size:14px; line-height:1.55; }
+  .cap { font-size:12px; line-height:1.5; }
+
+  .muted-d { color:rgba(255,255,255,0.55); }
+  .muted-d80 { color:rgba(255,255,255,0.80); }
+  .muted-l { color:rgba(5,31,33,0.55); }
+  .muted-l45 { color:rgba(5,31,33,0.45); }
+  .mint { color:var(--mint-400); }
+  .mint-dark { color:var(--mint-700); }
+
+  /* ---------- Cards ---------- */
+  .card { border-radius:20px; padding:28px; }
+  .card.compact { padding:20px 22px; border-radius:16px; }
+  .card-light { background:#fff; border:1px solid #DDE4E7; }
+  .card-paper { background:var(--paper); border:1px solid #E4EAED; }
+  .card-dark { background:var(--ink-900); color:#fff; }
+  .card-dark-el { background:var(--ink-850); border:1px solid rgba(255,255,255,0.10); border-radius:20px; padding:28px; color:#fff; }
+  .card-dark-el.compact { padding:20px 22px; border-radius:16px; }
+
+  .grid { display:grid; gap:16px; align-items:stretch; }
+  .grid > * { height:100%; }
+  .g2 { grid-template-columns:repeat(2,1fr); }
+  .g3 { grid-template-columns:repeat(3,1fr); }
+  .g4 { grid-template-columns:repeat(4,1fr); }
+  .g5 { grid-template-columns:repeat(5,1fr); }
+
+  .stat-num { font-size:34px; font-weight:700; letter-spacing:-0.03em; line-height:1.05; }
+  .stat-lbl { font-size:13px; margin-top:10px; }
+
+  .pill {
+    display:inline-flex; align-items:center; gap:7px;
+    border-radius:9999px; padding:5px 13px; font-size:12px;
+  }
+  .pill-tag-d { background:rgba(255,255,255,0.07); border:1px solid rgba(255,255,255,0.10); color:rgba(255,255,255,0.80); }
+  .pill-tag-l { background:rgba(5,31,33,0.06); border:1px solid rgba(5,31,33,0.08); color:rgba(5,31,33,0.55); }
+  .pill-lead { background:rgba(49,201,122,0.12); border:1px solid rgba(49,201,122,0.25); color:var(--mint-700); }
+  .pill-row { display:flex; flex-wrap:wrap; gap:8px; }
+
+  .badge {
+    display:inline-flex; align-items:center; border-radius:8px;
+    font-size:10px; font-weight:700; letter-spacing:0.06em; text-transform:uppercase; padding:3px 8px;
+  }
+  .b-done   { background:rgba(49,201,122,0.12); color:var(--mint-700); }
+  .b-done-d { background:rgba(84,227,153,0.14); color:var(--mint-300); }
+  .b-move-d { background:rgba(94,198,169,0.16); color:var(--teal-300); }
+
+  .flag {
+    display:inline-flex; align-items:center; gap:7px;
+    border-radius:8px; padding:4px 10px;
+    font-family:'Geist Mono',ui-monospace,Consolas,monospace;
+    font-size:10px; font-weight:700; letter-spacing:0.08em; text-transform:uppercase;
+    background:rgba(49,201,122,0.10); color:var(--mint-700); border:1px dashed rgba(26,122,74,0.45);
+  }
+
+  /* ---------- Topic lists ---------- */
+  .tlist { list-style:none; margin-top:16px; }
+  .tlist li {
+    display:flex; align-items:baseline; justify-content:space-between; gap:14px;
+    padding:10px 0; border-bottom:1px solid rgba(5,31,33,0.08);
+  }
+  .tlist li:last-child { border-bottom:none; }
+  .tlist li:first-child { padding-top:0; }
+  .s-dark .tlist li { border-bottom-color:rgba(255,255,255,0.10); }
+  .t-name { font-size:14px; font-weight:500; line-height:1.35; }
+  .t-hub {
+    display:block; margin-top:3px;
+    font-family:'Geist Mono',ui-monospace,Consolas,monospace;
+    font-size:10px; letter-spacing:0.06em; text-transform:uppercase;
+    color:rgba(5,31,33,0.40);
+  }
+  .s-dark .t-hub { color:rgba(255,255,255,0.45); }
+  .t-val {
+    font-family:'Geist Mono',ui-monospace,Consolas,monospace;
+    font-size:12px; font-weight:700; white-space:nowrap; color:var(--mint-700);
+  }
+  .s-dark .t-val { color:var(--mint-300); }
+  .t-sub { font-weight:400; color:rgba(5,31,33,0.40); }
+  .s-dark .t-sub { color:rgba(255,255,255,0.45); }
+
+  /* ---------- Hero backgrounds ---------- */
+  .hero-dark {
+    background:radial-gradient(ellipse at 60% 40%, rgba(84,227,153,0.09), transparent 55%), var(--ink-900);
+  }
+  .hero-dark::before {
+    content:''; position:absolute; inset:0; z-index:1; pointer-events:none;
+    background-image:linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+                     linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+    background-size:48px 48px;
+  }
+
+  .accent-bar { width:44px; height:4px; border-radius:9999px; background:var(--mint-400); margin-bottom:28px; }
+  .flip { color:var(--mint-400); }
+  .arrow { color:var(--mint-400); font-weight:700; padding:0 4px; }
+
+  ul.clean { list-style:none; }
+  ul.clean li { position:relative; padding-left:26px; margin-bottom:12px; }
+  ul.clean li:last-child { margin-bottom:0; }
+  ul.clean li::before {
+    content:''; position:absolute; left:0; top:9px; width:7px; height:7px;
+    border-radius:9999px; background:var(--mint-400);
+  }
+
+  .divider { height:1px; background:rgba(5,31,33,0.08); margin:28px 0; }
+  .s-dark .divider { background:rgba(255,255,255,0.10); }
+
+  .footer-note { font-size:12px; }
+
+  .step-n { font-family:'Geist Mono',ui-monospace,Consolas,monospace; font-size:12px; font-weight:700; letter-spacing:0.14em; }
+  .step-row { display:flex; align-items:center; justify-content:space-between; gap:10px; }
+  .week {
+    font-family:'Geist Mono',ui-monospace,Consolas,monospace;
+    font-size:10px; font-weight:700; letter-spacing:0.10em; text-transform:uppercase;
+    border-radius:9999px; padding:3px 10px; white-space:nowrap;
+  }
+  .week-l { background:rgba(5,31,33,0.06); color:rgba(5,31,33,0.55); }
+  .week-d { background:rgba(84,227,153,0.12); color:var(--mint-300); }
+
+  .rail { position:fixed; top:0; left:0; height:3px; background:var(--mint-400); z-index:99; width:0; }
+
+  /* ---------- Responsive ---------- */
+  @media (max-width:1100px) {
+    .g5 { grid-template-columns:repeat(3,1fr); }
+  }
+  @media (max-width:900px) {
+    .slide { padding:80px 32px; }
+    .g2,.g3,.g4,.g5 { grid-template-columns:1fr; }
+    .g4.keep2, .g5.keep2 { grid-template-columns:repeat(2,1fr); }
+    .marker { top:24px; right:32px; }
+  }
+  @media (max-width:560px) {
+    .slide { padding:72px 20px; }
+    h1.display { font-size:34px; }
+    h2 { font-size:26px; }
+    h3 { font-size:21px; }
+    .lead { font-size:16px; }
+    .g4.keep2, .g5.keep2 { grid-template-columns:1fr; }
+  }
+  @media (prefers-reduced-motion:reduce) { .dot { animation:none; } }
+
+  .tlist li > span:first-child { min-width:0; }
+  .t-name { overflow-wrap:anywhere; }
+  .stat-num, .t-val { font-variant-numeric:tabular-nums; }
+  :focus-visible { outline:2px solid var(--mint-500); outline-offset:2px; }
+
+
+  .hubhead { display:flex; flex-wrap:wrap; align-items:baseline; gap:6px 14px; margin-top:6px; }
+  .hubmeta { font-family:'Geist Mono',ui-monospace,Consolas,monospace; font-size:11px; letter-spacing:0.06em; text-transform:uppercase; }
+  .s-dark .hubmeta { color:rgba(255,255,255,0.55); }
+  .group-label {
+    font-family:'Geist Mono',ui-monospace,Consolas,monospace;
+    font-size:10px; font-weight:700; letter-spacing:0.14em; text-transform:uppercase;
+    color:rgba(255,255,255,0.45); margin:28px 0 12px;
+  }
+  .group-label { margin-top:32px; }
+  .mstrip { display:grid; grid-template-columns:repeat(6,1fr); gap:10px; margin-top:20px; }
+  .mcell { background:#fff; border:1px solid #DDE4E7; border-radius:14px; padding:14px 16px; }
+  .mcell .mnum { font-size:22px; font-weight:700; letter-spacing:-0.02em; color:var(--mint-700); font-variant-numeric:tabular-nums; }
+  .mcell .mlbl { font-family:'Geist Mono',ui-monospace,Consolas,monospace; font-size:10px; font-weight:700; letter-spacing:0.10em; text-transform:uppercase; color:rgba(5,31,33,0.45); }
+  details.all { margin-top:22px; border-top:1px solid rgba(5,31,33,0.08); padding-top:18px; }
+  details.all summary {
+    cursor:pointer; list-style:none; display:inline-flex; align-items:center; gap:8px;
+    font-family:'Geist Mono',ui-monospace,Consolas,monospace;
+    font-size:11px; font-weight:700; letter-spacing:0.10em; text-transform:uppercase;
+    color:var(--teal-500); border-radius:9999px; padding:6px 14px;
+    background:rgba(42,140,138,0.08); border:1px solid rgba(42,140,138,0.22);
+  }
+  details.all summary::-webkit-details-marker { display:none; }
+  details.all summary::before { content:'+'; font-size:13px; line-height:1; }
+  details.all[open] summary::before { content:'\2212'; }
+  .allgrid { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin-top:18px; }
+  .allgrid .card { padding:20px 22px; border-radius:16px; }
+  .allgrid h5 { font-family:'Geist Mono',ui-monospace,Consolas,monospace; font-size:10px; font-weight:700; letter-spacing:0.12em; text-transform:uppercase; color:var(--teal-500); display:flex; justify-content:space-between; gap:10px; }
+  .allgrid h5 span { color:rgba(5,31,33,0.40); }
+  .allgrid .tlist li { padding:8px 0; }
+  .allgrid .t-name { font-size:13px; }
+  @media (max-width:900px) {
+    .mstrip { grid-template-columns:repeat(3,1fr); }
+    .allgrid { grid-template-columns:1fr; }
+  }
+  @media (max-width:560px) { .mstrip { grid-template-columns:repeat(2,1fr); } }
+
+
+  /* Scrolling fix: sections size to their content, the page always scrolls */
+  html, body { height:auto; }
+  html { overflow-y:auto; scroll-behavior:auto; }
+  .slide { min-height:0; }
+  .slide.hero-dark { padding-block:140px; }
+  @media (max-width:560px) { .slide.hero-dark { padding-block:96px; } }
+
+  /* GetBuddy additions */
+  .svc-grid { margin-top:40px; }
+  .svc h4 { margin-top:14px; }
+  .svc ul.clean { margin-top:14px; }
+  .svc ul.clean li { font-size:14px; line-height:1.5; color:rgba(5,31,33,0.72); margin-bottom:10px; }
+  .svc ul.clean li::before { top:7px; }
+  .svc-n { font-family:'Geist Mono',ui-monospace,Consolas,monospace; font-size:10px; font-weight:700; letter-spacing:0.10em; text-transform:uppercase; color:rgba(5,31,33,0.45); margin-top:18px; padding-top:14px; border-top:1px solid rgba(5,31,33,0.08); }
+  .b-teal { background:rgba(42,140,138,0.10); color:var(--teal-500); }
+  .dash {
+    margin-top:16px; display:flex; flex-wrap:wrap; align-items:center; gap:14px 24px;
+    background:rgba(49,201,122,0.07); border:1px solid rgba(49,201,122,0.25); border-radius:16px; padding:18px 22px;
+  }
+  .dash p { min-width:0; flex:1 1 360px; }
+  .svc { display:flex; flex-direction:column; }
+  .svc .svc-n { margin-top:auto; }
+  .svc ul.clean { margin-bottom:18px; }
+  a.hublink { color:inherit; text-decoration:none; }
+  a.hublink:hover { color:var(--mint-300); }
+
+  /* All topics: one card, three even columns */
+  .allcard { margin-top:18px; padding:22px 26px; border-radius:16px; }
+  .tlist.cols { columns:3 240px; column-gap:36px; margin-top:0; }
+  .tlist.cols li { break-inside:avoid; padding:9px 0; }
+  .tlist.cols .t-name { font-size:13px; }
+
+  /* Hugger Mugger: one width for every section, safe-area side gutters */
+  .slide { padding-block:96px; padding-left:max(48px, env(safe-area-inset-left, 0px)); padding-right:max(48px, env(safe-area-inset-right, 0px)); }
+  .slide-inner, .slide-inner.wide { max-width:1080px; }
+  .marker { right:max(48px, env(safe-area-inset-right, 0px)); }
+  h1.display, h2, h3 { text-wrap:balance; }
+  .svc .bodys { color:rgba(5,31,33,0.72); }
+  .svc ul.ex li { color:var(--ink-900); font-weight:500; }
+  .later-hint {
+    margin-top:14px; display:inline-flex; align-items:center; gap:10px;
+    font-family:'Geist Mono',ui-monospace,Consolas,monospace; font-size:11px; font-weight:700;
+    letter-spacing:0.08em; text-transform:uppercase; color:rgba(5,31,33,0.55);
+    border:1px dashed rgba(42,140,138,0.40); border-radius:9999px; padding:5px 14px 5px 6px;
+  }
+  .later-n { background:rgba(42,140,138,0.10); color:var(--teal-500); border-radius:9999px; padding:2px 9px; font-variant-numeric:tabular-nums; }
+  @media (max-width:900px) {
+    .slide { padding-block:80px; padding-left:max(32px, env(safe-area-inset-left, 0px)); padding-right:max(32px, env(safe-area-inset-right, 0px)); }
+    .marker { right:max(32px, env(safe-area-inset-right, 0px)); }
+    .g3.keep2 { grid-template-columns:repeat(2,1fr); }
+  }
+  @media (max-width:560px) {
+    .slide { padding-block:72px; padding-left:max(20px, env(safe-area-inset-left, 0px)); padding-right:max(20px, env(safe-area-inset-right, 0px)); }
+    .marker { right:max(20px, env(safe-area-inset-right, 0px)); }
+    .g3.keep2 { grid-template-columns:1fr; }
+    .later-hint { letter-spacing:0.04em; }
+  }
+  .slide.hero-dark { padding-block:140px; }
+  @media (max-width:560px) { .slide.hero-dark { padding-block:96px; } }
+
+</style>
+
+<div class="rail" id="rail"></div>
+
+<!-- ============ 01 - COVER ============ -->
+<section class="slide s-dark hero-dark">
+  <span class="marker">01 - The roadmap</span>
+  <div class="slide-inner">
+    <div class="eyebrow"><span class="dot"></span> Content roadmap &middot; FlyRank &times; Hugger Mugger</div>
+    <h1 class="display">Mobility, relaxation <span class="flip">&amp;</span> yoga practice</h1>
+    <p class="lead muted-d80" style="max-width:680px; margin-top:24px;">
+      Six months of content for huggermugger.com, already scheduled. Seven hubs covering foam rolling and self-massage,
+      everyday relaxation, starting and adapting a yoga practice, restorative and yin yoga, meditation, and mats and gear,
+      with every page built around one main topic and its subtopics.
+    </p>
+    <div class="pill-row" style="margin-top:36px;">
+      <span class="pill pill-tag-d">264 pages scheduled</span>
+      <span class="pill pill-tag-d">2,486 subtopics</span>
+      <span class="pill pill-tag-d">7 content hubs</span>
+      <span class="pill pill-tag-d">Oct 2026 - Mar 2027</span>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 02 - SERVICES ============ -->
+<section class="slide s-light">
+  <span class="marker">02 - The work</span>
+  <div class="slide-inner">
+    <div class="eyebrow">What we&#x27;re doing for Hugger Mugger</div>
+    <h2 style="max-width:820px;">Six workstreams, one dashboard</h2>
+    <p class="lead muted-l" style="margin-top:16px; max-width:760px;">
+      Content, SEO, product page work, AI visibility, ecommerce and Reddit tracking run side by side.
+      Log in to your own dashboard to follow every page as it goes live, see where Hugger Mugger is mentioned across
+      AI engines and Reddit, and track the sales that come from search and AI.
+    </p>
+    <div class="grid g3 keep2 svc-grid" style="gap:14px;">
+      <div class="card card-paper compact svc">
+        <span class="badge b-done" style="align-self:flex-start;">Content</span>
+        <h4 class="title-sm">New content strategy</h4>
+        <ul class="clean"><li>Each page has one main topic and the subtopics that belong to it</li><li>Pages go more in-depth, answering the full set of related questions in one place</li></ul>
+        <p class="svc-n">264 pages &middot; 2,486 subtopics</p>
+      </div>
+      <div class="card card-paper compact svc">
+        <span class="badge b-teal" style="align-self:flex-start;">Technical</span>
+        <h4 class="title-sm">Website SEO audit</h4>
+        <ul class="clean"><li>On-page SEO audit of huggermugger.com</li><li>Covers all on-page elements and the fixes for each</li></ul>
+        <p class="svc-n">Every on-page element checked</p>
+      </div>
+      <div class="card card-paper compact svc">
+        <span class="badge b-done" style="align-self:flex-start;">Store</span>
+        <h4 class="title-sm">Product &amp; collection optimizations</h4>
+        <ul class="clean"><li>Analysis of Hugger Mugger&#x27;s product and collection pages</li><li>Pages optimized based on SEO and GEO best practices</li></ul>
+        <p class="svc-n">Product and collection pages</p>
+      </div>
+      <div class="card card-paper compact svc">
+        <span class="badge b-teal" style="align-self:flex-start;">Visibility</span>
+        <h4 class="title-sm">AI visibility tracking</h4>
+        <ul class="clean"><li>Shows whether Hugger Mugger appears in AI assistants, and how it is described, as shoppers move there from Google</li><li>Turns missed, high-scoring prompts into a to-do list, with citations and query fan-out showing why AI recommends a competitor</li><li>Measures the overall return of content, SEO, Reddit and ecommerce work, with a trend that builds from each new measurement</li></ul>
+        <p class="svc-n">Mentions, citations, competitors</p>
+      </div>
+      <div class="card card-paper compact svc">
+        <span class="badge b-done" style="align-self:flex-start;">Revenue</span>
+        <h4 class="title-sm">Ecommerce tracking</h4>
+        <ul class="clean"><li>Connects SEO, content and AI visibility to sales, not just traffic or rankings</li><li>Measures sales from AI tools, a channel most analytics tools don&#x27;t track separately yet</li><li>Every number shows its comparison and change, with plain definitions, noted data gaps and no double counting</li></ul>
+        <p class="svc-n">Sales, traffic and AI orders in one place</p>
+      </div>
+      <div class="card card-paper compact svc">
+        <span class="badge b-teal" style="align-self:flex-start;">Community</span>
+        <h4 class="title-sm">Reddit mentions tracking</h4>
+        <ul class="clean"><li>Finds threads asking for recommendations or comparing products, the moments a helpful answer can win a customer</li><li>A sorted inbox with replies already drafted, and Reddit is cited heavily in AI answers, so taking part also lifts AI visibility</li><li>Spots brand mentions and complaints early, and collects customer language and pain points for content and product pages</li></ul>
+        <p class="svc-n">Mentions and ready-to-use replies</p>
+      </div>
+    </div>
+    <div class="dash">
+      <span class="flag">Your dashboard</span>
+      <p class="bodys muted-l">Log in to see the content calendar, AI visibility, Reddit mentions and ecommerce sales in one place, updated as the work moves.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 03 - SIX MONTH PLAN ============ -->
+<section class="slide s-paper">
+  <span class="marker">03 - The plan</span>
+  <div class="slide-inner">
+    <div class="eyebrow">Six month content plan</div>
+    <h2 style="max-width:820px;">264 pages are scheduled<br>for the next six months.</h2>
+    <p class="lead muted-l" style="margin-top:16px; max-width:760px;">
+      Every page targets one main topic and groups the subtopics people search around it, 2,486 in total.
+      Together the pages carry 2,127,540 monthly searches across seven content hubs, from foam rolling and relaxation
+      to yoga for beginners and meditation.
+    </p>
+    <div class="grid g4 keep2" style="margin-top:40px;">
+      <div class="card card-light"><div class="stat-num mint-dark">264</div><p class="stat-lbl muted-l">Pages scheduled, October to March</p></div>
+      <div class="card card-light"><div class="stat-num mint-dark">2,486</div><p class="stat-lbl muted-l">Subtopics covered inside those pages, about 9 per page</p></div>
+      <div class="card card-light"><div class="stat-num mint-dark">2,127,540</div><p class="stat-lbl muted-l">Total monthly search volume of the targeted keywords</p></div>
+      <div class="card card-light"><div class="stat-num mint-dark">312,330</div><p class="stat-lbl muted-l">Monthly searches behind the plan&#x27;s biggest page, how to use a foam roller</p></div>
+    </div>
+    <div class="card card-dark" style="margin-top:20px; padding:22px 26px;">
+      <p class="bodys muted-d80">
+        <span class="mint" style="font-weight:600;">How the pages are built.</span>
+        Each page is built around one main topic, with its subtopics as sections, so a single page answers what used
+        to take several thin posts. The deepest page, relaxation techniques, covers 125 subtopics. Publishing runs every
+        month from October to March, at 44 to 50 pages a month after a shorter October start.
+      </p>
+    </div>
+    <div class="dash">
+      <span class="flag">After March</span>
+      <p class="bodys muted-l"><strong class="mint-dark">1,223 more topics</strong> are already mapped for after March 2027, across the same seven hubs.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 04 - PAGE TYPES ============ -->
+<section class="slide s-light">
+  <span class="marker">04 - Page types</span>
+  <div class="slide-inner">
+    <div class="eyebrow">How each page is shaped</div>
+    <h2 style="max-width:820px;">Six kinds of pages, each matched to the search behind it</h2>
+    <p class="lead muted-l" style="margin-top:16px; max-width:760px;">
+      Each topic gets the format that fits what people want when they search it. Someone learning a technique needs a
+      guide, while someone choosing a mat needs a collection page or a comparison.
+    </p>
+    <div class="grid g3 keep2 svc-grid" style="gap:14px;">
+      <div class="card card-paper compact svc">
+        <span class="badge b-done" style="align-self:flex-start;">Guide</span>
+        <h4 class="title-sm">Guides &amp; explainers</h4>
+        <p class="bodys muted-l" style="margin-top:10px;">In-depth answers to how-to and what-is questions, with each subtopic as its own section, so one page covers the whole question.</p>
+        <p class="svc-n">Example topics</p>
+        <ul class="clean ex"><li>How to use a foam roller</li><li>Chair yoga</li><li>Yin yoga explained</li></ul>
+      </div>
+      <div class="card card-paper compact svc">
+        <span class="badge b-teal" style="align-self:flex-start;">Collection</span>
+        <h4 class="title-sm">Collection pages</h4>
+        <p class="bodys muted-l" style="margin-top:10px;">Category pages for shopping searches that pair the right Hugger Mugger products with buying advice for that category.</p>
+        <p class="svc-n">Example topics</p>
+        <ul class="clean ex"><li>Yoga mats</li><li>Foam rollers</li><li>Yoga blocks</li></ul>
+      </div>
+      <div class="card card-paper compact svc">
+        <span class="badge b-done" style="align-self:flex-start;">Listicle</span>
+        <h4 class="title-sm">Listicles</h4>
+        <p class="bodys muted-l" style="margin-top:10px;">Ranked or grouped lists that let readers scan the options quickly and pick the ones that suit them.</p>
+        <p class="svc-n">Example topics</p>
+        <ul class="clean ex"><li>Relaxation techniques</li><li>Best-rated yoga mats</li><li>Mindfulness exercises</li></ul>
+      </div>
+      <div class="card card-paper compact svc">
+        <span class="badge b-teal" style="align-self:flex-start;">Comparison</span>
+        <h4 class="title-sm">Comparisons</h4>
+        <p class="bodys muted-l" style="margin-top:10px;">Side-by-side looks at two or three options, for readers deciding between styles, materials or methods.</p>
+        <p class="svc-n">Example topics</p>
+        <ul class="clean ex"><li>Hatha vs. vinyasa vs. yin yoga</li><li>Myofascial release vs. massage</li><li>TPE vs. PVC yoga mats</li></ul>
+      </div>
+      <div class="card card-paper compact svc">
+        <span class="badge b-done" style="align-self:flex-start;">Product</span>
+        <h4 class="title-sm">Product pages</h4>
+        <p class="bodys muted-l" style="margin-top:10px;">Pages built around a single product, answering the questions shoppers ask before they buy it.</p>
+        <p class="svc-n">Example topics</p>
+        <ul class="clean ex"><li>Tingsha bells</li><li>Zafu cushions</li><li>Heated neck wraps</li></ul>
+      </div>
+      <div class="card card-paper compact svc">
+        <span class="badge b-teal" style="align-self:flex-start;">Practice</span>
+        <h4 class="title-sm">Guided practices</h4>
+        <p class="bodys muted-l" style="margin-top:10px;">Timed sessions readers follow along with, such as yoga nidra of a set length or for a time of year.</p>
+        <p class="svc-n">Example topics</p>
+        <ul class="clean ex"><li>20-minute yoga nidra</li><li>30-minute yoga nidra</li><li>Yoga nidra for the winter solstice</li></ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 05 - CONTENT HUBS ============ -->
+<section class="slide s-dark">
+  <span class="marker">05 - Coverage</span>
+  <div class="slide-inner">
+    <div class="eyebrow"><span class="dot"></span> What the plan covers</div>
+    <h2>Seven hubs across mobility, relaxation, yoga practice and gear</h2>
+    <p class="group-label">Largest hubs &middot; 183 pages &middot; 1,924,890 searches / mo</p>
+    <div class="grid g4 keep2" style="gap:14px;">
+      <div class="card-dark-el compact">
+        <span class="badge b-done-d">54 pages</span>
+        <h4 class="title-xs" style="margin-top:12px;"><a class="hublink" href="#mobility">Mobility and Self-Massage</a></h4>
+        <p class="hubmeta" style="margin-top:4px;">1,057,170 searches / mo &middot; 626 subtopics</p>
+        <p class="bodys muted-d80" style="margin-top:8px;">Foam rolling by body area, myofascial release, massage balls, yoga wheels and stretches for tight hips and chest.</p>
+      </div><div class="card-dark-el compact">
+        <span class="badge b-done-d">71 pages</span>
+        <h4 class="title-xs" style="margin-top:12px;"><a class="hublink" href="#relaxation">Everyday Relaxation</a></h4>
+        <p class="hubmeta" style="margin-top:4px;">360,810 searches / mo &middot; 672 subtopics</p>
+        <p class="bodys muted-d80" style="margin-top:8px;">Relaxation and breathing techniques, mindfulness exercises, yoga nidra, acupressure mats, heat wraps and eye pillows.</p>
+      </div><div class="card-dark-el compact">
+        <span class="badge b-done-d">38 pages</span>
+        <h4 class="title-xs" style="margin-top:12px;"><a class="hublink" href="#starting">Starting a Yoga Practice</a></h4>
+        <p class="hubmeta" style="margin-top:4px;">256,950 searches / mo &middot; 322 subtopics</p>
+        <p class="bodys muted-d80" style="margin-top:8px;">Yoga mats, beginner and gentle routines, yoga breathing, straps and what to wear to class.</p>
+      </div><div class="card-dark-el compact">
+        <span class="badge b-done-d">20 pages</span>
+        <h4 class="title-xs" style="margin-top:12px;"><a class="hublink" href="#adapting">Adapting Yoga Poses</a></h4>
+        <p class="hubmeta" style="margin-top:4px;">249,960 searches / mo &middot; 213 subtopics</p>
+        <p class="bodys muted-d80" style="margin-top:8px;">Chair yoga for seniors and every level, yoga blocks and the props that make poses accessible.</p>
+      </div>
+    </div>
+    <p class="group-label">Supporting hubs &middot; 81 pages &middot; 202,650 searches / mo</p>
+    <div class="grid g3" style="gap:14px;">
+      <div class="card-dark-el compact">
+        <span class="badge b-done-d">44 pages</span>
+        <h4 class="title-xs" style="margin-top:12px;"><a class="hublink" href="#restorative">Restorative Yoga and Yin</a></h4>
+        <p class="hubmeta" style="margin-top:4px;">94,190 searches / mo &middot; 219 subtopics</p>
+        <p class="bodys muted-d80" style="margin-top:8px;">Yin and restorative sequences, key poses, seasonal practices and how to use bolsters and blankets.</p>
+      </div><div class="card-dark-el compact">
+        <span class="badge b-done-d">23 pages</span>
+        <h4 class="title-xs" style="margin-top:12px;"><a class="hublink" href="#meditation">Meditation and Mindful Sitting</a></h4>
+        <p class="hubmeta" style="margin-top:4px;">88,120 searches / mo &middot; 291 subtopics</p>
+        <p class="bodys muted-d80" style="margin-top:8px;">Lotus and seated postures, meditation cushions and zafus, tingsha bells and starting a routine.</p>
+      </div><div class="card-dark-el compact">
+        <span class="badge b-done-d">14 pages</span>
+        <h4 class="title-xs" style="margin-top:12px;"><a class="hublink" href="#gear">Mats, Grip &amp; Gear</a></h4>
+        <p class="hubmeta" style="margin-top:4px;">20,340 searches / mo &middot; 143 subtopics</p>
+        <p class="bodys muted-d80" style="margin-top:8px;">Mat thickness, grip and materials, cleaning, and the bags that carry a mat to class.</p>
+      </div>
+    </div>
+    <p class="bodys muted-d" style="margin-top:24px;">
+      Every scheduled page belongs to one of these hubs, so each new page has a home and an
+      internal link path the day it publishes.
+    </p>
+  </div>
+</section>
+
+<!-- ============ 06 - MOBILITY ============ -->
+<section class="slide s-paper" id="mobility">
+  <span class="marker">06 - Mobility</span>
+  <div class="slide-inner">
+    <div class="step-row" style="margin-bottom:22px;">
+      <div class="eyebrow" style="margin-bottom:0;">Hub 01 &middot; Mobility and Self-Massage</div>
+      <span class="week week-l">54 pages</span>
+    </div>
+    <h2>Foam rolling, myofascial release and the tools that go with them</h2>
+    <p class="lead muted-l" style="margin-top:14px; max-width:760px;">How to use a foam roller leads the hub, and the whole plan, at 312,330 searches a month, with myofascial release next at 189,620. Twenty pages cover foam rolling technique by body area and goal, and 16 collection pages point readers to the right rollers and massage balls.</p>
+    <p class="cap muted-l45" style="margin-top:10px;">1,057,170 monthly searches across 54 pages and 626 subtopics.</p>
+    <p class="later-hint"><span class="later-n">+165</span> more topics planned for this hub after March</p>
+    <div class="grid g2" style="margin-top:28px;">
+      <div class="card card-light">
+        <h4 class="title-sm">Biggest demand</h4>
+        <p class="cap muted-l45" style="margin-top:6px;">Monthly searches for the hub&#x27;s largest pages</p>
+        <ul class="tlist"><li><span><span class="t-name">How to use a foam roller</span><span class="t-hub">Foam rolling techniques &middot; 81 subtopics</span></span><span class="t-val">312,330</span></li><li><span><span class="t-name">Myofascial release</span><span class="t-hub">Myofascial release &middot; 61 subtopics</span></span><span class="t-val">189,620</span></li><li><span><span class="t-name">Foam rolling and recovery</span><span class="t-hub">Foam rolling techniques &middot; 10 subtopics</span></span><span class="t-val">116,240</span></li><li><span><span class="t-name">Foam rollers</span><span class="t-hub">Rollers &amp; massage balls &middot; 41 subtopics</span></span><span class="t-val">95,760</span></li><li><span><span class="t-name">Foam rolling for back pain</span><span class="t-hub">Foam rolling techniques &middot; 21 subtopics</span></span><span class="t-val">92,360</span></li><li><span><span class="t-name">Foam rolling the IT band</span><span class="t-hub">Foam rolling techniques &middot; 12 subtopics</span></span><span class="t-val">49,840</span></li></ul>
+      </div>
+      <div class="card card-light">
+        <h4 class="title-sm">What the hub covers</h4>
+        <p class="cap muted-l45" style="margin-top:6px;">Scheduled pages by theme</p>
+        <ul class="tlist"><li><span><span class="t-name">Foam rolling techniques</span><span class="t-hub">37% of the hub</span></span><span class="t-val">20 pages</span></li><li><span><span class="t-name">Rollers &amp; massage balls</span><span class="t-hub">30% of the hub</span></span><span class="t-val">16 pages</span></li><li><span><span class="t-name">Myofascial release</span><span class="t-hub">19% of the hub</span></span><span class="t-val">10 pages</span></li><li><span><span class="t-name">Stretches &amp; yoga wheels</span><span class="t-hub">15% of the hub</span></span><span class="t-val">8 pages</span></li></ul>
+      </div>
+    </div>
+    <details class="all">
+      <summary>All 54 Mobility and Self-Massage pages</summary>
+      <div class="card card-light allcard"><ul class="tlist cols"><li><span><span class="t-name">How to use a foam roller</span><span class="t-hub">Foam rolling techniques &middot; 81 subtopics</span></span><span class="t-val">312,330</span></li><li><span><span class="t-name">Myofascial release</span><span class="t-hub">Myofascial release &middot; 61 subtopics</span></span><span class="t-val">189,620</span></li><li><span><span class="t-name">Foam rolling and recovery</span><span class="t-hub">Foam rolling techniques &middot; 10 subtopics</span></span><span class="t-val">116,240</span></li><li><span><span class="t-name">Foam rollers</span><span class="t-hub">Rollers &amp; massage balls &middot; 41 subtopics</span></span><span class="t-val">95,760</span></li><li><span><span class="t-name">Foam rolling for back pain</span><span class="t-hub">Foam rolling techniques &middot; 21 subtopics</span></span><span class="t-val">92,360</span></li><li><span><span class="t-name">Foam rolling the IT band</span><span class="t-hub">Foam rolling techniques &middot; 12 subtopics</span></span><span class="t-val">49,840</span></li><li><span><span class="t-name">Foam rolling the upper back</span><span class="t-hub">Foam rolling techniques &middot; 24 subtopics</span></span><span class="t-val">38,640</span></li><li><span><span class="t-name">Hip myofascial release</span><span class="t-hub">Myofascial release &middot; 13 subtopics</span></span><span class="t-val">21,000</span></li><li><span><span class="t-name">Massage balls for myofascial release</span><span class="t-hub">Rollers &amp; massage balls &middot; 33 subtopics</span></span><span class="t-val">20,460</span></li><li><span><span class="t-name">Calf myofascial release</span><span class="t-hub">Myofascial release &middot; 14 subtopics</span></span><span class="t-val">17,790</span></li><li><span><span class="t-name">Glute self massage</span><span class="t-hub">Myofascial release &middot; 30 subtopics</span></span><span class="t-val">13,540</span></li><li><span><span class="t-name">Benefits of a foam roller</span><span class="t-hub">Foam rolling techniques &middot; 43 subtopics</span></span><span class="t-val">13,330</span></li><li><span><span class="t-name">Yoga chest openers</span><span class="t-hub">Stretches &amp; yoga wheels &middot; 29 subtopics</span></span><span class="t-val">12,700</span></li><li><span><span class="t-name">Foam roller for posture</span><span class="t-hub">Foam rolling techniques &middot; 8 subtopics</span></span><span class="t-val">10,940</span></li><li><span><span class="t-name">Hip opening stretches for tight hips</span><span class="t-hub">Stretches &amp; yoga wheels &middot; 31 subtopics</span></span><span class="t-val">9,330</span></li><li><span><span class="t-name">How to use a massage ball</span><span class="t-hub">Rollers &amp; massage balls &middot; 20 subtopics</span></span><span class="t-val">8,050</span></li><li><span><span class="t-name">Soft foam rollers</span><span class="t-hub">Rollers &amp; massage balls &middot; 5 subtopics</span></span><span class="t-val">7,990</span></li><li><span><span class="t-name">Shoulder myofascial release</span><span class="t-hub">Myofascial release &middot; 16 subtopics</span></span><span class="t-val">3,380</span></li><li><span><span class="t-name">36-inch foam rollers</span><span class="t-hub">Rollers &amp; massage balls &middot; 3 subtopics</span></span><span class="t-val">3,000</span></li><li><span><span class="t-name">Vibrating foam rollers</span><span class="t-hub">Rollers &amp; massage balls &middot; 4 subtopics</span></span><span class="t-val">2,830</span></li><li><span><span class="t-name">Foam roller substitutes</span><span class="t-hub">Foam rolling techniques &middot; 11 subtopics</span></span><span class="t-val">2,370</span></li><li><span><span class="t-name">Foam rolling before or after a workout</span><span class="t-hub">Foam rolling techniques &middot; 17 subtopics</span></span><span class="t-val">2,290</span></li><li><span><span class="t-name">Pilates foam roller exercises</span><span class="t-hub">Foam rolling techniques &middot; 7 subtopics</span></span><span class="t-val">1,990</span></li><li><span><span class="t-name">Myofascial release dangers</span><span class="t-hub">Myofascial release &middot; 12 subtopics</span></span><span class="t-val">1,440</span></li><li><span><span class="t-name">Smooth foam rollers</span><span class="t-hub">Rollers &amp; massage balls &middot; 1 subtopic</span></span><span class="t-val">1,300</span></li><li><span><span class="t-name">Yoga wheel for back pain</span><span class="t-hub">Stretches &amp; yoga wheels &middot; 4 subtopics</span></span><span class="t-val">930</span></li><li><span><span class="t-name">Foam roller for buttock pain</span><span class="t-hub">Foam rolling techniques &middot; 2 subtopics</span></span><span class="t-val">900</span></li><li><span><span class="t-name">Vibrating massage balls</span><span class="t-hub">Rollers &amp; massage balls &middot; 6 subtopics</span></span><span class="t-val">880</span></li><li><span><span class="t-name">Foam rolling the arms</span><span class="t-hub">Foam rolling techniques &middot; 5 subtopics</span></span><span class="t-val">820</span></li><li><span><span class="t-name">Large foam rollers</span><span class="t-hub">Rollers &amp; massage balls &middot; 2 subtopics</span></span><span class="t-val">800</span></li><li><span><span class="t-name">Foam roller exercises for gymnastics</span><span class="t-hub">Foam rolling techniques &middot; 2 subtopics</span></span><span class="t-val">780</span></li><li><span><span class="t-name">Foam roller for lymphatic drainage</span><span class="t-hub">Foam rolling techniques &middot; 3 subtopics</span></span><span class="t-val">610</span></li><li><span><span class="t-name">Yoga wheels</span><span class="t-hub">Stretches &amp; yoga wheels &middot; 14 subtopics</span></span><span class="t-val">590</span></li><li><span><span class="t-name">Does foam rolling help with cellulite?</span><span class="t-hub">Foam rolling techniques &middot; 5 subtopics</span></span><span class="t-val">520</span></li><li><span><span class="t-name">Foam rolling before sleep</span><span class="t-hub">Foam rolling techniques &middot; 1 subtopic</span></span><span class="t-val">390</span></li><li><span><span class="t-name">Myofascial release vs. massage</span><span class="t-hub">Myofascial release &middot; 6 subtopics</span></span><span class="t-val">320</span></li><li><span><span class="t-name">12-inch yoga wheels</span><span class="t-hub">Stretches &amp; yoga wheels &middot; 2 subtopics</span></span><span class="t-val">220</span></li><li><span><span class="t-name">Jaw myofascial release</span><span class="t-hub">Myofascial release &middot; 1 subtopic</span></span><span class="t-val">170</span></li><li><span><span class="t-name">Diaphragm myofascial release</span><span class="t-hub">Myofascial release &middot; 1 subtopic</span></span><span class="t-val">140</span></li><li><span><span class="t-name">Shoulder mobility yoga</span><span class="t-hub">Stretches &amp; yoga wheels &middot; 3 subtopics</span></span><span class="t-val">90</span></li><li><span><span class="t-name">Silicone massage balls</span><span class="t-hub">Rollers &amp; massage balls &middot; 1 subtopic</span></span><span class="t-val">70</span></li><li><span><span class="t-name">Inflatable massage balls</span><span class="t-hub">Rollers &amp; massage balls &middot; 1 subtopic</span></span><span class="t-val">70</span></li><li><span><span class="t-name">Foam roller vs. massage stick</span><span class="t-hub">Foam rolling techniques &middot; 3 subtopics</span></span><span class="t-val">50</span></li><li><span><span class="t-name">Myofascial release vs. lymphatic drainage</span><span class="t-hub">Myofascial release &middot; 2 subtopics</span></span><span class="t-val">50</span></li><li><span><span class="t-name">Orange massage balls</span><span class="t-hub">Rollers &amp; massage balls &middot; 1 subtopic</span></span><span class="t-val">50</span></li><li><span><span class="t-name">Meditation cushions for tight hips</span><span class="t-hub">Stretches &amp; yoga wheels &middot; 4 subtopics</span></span><span class="t-val">40</span></li><li><span><span class="t-name">Vibrating peanut massage balls</span><span class="t-hub">Rollers &amp; massage balls &middot; 1 subtopic</span></span><span class="t-val">40</span></li><li><span><span class="t-name">Is foam rolling good for a muscle strain?</span><span class="t-hub">Foam rolling techniques &middot; 3 subtopics</span></span><span class="t-val">30</span></li><li><span><span class="t-name">4-inch massage balls</span><span class="t-hub">Rollers &amp; massage balls &middot; 1 subtopic</span></span><span class="t-val">20</span></li><li><span><span class="t-name">The Perfect massage roller</span><span class="t-hub">Rollers &amp; massage balls &middot; 1 subtopic</span></span><span class="t-val">20</span></li><li><span><span class="t-name">Does foam rolling help lipedema?</span><span class="t-hub">Foam rolling techniques &middot; 1 subtopic</span></span><span class="t-val">20</span></li><li><span><span class="t-name">Can foam rolling make shin splints worse?</span><span class="t-hub">Foam rolling techniques &middot; 1 subtopic</span></span><span class="t-val">10</span></li><li><span><span class="t-name">Yoga power wheels</span><span class="t-hub">Stretches &amp; yoga wheels &middot; 1 subtopic</span></span><span class="t-val">10</span></li><li><span><span class="t-name">The Perfect massage ball</span><span class="t-hub">Rollers &amp; massage balls &middot; 1 subtopic</span></span><span class="t-val">10</span></li></ul></div>
+    </details>
+  </div>
+</section>
+<!-- ============ 07 - RELAXATION ============ -->
+<section class="slide s-light" id="relaxation">
+  <span class="marker">07 - Relaxation</span>
+  <div class="slide-inner">
+    <div class="step-row" style="margin-bottom:22px;">
+      <div class="eyebrow" style="margin-bottom:0;">Hub 02 &middot; Everyday Relaxation</div>
+      <span class="week week-l">71 pages</span>
+    </div>
+    <h2>Relaxation, breathing and rest for everyday stress and better sleep</h2>
+    <p class="lead muted-l" style="margin-top:14px; max-width:760px;">Relaxation techniques is the deepest page in the plan, with 125 subtopics behind 102,220 monthly searches. Progressive muscle relaxation and a yoga nidra guide follow, next to pages on acupressure mats and product pages for heated neck wraps and eye pillows.</p>
+    <p class="cap muted-l45" style="margin-top:10px;">360,810 monthly searches across 71 pages and 672 subtopics.</p>
+    <p class="later-hint"><span class="later-n">+239</span> more topics planned for this hub after March</p>
+    <div class="grid g2" style="margin-top:28px;">
+      <div class="card card-paper">
+        <h4 class="title-sm">Biggest demand</h4>
+        <p class="cap muted-l45" style="margin-top:6px;">Monthly searches for the hub&#x27;s largest pages</p>
+        <ul class="tlist"><li><span><span class="t-name">Relaxation techniques</span><span class="t-hub">Relaxation techniques &middot; 125 subtopics</span></span><span class="t-val">102,220</span></li><li><span><span class="t-name">Progressive muscle relaxation techniques</span><span class="t-hub">Relaxation techniques &middot; 34 subtopics</span></span><span class="t-val">48,760</span></li><li><span><span class="t-name">Yoga nidra guide</span><span class="t-hub">Yoga nidra &middot; 38 subtopics</span></span><span class="t-val">43,270</span></li><li><span><span class="t-name">Wind down routine for sleep</span><span class="t-hub">Relaxation techniques &middot; 16 subtopics</span></span><span class="t-val">36,080</span></li><li><span><span class="t-name">Breathing exercises for relaxation</span><span class="t-hub">Breathing techniques &middot; 13 subtopics</span></span><span class="t-val">28,290</span></li><li><span><span class="t-name">Mindfulness exercises</span><span class="t-hub">Mindfulness exercises &middot; 101 subtopics</span></span><span class="t-val">25,340</span></li></ul>
+      </div>
+      <div class="card card-paper">
+        <h4 class="title-sm">What the hub covers</h4>
+        <p class="cap muted-l45" style="margin-top:6px;">Scheduled pages by theme</p>
+        <ul class="tlist"><li><span><span class="t-name">Relaxation techniques</span><span class="t-hub">32% of the hub</span></span><span class="t-val">23 pages</span></li><li><span><span class="t-name">Mindfulness exercises</span><span class="t-hub">21% of the hub</span></span><span class="t-val">15 pages</span></li><li><span><span class="t-name">Yoga nidra</span><span class="t-hub">20% of the hub</span></span><span class="t-val">14 pages</span></li><li><span><span class="t-name">Acupressure mats</span><span class="t-hub">11% of the hub</span></span><span class="t-val">8 pages</span></li><li><span><span class="t-name">Heat wraps &amp; eye pillows</span><span class="t-hub">11% of the hub</span></span><span class="t-val">8 pages</span></li><li><span><span class="t-name">Breathing techniques</span><span class="t-hub">4% of the hub</span></span><span class="t-val">3 pages</span></li></ul>
+      </div>
+    </div>
+    <details class="all">
+      <summary>All 71 Everyday Relaxation pages</summary>
+      <div class="card card-paper allcard"><ul class="tlist cols"><li><span><span class="t-name">Relaxation techniques</span><span class="t-hub">Relaxation techniques &middot; 125 subtopics</span></span><span class="t-val">102,220</span></li><li><span><span class="t-name">Progressive muscle relaxation techniques</span><span class="t-hub">Relaxation techniques &middot; 34 subtopics</span></span><span class="t-val">48,760</span></li><li><span><span class="t-name">Yoga nidra guide</span><span class="t-hub">Yoga nidra &middot; 38 subtopics</span></span><span class="t-val">43,270</span></li><li><span><span class="t-name">Wind down routine for sleep</span><span class="t-hub">Relaxation techniques &middot; 16 subtopics</span></span><span class="t-val">36,080</span></li><li><span><span class="t-name">Breathing exercises for relaxation</span><span class="t-hub">Breathing techniques &middot; 13 subtopics</span></span><span class="t-val">28,290</span></li><li><span><span class="t-name">Mindfulness exercises</span><span class="t-hub">Mindfulness exercises &middot; 101 subtopics</span></span><span class="t-val">25,340</span></li><li><span><span class="t-name">Box breathing technique</span><span class="t-hub">Breathing techniques &middot; 86 subtopics</span></span><span class="t-val">16,800</span></li><li><span><span class="t-name">20-minute yoga nidra</span><span class="t-hub">Yoga nidra &middot; 35 subtopics</span></span><span class="t-val">12,500</span></li><li><span><span class="t-name">Therapeutic relaxation techniques</span><span class="t-hub">Relaxation techniques &middot; 5 subtopics</span></span><span class="t-val">11,310</span></li><li><span><span class="t-name">Acupressure mat benefits</span><span class="t-hub">Acupressure mats &middot; 24 subtopics</span></span><span class="t-val">8,290</span></li><li><span><span class="t-name">Heated neck wraps</span><span class="t-hub">Heat wraps &amp; eye pillows &middot; 10 subtopics</span></span><span class="t-val">4,490</span></li><li><span><span class="t-name">Relaxation techniques for headaches</span><span class="t-hub">Relaxation techniques &middot; 2 subtopics</span></span><span class="t-val">3,200</span></li><li><span><span class="t-name">Relaxation techniques and mental health</span><span class="t-hub">Relaxation techniques &middot; 2 subtopics</span></span><span class="t-val">2,470</span></li><li><span><span class="t-name">Relaxation techniques for anger management</span><span class="t-hub">Relaxation techniques &middot; 1 subtopic</span></span><span class="t-val">2,400</span></li><li><span><span class="t-name">Relaxation techniques for teens</span><span class="t-hub">Relaxation techniques &middot; 6 subtopics</span></span><span class="t-val">2,140</span></li><li><span><span class="t-name">How to use an acupressure mat</span><span class="t-hub">Acupressure mats &middot; 31 subtopics</span></span><span class="t-val">1,590</span></li><li><span><span class="t-name">Acupressure foot massage mats</span><span class="t-hub">Acupressure mats &middot; 4 subtopics</span></span><span class="t-val">1,590</span></li><li><span><span class="t-name">Relaxation techniques for panic attacks</span><span class="t-hub">Relaxation techniques &middot; 2 subtopics</span></span><span class="t-val">1,310</span></li><li><span><span class="t-name">Relaxation techniques for hypertension</span><span class="t-hub">Relaxation techniques &middot; 1 subtopic</span></span><span class="t-val">880</span></li><li><span><span class="t-name">30-minute yoga nidra</span><span class="t-hub">Yoga nidra &middot; 3 subtopics</span></span><span class="t-val">650</span></li><li><span><span class="t-name">Yoga nidra equipment</span><span class="t-hub">Yoga nidra &middot; 12 subtopics</span></span><span class="t-val">630</span></li><li><span><span class="t-name">Teaching yoga nidra</span><span class="t-hub">Yoga nidra &middot; 1 subtopic</span></span><span class="t-val">590</span></li><li><span><span class="t-name">Becoming a yoga nidra teacher</span><span class="t-hub">Yoga nidra &middot; 1 subtopic</span></span><span class="t-val">590</span></li><li><span><span class="t-name">Relaxation techniques at work</span><span class="t-hub">Relaxation techniques &middot; 12 subtopics</span></span><span class="t-val">500</span></li><li><span><span class="t-name">Autogenic relaxation techniques</span><span class="t-hub">Relaxation techniques &middot; 1 subtopic</span></span><span class="t-val">480</span></li><li><span><span class="t-name">Mindfulness stretching exercises</span><span class="t-hub">Mindfulness exercises &middot; 8 subtopics</span></span><span class="t-val">450</span></li><li><span><span class="t-name">Mindfulness exercises for ADHD</span><span class="t-hub">Mindfulness exercises &middot; 1 subtopic</span></span><span class="t-val">390</span></li><li><span><span class="t-name">Mindfulness exercises for mental health</span><span class="t-hub">Mindfulness exercises &middot; 1 subtopic</span></span><span class="t-val">260</span></li><li><span><span class="t-name">Acupressure mats for nausea</span><span class="t-hub">Acupressure mats &middot; 1 subtopic</span></span><span class="t-val">260</span></li><li><span><span class="t-name">Mindfulness and grounding exercises</span><span class="t-hub">Mindfulness exercises &middot; 8 subtopics</span></span><span class="t-val">240</span></li><li><span><span class="t-name">Silk weighted eye masks</span><span class="t-hub">Heat wraps &amp; eye pillows &middot; 1 subtopic</span></span><span class="t-val">210</span></li><li><span><span class="t-name">Relaxation techniques for bruxism</span><span class="t-hub">Relaxation techniques &middot; 2 subtopics</span></span><span class="t-val">200</span></li><li><span><span class="t-name">Acupressure mats for digestion</span><span class="t-hub">Acupressure mats &middot; 1 subtopic</span></span><span class="t-val">170</span></li><li><span><span class="t-name">Best heated neck wraps</span><span class="t-hub">Heat wraps &amp; eye pillows &middot; 2 subtopics</span></span><span class="t-val">160</span></li><li><span><span class="t-name">Healing yoga nidra</span><span class="t-hub">Yoga nidra &middot; 2 subtopics</span></span><span class="t-val">160</span></li><li><span><span class="t-name">History of yoga nidra</span><span class="t-hub">Yoga nidra &middot; 9 subtopics</span></span><span class="t-val">140</span></li><li><span><span class="t-name">Vagus nerve relaxation techniques</span><span class="t-hub">Relaxation techniques &middot; 3 subtopics</span></span><span class="t-val">140</span></li><li><span><span class="t-name">Mindfulness exercises for classroom</span><span class="t-hub">Mindfulness exercises &middot; 2 subtopics</span></span><span class="t-val">140</span></li><li><span><span class="t-name">Mindfulness exercises for children</span><span class="t-hub">Mindfulness exercises &middot; 8 subtopics</span></span><span class="t-val">120</span></li><li><span><span class="t-name">Relaxation techniques for ADHD</span><span class="t-hub">Relaxation techniques &middot; 2 subtopics</span></span><span class="t-val">110</span></li><li><span><span class="t-name">Mindfulness exercises for parents</span><span class="t-hub">Mindfulness exercises &middot; 2 subtopics</span></span><span class="t-val">110</span></li><li><span><span class="t-name">Relaxation techniques for white coat syndrome</span><span class="t-hub">Relaxation techniques &middot; 1 subtopic</span></span><span class="t-val">110</span></li><li><span><span class="t-name">Relaxation techniques in yoga</span><span class="t-hub">Relaxation techniques &middot; 9 subtopics</span></span><span class="t-val">90</span></li><li><span><span class="t-name">Relaxation techniques for claustrophobia</span><span class="t-hub">Relaxation techniques &middot; 1 subtopic</span></span><span class="t-val">90</span></li><li><span><span class="t-name">Acupressure mats for restless legs</span><span class="t-hub">Acupressure mats &middot; 1 subtopic</span></span><span class="t-val">90</span></li><li><span><span class="t-name">Relaxation techniques for fibromyalgia</span><span class="t-hub">Relaxation techniques &middot; 1 subtopic</span></span><span class="t-val">70</span></li><li><span><span class="t-name">Mindfulness exercises for couples</span><span class="t-hub">Mindfulness exercises &middot; 2 subtopics</span></span><span class="t-val">60</span></li><li><span><span class="t-name">Yoga nidra for trauma</span><span class="t-hub">Yoga nidra &middot; 2 subtopics</span></span><span class="t-val">60</span></li><li><span><span class="t-name">DIY heated neck wrap</span><span class="t-hub">Heat wraps &amp; eye pillows &middot; 3 subtopics</span></span><span class="t-val">50</span></li><li><span><span class="t-name">61-point yoga nidra</span><span class="t-hub">Yoga nidra &middot; 2 subtopics</span></span><span class="t-val">50</span></li><li><span><span class="t-name">Acupressure mats for cellulite</span><span class="t-hub">Acupressure mats &middot; 1 subtopic</span></span><span class="t-val">50</span></li><li><span><span class="t-name">Herbal animal eye pillows</span><span class="t-hub">Heat wraps &amp; eye pillows &middot; 2 subtopics</span></span><span class="t-val">40</span></li><li><span><span class="t-name">Mindfulness exercises for impulsivity</span><span class="t-hub">Mindfulness exercises &middot; 1 subtopic</span></span><span class="t-val">40</span></li><li><span><span class="t-name">Relaxing sounds list</span><span class="t-hub">Relaxation techniques &middot; 3 subtopics</span></span><span class="t-val">30</span></li><li><span><span class="t-name">Navy SEAL relaxation techniques</span><span class="t-hub">Relaxation techniques &middot; 3 subtopics</span></span><span class="t-val">30</span></li><li><span><span class="t-name">Mindfulness writing exercises</span><span class="t-hub">Mindfulness exercises &middot; 2 subtopics</span></span><span class="t-val">30</span></li><li><span><span class="t-name">8-hour yoga nidra</span><span class="t-hub">Yoga nidra &middot; 1 subtopic</span></span><span class="t-val">30</span></li><li><span><span class="t-name">Mindfulness exercises for depersonalization</span><span class="t-hub">Mindfulness exercises &middot; 1 subtopic</span></span><span class="t-val">30</span></li><li><span><span class="t-name">Heated neck and back wraps</span><span class="t-hub">Heat wraps &amp; eye pillows &middot; 1 subtopic</span></span><span class="t-val">30</span></li><li><span><span class="t-name">Acupressure mats for hair growth</span><span class="t-hub">Acupressure mats &middot; 1 subtopic</span></span><span class="t-val">30</span></li><li><span><span class="t-name">Body scan vs. progressive muscle relaxation</span><span class="t-hub">Relaxation techniques &middot; 3 subtopics</span></span><span class="t-val">20</span></li><li><span><span class="t-name">Resonance breathing vs. box breathing</span><span class="t-hub">Breathing techniques &middot; 2 subtopics</span></span><span class="t-val">20</span></li><li><span><span class="t-name">Mindfulness participation exercises</span><span class="t-hub">Mindfulness exercises &middot; 2 subtopics</span></span><span class="t-val">20</span></li><li><span><span class="t-name">Yoga nidra for the winter solstice</span><span class="t-hub">Yoga nidra &middot; 1 subtopic</span></span><span class="t-val">20</span></li><li><span><span class="t-name">Mindfulness exercises for anxious attachment</span><span class="t-hub">Mindfulness exercises &middot; 1 subtopic</span></span><span class="t-val">20</span></li><li><span><span class="t-name">Therapeutic eye pillows</span><span class="t-hub">Heat wraps &amp; eye pillows &middot; 1 subtopic</span></span><span class="t-val">20</span></li><li><span><span class="t-name">Relaxation techniques for IVF</span><span class="t-hub">Relaxation techniques &middot; 1 subtopic</span></span><span class="t-val">10</span></li><li><span><span class="t-name">Yoga nidra foundations</span><span class="t-hub">Yoga nidra &middot; 1 subtopic</span></span><span class="t-val">10</span></li><li><span><span class="t-name">Yoga nidra commentary</span><span class="t-hub">Yoga nidra &middot; 1 subtopic</span></span><span class="t-val">10</span></li><li><span><span class="t-name">Luxe cashmere eye pillows</span><span class="t-hub">Heat wraps &amp; eye pillows &middot; 1 subtopic</span></span><span class="t-val">10</span></li><li><span><span class="t-name">Mindfulness exercises for insomnia</span><span class="t-hub">Mindfulness exercises &middot; 1 subtopic</span></span><span class="t-val">10</span></li></ul></div>
+    </details>
+  </div>
+</section>
+<!-- ============ 08 - STARTING ============ -->
+<section class="slide s-paper" id="starting">
+  <span class="marker">08 - Starting</span>
+  <div class="slide-inner">
+    <div class="step-row" style="margin-bottom:22px;">
+      <div class="eyebrow" style="margin-bottom:0;">Hub 03 &middot; Starting a Yoga Practice</div>
+      <span class="week week-l">38 pages</span>
+    </div>
+    <h2>Mats, first routines and breathing for new students</h2>
+    <p class="lead muted-l" style="margin-top:14px; max-width:760px;">Yoga mats is the hub&#x27;s biggest page at 121,240 searches a month, with best-rated yoga mats close behind at 73,360. Beginner routines make up 18 of the hub&#x27;s 38 pages, and the basic yoga routine for beginners covers 93 subtopics in one guide.</p>
+    <p class="cap muted-l45" style="margin-top:10px;">256,950 monthly searches across 38 pages and 322 subtopics.</p>
+    <p class="later-hint"><span class="later-n">+220</span> more topics planned for this hub after March</p>
+    <div class="grid g2" style="margin-top:28px;">
+      <div class="card card-light">
+        <h4 class="title-sm">Biggest demand</h4>
+        <p class="cap muted-l45" style="margin-top:6px;">Monthly searches for the hub&#x27;s largest pages</p>
+        <ul class="tlist"><li><span><span class="t-name">Yoga mats</span><span class="t-hub">Yoga mats &middot; 12 subtopics</span></span><span class="t-val">121,240</span></li><li><span><span class="t-name">Best-rated yoga mats</span><span class="t-hub">Yoga mats &middot; 13 subtopics</span></span><span class="t-val">73,360</span></li><li><span><span class="t-name">Basic yoga routine for beginners</span><span class="t-hub">Beginner routines &middot; 93 subtopics</span></span><span class="t-val">22,660</span></li><li><span><span class="t-name">Travel yoga mats</span><span class="t-hub">Yoga mats &middot; 9 subtopics</span></span><span class="t-val">12,720</span></li><li><span><span class="t-name">Yoga straps</span><span class="t-hub">Yoga straps &middot; 9 subtopics</span></span><span class="t-val">7,210</span></li><li><span><span class="t-name">Yoga breathing</span><span class="t-hub">Yoga breathing &middot; 52 subtopics</span></span><span class="t-val">6,530</span></li></ul>
+      </div>
+      <div class="card card-light">
+        <h4 class="title-sm">What the hub covers</h4>
+        <p class="cap muted-l45" style="margin-top:6px;">Scheduled pages by theme</p>
+        <ul class="tlist"><li><span><span class="t-name">Beginner routines</span><span class="t-hub">47% of the hub</span></span><span class="t-val">18 pages</span></li><li><span><span class="t-name">Yoga breathing</span><span class="t-hub">16% of the hub</span></span><span class="t-val">6 pages</span></li><li><span><span class="t-name">Yoga clothes</span><span class="t-hub">16% of the hub</span></span><span class="t-val">6 pages</span></li><li><span><span class="t-name">Yoga mats</span><span class="t-hub">13% of the hub</span></span><span class="t-val">5 pages</span></li><li><span><span class="t-name">Yoga straps</span><span class="t-hub">8% of the hub</span></span><span class="t-val">3 pages</span></li></ul>
+      </div>
+    </div>
+    <details class="all">
+      <summary>All 38 Starting a Yoga Practice pages</summary>
+      <div class="card card-light allcard"><ul class="tlist cols"><li><span><span class="t-name">Yoga mats</span><span class="t-hub">Yoga mats &middot; 12 subtopics</span></span><span class="t-val">121,240</span></li><li><span><span class="t-name">Best-rated yoga mats</span><span class="t-hub">Yoga mats &middot; 13 subtopics</span></span><span class="t-val">73,360</span></li><li><span><span class="t-name">Basic yoga routine for beginners</span><span class="t-hub">Beginner routines &middot; 93 subtopics</span></span><span class="t-val">22,660</span></li><li><span><span class="t-name">Travel yoga mats</span><span class="t-hub">Yoga mats &middot; 9 subtopics</span></span><span class="t-val">12,720</span></li><li><span><span class="t-name">Yoga straps</span><span class="t-hub">Yoga straps &middot; 9 subtopics</span></span><span class="t-val">7,210</span></li><li><span><span class="t-name">Yoga breathing</span><span class="t-hub">Yoga breathing &middot; 52 subtopics</span></span><span class="t-val">6,530</span></li><li><span><span class="t-name">Gentle yoga routine</span><span class="t-hub">Beginner routines &middot; 34 subtopics</span></span><span class="t-val">3,100</span></li><li><span><span class="t-name">Bedtime yoga routine</span><span class="t-hub">Beginner routines &middot; 17 subtopics</span></span><span class="t-val">1,760</span></li><li><span><span class="t-name">10-minute beginner yoga</span><span class="t-hub">Beginner routines &middot; 7 subtopics</span></span><span class="t-val">1,690</span></li><li><span><span class="t-name">Purple yoga mats</span><span class="t-hub">Yoga mats &middot; 2 subtopics</span></span><span class="t-val">1,200</span></li><li><span><span class="t-name">Diaphragmatic breathing yoga</span><span class="t-hub">Yoga breathing &middot; 8 subtopics</span></span><span class="t-val">1,040</span></li><li><span><span class="t-name">Long-sleeve yoga clothes</span><span class="t-hub">Yoga clothes &middot; 1 subtopic</span></span><span class="t-val">880</span></li><li><span><span class="t-name">Yoga clothes for older ladies</span><span class="t-hub">Yoga clothes &middot; 2 subtopics</span></span><span class="t-val">730</span></li><li><span><span class="t-name">Reversible yoga mats</span><span class="t-hub">Yoga mats &middot; 1 subtopic</span></span><span class="t-val">590</span></li><li><span><span class="t-name">Beginner yoga challenge</span><span class="t-hub">Beginner routines &middot; 7 subtopics</span></span><span class="t-val">520</span></li><li><span><span class="t-name">Beginner yin yoga sequence</span><span class="t-hub">Beginner routines &middot; 2 subtopics</span></span><span class="t-val">510</span></li><li><span><span class="t-name">Gentle yoga for your period</span><span class="t-hub">Beginner routines &middot; 2 subtopics</span></span><span class="t-val">270</span></li><li><span><span class="t-name">Family yoga poses</span><span class="t-hub">Beginner routines &middot; 20 subtopics</span></span><span class="t-val">210</span></li><li><span><span class="t-name">White yoga clothes</span><span class="t-hub">Yoga clothes &middot; 1 subtopic</span></span><span class="t-val">210</span></li><li><span><span class="t-name">Beginner yoga for sciatica</span><span class="t-hub">Beginner routines &middot; 3 subtopics</span></span><span class="t-val">90</span></li><li><span><span class="t-name">1-hour beginner yoga sequence</span><span class="t-hub">Beginner routines &middot; 4 subtopics</span></span><span class="t-val">70</span></li><li><span><span class="t-name">Winter yoga clothes</span><span class="t-hub">Yoga clothes &middot; 2 subtopics</span></span><span class="t-val">40</span></li><li><span><span class="t-name">Handstands for yoga beginners</span><span class="t-hub">Beginner routines &middot; 1 subtopic</span></span><span class="t-val">40</span></li><li><span><span class="t-name">Yoga wrist straps</span><span class="t-hub">Yoga straps &middot; 1 subtopic</span></span><span class="t-val">40</span></li><li><span><span class="t-name">How to go from beginner to advanced yoga</span><span class="t-hub">Beginner routines &middot; 3 subtopics</span></span><span class="t-val">30</span></li><li><span><span class="t-name">Ashtanga yoga breathing</span><span class="t-hub">Yoga breathing &middot; 2 subtopics</span></span><span class="t-val">30</span></li><li><span><span class="t-name">Gentle yoga at the wall</span><span class="t-hub">Beginner routines &middot; 2 subtopics</span></span><span class="t-val">30</span></li><li><span><span class="t-name">Fitted yoga clothes</span><span class="t-hub">Yoga clothes &middot; 1 subtopic</span></span><span class="t-val">30</span></li><li><span><span class="t-name">Fertility yoga routine</span><span class="t-hub">Beginner routines &middot; 2 subtopics</span></span><span class="t-val">20</span></li><li><span><span class="t-name">Beginner yoga for scoliosis</span><span class="t-hub">Beginner routines &middot; 1 subtopic</span></span><span class="t-val">20</span></li><li><span><span class="t-name">5-minute gentle yoga</span><span class="t-hub">Beginner routines &middot; 1 subtopic</span></span><span class="t-val">10</span></li><li><span><span class="t-name">Organic cotton yoga straps</span><span class="t-hub">Yoga straps &middot; 1 subtopic</span></span><span class="t-val">10</span></li><li><span><span class="t-name">Yoga breathing for insomnia</span><span class="t-hub">Yoga breathing &middot; 1 subtopic</span></span><span class="t-val">10</span></li><li><span><span class="t-name">Yoga routine for constipation</span><span class="t-hub">Beginner routines &middot; 1 subtopic</span></span><span class="t-val">10</span></li><li><span><span class="t-name">Gentle yoga after COVID</span><span class="t-hub">Beginner routines &middot; 1 subtopic</span></span><span class="t-val">10</span></li><li><span><span class="t-name">Plus-size yoga clothes</span><span class="t-hub">Yoga clothes &middot; 1 subtopic</span></span><span class="t-val">10</span></li><li><span><span class="t-name">Can yoga cause breathing problems?</span><span class="t-hub">Yoga breathing &middot; 1 subtopic</span></span><span class="t-val">10</span></li><li><span><span class="t-name">Yoga breathing exercises for acid reflux</span><span class="t-hub">Yoga breathing &middot; 1 subtopic</span></span><span class="t-val">10</span></li></ul></div>
+    </details>
+  </div>
+</section>
+<!-- ============ 09 - ADAPTING ============ -->
+<section class="slide s-light" id="adapting">
+  <span class="marker">09 - Adapting</span>
+  <div class="slide-inner">
+    <div class="step-row" style="margin-bottom:22px;">
+      <div class="eyebrow" style="margin-bottom:0;">Hub 04 &middot; Adapting Yoga Poses</div>
+      <span class="week week-l">20 pages</span>
+    </div>
+    <h2>Chair yoga, blocks and props that make poses accessible</h2>
+    <p class="lead muted-l" style="margin-top:14px; max-width:760px;">Chair yoga is the second-largest page in the plan at 196,330 searches a month and 67 subtopics, with short sessions for seniors and 28- and 30-day challenges beside it. Eight pages cover yoga blocks, from how to use them to the best ones to buy.</p>
+    <p class="cap muted-l45" style="margin-top:10px;">249,960 monthly searches across 20 pages and 213 subtopics.</p>
+    <p class="later-hint"><span class="later-n">+110</span> more topics planned for this hub after March</p>
+    <div class="grid g2" style="margin-top:28px;">
+      <div class="card card-paper">
+        <h4 class="title-sm">Biggest demand</h4>
+        <p class="cap muted-l45" style="margin-top:6px;">Monthly searches for the hub&#x27;s largest pages</p>
+        <ul class="tlist"><li><span><span class="t-name">Chair yoga</span><span class="t-hub">Chair yoga &middot; 67 subtopics</span></span><span class="t-val">196,330</span></li><li><span><span class="t-name">Yoga blocks</span><span class="t-hub">Yoga blocks &middot; 27 subtopics</span></span><span class="t-val">23,590</span></li><li><span><span class="t-name">Using yoga blocks for the splits</span><span class="t-hub">Yoga blocks &middot; 1 subtopic</span></span><span class="t-val">9,900</span></li><li><span><span class="t-name">How to use yoga blocks</span><span class="t-hub">Yoga blocks &middot; 28 subtopics</span></span><span class="t-val">6,460</span></li><li><span><span class="t-name">Best yoga blocks</span><span class="t-hub">Yoga blocks &middot; 29 subtopics</span></span><span class="t-val">3,710</span></li><li><span><span class="t-name">Yoga props</span><span class="t-hub">Props &amp; pose modifications &middot; 15 subtopics</span></span><span class="t-val">3,520</span></li></ul>
+      </div>
+      <div class="card card-paper">
+        <h4 class="title-sm">What the hub covers</h4>
+        <p class="cap muted-l45" style="margin-top:6px;">Scheduled pages by theme</p>
+        <ul class="tlist"><li><span><span class="t-name">Yoga blocks</span><span class="t-hub">40% of the hub</span></span><span class="t-val">8 pages</span></li><li><span><span class="t-name">Chair yoga</span><span class="t-hub">30% of the hub</span></span><span class="t-val">6 pages</span></li><li><span><span class="t-name">Props &amp; pose modifications</span><span class="t-hub">30% of the hub</span></span><span class="t-val">6 pages</span></li></ul>
+      </div>
+    </div>
+    <details class="all">
+      <summary>All 20 Adapting Yoga Poses pages</summary>
+      <div class="card card-paper allcard"><ul class="tlist cols"><li><span><span class="t-name">Chair yoga</span><span class="t-hub">Chair yoga &middot; 67 subtopics</span></span><span class="t-val">196,330</span></li><li><span><span class="t-name">Yoga blocks</span><span class="t-hub">Yoga blocks &middot; 27 subtopics</span></span><span class="t-val">23,590</span></li><li><span><span class="t-name">Using yoga blocks for the splits</span><span class="t-hub">Yoga blocks &middot; 1 subtopic</span></span><span class="t-val">9,900</span></li><li><span><span class="t-name">How to use yoga blocks</span><span class="t-hub">Yoga blocks &middot; 28 subtopics</span></span><span class="t-val">6,460</span></li><li><span><span class="t-name">Best yoga blocks</span><span class="t-hub">Yoga blocks &middot; 29 subtopics</span></span><span class="t-val">3,710</span></li><li><span><span class="t-name">Yoga props</span><span class="t-hub">Props &amp; pose modifications &middot; 15 subtopics</span></span><span class="t-val">3,520</span></li><li><span><span class="t-name">28-day chair yoga challenge</span><span class="t-hub">Chair yoga &middot; 8 subtopics</span></span><span class="t-val">2,920</span></li><li><span><span class="t-name">Yoga props for beginners</span><span class="t-hub">Props &amp; pose modifications &middot; 13 subtopics</span></span><span class="t-val">1,070</span></li><li><span><span class="t-name">Forward fold in yoga</span><span class="t-hub">Props &amp; pose modifications &middot; 5 subtopics</span></span><span class="t-val">1,000</span></li><li><span><span class="t-name">Eco-friendly yoga props</span><span class="t-hub">Props &amp; pose modifications &middot; 2 subtopics</span></span><span class="t-val">270</span></li><li><span><span class="t-name">Yoga blocks for squats</span><span class="t-hub">Yoga blocks &middot; 2 subtopics</span></span><span class="t-val">220</span></li><li><span><span class="t-name">30-day chair yoga challenge</span><span class="t-hub">Chair yoga &middot; 2 subtopics</span></span><span class="t-val">200</span></li><li><span><span class="t-name">30-minute chair yoga for seniors</span><span class="t-hub">Chair yoga &middot; 2 subtopics</span></span><span class="t-val">140</span></li><li><span><span class="t-name">Yoga blocks for meditation</span><span class="t-hub">Yoga blocks &middot; 2 subtopics</span></span><span class="t-val">140</span></li><li><span><span class="t-name">15-minute chair yoga for seniors</span><span class="t-hub">Chair yoga &middot; 1 subtopic</span></span><span class="t-val">140</span></li><li><span><span class="t-name">7-minute chair yoga</span><span class="t-hub">Chair yoga &middot; 2 subtopics</span></span><span class="t-val">120</span></li><li><span><span class="t-name">DIY yoga blocks</span><span class="t-hub">Yoga blocks &middot; 3 subtopics</span></span><span class="t-val">110</span></li><li><span><span class="t-name">Wide-legged forward fold</span><span class="t-hub">Props &amp; pose modifications &middot; 2 subtopics</span></span><span class="t-val">80</span></li><li><span><span class="t-name">Yoga inversion props</span><span class="t-hub">Props &amp; pose modifications &middot; 1 subtopic</span></span><span class="t-val">20</span></li><li><span><span class="t-name">Practicing with three yoga blocks</span><span class="t-hub">Yoga blocks &middot; 1 subtopic</span></span><span class="t-val">20</span></li></ul></div>
+    </details>
+  </div>
+</section>
+<!-- ============ 10 - RESTORATIVE ============ -->
+<section class="slide s-paper" id="restorative">
+  <span class="marker">10 - Restorative</span>
+  <div class="slide-inner">
+    <div class="step-row" style="margin-bottom:22px;">
+      <div class="eyebrow" style="margin-bottom:0;">Hub 05 &middot; Restorative Yoga and Yin</div>
+      <span class="week week-l">44 pages</span>
+    </div>
+    <h2>Yin and restorative yoga, the key poses and the props that support them</h2>
+    <p class="lead muted-l" style="margin-top:14px; max-width:760px;">Yin yoga explained leads at 69,880 searches a month. The hub mixes yin and restorative sequences, guides to poses such as child&#x27;s pose, seasonal practices for solstices and equinoxes, and how to choose and use a bolster or blanket.</p>
+    <p class="cap muted-l45" style="margin-top:10px;">94,190 monthly searches across 44 pages and 219 subtopics.</p>
+    <p class="later-hint"><span class="later-n">+253</span> more topics planned for this hub after March</p>
+    <div class="grid g2" style="margin-top:28px;">
+      <div class="card card-light">
+        <h4 class="title-sm">Biggest demand</h4>
+        <p class="cap muted-l45" style="margin-top:6px;">Monthly searches for the hub&#x27;s largest pages</p>
+        <ul class="tlist"><li><span><span class="t-name">Yin yoga explained</span><span class="t-hub">Yin yoga &middot; 34 subtopics</span></span><span class="t-val">69,880</span></li><li><span><span class="t-name">Seated forward fold</span><span class="t-hub">Restorative &amp; yin poses &middot; 10 subtopics</span></span><span class="t-val">6,130</span></li><li><span><span class="t-name">Yin yoga routine</span><span class="t-hub">Yin yoga &middot; 8 subtopics</span></span><span class="t-val">4,830</span></li><li><span><span class="t-name">Yoga mats for restorative yoga</span><span class="t-hub">Bolsters, blankets &amp; props &middot; 2 subtopics</span></span><span class="t-val">3,700</span></li><li><span><span class="t-name">Child's pose (balasana)</span><span class="t-hub">Restorative &amp; yin poses &middot; 41 subtopics</span></span><span class="t-val">3,170</span></li><li><span><span class="t-name">How to use a yoga bolster</span><span class="t-hub">Bolsters, blankets &amp; props &middot; 20 subtopics</span></span><span class="t-val">1,110</span></li></ul>
+      </div>
+      <div class="card card-light">
+        <h4 class="title-sm">What the hub covers</h4>
+        <p class="cap muted-l45" style="margin-top:6px;">Scheduled pages by theme</p>
+        <ul class="tlist"><li><span><span class="t-name">Yin yoga</span><span class="t-hub">25% of the hub</span></span><span class="t-val">11 pages</span></li><li><span><span class="t-name">Seasonal sequences</span><span class="t-hub">18% of the hub</span></span><span class="t-val">8 pages</span></li><li><span><span class="t-name">Restorative &amp; yin poses</span><span class="t-hub">16% of the hub</span></span><span class="t-val">7 pages</span></li><li><span><span class="t-name">Bolsters, blankets &amp; props</span><span class="t-hub">16% of the hub</span></span><span class="t-val">7 pages</span></li><li><span><span class="t-name">Restorative yoga</span><span class="t-hub">16% of the hub</span></span><span class="t-val">7 pages</span></li><li><span><span class="t-name">Styles compared</span><span class="t-hub">9% of the hub</span></span><span class="t-val">4 pages</span></li></ul>
+      </div>
+    </div>
+    <details class="all">
+      <summary>All 44 Restorative Yoga and Yin pages</summary>
+      <div class="card card-light allcard"><ul class="tlist cols"><li><span><span class="t-name">Yin yoga explained</span><span class="t-hub">Yin yoga &middot; 34 subtopics</span></span><span class="t-val">69,880</span></li><li><span><span class="t-name">Seated forward fold</span><span class="t-hub">Restorative &amp; yin poses &middot; 10 subtopics</span></span><span class="t-val">6,130</span></li><li><span><span class="t-name">Yin yoga routine</span><span class="t-hub">Yin yoga &middot; 8 subtopics</span></span><span class="t-val">4,830</span></li><li><span><span class="t-name">Yoga mats for restorative yoga</span><span class="t-hub">Bolsters, blankets &amp; props &middot; 2 subtopics</span></span><span class="t-val">3,700</span></li><li><span><span class="t-name">Child's pose (balasana)</span><span class="t-hub">Restorative &amp; yin poses &middot; 41 subtopics</span></span><span class="t-val">3,170</span></li><li><span><span class="t-name">How to use a yoga bolster</span><span class="t-hub">Bolsters, blankets &amp; props &middot; 20 subtopics</span></span><span class="t-val">1,110</span></li><li><span><span class="t-name">Hatha vs. vinyasa vs. yin yoga</span><span class="t-hub">Styles compared &middot; 9 subtopics</span></span><span class="t-val">1,110</span></li><li><span><span class="t-name">Yin yoga props</span><span class="t-hub">Bolsters, blankets &amp; props &middot; 3 subtopics</span></span><span class="t-val">970</span></li><li><span><span class="t-name">How to choose a yoga bolster</span><span class="t-hub">Bolsters, blankets &amp; props &middot; 15 subtopics</span></span><span class="t-val">850</span></li><li><span><span class="t-name">Is legs up the wall safe during pregnancy?</span><span class="t-hub">Restorative &amp; yin poses &middot; 13 subtopics</span></span><span class="t-val">410</span></li><li><span><span class="t-name">Restorative yoga for relaxation</span><span class="t-hub">Restorative yoga &middot; 9 subtopics</span></span><span class="t-val">290</span></li><li><span><span class="t-name">Yin yoga for sleep</span><span class="t-hub">Yin yoga &middot; 3 subtopics</span></span><span class="t-val">250</span></li><li><span><span class="t-name">How to choose a yoga blanket</span><span class="t-hub">Bolsters, blankets &amp; props &middot; 4 subtopics</span></span><span class="t-val">240</span></li><li><span><span class="t-name">Yin yoga for hips</span><span class="t-hub">Yin yoga &middot; 4 subtopics</span></span><span class="t-val">140</span></li><li><span><span class="t-name">Yin yoga for runners</span><span class="t-hub">Yin yoga &middot; 3 subtopics</span></span><span class="t-val">130</span></li><li><span><span class="t-name">Organic yoga bolsters</span><span class="t-hub">Bolsters, blankets &amp; props &middot; 1 subtopic</span></span><span class="t-val">130</span></li><li><span><span class="t-name">Restorative yoga for fibromyalgia</span><span class="t-hub">Restorative yoga &middot; 1 subtopic</span></span><span class="t-val">90</span></li><li><span><span class="t-name">Restorative yoga for recovery</span><span class="t-hub">Restorative yoga &middot; 4 subtopics</span></span><span class="t-val">80</span></li><li><span><span class="t-name">15-minute chair yoga</span><span class="t-hub">Restorative yoga &middot; 1 subtopic</span></span><span class="t-val">70</span></li><li><span><span class="t-name">What to wear to yin yoga</span><span class="t-hub">Yin yoga &middot; 2 subtopics</span></span><span class="t-val">60</span></li><li><span><span class="t-name">Yin yoga for legs</span><span class="t-hub">Yin yoga &middot; 3 subtopics</span></span><span class="t-val">50</span></li><li><span><span class="t-name">Winter yin yoga sequence</span><span class="t-hub">Seasonal sequences &middot; 2 subtopics</span></span><span class="t-val">50</span></li><li><span><span class="t-name">Yin yoga for the root chakra</span><span class="t-hub">Yin yoga &middot; 1 subtopic</span></span><span class="t-val">50</span></li><li><span><span class="t-name">Spring yin yoga sequence</span><span class="t-hub">Seasonal sequences &middot; 1 subtopic</span></span><span class="t-val">40</span></li><li><span><span class="t-name">Yoga sandbag uses</span><span class="t-hub">Bolsters, blankets &amp; props &middot; 3 subtopics</span></span><span class="t-val">30</span></li><li><span><span class="t-name">Fall equinox restorative yoga</span><span class="t-hub">Seasonal sequences &middot; 3 subtopics</span></span><span class="t-val">30</span></li><li><span><span class="t-name">Restorative yoga for grief</span><span class="t-hub">Restorative yoga &middot; 1 subtopic</span></span><span class="t-val">30</span></li><li><span><span class="t-name">Bananasana in yin yoga</span><span class="t-hub">Restorative &amp; yin poses &middot; 1 subtopic</span></span><span class="t-val">30</span></li><li><span><span class="t-name">Restorative yoga for perimenopause</span><span class="t-hub">Restorative yoga &middot; 1 subtopic</span></span><span class="t-val">30</span></li><li><span><span class="t-name">Yin yoga for trauma release</span><span class="t-hub">Yin yoga &middot; 1 subtopic</span></span><span class="t-val">30</span></li><li><span><span class="t-name">Hatha yoga vs. restorative yoga</span><span class="t-hub">Styles compared &middot; 2 subtopics</span></span><span class="t-val">20</span></li><li><span><span class="t-name">Yoga nidra vs. yin yoga</span><span class="t-hub">Styles compared &middot; 1 subtopic</span></span><span class="t-val">20</span></li><li><span><span class="t-name">Mountain brook restorative pose</span><span class="t-hub">Restorative &amp; yin poses &middot; 1 subtopic</span></span><span class="t-val">20</span></li><li><span><span class="t-name">Twisted roots pose in yin yoga</span><span class="t-hub">Restorative &amp; yin poses &middot; 1 subtopic</span></span><span class="t-val">20</span></li><li><span><span class="t-name">Is restorative yoga the same as somatic yoga?</span><span class="t-hub">Styles compared &middot; 1 subtopic</span></span><span class="t-val">10</span></li><li><span><span class="t-name">Winter solstice restorative yoga sequence</span><span class="t-hub">Seasonal sequences &middot; 1 subtopic</span></span><span class="t-val">10</span></li><li><span><span class="t-name">New moon yin yoga sequence</span><span class="t-hub">Seasonal sequences &middot; 1 subtopic</span></span><span class="t-val">10</span></li><li><span><span class="t-name">Valentine's Day restorative yoga</span><span class="t-hub">Seasonal sequences &middot; 1 subtopic</span></span><span class="t-val">10</span></li><li><span><span class="t-name">Yin yoga for allergies</span><span class="t-hub">Yin yoga &middot; 1 subtopic</span></span><span class="t-val">10</span></li><li><span><span class="t-name">Earth Day yin yoga sequence</span><span class="t-hub">Seasonal sequences &middot; 1 subtopic</span></span><span class="t-val">10</span></li><li><span><span class="t-name">Restorative yoga for spring</span><span class="t-hub">Seasonal sequences &middot; 1 subtopic</span></span><span class="t-val">10</span></li><li><span><span class="t-name">Restorative yoga poses for immune system</span><span class="t-hub">Restorative &amp; yin poses &middot; 1 subtopic</span></span><span class="t-val">10</span></li><li><span><span class="t-name">Restorative yoga for spondylolisthesis</span><span class="t-hub">Restorative yoga &middot; 1 subtopic</span></span><span class="t-val">10</span></li><li><span><span class="t-name">Yin yoga liver and gallbladder sequence</span><span class="t-hub">Yin yoga &middot; 1 subtopic</span></span><span class="t-val">10</span></li></ul></div>
+    </details>
+  </div>
+</section>
+<!-- ============ 11 - MEDITATION ============ -->
+<section class="slide s-light" id="meditation">
+  <span class="marker">11 - Meditation</span>
+  <div class="slide-inner">
+    <div class="step-row" style="margin-bottom:22px;">
+      <div class="eyebrow" style="margin-bottom:0;">Hub 06 &middot; Meditation and Mindful Sitting</div>
+      <span class="week week-l">23 pages</span>
+    </div>
+    <h2>Seated postures, cushions and starting a meditation practice</h2>
+    <p class="lead muted-l" style="margin-top:14px; max-width:760px;">Lotus position leads at 53,080 searches a month, with 10 pages on lotus and seated postures. Tingsha bells, zafu cushions and meditation seat cushions follow, with guides to choosing a cushion and sitting on one comfortably.</p>
+    <p class="cap muted-l45" style="margin-top:10px;">88,120 monthly searches across 23 pages and 291 subtopics.</p>
+    <p class="later-hint"><span class="later-n">+80</span> more topics planned for this hub after March</p>
+    <div class="grid g2" style="margin-top:28px;">
+      <div class="card card-paper">
+        <h4 class="title-sm">Biggest demand</h4>
+        <p class="cap muted-l45" style="margin-top:6px;">Monthly searches for the hub&#x27;s largest pages</p>
+        <ul class="tlist"><li><span><span class="t-name">Lotus position</span><span class="t-hub">Lotus &amp; seated postures &middot; 51 subtopics</span></span><span class="t-val">53,080</span></li><li><span><span class="t-name">Tingsha bells</span><span class="t-hub">Bells, mats &amp; spaces &middot; 20 subtopics</span></span><span class="t-val">12,800</span></li><li><span><span class="t-name">Meditation seat cushions</span><span class="t-hub">Meditation cushions &middot; 37 subtopics</span></span><span class="t-val">7,820</span></li><li><span><span class="t-name">Zafu cushions</span><span class="t-hub">Meditation cushions &middot; 33 subtopics</span></span><span class="t-val">5,250</span></li><li><span><span class="t-name">Chair meditation</span><span class="t-hub">Meditation practice &middot; 5 subtopics</span></span><span class="t-val">4,480</span></li><li><span><span class="t-name">Choosing a meditation cushion</span><span class="t-hub">Meditation cushions &middot; 42 subtopics</span></span><span class="t-val">1,160</span></li></ul>
+      </div>
+      <div class="card card-paper">
+        <h4 class="title-sm">What the hub covers</h4>
+        <p class="cap muted-l45" style="margin-top:6px;">Scheduled pages by theme</p>
+        <ul class="tlist"><li><span><span class="t-name">Lotus &amp; seated postures</span><span class="t-hub">43% of the hub</span></span><span class="t-val">10 pages</span></li><li><span><span class="t-name">Meditation cushions</span><span class="t-hub">30% of the hub</span></span><span class="t-val">7 pages</span></li><li><span><span class="t-name">Bells, mats &amp; spaces</span><span class="t-hub">13% of the hub</span></span><span class="t-val">3 pages</span></li><li><span><span class="t-name">Meditation practice</span><span class="t-hub">13% of the hub</span></span><span class="t-val">3 pages</span></li></ul>
+      </div>
+    </div>
+    <details class="all">
+      <summary>All 23 Meditation and Mindful Sitting pages</summary>
+      <div class="card card-paper allcard"><ul class="tlist cols"><li><span><span class="t-name">Lotus position</span><span class="t-hub">Lotus &amp; seated postures &middot; 51 subtopics</span></span><span class="t-val">53,080</span></li><li><span><span class="t-name">Tingsha bells</span><span class="t-hub">Bells, mats &amp; spaces &middot; 20 subtopics</span></span><span class="t-val">12,800</span></li><li><span><span class="t-name">Meditation seat cushions</span><span class="t-hub">Meditation cushions &middot; 37 subtopics</span></span><span class="t-val">7,820</span></li><li><span><span class="t-name">Zafu cushions</span><span class="t-hub">Meditation cushions &middot; 33 subtopics</span></span><span class="t-val">5,250</span></li><li><span><span class="t-name">Chair meditation</span><span class="t-hub">Meditation practice &middot; 5 subtopics</span></span><span class="t-val">4,480</span></li><li><span><span class="t-name">Choosing a meditation cushion</span><span class="t-hub">Meditation cushions &middot; 42 subtopics</span></span><span class="t-val">1,160</span></li><li><span><span class="t-name">Meditation corner ideas</span><span class="t-hub">Bells, mats &amp; spaces &middot; 18 subtopics</span></span><span class="t-val">690</span></li><li><span><span class="t-name">How to sit on a meditation cushion</span><span class="t-hub">Meditation cushions &middot; 19 subtopics</span></span><span class="t-val">480</span></li><li><span><span class="t-name">Hanging lotus position</span><span class="t-hub">Lotus &amp; seated postures &middot; 1 subtopic</span></span><span class="t-val">480</span></li><li><span><span class="t-name">DIY meditation cushion</span><span class="t-hub">Meditation cushions &middot; 24 subtopics</span></span><span class="t-val">440</span></li><li><span><span class="t-name">How to start a meditation routine</span><span class="t-hub">Meditation practice &middot; 12 subtopics</span></span><span class="t-val">410</span></li><li><span><span class="t-name">Zazen meditation posture</span><span class="t-hub">Lotus &amp; seated postures &middot; 6 subtopics</span></span><span class="t-val">270</span></li><li><span><span class="t-name">Lotus position in bed</span><span class="t-hub">Lotus &amp; seated postures &middot; 1 subtopic</span></span><span class="t-val">260</span></li><li><span><span class="t-name">Lotus position in sleep</span><span class="t-hub">Lotus &amp; seated postures &middot; 1 subtopic</span></span><span class="t-val">110</span></li><li><span><span class="t-name">Flying lotus position</span><span class="t-hub">Lotus &amp; seated postures &middot; 1 subtopic</span></span><span class="t-val">110</span></li><li><span><span class="t-name">When lotus position hurts</span><span class="t-hub">Lotus &amp; seated postures &middot; 4 subtopics</span></span><span class="t-val">80</span></li><li><span><span class="t-name">Meditation lying down vs. sitting</span><span class="t-hub">Meditation practice &middot; 4 subtopics</span></span><span class="t-val">60</span></li><li><span><span class="t-name">Best meditation mats</span><span class="t-hub">Bells, mats &amp; spaces &middot; 4 subtopics</span></span><span class="t-val">50</span></li><li><span><span class="t-name">Adho mukha sukhasana</span><span class="t-hub">Lotus &amp; seated postures &middot; 2 subtopics</span></span><span class="t-val">40</span></li><li><span><span class="t-name">Best meditation cushions for back pain</span><span class="t-hub">Meditation cushions &middot; 3 subtopics</span></span><span class="t-val">20</span></li><li><span><span class="t-name">Lotus hand position</span><span class="t-hub">Lotus &amp; seated postures &middot; 1 subtopic</span></span><span class="t-val">10</span></li><li><span><span class="t-name">Floating lotus position</span><span class="t-hub">Lotus &amp; seated postures &middot; 1 subtopic</span></span><span class="t-val">10</span></li><li><span><span class="t-name">Zafu futon</span><span class="t-hub">Meditation cushions &middot; 1 subtopic</span></span><span class="t-val">10</span></li></ul></div>
+    </details>
+  </div>
+</section>
+<!-- ============ 12 - MATS &AMP; GEAR ============ -->
+<section class="slide s-paper" id="gear">
+  <span class="marker">12 - Mats &amp; gear</span>
+  <div class="slide-inner">
+    <div class="step-row" style="margin-bottom:22px;">
+      <div class="eyebrow" style="margin-bottom:0;">Hub 07 &middot; Mats, Grip &amp; Gear</div>
+      <span class="week week-l">14 pages</span>
+    </div>
+    <h2>Mat thickness, grip, cleaning and carrying</h2>
+    <p class="lead muted-l" style="margin-top:14px; max-width:760px;">Thick yoga mats lead at 10,160 searches a month, and how thick a yoga mat should be covers 44 subtopics. Smaller pages answer practical questions: why a mat gets slippery, TPE versus PVC, the pros and cons of cork, mat cleaners and mat bags.</p>
+    <p class="cap muted-l45" style="margin-top:10px;">20,340 monthly searches across 14 pages and 143 subtopics. Brings together four small hubs: Mat Comfort and Fit, Grip and Sweaty Practice, Home and Studio Practice Spaces and Yoga Gear.</p>
+    <p class="later-hint"><span class="later-n">+156</span> more topics planned for this hub after March</p>
+    <div class="grid g2" style="margin-top:28px;">
+      <div class="card card-light">
+        <h4 class="title-sm">Biggest demand</h4>
+        <p class="cap muted-l45" style="margin-top:6px;">Monthly searches for the hub&#x27;s largest pages</p>
+        <ul class="tlist"><li><span><span class="t-name">Thick yoga mats</span><span class="t-hub">Mat thickness &middot; 8 subtopics</span></span><span class="t-val">10,160</span></li><li><span><span class="t-name">Yoga mat cleaners</span><span class="t-hub">Mat cleaning &middot; 7 subtopics</span></span><span class="t-val">4,040</span></li><li><span><span class="t-name">DIY yoga mat cleaner</span><span class="t-hub">Mat cleaning &middot; 39 subtopics</span></span><span class="t-val">2,290</span></li><li><span><span class="t-name">How thick should a yoga mat be?</span><span class="t-hub">Mat thickness &middot; 44 subtopics</span></span><span class="t-val">1,940</span></li><li><span><span class="t-name">6mm yoga mats</span><span class="t-hub">Mat thickness &middot; 2 subtopics</span></span><span class="t-val">890</span></li><li><span><span class="t-name">Why is my yoga mat slippery?</span><span class="t-hub">Grip &amp; mat materials &middot; 20 subtopics</span></span><span class="t-val">370</span></li></ul>
+      </div>
+      <div class="card card-light">
+        <h4 class="title-sm">What the hub covers</h4>
+        <p class="cap muted-l45" style="margin-top:6px;">Scheduled pages by theme</p>
+        <ul class="tlist"><li><span><span class="t-name">Grip &amp; mat materials</span><span class="t-hub">29% of the hub</span></span><span class="t-val">4 pages</span></li><li><span><span class="t-name">Mat bags</span><span class="t-hub">29% of the hub</span></span><span class="t-val">4 pages</span></li><li><span><span class="t-name">Mat thickness</span><span class="t-hub">29% of the hub</span></span><span class="t-val">4 pages</span></li><li><span><span class="t-name">Mat cleaning</span><span class="t-hub">14% of the hub</span></span><span class="t-val">2 pages</span></li></ul>
+      </div>
+    </div>
+    <details class="all">
+      <summary>All 14 Mats, Grip &amp; Gear pages</summary>
+      <div class="card card-light allcard"><ul class="tlist cols"><li><span><span class="t-name">Thick yoga mats</span><span class="t-hub">Mat thickness &middot; 8 subtopics</span></span><span class="t-val">10,160</span></li><li><span><span class="t-name">Yoga mat cleaners</span><span class="t-hub">Mat cleaning &middot; 7 subtopics</span></span><span class="t-val">4,040</span></li><li><span><span class="t-name">DIY yoga mat cleaner</span><span class="t-hub">Mat cleaning &middot; 39 subtopics</span></span><span class="t-val">2,290</span></li><li><span><span class="t-name">How thick should a yoga mat be?</span><span class="t-hub">Mat thickness &middot; 44 subtopics</span></span><span class="t-val">1,940</span></li><li><span><span class="t-name">6mm yoga mats</span><span class="t-hub">Mat thickness &middot; 2 subtopics</span></span><span class="t-val">890</span></li><li><span><span class="t-name">Why is my yoga mat slippery?</span><span class="t-hub">Grip &amp; mat materials &middot; 20 subtopics</span></span><span class="t-val">370</span></li><li><span><span class="t-name">Gym bags that hold a yoga mat</span><span class="t-hub">Mat bags &middot; 5 subtopics</span></span><span class="t-val">270</span></li><li><span><span class="t-name">20mm thick yoga mats</span><span class="t-hub">Mat thickness &middot; 4 subtopics</span></span><span class="t-val">100</span></li><li><span><span class="t-name">TPE vs. PVC yoga mats</span><span class="t-hub">Grip &amp; mat materials &middot; 4 subtopics</span></span><span class="t-val">100</span></li><li><span><span class="t-name">Yoga mat bag designs</span><span class="t-hub">Mat bags &middot; 1 subtopic</span></span><span class="t-val">70</span></li><li><span><span class="t-name">Cork yoga mat pros and cons</span><span class="t-hub">Grip &amp; mat materials &middot; 4 subtopics</span></span><span class="t-val">60</span></li><li><span><span class="t-name">Best yoga mat bags reviewed</span><span class="t-hub">Mat bags &middot; 2 subtopics</span></span><span class="t-val">20</span></li><li><span><span class="t-name">DIY yoga mat bag from old pants</span><span class="t-hub">Mat bags &middot; 2 subtopics</span></span><span class="t-val">20</span></li><li><span><span class="t-name">TPE yoga mats with alignment lines</span><span class="t-hub">Grip &amp; mat materials &middot; 1 subtopic</span></span><span class="t-val">10</span></li></ul></div>
+    </details>
+  </div>
+</section>
+
+<!-- ============ 13 - CLOSE ============ -->
+<section class="slide s-dark hero-dark">
+  <span class="marker">13 - Next</span>
+  <div class="slide-inner" style="text-align:center;">
+    <div class="eyebrow" style="justify-content:center;"><span class="dot"></span> Where this goes from here</div>
+    <h1 class="display" style="max-width:880px; margin:0 auto;">The topics are chosen.<br>Now they become <span class="flip">pages.</span></h1>
+    <p class="lead muted-d80" style="max-width:660px; margin:24px auto 0;">
+      Six months, 264 pages across seven hubs, running alongside the SEO audit, AI visibility, Reddit and ecommerce
+      tracking, and product and collection optimizations. Everything is in your dashboard as it goes live.
+    </p>
+    <p class="footer-note muted-d" style="margin-top:56px;">FlyRank &middot; Hugger Mugger content roadmap, Oct 2026 - Mar 2027</p>
+  </div>
+</section>
+
+<script>
+  const rail = document.getElementById('rail');
+  let ticking = false;
+  function updateRail() {
+    const max = document.documentElement.scrollHeight - window.innerHeight;
+    const pct = max > 0 ? (window.scrollY / max) * 100 : 0;
+    rail.style.width = Math.min(100, Math.max(0, pct)) + '%';
+    ticking = false;
+  }
+  window.addEventListener('scroll', () => {
+    if (!ticking) { window.requestAnimationFrame(updateRail); ticking = true; }
+  }, {passive:true});
+  window.addEventListener('resize', updateRail, {passive:true});
+  updateRail();
+</script>
