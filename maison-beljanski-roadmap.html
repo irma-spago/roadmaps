@@ -1,0 +1,865 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Maison Beljanski Content Roadmap</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;700&display=swap">
+<style>
+
+  :root {
+    --mint-300:#7EEFC1; --mint-400:#54E399; --mint-500:#31C97A; --mint-700:#1A7A4A;
+    --ink-800:#0A2224; --ink-850:#071E20; --ink-900:#051F21; --ink-950:#030F10;
+    --paper:#F8FAF9; --paper-sunken:#F0F4F2;
+    --teal-300:#5EC6A9; --teal-400:#3AADA6; --teal-500:#2A8C8A;
+    color-scheme:light;
+  }
+
+  * { margin:0; padding:0; box-sizing:border-box; }
+
+  html { scroll-behavior:smooth; }
+
+  body {
+    font-family:'Geist',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+    color:var(--ink-900);
+    background:var(--ink-950);
+    -webkit-font-smoothing:antialiased;
+    line-height:1.6;
+  }
+  @media (prefers-reduced-motion:reduce) { html { scroll-behavior:auto; } }
+
+  .mono { font-family:'Geist Mono',ui-monospace,Consolas,monospace; }
+
+  /* ---------- Section frame ---------- */
+  .slide {
+    position:relative;
+    min-height:100vh;
+    display:flex; flex-direction:column; justify-content:center;
+    padding:96px 48px;
+  }
+  .slide-inner { width:100%; max-width:1080px; margin:0 auto; position:relative; z-index:2; }
+  .slide-inner.wide { max-width:1240px; }
+
+  .s-dark { background:var(--ink-900); color:#fff; }
+  .s-paper { background:var(--paper); }
+  .s-light { background:#fff; }
+  .s-sunken { background:var(--paper-sunken); }
+
+  .marker {
+    position:absolute; top:40px; right:48px; z-index:3;
+    font-family:'Geist Mono',ui-monospace,Consolas,monospace;
+    font-size:11px; font-weight:700; letter-spacing:0.14em; text-transform:uppercase;
+  }
+  .s-dark .marker { color:rgba(255,255,255,0.55); }
+  .s-paper .marker, .s-light .marker, .s-sunken .marker { color:rgba(5,31,33,0.40); }
+
+  .eyebrow {
+    font-family:'Geist Mono',ui-monospace,Consolas,monospace;
+    font-size:11px; font-weight:700; letter-spacing:0.14em; text-transform:uppercase;
+    display:inline-flex; align-items:center; gap:8px;
+    margin-bottom:24px;
+  }
+  .s-dark .eyebrow { color:var(--mint-400); }
+  .s-paper .eyebrow, .s-light .eyebrow, .s-sunken .eyebrow { color:var(--teal-500); }
+
+  .dot { width:6px; height:6px; border-radius:9999px; background:var(--mint-400); display:inline-block;
+         animation:pulse 2.4s ease-in-out infinite; }
+  @keyframes pulse { 0%,100%{opacity:1;transform:scale(1);} 50%{opacity:0.4;transform:scale(0.7);} }
+
+  h1.display { font-size:56px; font-weight:700; letter-spacing:-0.032em; line-height:1.06; }
+  h2 { font-size:32px; font-weight:700; letter-spacing:-0.028em; line-height:1.12; }
+  h3 { font-size:24px; font-weight:700; letter-spacing:-0.022em; line-height:1.2; }
+  h4 { font-size:20px; font-weight:600; letter-spacing:-0.015em; }
+  .lead { font-size:18px; font-weight:400; line-height:1.6; }
+  h4.title-sm { font-size:17px; letter-spacing:-0.01em; line-height:1.3; }
+  h4.title-xs { font-size:16px; letter-spacing:-0.008em; line-height:1.3; }
+  .body { font-size:16px; line-height:1.6; }
+  .bodys { font-size:14px; line-height:1.55; }
+  .cap { font-size:12px; line-height:1.5; }
+
+  .muted-d { color:rgba(255,255,255,0.55); }
+  .muted-d80 { color:rgba(255,255,255,0.80); }
+  .muted-l { color:rgba(5,31,33,0.55); }
+  .muted-l45 { color:rgba(5,31,33,0.45); }
+  .mint { color:var(--mint-400); }
+  .mint-dark { color:var(--mint-700); }
+
+  /* ---------- Cards ---------- */
+  .card { border-radius:20px; padding:28px; }
+  .card.compact { padding:20px 22px; border-radius:16px; }
+  .card-light { background:#fff; border:1px solid #DDE4E7; }
+  .card-paper { background:var(--paper); border:1px solid #E4EAED; }
+  .card-dark { background:var(--ink-900); color:#fff; }
+  .card-dark-el { background:var(--ink-850); border:1px solid rgba(255,255,255,0.10); border-radius:20px; padding:28px; color:#fff; }
+  .card-dark-el.compact { padding:20px 22px; border-radius:16px; }
+
+  .grid { display:grid; gap:16px; align-items:stretch; }
+  .grid > * { height:100%; }
+  .g2 { grid-template-columns:repeat(2,1fr); }
+  .g3 { grid-template-columns:repeat(3,1fr); }
+  .g4 { grid-template-columns:repeat(4,1fr); }
+  .g5 { grid-template-columns:repeat(5,1fr); }
+
+  .stat-num { font-size:34px; font-weight:700; letter-spacing:-0.03em; line-height:1.05; }
+  .stat-lbl { font-size:13px; margin-top:10px; }
+
+  .pill {
+    display:inline-flex; align-items:center; gap:7px;
+    border-radius:9999px; padding:5px 13px; font-size:12px;
+  }
+  .pill-tag-d { background:rgba(255,255,255,0.07); border:1px solid rgba(255,255,255,0.10); color:rgba(255,255,255,0.80); }
+  .pill-tag-l { background:rgba(5,31,33,0.06); border:1px solid rgba(5,31,33,0.08); color:rgba(5,31,33,0.55); }
+  .pill-lead { background:rgba(49,201,122,0.12); border:1px solid rgba(49,201,122,0.25); color:var(--mint-700); }
+  .pill-row { display:flex; flex-wrap:wrap; gap:8px; }
+
+  .badge {
+    display:inline-flex; align-items:center; border-radius:8px;
+    font-size:10px; font-weight:700; letter-spacing:0.06em; text-transform:uppercase; padding:3px 8px;
+  }
+  .b-done   { background:rgba(49,201,122,0.12); color:var(--mint-700); }
+  .b-done-d { background:rgba(84,227,153,0.14); color:var(--mint-300); }
+  .b-move-d { background:rgba(94,198,169,0.16); color:var(--teal-300); }
+
+  .flag {
+    display:inline-flex; align-items:center; gap:7px;
+    border-radius:8px; padding:4px 10px;
+    font-family:'Geist Mono',ui-monospace,Consolas,monospace;
+    font-size:10px; font-weight:700; letter-spacing:0.08em; text-transform:uppercase;
+    background:rgba(49,201,122,0.10); color:var(--mint-700); border:1px dashed rgba(26,122,74,0.45);
+  }
+
+  /* ---------- Topic lists ---------- */
+  .tlist { list-style:none; margin-top:16px; }
+  .tlist li {
+    display:flex; align-items:baseline; justify-content:space-between; gap:14px;
+    padding:10px 0; border-bottom:1px solid rgba(5,31,33,0.08);
+  }
+  .tlist li:last-child { border-bottom:none; }
+  .tlist li:first-child { padding-top:0; }
+  .s-dark .tlist li { border-bottom-color:rgba(255,255,255,0.10); }
+  .t-name { font-size:14px; font-weight:500; line-height:1.35; }
+  .t-hub {
+    display:block; margin-top:3px;
+    font-family:'Geist Mono',ui-monospace,Consolas,monospace;
+    font-size:10px; letter-spacing:0.06em; text-transform:uppercase;
+    color:rgba(5,31,33,0.40);
+  }
+  .s-dark .t-hub { color:rgba(255,255,255,0.45); }
+  .t-val {
+    font-family:'Geist Mono',ui-monospace,Consolas,monospace;
+    font-size:12px; font-weight:700; white-space:nowrap; color:var(--mint-700);
+  }
+  .s-dark .t-val { color:var(--mint-300); }
+  .t-sub { font-weight:400; color:rgba(5,31,33,0.40); }
+  .s-dark .t-sub { color:rgba(255,255,255,0.45); }
+
+  /* ---------- Hero backgrounds ---------- */
+  .hero-dark {
+    background:radial-gradient(ellipse at 60% 40%, rgba(84,227,153,0.09), transparent 55%), var(--ink-900);
+  }
+  .hero-dark::before {
+    content:''; position:absolute; inset:0; z-index:1; pointer-events:none;
+    background-image:linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+                     linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+    background-size:48px 48px;
+  }
+
+  .accent-bar { width:44px; height:4px; border-radius:9999px; background:var(--mint-400); margin-bottom:28px; }
+  .flip { color:var(--mint-400); }
+  .arrow { color:var(--mint-400); font-weight:700; padding:0 4px; }
+
+  ul.clean { list-style:none; }
+  ul.clean li { position:relative; padding-left:26px; margin-bottom:12px; }
+  ul.clean li:last-child { margin-bottom:0; }
+  ul.clean li::before {
+    content:''; position:absolute; left:0; top:9px; width:7px; height:7px;
+    border-radius:9999px; background:var(--mint-400);
+  }
+
+  .divider { height:1px; background:rgba(5,31,33,0.08); margin:28px 0; }
+  .s-dark .divider { background:rgba(255,255,255,0.10); }
+
+  .footer-note { font-size:12px; }
+
+  .step-n { font-family:'Geist Mono',ui-monospace,Consolas,monospace; font-size:12px; font-weight:700; letter-spacing:0.14em; }
+  .step-row { display:flex; align-items:center; justify-content:space-between; gap:10px; }
+  .week {
+    font-family:'Geist Mono',ui-monospace,Consolas,monospace;
+    font-size:10px; font-weight:700; letter-spacing:0.10em; text-transform:uppercase;
+    border-radius:9999px; padding:3px 10px; white-space:nowrap;
+  }
+  .week-l { background:rgba(5,31,33,0.06); color:rgba(5,31,33,0.55); }
+  .week-d { background:rgba(84,227,153,0.12); color:var(--mint-300); }
+
+  .rail { position:fixed; top:0; left:0; height:3px; background:var(--mint-400); z-index:99; width:0; }
+
+  /* ---------- Responsive ---------- */
+  @media (max-width:1100px) {
+    .g5 { grid-template-columns:repeat(3,1fr); }
+  }
+  @media (max-width:900px) {
+    .slide { padding:80px 32px; }
+    .g2,.g3,.g4,.g5 { grid-template-columns:1fr; }
+    .g4.keep2, .g5.keep2 { grid-template-columns:repeat(2,1fr); }
+    .marker { top:24px; right:32px; }
+  }
+  @media (max-width:560px) {
+    .slide { padding:72px 20px; }
+    h1.display { font-size:34px; }
+    h2 { font-size:26px; }
+    h3 { font-size:21px; }
+    .lead { font-size:16px; }
+    .g4.keep2, .g5.keep2 { grid-template-columns:1fr; }
+  }
+  @media (prefers-reduced-motion:reduce) { .dot { animation:none; } }
+
+  .tlist li > span:first-child { min-width:0; }
+  .t-name { overflow-wrap:anywhere; }
+  .stat-num, .t-val { font-variant-numeric:tabular-nums; }
+  :focus-visible { outline:2px solid var(--mint-500); outline-offset:2px; }
+
+
+  .hubhead { display:flex; flex-wrap:wrap; align-items:baseline; gap:6px 14px; margin-top:6px; }
+  .hubmeta { font-family:'Geist Mono',ui-monospace,Consolas,monospace; font-size:11px; letter-spacing:0.06em; text-transform:uppercase; }
+  .s-dark .hubmeta { color:rgba(255,255,255,0.55); }
+  .group-label {
+    font-family:'Geist Mono',ui-monospace,Consolas,monospace;
+    font-size:10px; font-weight:700; letter-spacing:0.14em; text-transform:uppercase;
+    color:rgba(255,255,255,0.45); margin:28px 0 12px;
+  }
+  .group-label { margin-top:32px; }
+  .mstrip { display:grid; grid-template-columns:repeat(6,1fr); gap:10px; margin-top:20px; }
+  .mcell { background:#fff; border:1px solid #DDE4E7; border-radius:14px; padding:14px 16px; }
+  .mcell .mnum { font-size:22px; font-weight:700; letter-spacing:-0.02em; color:var(--mint-700); font-variant-numeric:tabular-nums; }
+  .mcell .mlbl { font-family:'Geist Mono',ui-monospace,Consolas,monospace; font-size:10px; font-weight:700; letter-spacing:0.10em; text-transform:uppercase; color:rgba(5,31,33,0.45); }
+  details.all { margin-top:22px; border-top:1px solid rgba(5,31,33,0.08); padding-top:18px; }
+  details.all summary {
+    cursor:pointer; list-style:none; display:inline-flex; align-items:center; gap:8px;
+    font-family:'Geist Mono',ui-monospace,Consolas,monospace;
+    font-size:11px; font-weight:700; letter-spacing:0.10em; text-transform:uppercase;
+    color:var(--teal-500); border-radius:9999px; padding:6px 14px;
+    background:rgba(42,140,138,0.08); border:1px solid rgba(42,140,138,0.22);
+  }
+  details.all summary::-webkit-details-marker { display:none; }
+  details.all summary::before { content:'+'; font-size:13px; line-height:1; }
+  details.all[open] summary::before { content:'\2212'; }
+  .allgrid { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin-top:18px; }
+  .allgrid .card { padding:20px 22px; border-radius:16px; }
+  .allgrid h5 { font-family:'Geist Mono',ui-monospace,Consolas,monospace; font-size:10px; font-weight:700; letter-spacing:0.12em; text-transform:uppercase; color:var(--teal-500); display:flex; justify-content:space-between; gap:10px; }
+  .allgrid h5 span { color:rgba(5,31,33,0.40); }
+  .allgrid .tlist li { padding:8px 0; }
+  .allgrid .t-name { font-size:13px; }
+  @media (max-width:900px) {
+    .mstrip { grid-template-columns:repeat(3,1fr); }
+    .allgrid { grid-template-columns:1fr; }
+  }
+  @media (max-width:560px) { .mstrip { grid-template-columns:repeat(2,1fr); } }
+
+
+  /* Scrolling fix: sections size to their content, the page always scrolls */
+  html, body { height:auto; }
+  html { overflow-y:auto; scroll-behavior:auto; }
+  .slide { min-height:0; }
+  .slide.hero-dark { padding-block:140px; }
+  @media (max-width:560px) { .slide.hero-dark { padding-block:96px; } }
+
+  /* GetBuddy additions */
+  .svc-grid { margin-top:40px; }
+  .svc h4 { margin-top:14px; }
+  .svc ul.clean { margin-top:14px; }
+  .svc ul.clean li { font-size:14px; line-height:1.5; color:rgba(5,31,33,0.72); margin-bottom:10px; }
+  .svc ul.clean li::before { top:7px; }
+  .svc-n { font-family:'Geist Mono',ui-monospace,Consolas,monospace; font-size:10px; font-weight:700; letter-spacing:0.10em; text-transform:uppercase; color:rgba(5,31,33,0.45); margin-top:18px; padding-top:14px; border-top:1px solid rgba(5,31,33,0.08); }
+  .b-teal { background:rgba(42,140,138,0.10); color:var(--teal-500); }
+  .dash {
+    margin-top:16px; display:flex; flex-wrap:wrap; align-items:center; gap:14px 24px;
+    background:rgba(49,201,122,0.07); border:1px solid rgba(49,201,122,0.25); border-radius:16px; padding:18px 22px;
+  }
+  .dash p { min-width:0; flex:1 1 360px; }
+  .svc { display:flex; flex-direction:column; }
+  .svc .svc-n { margin-top:auto; }
+  .svc ul.clean { margin-bottom:18px; }
+  a.hublink { color:inherit; text-decoration:none; }
+  a.hublink:hover { color:var(--mint-300); }
+
+  /* All topics: one card, three even columns */
+  .allcard { margin-top:18px; padding:22px 26px; border-radius:16px; }
+  .tlist.cols { columns:3 240px; column-gap:36px; margin-top:0; }
+  .tlist.cols li { break-inside:avoid; padding:9px 0; }
+  .tlist.cols .t-name { font-size:13px; }
+
+  /* Hugger Mugger: one width for every section, safe-area side gutters */
+  .slide { padding-block:96px; padding-left:max(48px, env(safe-area-inset-left, 0px)); padding-right:max(48px, env(safe-area-inset-right, 0px)); }
+  .slide-inner, .slide-inner.wide { max-width:1080px; }
+  .marker { right:max(48px, env(safe-area-inset-right, 0px)); }
+  h1.display, h2, h3 { text-wrap:balance; }
+  .svc .bodys { color:rgba(5,31,33,0.72); }
+  .svc ul.ex li { color:var(--ink-900); font-weight:500; }
+  .later-hint {
+    margin-top:14px; display:inline-flex; align-items:center; gap:10px;
+    font-family:'Geist Mono',ui-monospace,Consolas,monospace; font-size:11px; font-weight:700;
+    letter-spacing:0.08em; text-transform:uppercase; color:rgba(5,31,33,0.55);
+    border:1px dashed rgba(42,140,138,0.40); border-radius:9999px; padding:5px 14px 5px 6px;
+  }
+  .later-n { background:rgba(42,140,138,0.10); color:var(--teal-500); border-radius:9999px; padding:2px 9px; font-variant-numeric:tabular-nums; }
+  @media (max-width:900px) {
+    .slide { padding-block:80px; padding-left:max(32px, env(safe-area-inset-left, 0px)); padding-right:max(32px, env(safe-area-inset-right, 0px)); }
+    .marker { right:max(32px, env(safe-area-inset-right, 0px)); }
+    .g3.keep2 { grid-template-columns:repeat(2,1fr); }
+  }
+  @media (max-width:560px) {
+    .slide { padding-block:72px; padding-left:max(20px, env(safe-area-inset-left, 0px)); padding-right:max(20px, env(safe-area-inset-right, 0px)); }
+    .marker { right:max(20px, env(safe-area-inset-right, 0px)); }
+    .g3.keep2 { grid-template-columns:1fr; }
+    .later-hint { letter-spacing:0.04em; }
+  }
+  .slide.hero-dark { padding-block:140px; }
+  @media (max-width:560px) { .slide.hero-dark { padding-block:96px; } }
+
+</style>
+
+<div class="rail" id="rail"></div>
+
+<!-- ============ 01 - COVER ============ -->
+<section class="slide s-dark hero-dark">
+  <span class="marker">01 - The roadmap</span>
+  <div class="slide-inner">
+    <div class="eyebrow"><span class="dot"></span> Content roadmap &middot; FlyRank &times; Maison Beljanski</div>
+    <h1 class="display">Gut health, healthy skin <span class="flip">&amp;</span> wellness from the cell up</h1>
+    <p class="lead muted-d80" style="max-width:680px; margin-top:24px;">
+      Six months of content for maisonbeljanski.com, already scheduled. Nine hubs covering digestion and gut health,
+      skin and hydration, hair, nails and fragrance, women&#x27;s wellness, immune health, everyday nutrition, weight
+      management, liver health and prostate health, with every page built around one main topic and its subtopics.
+    </p>
+    <div class="pill-row" style="margin-top:36px;">
+      <span class="pill pill-tag-d">108 pages scheduled</span>
+      <span class="pill pill-tag-d">3,282 subtopics</span>
+      <span class="pill pill-tag-d">9 content hubs</span>
+      <span class="pill pill-tag-d">Oct 2026 - Mar 2027</span>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 02 - SERVICES ============ -->
+<section class="slide s-light">
+  <span class="marker">02 - The work</span>
+  <div class="slide-inner">
+    <div class="eyebrow">What we&#x27;re doing for Maison Beljanski</div>
+    <h2 style="max-width:820px;">Six workstreams, one dashboard</h2>
+    <p class="lead muted-l" style="margin-top:16px; max-width:760px;">
+      Content, SEO, product page work, AI visibility, ecommerce and Reddit tracking run side by side.
+      Log in to your own dashboard to follow every page as it goes live, see where Maison Beljanski is mentioned across
+      AI engines and Reddit, and track the sales that come from search and AI.
+    </p>
+    <div class="grid g3 keep2 svc-grid" style="gap:14px;">
+      <div class="card card-paper compact svc">
+        <span class="badge b-done" style="align-self:flex-start;">Content</span>
+        <h4 class="title-sm">New content strategy</h4>
+        <ul class="clean"><li>Each page has one main topic and the subtopics that belong to it</li><li>Pages go more in-depth, answering the full set of related questions in one place</li></ul>
+        <p class="svc-n">108 pages &middot; 3,282 subtopics</p>
+      </div>
+      <div class="card card-paper compact svc">
+        <span class="badge b-teal" style="align-self:flex-start;">Technical</span>
+        <h4 class="title-sm">Website SEO audit</h4>
+        <ul class="clean"><li>On-page SEO audit of maisonbeljanski.com</li><li>Covers all on-page elements and the fixes for each</li></ul>
+        <p class="svc-n">Every on-page element checked</p>
+      </div>
+      <div class="card card-paper compact svc">
+        <span class="badge b-done" style="align-self:flex-start;">Store</span>
+        <h4 class="title-sm">Product &amp; collection optimizations</h4>
+        <ul class="clean"><li>Analysis of Maison Beljanski&#x27;s product and collection pages</li><li>Pages optimized based on SEO and GEO best practices</li></ul>
+        <p class="svc-n">Product and collection pages</p>
+      </div>
+      <div class="card card-paper compact svc">
+        <span class="badge b-teal" style="align-self:flex-start;">Visibility</span>
+        <h4 class="title-sm">AI visibility tracking</h4>
+        <ul class="clean"><li>Shows whether Maison Beljanski appears in AI assistants, and how it is described, as shoppers move there from Google</li><li>Turns missed, high-scoring prompts into a to-do list, with citations and query fan-out showing why AI recommends a competitor</li><li>Measures the overall return of content, SEO, Reddit and ecommerce work, with a trend that builds from each new measurement</li></ul>
+        <p class="svc-n">Mentions, citations, competitors</p>
+      </div>
+      <div class="card card-paper compact svc">
+        <span class="badge b-done" style="align-self:flex-start;">Revenue</span>
+        <h4 class="title-sm">Ecommerce tracking</h4>
+        <ul class="clean"><li>Connects SEO, content and AI visibility to sales, not just traffic or rankings</li><li>Gets ahead on AI shopping by measuring sales from Shopify AI shopping</li><li>Every number shows its comparison and change, with plain definitions, noted data gaps and no double counting</li></ul>
+        <p class="svc-n">Sales, traffic and AI orders in one place</p>
+      </div>
+      <div class="card card-paper compact svc">
+        <span class="badge b-teal" style="align-self:flex-start;">Community</span>
+        <h4 class="title-sm">Reddit mentions tracking</h4>
+        <ul class="clean"><li>Finds threads asking for recommendations or comparing products, the moments a helpful answer can win a customer</li><li>A sorted inbox with replies already drafted, and Reddit is cited heavily in AI answers, so taking part also lifts AI visibility</li><li>Spots brand mentions and complaints early, and collects customer language and pain points for content and product pages</li></ul>
+        <p class="svc-n">Mentions and ready-to-use replies</p>
+      </div>
+    </div>
+    <div class="dash">
+      <span class="flag">Your dashboard</span>
+      <p class="bodys muted-l">Log in to see the content calendar, AI visibility, Reddit mentions and ecommerce sales in one place, updated as the work moves.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 03 - SIX MONTH PLAN ============ -->
+<section class="slide s-paper">
+  <span class="marker">03 - The plan</span>
+  <div class="slide-inner">
+    <div class="eyebrow">Six month content plan</div>
+    <h2 style="max-width:820px;">108 pages are scheduled<br>for the next six months.</h2>
+    <p class="lead muted-l" style="margin-top:16px; max-width:760px;">
+      Every page targets one main topic and groups the subtopics people search around it, 3,282 in total.
+      Together the pages carry 14,882,600 monthly searches across nine content hubs, from gut health and
+      skincare to immunity, women&#x27;s wellness and nutrition.
+    </p>
+    <div class="grid g4 keep2" style="margin-top:40px;">
+      <div class="card card-light"><div class="stat-num mint-dark">108</div><p class="stat-lbl muted-l">Pages scheduled, October to March</p></div>
+      <div class="card card-light"><div class="stat-num mint-dark">3,282</div><p class="stat-lbl muted-l">Subtopics covered inside those pages, about 30 per page</p></div>
+      <div class="card card-light"><div class="stat-num mint-dark">14,882,600</div><p class="stat-lbl muted-l">Total monthly search volume of the targeted keywords</p></div>
+      <div class="card card-light"><div class="stat-num mint-dark">4,487,240</div><p class="stat-lbl muted-l">Monthly searches behind the plan&#x27;s biggest page, diet for constipation</p></div>
+    </div>
+    <div class="card card-dark" style="margin-top:20px; padding:22px 26px;">
+      <p class="bodys muted-d80">
+        <span class="mint" style="font-weight:600;">How the pages are built.</span>
+        Each page is built around one main topic, with its subtopics as sections, so a single page answers what used
+        to take several thin posts. The deepest page, thrombocytopenia, covers 258 subtopics. Publishing runs every
+        month from October to March, at 20 pages a month after a shorter October start.
+      </p>
+    </div>
+    <div class="dash">
+      <span class="flag">After March</span>
+      <p class="bodys muted-l"><strong class="mint-dark">3,456 more topics</strong> are already mapped for after March 2027, across the same nine hubs and three new ones.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 04 - PAGE TYPES ============ -->
+<section class="slide s-light">
+  <span class="marker">04 - Page types</span>
+  <div class="slide-inner">
+    <div class="eyebrow">How each page is shaped</div>
+    <h2 style="max-width:820px;">Six kinds of pages, each matched to the search behind it</h2>
+    <p class="lead muted-l" style="margin-top:16px; max-width:760px;">
+      Each topic gets the format that fits what people want when they search it. Someone wondering why they feel
+      bloated needs a guide, while someone choosing a moisturizer needs a listicle.
+    </p>
+    <div class="grid g3 keep2 svc-grid" style="gap:14px;">
+      <div class="card card-paper compact svc">
+        <span class="badge b-done" style="align-self:flex-start;">Guide</span>
+        <h4 class="title-sm">Guides &amp; explainers</h4>
+        <p class="bodys muted-l" style="margin-top:10px;">In-depth answers to what-is and how-to questions, with each subtopic as its own section, so one page covers the whole question.</p>
+        <p class="svc-n">Example topics</p>
+        <ul class="clean ex"><li>Diet for constipation</li><li>What is a calorie deficit?</li><li>How to heal dry, cracked feet</li></ul>
+      </div>
+      <div class="card card-paper compact svc">
+        <span class="badge b-teal" style="align-self:flex-start;">Listicle</span>
+        <h4 class="title-sm">Listicles</h4>
+        <p class="bodys muted-l" style="margin-top:10px;">Ranked or grouped lists that let readers scan the options quickly and pick the foods, products or scents that suit them.</p>
+        <p class="svc-n">Example topics</p>
+        <ul class="clean ex"><li>Best probiotics</li><li>Foods highest in antioxidants</li><li>Floral perfumes</li></ul>
+      </div>
+      <div class="card card-paper compact svc">
+        <span class="badge b-done" style="align-self:flex-start;">Comparison</span>
+        <h4 class="title-sm">Comparisons</h4>
+        <p class="bodys muted-l" style="margin-top:10px;">Side-by-side looks at two options, for readers trying to understand how two things differ or which one fits.</p>
+        <p class="svc-n">Example topics</p>
+        <ul class="clean ex"><li>Digestive bitters vs. digestive enzymes</li><li>Lymphocytes vs. phagocytes</li><li>Hematopoiesis vs. erythropoiesis</li></ul>
+      </div>
+      <div class="card card-paper compact svc">
+        <span class="badge b-teal" style="align-self:flex-start;">Collection</span>
+        <h4 class="title-sm">Collection pages</h4>
+        <p class="bodys muted-l" style="margin-top:10px;">Category pages for shopping searches that pair the right Maison Beljanski products with buying advice for that category.</p>
+        <p class="svc-n">Example topics</p>
+        <ul class="clean ex"><li>Antioxidant supplements</li><li>Immune support supplements</li><li>Organic skincare</li></ul>
+      </div>
+      <div class="card card-paper compact svc">
+        <span class="badge b-done" style="align-self:flex-start;">Tool</span>
+        <h4 class="title-sm">Tools &amp; worksheets</h4>
+        <p class="bodys muted-l" style="margin-top:10px;">Hands-on pages people use rather than read: calculators, diaries and worksheets that help them track what is going on.</p>
+        <p class="svc-n">Example topics</p>
+        <ul class="clean ex"><li>Food diary for food intolerance</li><li>Calorie deficit calculator</li><li>Mindful eating worksheets</li></ul>
+      </div>
+      <div class="card card-paper compact svc">
+        <span class="badge b-teal" style="align-self:flex-start;">Service</span>
+        <h4 class="title-sm">Coaching &amp; services</h4>
+        <p class="bodys muted-l" style="margin-top:10px;">Pages for people looking for personal guidance, linking to Maison Beljanski&#x27;s health coaching and personalized plans.</p>
+        <p class="svc-n">Example topics</p>
+        <ul class="clean ex"><li>Health coaching for weight loss</li><li>Women&#x27;s health coaching</li><li>Liver health programs</li></ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 05 - CONTENT HUBS ============ -->
+<section class="slide s-dark">
+  <span class="marker">05 - Coverage</span>
+  <div class="slide-inner">
+    <div class="eyebrow"><span class="dot"></span> What the plan covers</div>
+    <h2>Nine hubs across gut health, skin, women&#x27;s wellness and immunity</h2>
+    <p class="group-label">Largest hubs &middot; 50 pages &middot; 11,155,490 searches / mo</p>
+    <div class="grid g2" style="gap:14px;">
+      <div class="card-dark-el compact">
+        <span class="badge b-done-d">28 pages</span>
+        <h4 class="title-xs" style="margin-top:12px;"><a class="hublink" href="#digestion">Digestion &amp; Gut Health</a></h4>
+        <p class="hubmeta" style="margin-top:4px;">9,318,960 searches / mo &middot; 765 subtopics</p>
+        <p class="bodys muted-d80" style="margin-top:8px;">Constipation and fiber, probiotics, bloating and indigestion, and the gut microbiome and food intolerance.</p>
+      </div><div class="card-dark-el compact">
+        <span class="badge b-done-d">22 pages</span>
+        <h4 class="title-xs" style="margin-top:12px;"><a class="hublink" href="#skin">Sensitive Skin &amp; Lasting Hydration</a></h4>
+        <p class="hubmeta" style="margin-top:4px;">1,836,530 searches / mo &middot; 979 subtopics</p>
+        <p class="bodys muted-d80" style="margin-top:8px;">Moisturizers, serums and cleansers, dry hands and cracked feet, and the ingredients behind the skin barrier.</p>
+      </div>
+    </div>
+    <p class="group-label">Mid-size hubs &middot; 40 pages &middot; 2,576,960 searches / mo</p>
+    <div class="grid g4 keep2" style="gap:14px;">
+      <div class="card-dark-el compact">
+        <span class="badge b-done-d">12 pages</span>
+        <h4 class="title-xs" style="margin-top:12px;"><a class="hublink" href="#fragrance">Hair, Nails &amp; Personal Fragrance</a></h4>
+        <p class="hubmeta" style="margin-top:4px;">836,220 searches / mo &middot; 154 subtopics</p>
+        <p class="bodys muted-d80" style="margin-top:8px;">Floral perfumes, woody colognes, biotin and vegan beauty supplements.</p>
+      </div><div class="card-dark-el compact">
+        <span class="badge b-done-d">11 pages</span>
+        <h4 class="title-xs" style="margin-top:12px;"><a class="hublink" href="#women">Women&#x27;s Wellness Through Life Changes</a></h4>
+        <p class="hubmeta" style="margin-top:4px;">546,010 searches / mo &middot; 136 subtopics</p>
+        <p class="bodys muted-d80" style="margin-top:8px;">Perimenopause, hormonal balance and mood, and supplements and diet through menopause.</p>
+      </div><div class="card-dark-el compact">
+        <span class="badge b-done-d">9 pages</span>
+        <h4 class="title-xs" style="margin-top:12px;"><a class="hublink" href="#immune">Immune &amp; Blood Cell Health</a></h4>
+        <p class="hubmeta" style="margin-top:4px;">599,680 searches / mo &middot; 317 subtopics</p>
+        <p class="bodys muted-d80" style="margin-top:8px;">Low platelets and neutropenia, how immune cells work, and immune support supplements.</p>
+      </div><div class="card-dark-el compact">
+        <span class="badge b-done-d">8 pages</span>
+        <h4 class="title-xs" style="margin-top:12px;"><a class="hublink" href="#nutrition">Everyday Nutrition &amp; Antioxidants</a></h4>
+        <p class="hubmeta" style="margin-top:4px;">595,050 searches / mo &middot; 326 subtopics</p>
+        <p class="bodys muted-d80" style="margin-top:8px;">Antioxidant foods and oxidative stress, nutrient-dense foods, and antioxidant supplements and greens.</p>
+      </div>
+    </div>
+    <p class="group-label">Focused hubs &middot; 18 pages &middot; 1,150,150 searches / mo</p>
+    <div class="grid g3" style="gap:14px;">
+      <div class="card-dark-el compact">
+        <span class="badge b-done-d">8 pages</span>
+        <h4 class="title-xs" style="margin-top:12px;"><a class="hublink" href="#weight">Weight Management &amp; Sustainable Habits</a></h4>
+        <p class="hubmeta" style="margin-top:4px;">664,870 searches / mo &middot; 377 subtopics</p>
+        <p class="bodys muted-d80" style="margin-top:8px;">Calorie deficits, mindful eating and movement, and weight loss supplements.</p>
+      </div><div class="card-dark-el compact">
+        <span class="badge b-done-d">6 pages</span>
+        <h4 class="title-xs" style="margin-top:12px;"><a class="hublink" href="#liver">Liver Health &amp; Everyday Exposures</a></h4>
+        <p class="hubmeta" style="margin-top:4px;">245,200 searches / mo &middot; 49 subtopics</p>
+        <p class="bodys muted-d80" style="margin-top:8px;">Glutathione, fatty liver, coffee and liver health, and liver health formulas.</p>
+      </div><div class="card-dark-el compact">
+        <span class="badge b-done-d">4 pages</span>
+        <h4 class="title-xs" style="margin-top:12px;"><a class="hublink" href="#prostate">Prostate &amp; Urinary Health</a></h4>
+        <p class="hubmeta" style="margin-top:4px;">240,080 searches / mo &middot; 179 subtopics</p>
+        <p class="bodys muted-d80" style="margin-top:8px;">Enlarged prostate (BPH) and its treatments, prostatitis, and prostate health supplements.</p>
+      </div>
+    </div>
+    <div class="card-dark-el compact" style="margin-top:20px;">
+      <p class="bodys muted-d80"><span class="mint" style="font-weight:600;">Three more hubs start after March.</span>
+      Complementary Wellness During Serious Illness (297 topics), Botanical Ingredients &amp; Research (155 topics) and Pet Wellness &amp; Supplement Safety (42 topics), with 494 topics between them.</p>
+    </div>
+    <p class="bodys muted-d" style="margin-top:24px;">
+      Every scheduled page belongs to one of these hubs, so each new page has a home and an
+      internal link path the day it publishes.
+    </p>
+  </div>
+</section>
+
+<!-- ============ 06 - DIGESTION ============ -->
+<section class="slide s-paper" id="digestion">
+  <span class="marker">06 - Digestion</span>
+  <div class="slide-inner">
+    <div class="step-row" style="margin-bottom:22px;">
+      <div class="eyebrow" style="margin-bottom:0;">Hub 01 &middot; Digestion &amp; Gut Health</div>
+      <span class="week week-l">28 pages</span>
+    </div>
+    <h2>Constipation, bloating, probiotics and a healthier gut</h2>
+    <p class="lead muted-l" style="margin-top:14px; max-width:760px;">Diet for constipation is the biggest page in the plan at 4,487,240 searches a month, about 30% of the plan&#x27;s total. Probiotics follows at 1,012,420 and bloating at 995,800. The hub covers constipation and fiber, probiotics and when they help, bloating and indigestion, and the gut microbiome and food intolerances, giving the Targetage&reg; digestive formulas, like Digestive Harmony and Colonet, a natural home.</p>
+    <p class="cap muted-l45" style="margin-top:10px;">9,318,960 monthly searches across 28 pages and 765 subtopics.</p>
+    <p class="later-hint"><span class="later-n">+362</span> more topics planned for this hub after March</p>
+    <div class="grid g2" style="margin-top:28px;">
+      <div class="card card-light">
+        <h4 class="title-sm">Biggest demand</h4>
+        <p class="cap muted-l45" style="margin-top:6px;">Monthly searches for the hub&#x27;s largest pages</p>
+        <ul class="tlist"><li><span><span class="t-name">Diet for constipation</span><span class="t-hub">Constipation &amp; fiber &middot; 77 subtopics</span></span><span class="t-val">4,487,240</span></li><li><span><span class="t-name">Probiotics</span><span class="t-hub">Probiotics &middot; 25 subtopics</span></span><span class="t-val">1,012,420</span></li><li><span><span class="t-name">Bloating</span><span class="t-hub">Bloating &amp; indigestion &middot; 92 subtopics</span></span><span class="t-val">995,800</span></li><li><span><span class="t-name">Foods to improve your gut microbiome</span><span class="t-hub">Gut microbiome &amp; food intolerance &middot; 149 subtopics</span></span><span class="t-val">806,110</span></li><li><span><span class="t-name">Best probiotics</span><span class="t-hub">Probiotics &middot; 32 subtopics</span></span><span class="t-val">319,670</span></li><li><span><span class="t-name">Managing lactose intolerance</span><span class="t-hub">Gut microbiome &amp; food intolerance &middot; 93 subtopics</span></span><span class="t-val">236,720</span></li></ul>
+      </div>
+      <div class="card card-light">
+        <h4 class="title-sm">What the hub covers</h4>
+        <p class="cap muted-l45" style="margin-top:6px;">Scheduled pages by theme</p>
+        <ul class="tlist"><li><span><span class="t-name">Probiotics</span><span class="t-hub">43% of the hub</span></span><span class="t-val">12 pages</span></li><li><span><span class="t-name">Bloating &amp; indigestion</span><span class="t-hub">25% of the hub</span></span><span class="t-val">7 pages</span></li><li><span><span class="t-name">Gut microbiome &amp; food intolerance</span><span class="t-hub">18% of the hub</span></span><span class="t-val">5 pages</span></li><li><span><span class="t-name">Constipation &amp; fiber</span><span class="t-hub">14% of the hub</span></span><span class="t-val">4 pages</span></li></ul>
+      </div>
+    </div>
+    <details class="all">
+      <summary>All 28 Digestion &amp; Gut Health pages</summary>
+      <div class="card card-light allcard"><ul class="tlist cols"><li><span><span class="t-name">Diet for constipation</span><span class="t-hub">Constipation &amp; fiber &middot; 77 subtopics</span></span><span class="t-val">4,487,240</span></li><li><span><span class="t-name">Probiotics</span><span class="t-hub">Probiotics &middot; 25 subtopics</span></span><span class="t-val">1,012,420</span></li><li><span><span class="t-name">Bloating</span><span class="t-hub">Bloating &amp; indigestion &middot; 92 subtopics</span></span><span class="t-val">995,800</span></li><li><span><span class="t-name">Foods to improve your gut microbiome</span><span class="t-hub">Gut microbiome &amp; food intolerance &middot; 149 subtopics</span></span><span class="t-val">806,110</span></li><li><span><span class="t-name">Best probiotics</span><span class="t-hub">Probiotics &middot; 32 subtopics</span></span><span class="t-val">319,670</span></li><li><span><span class="t-name">Managing lactose intolerance</span><span class="t-hub">Gut microbiome &amp; food intolerance &middot; 93 subtopics</span></span><span class="t-val">236,720</span></li><li><span><span class="t-name">Best fiber supplements</span><span class="t-hub">Constipation &amp; fiber &middot; 105 subtopics</span></span><span class="t-val">207,010</span></li><li><span><span class="t-name">Diet to reduce bloating</span><span class="t-hub">Bloating &amp; indigestion &middot; 31 subtopics</span></span><span class="t-val">192,700</span></li><li><span><span class="t-name">Antacids for indigestion</span><span class="t-hub">Bloating &amp; indigestion &middot; 12 subtopics</span></span><span class="t-val">165,330</span></li><li><span><span class="t-name">Gas and bloating from probiotics</span><span class="t-hub">Probiotics &middot; 13 subtopics</span></span><span class="t-val">155,010</span></li><li><span><span class="t-name">Probiotics and vaginal health</span><span class="t-hub">Probiotics &middot; 5 subtopics</span></span><span class="t-val">104,400</span></li><li><span><span class="t-name">Herbal teas for bloating</span><span class="t-hub">Bloating &amp; indigestion &middot; 6 subtopics</span></span><span class="t-val">85,100</span></li><li><span><span class="t-name">Constipation in pregnancy</span><span class="t-hub">Constipation &amp; fiber &middot; 26 subtopics</span></span><span class="t-val">84,570</span></li><li><span><span class="t-name">Lactose intolerance signs and symptoms</span><span class="t-hub">Gut microbiome &amp; food intolerance &middot; 34 subtopics</span></span><span class="t-val">81,100</span></li><li><span><span class="t-name">Do probiotics help with bloating?</span><span class="t-hub">Probiotics &middot; 5 subtopics</span></span><span class="t-val">52,470</span></li><li><span><span class="t-name">Digestive enzymes for bloating and gas</span><span class="t-hub">Bloating &amp; indigestion &middot; 11 subtopics</span></span><span class="t-val">48,710</span></li><li><span><span class="t-name">Probiotics and urinary tract health</span><span class="t-hub">Probiotics &middot; 6 subtopics</span></span><span class="t-val">45,600</span></li><li><span><span class="t-name">Saccharomyces boulardii probiotics</span><span class="t-hub">Probiotics &middot; 2 subtopics</span></span><span class="t-val">44,400</span></li><li><span><span class="t-name">Food diary for food intolerance</span><span class="t-hub">Gut microbiome &amp; food intolerance &middot; 4 subtopics</span></span><span class="t-val">42,570</span></li><li><span><span class="t-name">Taking probiotics with antibiotics</span><span class="t-hub">Probiotics &middot; 6 subtopics</span></span><span class="t-val">34,000</span></li><li><span><span class="t-name">Probiotics and leaky gut</span><span class="t-hub">Probiotics &middot; 1 subtopic</span></span><span class="t-val">33,100</span></li><li><span><span class="t-name">Do probiotics help with diarrhea?</span><span class="t-hub">Probiotics &middot; 2 subtopics</span></span><span class="t-val">31,500</span></li><li><span><span class="t-name">Lactobacillus rhamnosus</span><span class="t-hub">Probiotics &middot; 2 subtopics</span></span><span class="t-val">29,600</span></li><li><span><span class="t-name">Herbal teas for indigestion</span><span class="t-hub">Bloating &amp; indigestion &middot; 5 subtopics</span></span><span class="t-val">10,560</span></li><li><span><span class="t-name">Probiotics for sulfur burps</span><span class="t-hub">Probiotics &middot; 2 subtopics</span></span><span class="t-val">6,120</span></li><li><span><span class="t-name">Supplements for IBS</span><span class="t-hub">Gut microbiome &amp; food intolerance &middot; 17 subtopics</span></span><span class="t-val">4,660</span></li><li><span><span class="t-name">Laxatives for encopresis</span><span class="t-hub">Constipation &amp; fiber &middot; 1 subtopic</span></span><span class="t-val">2,400</span></li><li><span><span class="t-name">Digestive bitters vs. digestive enzymes</span><span class="t-hub">Bloating &amp; indigestion &middot; 1 subtopic</span></span><span class="t-val">90</span></li></ul></div>
+    </details>
+  </div>
+</section>
+
+<!-- ============ 07 - SKIN ============ -->
+<section class="slide s-light" id="skin">
+  <span class="marker">07 - Skin</span>
+  <div class="slide-inner">
+    <div class="step-row" style="margin-bottom:22px;">
+      <div class="eyebrow" style="margin-bottom:0;">Hub 02 &middot; Sensitive Skin &amp; Lasting Hydration</div>
+      <span class="week week-l">22 pages</span>
+    </div>
+    <h2>Moisturizers, dry hands and feet and a stronger skin barrier</h2>
+    <p class="lead muted-l" style="margin-top:14px; max-width:760px;">Best moisturizers for dry skin leads the hub at 577,600 searches a month, with the most recommended face moisturizers at 388,480 and best face moisturizers for sensitive skin at 154,990. How to heal dry, cracked feet covers 255 subtopics. The hub covers moisturizers and serums, dry hands and feet, and how emollients, humectants and occlusives protect the skin barrier, with clear links to Beljanskin&reg; creams, serums and hand and foot cream.</p>
+    <p class="cap muted-l45" style="margin-top:10px;">1,836,530 monthly searches across 22 pages and 979 subtopics.</p>
+    <p class="later-hint"><span class="later-n">+214</span> more topics planned for this hub after March</p>
+    <div class="grid g2" style="margin-top:28px;">
+      <div class="card card-light">
+        <h4 class="title-sm">Biggest demand</h4>
+        <p class="cap muted-l45" style="margin-top:6px;">Monthly searches for the hub&#x27;s largest pages</p>
+        <ul class="tlist"><li><span><span class="t-name">Best moisturizers for dry skin</span><span class="t-hub">Moisturizers &middot; 36 subtopics</span></span><span class="t-val">577,600</span></li><li><span><span class="t-name">Most recommended face moisturizers</span><span class="t-hub">Moisturizers &middot; 47 subtopics</span></span><span class="t-val">388,480</span></li><li><span><span class="t-name">Best face moisturizers for sensitive skin</span><span class="t-hub">Moisturizers &middot; 103 subtopics</span></span><span class="t-val">154,990</span></li><li><span><span class="t-name">How to heal dry, cracked feet</span><span class="t-hub">Dry hands &amp; feet &middot; 255 subtopics</span></span><span class="t-val">144,440</span></li><li><span><span class="t-name">Facial cleansers for dry skin</span><span class="t-hub">Serums, cleansers &amp; organic skincare &middot; 13 subtopics</span></span><span class="t-val">72,670</span></li><li><span><span class="t-name">Best foot creams for dry feet</span><span class="t-hub">Dry hands &amp; feet &middot; 48 subtopics</span></span><span class="t-val">70,080</span></li></ul>
+      </div>
+      <div class="card card-light">
+        <h4 class="title-sm">What the hub covers</h4>
+        <p class="cap muted-l45" style="margin-top:6px;">Scheduled pages by theme</p>
+        <ul class="tlist"><li><span><span class="t-name">Skin barrier &amp; ingredients</span><span class="t-hub">32% of the hub</span></span><span class="t-val">7 pages</span></li><li><span><span class="t-name">Dry hands &amp; feet</span><span class="t-hub">27% of the hub</span></span><span class="t-val">6 pages</span></li><li><span><span class="t-name">Moisturizers</span><span class="t-hub">23% of the hub</span></span><span class="t-val">5 pages</span></li><li><span><span class="t-name">Serums, cleansers &amp; organic skincare</span><span class="t-hub">18% of the hub</span></span><span class="t-val">4 pages</span></li></ul>
+      </div>
+    </div>
+    <details class="all">
+      <summary>All 22 Sensitive Skin &amp; Lasting Hydration pages</summary>
+      <div class="card card-light allcard"><ul class="tlist cols"><li><span><span class="t-name">Best moisturizers for dry skin</span><span class="t-hub">Moisturizers &middot; 36 subtopics</span></span><span class="t-val">577,600</span></li><li><span><span class="t-name">Most recommended face moisturizers</span><span class="t-hub">Moisturizers &middot; 47 subtopics</span></span><span class="t-val">388,480</span></li><li><span><span class="t-name">Best face moisturizers for sensitive skin</span><span class="t-hub">Moisturizers &middot; 103 subtopics</span></span><span class="t-val">154,990</span></li><li><span><span class="t-name">How to heal dry, cracked feet</span><span class="t-hub">Dry hands &amp; feet &middot; 255 subtopics</span></span><span class="t-val">144,440</span></li><li><span><span class="t-name">Facial cleansers for dry skin</span><span class="t-hub">Serums, cleansers &amp; organic skincare &middot; 13 subtopics</span></span><span class="t-val">72,670</span></li><li><span><span class="t-name">Best foot creams for dry feet</span><span class="t-hub">Dry hands &amp; feet &middot; 48 subtopics</span></span><span class="t-val">70,080</span></li><li><span><span class="t-name">Anti-wrinkle face serums</span><span class="t-hub">Serums, cleansers &amp; organic skincare &middot; 24 subtopics</span></span><span class="t-val">68,770</span></li><li><span><span class="t-name">Best creams for dry hands</span><span class="t-hub">Dry hands &amp; feet &middot; 40 subtopics</span></span><span class="t-val">66,250</span></li><li><span><span class="t-name">Dry hands</span><span class="t-hub">Dry hands &amp; feet &middot; 107 subtopics</span></span><span class="t-val">54,520</span></li><li><span><span class="t-name">Hydrating face serums</span><span class="t-hub">Serums, cleansers &amp; organic skincare &middot; 15 subtopics</span></span><span class="t-val">49,960</span></li><li><span><span class="t-name">Aloe vera benefits for skin</span><span class="t-hub">Skin barrier &amp; ingredients &middot; 56 subtopics</span></span><span class="t-val">34,110</span></li><li><span><span class="t-name">Non-comedogenic emollients</span><span class="t-hub">Skin barrier &amp; ingredients &middot; 13 subtopics</span></span><span class="t-val">33,190</span></li><li><span><span class="t-name">Best skin barrier repair products</span><span class="t-hub">Skin barrier &amp; ingredients &middot; 30 subtopics</span></span><span class="t-val">28,200</span></li><li><span><span class="t-name">Humectants</span><span class="t-hub">Skin barrier &amp; ingredients &middot; 51 subtopics</span></span><span class="t-val">19,030</span></li><li><span><span class="t-name">Organic skincare</span><span class="t-hub">Serums, cleansers &amp; organic skincare &middot; 21 subtopics</span></span><span class="t-val">18,160</span></li><li><span><span class="t-name">Shea butter benefits for skin</span><span class="t-hub">Skin barrier &amp; ingredients &middot; 63 subtopics</span></span><span class="t-val">17,630</span></li><li><span><span class="t-name">Occlusives</span><span class="t-hub">Skin barrier &amp; ingredients &middot; 15 subtopics</span></span><span class="t-val">15,180</span></li><li><span><span class="t-name">Using a pumice stone on cracked heels</span><span class="t-hub">Dry hands &amp; feet &middot; 24 subtopics</span></span><span class="t-val">10,030</span></li><li><span><span class="t-name">Shea butter body lotions</span><span class="t-hub">Moisturizers &middot; 5 subtopics</span></span><span class="t-val">5,550</span></li><li><span><span class="t-name">Coconut oil as a face moisturizer</span><span class="t-hub">Moisturizers &middot; 1 subtopic</span></span><span class="t-val">4,400</span></li><li><span><span class="t-name">Barrier skin protectant creams</span><span class="t-hub">Dry hands &amp; feet &middot; 1 subtopic</span></span><span class="t-val">1,670</span></li><li><span><span class="t-name">Does aloe vera lighten skin?</span><span class="t-hub">Skin barrier &amp; ingredients &middot; 11 subtopics</span></span><span class="t-val">1,620</span></li></ul></div>
+    </details>
+  </div>
+</section>
+
+<!-- ============ 08 - FRAGRANCE ============ -->
+<section class="slide s-paper" id="fragrance">
+  <span class="marker">08 - Fragrance</span>
+  <div class="slide-inner">
+    <div class="step-row" style="margin-bottom:22px;">
+      <div class="eyebrow" style="margin-bottom:0;">Hub 03 &middot; Hair, Nails &amp; Personal Fragrance</div>
+      <span class="week week-l">12 pages</span>
+    </div>
+    <h2>Floral perfumes, woody colognes and biotin for hair and nails</h2>
+    <p class="lead muted-l" style="margin-top:14px; max-width:760px;">What is biotin? leads the hub at 419,560 searches a month, with floral perfumes at 223,630. Most of the hub is fragrance: floral, fruity, gourmand and amber perfumes and woody colognes, which links naturally to the French Secret&reg; line, alongside biotin-rich foods and vegan beauty supplements.</p>
+    <p class="cap muted-l45" style="margin-top:10px;">836,220 monthly searches across 12 pages and 154 subtopics.</p>
+    <p class="later-hint"><span class="later-n">+220</span> more topics planned for this hub after March</p>
+    <div class="grid g2" style="margin-top:28px;">
+      <div class="card card-light">
+        <h4 class="title-sm">Biggest demand</h4>
+        <p class="cap muted-l45" style="margin-top:6px;">Monthly searches for the hub&#x27;s largest pages</p>
+        <ul class="tlist"><li><span><span class="t-name">What is biotin?</span><span class="t-hub">Biotin &amp; beauty supplements &middot; 30 subtopics</span></span><span class="t-val">419,560</span></li><li><span><span class="t-name">Floral perfumes</span><span class="t-hub">Floral perfumes &middot; 54 subtopics</span></span><span class="t-val">223,630</span></li><li><span><span class="t-name">Foods high in biotin</span><span class="t-hub">Biotin &amp; beauty supplements &middot; 15 subtopics</span></span><span class="t-val">58,720</span></li><li><span><span class="t-name">Floral fruity perfumes</span><span class="t-hub">Floral perfumes &middot; 4 subtopics</span></span><span class="t-val">45,730</span></li><li><span><span class="t-name">Floral gourmand perfumes</span><span class="t-hub">Floral perfumes &middot; 5 subtopics</span></span><span class="t-val">21,060</span></li><li><span><span class="t-name">Amber floral perfumes</span><span class="t-hub">Floral perfumes &middot; 5 subtopics</span></span><span class="t-val">15,780</span></li></ul>
+      </div>
+      <div class="card card-light">
+        <h4 class="title-sm">What the hub covers</h4>
+        <p class="cap muted-l45" style="margin-top:6px;">Scheduled pages by theme</p>
+        <ul class="tlist"><li><span><span class="t-name">Floral perfumes</span><span class="t-hub">50% of the hub</span></span><span class="t-val">6 pages</span></li><li><span><span class="t-name">Biotin &amp; beauty supplements</span><span class="t-hub">25% of the hub</span></span><span class="t-val">3 pages</span></li><li><span><span class="t-name">Woody colognes</span><span class="t-hub">25% of the hub</span></span><span class="t-val">3 pages</span></li></ul>
+      </div>
+    </div>
+    <details class="all">
+      <summary>All 12 Hair, Nails &amp; Personal Fragrance pages</summary>
+      <div class="card card-light allcard"><ul class="tlist cols"><li><span><span class="t-name">What is biotin?</span><span class="t-hub">Biotin &amp; beauty supplements &middot; 30 subtopics</span></span><span class="t-val">419,560</span></li><li><span><span class="t-name">Floral perfumes</span><span class="t-hub">Floral perfumes &middot; 54 subtopics</span></span><span class="t-val">223,630</span></li><li><span><span class="t-name">Foods high in biotin</span><span class="t-hub">Biotin &amp; beauty supplements &middot; 15 subtopics</span></span><span class="t-val">58,720</span></li><li><span><span class="t-name">Floral fruity perfumes</span><span class="t-hub">Floral perfumes &middot; 4 subtopics</span></span><span class="t-val">45,730</span></li><li><span><span class="t-name">Floral gourmand perfumes</span><span class="t-hub">Floral perfumes &middot; 5 subtopics</span></span><span class="t-val">21,060</span></li><li><span><span class="t-name">Amber floral perfumes</span><span class="t-hub">Floral perfumes &middot; 5 subtopics</span></span><span class="t-val">15,780</span></li><li><span><span class="t-name">Fresh floral perfumes</span><span class="t-hub">Floral perfumes &middot; 9 subtopics</span></span><span class="t-val">12,980</span></li><li><span><span class="t-name">Woody aromatic colognes</span><span class="t-hub">Woody colognes &middot; 3 subtopics</span></span><span class="t-val">12,110</span></li><li><span><span class="t-name">Warm woody colognes</span><span class="t-hub">Woody colognes &middot; 4 subtopics</span></span><span class="t-val">8,560</span></li><li><span><span class="t-name">Best woody colognes</span><span class="t-hub">Woody colognes &middot; 19 subtopics</span></span><span class="t-val">8,330</span></li><li><span><span class="t-name">Vegan beauty supplements</span><span class="t-hub">Biotin &amp; beauty supplements &middot; 4 subtopics</span></span><span class="t-val">5,350</span></li><li><span><span class="t-name">Floral aldehyde perfumes</span><span class="t-hub">Floral perfumes &middot; 2 subtopics</span></span><span class="t-val">4,410</span></li></ul></div>
+    </details>
+  </div>
+</section>
+
+<!-- ============ 09 - WOMEN ============ -->
+<section class="slide s-light" id="women">
+  <span class="marker">09 - Women</span>
+  <div class="slide-inner">
+    <div class="step-row" style="margin-bottom:22px;">
+      <div class="eyebrow" style="margin-bottom:0;">Hub 04 &middot; Women&#x27;s Wellness Through Life Changes</div>
+      <span class="week week-l">11 pages</span>
+    </div>
+    <h2>Perimenopause, hormonal balance and support through menopause</h2>
+    <p class="lead muted-l" style="margin-top:14px; max-width:760px;">Hormone therapy in perimenopause leads the hub at 242,720 searches a month, with best women&#x27;s multivitamins at 168,090 and irregular cycles in perimenopause at 66,200. The hub covers the changes of perimenopause, hormonal balance and mood, and supplements and diet through menopause.</p>
+    <p class="cap muted-l45" style="margin-top:10px;">546,010 monthly searches across 11 pages and 136 subtopics.</p>
+    <p class="later-hint"><span class="later-n">+328</span> more topics planned for this hub after March</p>
+    <div class="grid g2" style="margin-top:28px;">
+      <div class="card card-light">
+        <h4 class="title-sm">Biggest demand</h4>
+        <p class="cap muted-l45" style="margin-top:6px;">Monthly searches for the hub&#x27;s largest pages</p>
+        <ul class="tlist"><li><span><span class="t-name">Hormone therapy in perimenopause</span><span class="t-hub">Perimenopause &middot; 5 subtopics</span></span><span class="t-val">242,720</span></li><li><span><span class="t-name">Best women&#x27;s multivitamins</span><span class="t-hub">Supplements &amp; diet &middot; 42 subtopics</span></span><span class="t-val">168,090</span></li><li><span><span class="t-name">Irregular cycles in perimenopause</span><span class="t-hub">Perimenopause &middot; 15 subtopics</span></span><span class="t-val">66,200</span></li><li><span><span class="t-name">Contraception in perimenopause</span><span class="t-hub">Perimenopause &middot; 6 subtopics</span></span><span class="t-val">25,700</span></li><li><span><span class="t-name">Hormonal balance supplements</span><span class="t-hub">Hormonal balance &amp; mood &middot; 23 subtopics</span></span><span class="t-val">19,740</span></li><li><span><span class="t-name">Spearmint tea for hormonal balance</span><span class="t-hub">Hormonal balance &amp; mood &middot; 1 subtopic</span></span><span class="t-val">7,100</span></li></ul>
+      </div>
+      <div class="card card-light">
+        <h4 class="title-sm">What the hub covers</h4>
+        <p class="cap muted-l45" style="margin-top:6px;">Scheduled pages by theme</p>
+        <ul class="tlist"><li><span><span class="t-name">Perimenopause</span><span class="t-hub">36% of the hub</span></span><span class="t-val">4 pages</span></li><li><span><span class="t-name">Hormonal balance &amp; mood</span><span class="t-hub">36% of the hub</span></span><span class="t-val">4 pages</span></li><li><span><span class="t-name">Supplements &amp; diet</span><span class="t-hub">27% of the hub</span></span><span class="t-val">3 pages</span></li></ul>
+      </div>
+    </div>
+    <details class="all">
+      <summary>All 11 Women&#x27;s Wellness Through Life Changes pages</summary>
+      <div class="card card-light allcard"><ul class="tlist cols"><li><span><span class="t-name">Hormone therapy in perimenopause</span><span class="t-hub">Perimenopause &middot; 5 subtopics</span></span><span class="t-val">242,720</span></li><li><span><span class="t-name">Best women&#x27;s multivitamins</span><span class="t-hub">Supplements &amp; diet &middot; 42 subtopics</span></span><span class="t-val">168,090</span></li><li><span><span class="t-name">Irregular cycles in perimenopause</span><span class="t-hub">Perimenopause &middot; 15 subtopics</span></span><span class="t-val">66,200</span></li><li><span><span class="t-name">Contraception in perimenopause</span><span class="t-hub">Perimenopause &middot; 6 subtopics</span></span><span class="t-val">25,700</span></li><li><span><span class="t-name">Hormonal balance supplements</span><span class="t-hub">Hormonal balance &amp; mood &middot; 23 subtopics</span></span><span class="t-val">19,740</span></li><li><span><span class="t-name">Spearmint tea for hormonal balance</span><span class="t-hub">Hormonal balance &amp; mood &middot; 1 subtopic</span></span><span class="t-val">7,100</span></li><li><span><span class="t-name">Menopause supplements for weight loss</span><span class="t-hub">Supplements &amp; diet &middot; 18 subtopics</span></span><span class="t-val">4,860</span></li><li><span><span class="t-name">Progesterone in perimenopause</span><span class="t-hub">Perimenopause &middot; 3 subtopics</span></span><span class="t-val">4,280</span></li><li><span><span class="t-name">Hormonal mood changes</span><span class="t-hub">Hormonal balance &amp; mood &middot; 13 subtopics</span></span><span class="t-val">3,660</span></li><li><span><span class="t-name">5-day menopause diet plan</span><span class="t-hub">Supplements &amp; diet &middot; 4 subtopics</span></span><span class="t-val">2,960</span></li><li><span><span class="t-name">Omega-3s for hormonal balance</span><span class="t-hub">Hormonal balance &amp; mood &middot; 6 subtopics</span></span><span class="t-val">700</span></li></ul></div>
+    </details>
+  </div>
+</section>
+
+<!-- ============ 10 - IMMUNE ============ -->
+<section class="slide s-paper" id="immune">
+  <span class="marker">10 - Immune</span>
+  <div class="slide-inner">
+    <div class="step-row" style="margin-bottom:22px;">
+      <div class="eyebrow" style="margin-bottom:0;">Hub 05 &middot; Immune &amp; Blood Cell Health</div>
+      <span class="week week-l">9 pages</span>
+    </div>
+    <h2>Blood cells, the immune system and immune support</h2>
+    <p class="lead muted-l" style="margin-top:14px; max-width:760px;">Thrombocytopenia is the hub&#x27;s biggest page at 502,010 searches a month and the deepest page in the plan, with 258 subtopics. Immune support supplements follow at 68,480. The hub explains blood cell conditions like low platelets and neutropenia, how the immune system&#x27;s cells work, and immune support supplements, including mushrooms and powders.</p>
+    <p class="cap muted-l45" style="margin-top:10px;">599,680 monthly searches across 9 pages and 317 subtopics.</p>
+    <p class="later-hint"><span class="later-n">+430</span> more topics planned for this hub after March</p>
+    <div class="grid g2" style="margin-top:28px;">
+      <div class="card card-light">
+        <h4 class="title-sm">Biggest demand</h4>
+        <p class="cap muted-l45" style="margin-top:6px;">Monthly searches for the hub&#x27;s largest pages</p>
+        <ul class="tlist"><li><span><span class="t-name">Thrombocytopenia (low platelets)</span><span class="t-hub">Blood cell conditions &middot; 258 subtopics</span></span><span class="t-val">502,010</span></li><li><span><span class="t-name">Immune support supplements</span><span class="t-hub">Immune support supplements &middot; 27 subtopics</span></span><span class="t-val">68,480</span></li><li><span><span class="t-name">Antibiotics for febrile neutropenia</span><span class="t-hub">Blood cell conditions &middot; 8 subtopics</span></span><span class="t-val">14,650</span></li><li><span><span class="t-name">Cytotoxic T cells</span><span class="t-hub">How immunity works &middot; 3 subtopics</span></span><span class="t-val">10,400</span></li><li><span><span class="t-name">Filgrastim for neutropenia</span><span class="t-hub">Blood cell conditions &middot; 5 subtopics</span></span><span class="t-val">1,640</span></li><li><span><span class="t-name">Lymphocytes vs. phagocytes</span><span class="t-hub">How immunity works &middot; 5 subtopics</span></span><span class="t-val">1,010</span></li></ul>
+      </div>
+      <div class="card card-light">
+        <h4 class="title-sm">What the hub covers</h4>
+        <p class="cap muted-l45" style="margin-top:6px;">Scheduled pages by theme</p>
+        <ul class="tlist"><li><span><span class="t-name">Blood cell conditions</span><span class="t-hub">33% of the hub</span></span><span class="t-val">3 pages</span></li><li><span><span class="t-name">Immune support supplements</span><span class="t-hub">33% of the hub</span></span><span class="t-val">3 pages</span></li><li><span><span class="t-name">How immunity works</span><span class="t-hub">33% of the hub</span></span><span class="t-val">3 pages</span></li></ul>
+      </div>
+    </div>
+    <details class="all">
+      <summary>All 9 Immune &amp; Blood Cell Health pages</summary>
+      <div class="card card-light allcard"><ul class="tlist cols"><li><span><span class="t-name">Thrombocytopenia (low platelets)</span><span class="t-hub">Blood cell conditions &middot; 258 subtopics</span></span><span class="t-val">502,010</span></li><li><span><span class="t-name">Immune support supplements</span><span class="t-hub">Immune support supplements &middot; 27 subtopics</span></span><span class="t-val">68,480</span></li><li><span><span class="t-name">Antibiotics for febrile neutropenia</span><span class="t-hub">Blood cell conditions &middot; 8 subtopics</span></span><span class="t-val">14,650</span></li><li><span><span class="t-name">Cytotoxic T cells</span><span class="t-hub">How immunity works &middot; 3 subtopics</span></span><span class="t-val">10,400</span></li><li><span><span class="t-name">Filgrastim for neutropenia</span><span class="t-hub">Blood cell conditions &middot; 5 subtopics</span></span><span class="t-val">1,640</span></li><li><span><span class="t-name">Lymphocytes vs. phagocytes</span><span class="t-hub">How immunity works &middot; 5 subtopics</span></span><span class="t-val">1,010</span></li><li><span><span class="t-name">Hematopoiesis vs. erythropoiesis</span><span class="t-hub">How immunity works &middot; 7 subtopics</span></span><span class="t-val">570</span></li><li><span><span class="t-name">Mushrooms for immune support</span><span class="t-hub">Immune support supplements &middot; 1 subtopic</span></span><span class="t-val">480</span></li><li><span><span class="t-name">Immune support powders</span><span class="t-hub">Immune support supplements &middot; 3 subtopics</span></span><span class="t-val">440</span></li></ul></div>
+    </details>
+  </div>
+</section>
+
+<!-- ============ 11 - NUTRITION ============ -->
+<section class="slide s-light" id="nutrition">
+  <span class="marker">11 - Nutrition</span>
+  <div class="slide-inner">
+    <div class="step-row" style="margin-bottom:22px;">
+      <div class="eyebrow" style="margin-bottom:0;">Hub 06 &middot; Everyday Nutrition &amp; Antioxidants</div>
+      <span class="week week-l">8 pages</span>
+    </div>
+    <h2>Antioxidant foods, nutrient-dense eating and greens powders</h2>
+    <p class="lead muted-l" style="margin-top:14px; max-width:760px;">Foods highest in antioxidants lead the hub at 233,410 searches a month, with antioxidant supplements close behind at 224,740 and nutrient-dense foods at 73,370. The hub covers antioxidant foods and oxidative stress, nutrient-dense foods for energy and weight loss, and antioxidant supplements and greens powders.</p>
+    <p class="cap muted-l45" style="margin-top:10px;">595,050 monthly searches across 8 pages and 326 subtopics.</p>
+    <p class="later-hint"><span class="later-n">+404</span> more topics planned for this hub after March</p>
+    <div class="grid g2" style="margin-top:28px;">
+      <div class="card card-light">
+        <h4 class="title-sm">Biggest demand</h4>
+        <p class="cap muted-l45" style="margin-top:6px;">Monthly searches for the hub&#x27;s largest pages</p>
+        <ul class="tlist"><li><span><span class="t-name">Foods highest in antioxidants</span><span class="t-hub">Antioxidant foods &amp; testing &middot; 92 subtopics</span></span><span class="t-val">233,410</span></li><li><span><span class="t-name">Antioxidant supplements</span><span class="t-hub">Antioxidant supplements &amp; greens &middot; 30 subtopics</span></span><span class="t-val">224,740</span></li><li><span><span class="t-name">Nutrient-dense foods list</span><span class="t-hub">Nutrient-dense foods &middot; 87 subtopics</span></span><span class="t-val">73,370</span></li><li><span><span class="t-name">Greens powder supplements</span><span class="t-hub">Antioxidant supplements &amp; greens &middot; 72 subtopics</span></span><span class="t-val">30,630</span></li><li><span><span class="t-name">Nutrient-dense foods for weight loss</span><span class="t-hub">Nutrient-dense foods &middot; 13 subtopics</span></span><span class="t-val">27,260</span></li><li><span><span class="t-name">Gluten-free fruits and vegetables</span><span class="t-hub">Nutrient-dense foods &middot; 1 subtopic</span></span><span class="t-val">2,400</span></li></ul>
+      </div>
+      <div class="card card-light">
+        <h4 class="title-sm">What the hub covers</h4>
+        <p class="cap muted-l45" style="margin-top:6px;">Scheduled pages by theme</p>
+        <ul class="tlist"><li><span><span class="t-name">Nutrient-dense foods</span><span class="t-hub">50% of the hub</span></span><span class="t-val">4 pages</span></li><li><span><span class="t-name">Antioxidant foods &amp; testing</span><span class="t-hub">25% of the hub</span></span><span class="t-val">2 pages</span></li><li><span><span class="t-name">Antioxidant supplements &amp; greens</span><span class="t-hub">25% of the hub</span></span><span class="t-val">2 pages</span></li></ul>
+      </div>
+    </div>
+    <details class="all">
+      <summary>All 8 Everyday Nutrition &amp; Antioxidants pages</summary>
+      <div class="card card-light allcard"><ul class="tlist cols"><li><span><span class="t-name">Foods highest in antioxidants</span><span class="t-hub">Antioxidant foods &amp; testing &middot; 92 subtopics</span></span><span class="t-val">233,410</span></li><li><span><span class="t-name">Antioxidant supplements</span><span class="t-hub">Antioxidant supplements &amp; greens &middot; 30 subtopics</span></span><span class="t-val">224,740</span></li><li><span><span class="t-name">Nutrient-dense foods list</span><span class="t-hub">Nutrient-dense foods &middot; 87 subtopics</span></span><span class="t-val">73,370</span></li><li><span><span class="t-name">Greens powder supplements</span><span class="t-hub">Antioxidant supplements &amp; greens &middot; 72 subtopics</span></span><span class="t-val">30,630</span></li><li><span><span class="t-name">Nutrient-dense foods for weight loss</span><span class="t-hub">Nutrient-dense foods &middot; 13 subtopics</span></span><span class="t-val">27,260</span></li><li><span><span class="t-name">Gluten-free fruits and vegetables</span><span class="t-hub">Nutrient-dense foods &middot; 1 subtopic</span></span><span class="t-val">2,400</span></li><li><span><span class="t-name">Oxidative stress tests</span><span class="t-hub">Antioxidant foods &amp; testing &middot; 29 subtopics</span></span><span class="t-val">1,640</span></li><li><span><span class="t-name">Nutrient-dense foods for energy</span><span class="t-hub">Nutrient-dense foods &middot; 2 subtopics</span></span><span class="t-val">1,600</span></li></ul></div>
+    </details>
+  </div>
+</section>
+
+<!-- ============ 12 - WEIGHT ============ -->
+<section class="slide s-paper" id="weight">
+  <span class="marker">12 - Weight</span>
+  <div class="slide-inner">
+    <div class="step-row" style="margin-bottom:22px;">
+      <div class="eyebrow" style="margin-bottom:0;">Hub 07 &middot; Weight Management &amp; Sustainable Habits</div>
+      <span class="week week-l">8 pages</span>
+    </div>
+    <h2>Calorie deficits, mindful eating and weight loss supplements</h2>
+    <p class="lead muted-l" style="margin-top:14px; max-width:760px;">What is a calorie deficit? leads the hub at 503,400 searches a month, with 191 subtopics. The hub covers calorie deficits and mindful eating, gentle movement like tai chi walking, and what protein, berberine, collagen, L-carnitine and green tea extract supplements can and can&#x27;t do. The green tea extract page links naturally to OnkoTea&reg;, the brand&#x27;s organic green tea blend.</p>
+    <p class="cap muted-l45" style="margin-top:10px;">664,870 monthly searches across 8 pages and 377 subtopics.</p>
+    <p class="later-hint"><span class="later-n">+418</span> more topics planned for this hub after March</p>
+    <div class="grid g2" style="margin-top:28px;">
+      <div class="card card-light">
+        <h4 class="title-sm">Biggest demand</h4>
+        <p class="cap muted-l45" style="margin-top:6px;">Monthly searches for the hub&#x27;s largest pages</p>
+        <ul class="tlist"><li><span><span class="t-name">What is a calorie deficit?</span><span class="t-hub">Calorie deficit &amp; habits &middot; 191 subtopics</span></span><span class="t-val">503,400</span></li><li><span><span class="t-name">Best protein supplements for weight loss</span><span class="t-hub">Weight loss supplements &middot; 10 subtopics</span></span><span class="t-val">68,410</span></li><li><span><span class="t-name">Mindful eating techniques</span><span class="t-hub">Calorie deficit &amp; habits &middot; 124 subtopics</span></span><span class="t-val">36,020</span></li><li><span><span class="t-name">Green tea extract health benefits</span><span class="t-hub">Weight loss supplements &middot; 32 subtopics</span></span><span class="t-val">24,600</span></li><li><span><span class="t-name">Tai chi walking for weight loss</span><span class="t-hub">Calorie deficit &amp; habits &middot; 14 subtopics</span></span><span class="t-val">18,880</span></li><li><span><span class="t-name">L-carnitine for weight loss</span><span class="t-hub">Weight loss supplements &middot; 1 subtopic</span></span><span class="t-val">6,600</span></li></ul>
+      </div>
+      <div class="card card-light">
+        <h4 class="title-sm">What the hub covers</h4>
+        <p class="cap muted-l45" style="margin-top:6px;">Scheduled pages by theme</p>
+        <ul class="tlist"><li><span><span class="t-name">Weight loss supplements</span><span class="t-hub">62% of the hub</span></span><span class="t-val">5 pages</span></li><li><span><span class="t-name">Calorie deficit &amp; habits</span><span class="t-hub">38% of the hub</span></span><span class="t-val">3 pages</span></li></ul>
+      </div>
+    </div>
+    <details class="all">
+      <summary>All 8 Weight Management &amp; Sustainable Habits pages</summary>
+      <div class="card card-light allcard"><ul class="tlist cols"><li><span><span class="t-name">What is a calorie deficit?</span><span class="t-hub">Calorie deficit &amp; habits &middot; 191 subtopics</span></span><span class="t-val">503,400</span></li><li><span><span class="t-name">Best protein supplements for weight loss</span><span class="t-hub">Weight loss supplements &middot; 10 subtopics</span></span><span class="t-val">68,410</span></li><li><span><span class="t-name">Mindful eating techniques</span><span class="t-hub">Calorie deficit &amp; habits &middot; 124 subtopics</span></span><span class="t-val">36,020</span></li><li><span><span class="t-name">Green tea extract health benefits</span><span class="t-hub">Weight loss supplements &middot; 32 subtopics</span></span><span class="t-val">24,600</span></li><li><span><span class="t-name">Tai chi walking for weight loss</span><span class="t-hub">Calorie deficit &amp; habits &middot; 14 subtopics</span></span><span class="t-val">18,880</span></li><li><span><span class="t-name">L-carnitine for weight loss</span><span class="t-hub">Weight loss supplements &middot; 1 subtopic</span></span><span class="t-val">6,600</span></li><li><span><span class="t-name">Berberine for weight loss</span><span class="t-hub">Weight loss supplements &middot; 3 subtopics</span></span><span class="t-val">4,580</span></li><li><span><span class="t-name">Collagen for weight loss</span><span class="t-hub">Weight loss supplements &middot; 2 subtopics</span></span><span class="t-val">2,380</span></li></ul></div>
+    </details>
+  </div>
+</section>
+
+<!-- ============ 13 - LIVER ============ -->
+<section class="slide s-light" id="liver">
+  <span class="marker">13 - Liver</span>
+  <div class="slide-inner">
+    <div class="step-row" style="margin-bottom:22px;">
+      <div class="eyebrow" style="margin-bottom:0;">Hub 08 &middot; Liver Health &amp; Everyday Exposures</div>
+      <span class="week week-l">6 pages</span>
+    </div>
+    <h2>Glutathione, fatty liver and everyday liver health</h2>
+    <p class="lead muted-l" style="margin-top:14px; max-width:760px;">Liposomal glutathione benefits lead the hub at 148,780 searches a month, with fatty liver disease symptoms at 80,080. The hub covers glutathione and how much to take, fatty liver, coffee and liver health, and liver health formulas, a natural home for LOVALIVER.</p>
+    <p class="cap muted-l45" style="margin-top:10px;">245,200 monthly searches across 6 pages and 49 subtopics.</p>
+    <p class="later-hint"><span class="later-n">+274</span> more topics planned for this hub after March</p>
+    <div class="grid g2" style="margin-top:28px;">
+      <div class="card card-light">
+        <h4 class="title-sm">Biggest demand</h4>
+        <p class="cap muted-l45" style="margin-top:6px;">Monthly searches for the hub&#x27;s largest pages</p>
+        <ul class="tlist"><li><span><span class="t-name">Liposomal glutathione benefits</span><span class="t-hub">Glutathione &middot; 8 subtopics</span></span><span class="t-val">148,780</span></li><li><span><span class="t-name">Fatty liver disease symptoms</span><span class="t-hub">Fatty liver &amp; liver health &middot; 23 subtopics</span></span><span class="t-val">80,080</span></li><li><span><span class="t-name">Coffee and liver health</span><span class="t-hub">Fatty liver &amp; liver health &middot; 5 subtopics</span></span><span class="t-val">10,330</span></li><li><span><span class="t-name">Liver health formulas</span><span class="t-hub">Fatty liver &amp; liver health &middot; 5 subtopics</span></span><span class="t-val">4,590</span></li><li><span><span class="t-name">NAC in acute liver failure</span><span class="t-hub">Fatty liver &amp; liver health &middot; 7 subtopics</span></span><span class="t-val">940</span></li><li><span><span class="t-name">Glutathione 1,500 mg dosage</span><span class="t-hub">Glutathione &middot; 1 subtopic</span></span><span class="t-val">480</span></li></ul>
+      </div>
+      <div class="card card-light">
+        <h4 class="title-sm">What the hub covers</h4>
+        <p class="cap muted-l45" style="margin-top:6px;">Scheduled pages by theme</p>
+        <ul class="tlist"><li><span><span class="t-name">Fatty liver &amp; liver health</span><span class="t-hub">67% of the hub</span></span><span class="t-val">4 pages</span></li><li><span><span class="t-name">Glutathione</span><span class="t-hub">33% of the hub</span></span><span class="t-val">2 pages</span></li></ul>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ============ 14 - PROSTATE ============ -->
+<section class="slide s-paper" id="prostate">
+  <span class="marker">14 - Prostate</span>
+  <div class="slide-inner">
+    <div class="step-row" style="margin-bottom:22px;">
+      <div class="eyebrow" style="margin-bottom:0;">Hub 09 &middot; Prostate &amp; Urinary Health</div>
+      <span class="week week-l">4 pages</span>
+    </div>
+    <h2>Enlarged prostate, prostatitis and prostate health</h2>
+    <p class="lead muted-l" style="margin-top:14px; max-width:760px;">The smallest hub: four pages carrying 240,080 searches a month. Enlarged prostate treatment leads at 139,490, with supplements for prostate health at 56,120. The hub covers BPH and its common treatments, prostatitis, and supplements for prostate health, with the supplements page linking to Prostabel&reg;.</p>
+    <p class="cap muted-l45" style="margin-top:10px;">240,080 monthly searches across 4 pages and 179 subtopics.</p>
+    <p class="later-hint"><span class="later-n">+312</span> more topics planned for this hub after March</p>
+    <div class="grid g2" style="margin-top:28px;">
+      <div class="card card-light">
+        <h4 class="title-sm">Biggest demand</h4>
+        <p class="cap muted-l45" style="margin-top:6px;">Monthly searches for the hub&#x27;s largest pages</p>
+        <ul class="tlist"><li><span><span class="t-name">Enlarged prostate treatment</span><span class="t-hub">Enlarged prostate (BPH) &middot; 77 subtopics</span></span><span class="t-val">139,490</span></li><li><span><span class="t-name">Supplements for prostate health</span><span class="t-hub">Prostate health &amp; prostatitis &middot; 94 subtopics</span></span><span class="t-val">56,120</span></li><li><span><span class="t-name">Alpha blockers for BPH</span><span class="t-hub">Enlarged prostate (BPH) &middot; 3 subtopics</span></span><span class="t-val">40,610</span></li><li><span><span class="t-name">Ciprofloxacin for prostatitis</span><span class="t-hub">Prostate health &amp; prostatitis &middot; 5 subtopics</span></span><span class="t-val">3,860</span></li></ul>
+      </div>
+      <div class="card card-light">
+        <h4 class="title-sm">What the hub covers</h4>
+        <p class="cap muted-l45" style="margin-top:6px;">Scheduled pages by theme</p>
+        <ul class="tlist"><li><span><span class="t-name">Enlarged prostate (BPH)</span><span class="t-hub">50% of the hub</span></span><span class="t-val">2 pages</span></li><li><span><span class="t-name">Prostate health &amp; prostatitis</span><span class="t-hub">50% of the hub</span></span><span class="t-val">2 pages</span></li></ul>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ============ 15 - CLOSE ============ -->
+<section class="slide s-dark hero-dark">
+  <span class="marker">15 - Next</span>
+  <div class="slide-inner" style="text-align:center;">
+    <div class="eyebrow" style="justify-content:center;"><span class="dot"></span> Where this goes from here</div>
+    <h1 class="display" style="max-width:880px; margin:0 auto;">The topics are chosen.<br>Now they become <span class="flip">pages.</span></h1>
+    <p class="lead muted-d80" style="max-width:660px; margin:24px auto 0;">
+      Six months, 108 pages across nine hubs, running alongside the SEO audit, product and collection optimizations,
+      AI visibility, ecommerce and Reddit tracking. Everything is in your dashboard as it goes live.
+    </p>
+    <p class="footer-note muted-d" style="margin-top:56px;">FlyRank &middot; Maison Beljanski content roadmap, Oct 2026 - Mar 2027</p>
+  </div>
+</section>
+
+<script>
+  const rail = document.getElementById('rail');
+  let ticking = false;
+  function updateRail() {
+    const max = document.documentElement.scrollHeight - window.innerHeight;
+    const pct = max > 0 ? (window.scrollY / max) * 100 : 0;
+    rail.style.width = Math.min(100, Math.max(0, pct)) + '%';
+    ticking = false;
+  }
+  window.addEventListener('scroll', () => {
+    if (!ticking) { window.requestAnimationFrame(updateRail); ticking = true; }
+  }, {passive:true});
+  window.addEventListener('resize', updateRail, {passive:true});
+  updateRail();
+</script>
+
+</body></html>
+</body></html>
