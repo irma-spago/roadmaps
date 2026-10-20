@@ -1,0 +1,827 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Milky Mama Content Roadmap</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;700&display=swap">
+<style>
+
+  :root {
+    --mint-300:#7EEFC1; --mint-400:#54E399; --mint-500:#31C97A; --mint-700:#1A7A4A;
+    --ink-800:#0A2224; --ink-850:#071E20; --ink-900:#051F21; --ink-950:#030F10;
+    --paper:#F8FAF9; --paper-sunken:#F0F4F2;
+    --teal-300:#5EC6A9; --teal-400:#3AADA6; --teal-500:#2A8C8A;
+    color-scheme:light;
+  }
+
+  * { margin:0; padding:0; box-sizing:border-box; }
+
+  html { scroll-behavior:smooth; }
+
+  body {
+    font-family:'Geist',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+    color:var(--ink-900);
+    background:var(--ink-950);
+    -webkit-font-smoothing:antialiased;
+    line-height:1.6;
+  }
+  @media (prefers-reduced-motion:reduce) { html { scroll-behavior:auto; } }
+
+  .mono { font-family:'Geist Mono',ui-monospace,Consolas,monospace; }
+
+  /* ---------- Section frame ---------- */
+  .slide {
+    position:relative;
+    min-height:100vh;
+    display:flex; flex-direction:column; justify-content:center;
+    padding:96px 48px;
+  }
+  .slide-inner { width:100%; max-width:1080px; margin:0 auto; position:relative; z-index:2; }
+  .slide-inner.wide { max-width:1240px; }
+
+  .s-dark { background:var(--ink-900); color:#fff; }
+  .s-paper { background:var(--paper); }
+  .s-light { background:#fff; }
+  .s-sunken { background:var(--paper-sunken); }
+
+  .marker {
+    position:absolute; top:40px; right:48px; z-index:3;
+    font-family:'Geist Mono',ui-monospace,Consolas,monospace;
+    font-size:11px; font-weight:700; letter-spacing:0.14em; text-transform:uppercase;
+  }
+  .s-dark .marker { color:rgba(255,255,255,0.55); }
+  .s-paper .marker, .s-light .marker, .s-sunken .marker { color:rgba(5,31,33,0.40); }
+
+  .eyebrow {
+    font-family:'Geist Mono',ui-monospace,Consolas,monospace;
+    font-size:11px; font-weight:700; letter-spacing:0.14em; text-transform:uppercase;
+    display:inline-flex; align-items:center; gap:8px;
+    margin-bottom:24px;
+  }
+  .s-dark .eyebrow { color:var(--mint-400); }
+  .s-paper .eyebrow, .s-light .eyebrow, .s-sunken .eyebrow { color:var(--teal-500); }
+
+  .dot { width:6px; height:6px; border-radius:9999px; background:var(--mint-400); display:inline-block;
+         animation:pulse 2.4s ease-in-out infinite; }
+  @keyframes pulse { 0%,100%{opacity:1;transform:scale(1);} 50%{opacity:0.4;transform:scale(0.7);} }
+
+  h1.display { font-size:56px; font-weight:700; letter-spacing:-0.032em; line-height:1.06; }
+  h2 { font-size:32px; font-weight:700; letter-spacing:-0.028em; line-height:1.12; }
+  h3 { font-size:24px; font-weight:700; letter-spacing:-0.022em; line-height:1.2; }
+  h4 { font-size:20px; font-weight:600; letter-spacing:-0.015em; }
+  .lead { font-size:18px; font-weight:400; line-height:1.6; }
+  h4.title-sm { font-size:17px; letter-spacing:-0.01em; line-height:1.3; }
+  h4.title-xs { font-size:16px; letter-spacing:-0.008em; line-height:1.3; }
+  .body { font-size:16px; line-height:1.6; }
+  .bodys { font-size:14px; line-height:1.55; }
+  .cap { font-size:12px; line-height:1.5; }
+
+  .muted-d { color:rgba(255,255,255,0.55); }
+  .muted-d80 { color:rgba(255,255,255,0.80); }
+  .muted-l { color:rgba(5,31,33,0.55); }
+  .muted-l45 { color:rgba(5,31,33,0.45); }
+  .mint { color:var(--mint-400); }
+  .mint-dark { color:var(--mint-700); }
+
+  /* ---------- Cards ---------- */
+  .card { border-radius:20px; padding:28px; }
+  .card.compact { padding:20px 22px; border-radius:16px; }
+  .card-light { background:#fff; border:1px solid #DDE4E7; }
+  .card-paper { background:var(--paper); border:1px solid #E4EAED; }
+  .card-dark { background:var(--ink-900); color:#fff; }
+  .card-dark-el { background:var(--ink-850); border:1px solid rgba(255,255,255,0.10); border-radius:20px; padding:28px; color:#fff; }
+  .card-dark-el.compact { padding:20px 22px; border-radius:16px; }
+
+  .grid { display:grid; gap:16px; align-items:stretch; }
+  .grid > * { height:100%; }
+  .g2 { grid-template-columns:repeat(2,1fr); }
+  .g3 { grid-template-columns:repeat(3,1fr); }
+  .g4 { grid-template-columns:repeat(4,1fr); }
+  .g5 { grid-template-columns:repeat(5,1fr); }
+
+  .stat-num { font-size:34px; font-weight:700; letter-spacing:-0.03em; line-height:1.05; }
+  .stat-lbl { font-size:13px; margin-top:10px; }
+
+  .pill {
+    display:inline-flex; align-items:center; gap:7px;
+    border-radius:9999px; padding:5px 13px; font-size:12px;
+  }
+  .pill-tag-d { background:rgba(255,255,255,0.07); border:1px solid rgba(255,255,255,0.10); color:rgba(255,255,255,0.80); }
+  .pill-tag-l { background:rgba(5,31,33,0.06); border:1px solid rgba(5,31,33,0.08); color:rgba(5,31,33,0.55); }
+  .pill-lead { background:rgba(49,201,122,0.12); border:1px solid rgba(49,201,122,0.25); color:var(--mint-700); }
+  .pill-row { display:flex; flex-wrap:wrap; gap:8px; }
+
+  .badge {
+    display:inline-flex; align-items:center; border-radius:8px;
+    font-size:10px; font-weight:700; letter-spacing:0.06em; text-transform:uppercase; padding:3px 8px;
+  }
+  .b-done   { background:rgba(49,201,122,0.12); color:var(--mint-700); }
+  .b-done-d { background:rgba(84,227,153,0.14); color:var(--mint-300); }
+  .b-move-d { background:rgba(94,198,169,0.16); color:var(--teal-300); }
+
+  .flag {
+    display:inline-flex; align-items:center; gap:7px;
+    border-radius:8px; padding:4px 10px;
+    font-family:'Geist Mono',ui-monospace,Consolas,monospace;
+    font-size:10px; font-weight:700; letter-spacing:0.08em; text-transform:uppercase;
+    background:rgba(49,201,122,0.10); color:var(--mint-700); border:1px dashed rgba(26,122,74,0.45);
+  }
+
+  /* ---------- Topic lists ---------- */
+  .tlist { list-style:none; margin-top:16px; }
+  .tlist li {
+    display:flex; align-items:baseline; justify-content:space-between; gap:14px;
+    padding:10px 0; border-bottom:1px solid rgba(5,31,33,0.08);
+  }
+  .tlist li:last-child { border-bottom:none; }
+  .tlist li:first-child { padding-top:0; }
+  .s-dark .tlist li { border-bottom-color:rgba(255,255,255,0.10); }
+  .t-name { font-size:14px; font-weight:500; line-height:1.35; }
+  .t-hub {
+    display:block; margin-top:3px;
+    font-family:'Geist Mono',ui-monospace,Consolas,monospace;
+    font-size:10px; letter-spacing:0.06em; text-transform:uppercase;
+    color:rgba(5,31,33,0.40);
+  }
+  .s-dark .t-hub { color:rgba(255,255,255,0.45); }
+  .t-val {
+    font-family:'Geist Mono',ui-monospace,Consolas,monospace;
+    font-size:12px; font-weight:700; white-space:nowrap; color:var(--mint-700);
+  }
+  .s-dark .t-val { color:var(--mint-300); }
+  .t-sub { font-weight:400; color:rgba(5,31,33,0.40); }
+  .s-dark .t-sub { color:rgba(255,255,255,0.45); }
+
+  /* ---------- Hero backgrounds ---------- */
+  .hero-dark {
+    background:radial-gradient(ellipse at 60% 40%, rgba(84,227,153,0.09), transparent 55%), var(--ink-900);
+  }
+  .hero-dark::before {
+    content:''; position:absolute; inset:0; z-index:1; pointer-events:none;
+    background-image:linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+                     linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+    background-size:48px 48px;
+  }
+
+  .accent-bar { width:44px; height:4px; border-radius:9999px; background:var(--mint-400); margin-bottom:28px; }
+  .flip { color:var(--mint-400); }
+  .arrow { color:var(--mint-400); font-weight:700; padding:0 4px; }
+
+  ul.clean { list-style:none; }
+  ul.clean li { position:relative; padding-left:26px; margin-bottom:12px; }
+  ul.clean li:last-child { margin-bottom:0; }
+  ul.clean li::before {
+    content:''; position:absolute; left:0; top:9px; width:7px; height:7px;
+    border-radius:9999px; background:var(--mint-400);
+  }
+
+  .divider { height:1px; background:rgba(5,31,33,0.08); margin:28px 0; }
+  .s-dark .divider { background:rgba(255,255,255,0.10); }
+
+  .footer-note { font-size:12px; }
+
+  .step-n { font-family:'Geist Mono',ui-monospace,Consolas,monospace; font-size:12px; font-weight:700; letter-spacing:0.14em; }
+  .step-row { display:flex; align-items:center; justify-content:space-between; gap:10px; }
+  .week {
+    font-family:'Geist Mono',ui-monospace,Consolas,monospace;
+    font-size:10px; font-weight:700; letter-spacing:0.10em; text-transform:uppercase;
+    border-radius:9999px; padding:3px 10px; white-space:nowrap;
+  }
+  .week-l { background:rgba(5,31,33,0.06); color:rgba(5,31,33,0.55); }
+  .week-d { background:rgba(84,227,153,0.12); color:var(--mint-300); }
+
+  .rail { position:fixed; top:0; left:0; height:3px; background:var(--mint-400); z-index:99; width:0; }
+
+  /* ---------- Responsive ---------- */
+  @media (max-width:1100px) {
+    .g5 { grid-template-columns:repeat(3,1fr); }
+  }
+  @media (max-width:900px) {
+    .slide { padding:80px 32px; }
+    .g2,.g3,.g4,.g5 { grid-template-columns:1fr; }
+    .g4.keep2, .g5.keep2 { grid-template-columns:repeat(2,1fr); }
+    .marker { top:24px; right:32px; }
+  }
+  @media (max-width:560px) {
+    .slide { padding:72px 20px; }
+    h1.display { font-size:34px; }
+    h2 { font-size:26px; }
+    h3 { font-size:21px; }
+    .lead { font-size:16px; }
+    .g4.keep2, .g5.keep2 { grid-template-columns:1fr; }
+  }
+  @media (prefers-reduced-motion:reduce) { .dot { animation:none; } }
+
+  .tlist li > span:first-child { min-width:0; }
+  .t-name { overflow-wrap:anywhere; }
+  .stat-num, .t-val { font-variant-numeric:tabular-nums; }
+  :focus-visible { outline:2px solid var(--mint-500); outline-offset:2px; }
+
+
+  .hubhead { display:flex; flex-wrap:wrap; align-items:baseline; gap:6px 14px; margin-top:6px; }
+  .hubmeta { font-family:'Geist Mono',ui-monospace,Consolas,monospace; font-size:11px; letter-spacing:0.06em; text-transform:uppercase; }
+  .s-dark .hubmeta { color:rgba(255,255,255,0.55); }
+  .group-label {
+    font-family:'Geist Mono',ui-monospace,Consolas,monospace;
+    font-size:10px; font-weight:700; letter-spacing:0.14em; text-transform:uppercase;
+    color:rgba(255,255,255,0.45); margin:28px 0 12px;
+  }
+  .group-label { margin-top:32px; }
+  .mstrip { display:grid; grid-template-columns:repeat(6,1fr); gap:10px; margin-top:20px; }
+  .mcell { background:#fff; border:1px solid #DDE4E7; border-radius:14px; padding:14px 16px; }
+  .mcell .mnum { font-size:22px; font-weight:700; letter-spacing:-0.02em; color:var(--mint-700); font-variant-numeric:tabular-nums; }
+  .mcell .mlbl { font-family:'Geist Mono',ui-monospace,Consolas,monospace; font-size:10px; font-weight:700; letter-spacing:0.10em; text-transform:uppercase; color:rgba(5,31,33,0.45); }
+  details.all { margin-top:22px; border-top:1px solid rgba(5,31,33,0.08); padding-top:18px; }
+  details.all summary {
+    cursor:pointer; list-style:none; display:inline-flex; align-items:center; gap:8px;
+    font-family:'Geist Mono',ui-monospace,Consolas,monospace;
+    font-size:11px; font-weight:700; letter-spacing:0.10em; text-transform:uppercase;
+    color:var(--teal-500); border-radius:9999px; padding:6px 14px;
+    background:rgba(42,140,138,0.08); border:1px solid rgba(42,140,138,0.22);
+  }
+  details.all summary::-webkit-details-marker { display:none; }
+  details.all summary::before { content:'+'; font-size:13px; line-height:1; }
+  details.all[open] summary::before { content:'\2212'; }
+  .allgrid { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin-top:18px; }
+  .allgrid .card { padding:20px 22px; border-radius:16px; }
+  .allgrid h5 { font-family:'Geist Mono',ui-monospace,Consolas,monospace; font-size:10px; font-weight:700; letter-spacing:0.12em; text-transform:uppercase; color:var(--teal-500); display:flex; justify-content:space-between; gap:10px; }
+  .allgrid h5 span { color:rgba(5,31,33,0.40); }
+  .allgrid .tlist li { padding:8px 0; }
+  .allgrid .t-name { font-size:13px; }
+  @media (max-width:900px) {
+    .mstrip { grid-template-columns:repeat(3,1fr); }
+    .allgrid { grid-template-columns:1fr; }
+  }
+  @media (max-width:560px) { .mstrip { grid-template-columns:repeat(2,1fr); } }
+
+
+  /* Scrolling fix: sections size to their content, the page always scrolls */
+  html, body { height:auto; }
+  html { overflow-y:auto; scroll-behavior:auto; }
+  .slide { min-height:0; }
+  .slide.hero-dark { padding-block:140px; }
+  @media (max-width:560px) { .slide.hero-dark { padding-block:96px; } }
+
+  /* GetBuddy additions */
+  .svc-grid { margin-top:40px; }
+  .svc h4 { margin-top:14px; }
+  .svc ul.clean { margin-top:14px; }
+  .svc ul.clean li { font-size:14px; line-height:1.5; color:rgba(5,31,33,0.72); margin-bottom:10px; }
+  .svc ul.clean li::before { top:7px; }
+  .svc-n { font-family:'Geist Mono',ui-monospace,Consolas,monospace; font-size:10px; font-weight:700; letter-spacing:0.10em; text-transform:uppercase; color:rgba(5,31,33,0.45); margin-top:18px; padding-top:14px; border-top:1px solid rgba(5,31,33,0.08); }
+  .b-teal { background:rgba(42,140,138,0.10); color:var(--teal-500); }
+  .dash {
+    margin-top:16px; display:flex; flex-wrap:wrap; align-items:center; gap:14px 24px;
+    background:rgba(49,201,122,0.07); border:1px solid rgba(49,201,122,0.25); border-radius:16px; padding:18px 22px;
+  }
+  .dash p { min-width:0; flex:1 1 360px; }
+  .svc { display:flex; flex-direction:column; }
+  .svc .svc-n { margin-top:auto; }
+  .svc ul.clean { margin-bottom:18px; }
+  a.hublink { color:inherit; text-decoration:none; }
+  a.hublink:hover { color:var(--mint-300); }
+
+  /* All topics: one card, three even columns */
+  .allcard { margin-top:18px; padding:22px 26px; border-radius:16px; }
+  .tlist.cols { columns:3 240px; column-gap:36px; margin-top:0; }
+  .tlist.cols li { break-inside:avoid; padding:9px 0; }
+  .tlist.cols .t-name { font-size:13px; }
+
+  /* Hugger Mugger: one width for every section, safe-area side gutters */
+  .slide { padding-block:96px; padding-left:max(48px, env(safe-area-inset-left, 0px)); padding-right:max(48px, env(safe-area-inset-right, 0px)); }
+  .slide-inner, .slide-inner.wide { max-width:1080px; }
+  .marker { right:max(48px, env(safe-area-inset-right, 0px)); }
+  h1.display, h2, h3 { text-wrap:balance; }
+  .svc .bodys { color:rgba(5,31,33,0.72); }
+  .svc ul.ex li { color:var(--ink-900); font-weight:500; }
+  .later-hint {
+    margin-top:14px; display:inline-flex; align-items:center; gap:10px;
+    font-family:'Geist Mono',ui-monospace,Consolas,monospace; font-size:11px; font-weight:700;
+    letter-spacing:0.08em; text-transform:uppercase; color:rgba(5,31,33,0.55);
+    border:1px dashed rgba(42,140,138,0.40); border-radius:9999px; padding:5px 14px 5px 6px;
+  }
+  .later-n { background:rgba(42,140,138,0.10); color:var(--teal-500); border-radius:9999px; padding:2px 9px; font-variant-numeric:tabular-nums; }
+  @media (max-width:900px) {
+    .slide { padding-block:80px; padding-left:max(32px, env(safe-area-inset-left, 0px)); padding-right:max(32px, env(safe-area-inset-right, 0px)); }
+    .marker { right:max(32px, env(safe-area-inset-right, 0px)); }
+    .g3.keep2 { grid-template-columns:repeat(2,1fr); }
+  }
+  @media (max-width:560px) {
+    .slide { padding-block:72px; padding-left:max(20px, env(safe-area-inset-left, 0px)); padding-right:max(20px, env(safe-area-inset-right, 0px)); }
+    .marker { right:max(20px, env(safe-area-inset-right, 0px)); }
+    .g3.keep2 { grid-template-columns:1fr; }
+    .later-hint { letter-spacing:0.04em; }
+  }
+  .slide.hero-dark { padding-block:140px; }
+  @media (max-width:560px) { .slide.hero-dark { padding-block:96px; } }
+
+</style>
+
+<div class="rail" id="rail"></div>
+
+<!-- ============ 01 - COVER ============ -->
+<section class="slide s-dark hero-dark">
+  <span class="marker">01 - The roadmap</span>
+  <div class="slide-inner">
+    <div class="eyebrow"><span class="dot"></span> Content roadmap &middot; FlyRank &times; Milky Mama</div>
+    <h1 class="display">More milk, easier latches <span class="flip">&amp;</span> confident feeding</h1>
+    <p class="lead muted-d80" style="max-width:680px; margin-top:24px;">
+      Six months of content for milky-mama.com, already scheduled. Eight hubs covering lactation foods, expressed
+      milk and bottle feeding, milk supply, latch and comfort, the first weeks, breastfeeding at work, pumping and
+      lactation herbs, with every page built around one main topic and its subtopics.
+    </p>
+    <div class="pill-row" style="margin-top:36px;">
+      <span class="pill pill-tag-d">271 pages scheduled</span>
+      <span class="pill pill-tag-d">4,126 subtopics</span>
+      <span class="pill pill-tag-d">8 content hubs</span>
+      <span class="pill pill-tag-d">Oct 2026 - Mar 2027</span>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 02 - SERVICES ============ -->
+<section class="slide s-light">
+  <span class="marker">02 - The work</span>
+  <div class="slide-inner">
+    <div class="eyebrow">What we&#x27;re doing for Milky Mama</div>
+    <h2 style="max-width:820px;">Six workstreams, one dashboard</h2>
+    <p class="lead muted-l" style="margin-top:16px; max-width:760px;">
+      Content, SEO, product page work, AI visibility, ecommerce and Reddit tracking run side by side.
+      Log in to your own dashboard to follow every page as it goes live, see where Milky Mama is mentioned across
+      AI engines and Reddit, and track the sales that come from search and AI.
+    </p>
+    <div class="grid g3 keep2 svc-grid" style="gap:14px;">
+      <div class="card card-paper compact svc">
+        <span class="badge b-done" style="align-self:flex-start;">Content</span>
+        <h4 class="title-sm">New content strategy</h4>
+        <ul class="clean"><li>Each page has one main topic and the subtopics that belong to it</li><li>Pages go more in-depth, answering the full set of related questions in one place</li></ul>
+        <p class="svc-n">271 pages &middot; 4,126 subtopics</p>
+      </div>
+      <div class="card card-paper compact svc">
+        <span class="badge b-teal" style="align-self:flex-start;">Technical</span>
+        <h4 class="title-sm">Website SEO audit</h4>
+        <ul class="clean"><li>On-page SEO audit of milky-mama.com</li><li>Covers all on-page elements and the fixes for each</li></ul>
+        <p class="svc-n">Every on-page element checked</p>
+      </div>
+      <div class="card card-paper compact svc">
+        <span class="badge b-done" style="align-self:flex-start;">Store</span>
+        <h4 class="title-sm">Product &amp; collection optimizations</h4>
+        <ul class="clean"><li>Analysis of Milky Mama&#x27;s product and collection pages</li><li>Pages optimized based on SEO and GEO best practices</li></ul>
+        <p class="svc-n">Product and collection pages</p>
+      </div>
+      <div class="card card-paper compact svc">
+        <span class="badge b-teal" style="align-self:flex-start;">Visibility</span>
+        <h4 class="title-sm">AI visibility tracking</h4>
+        <ul class="clean"><li>Shows whether Milky Mama appears in AI assistants, and how it is described, as shoppers move there from Google</li><li>Turns missed, high-scoring prompts into a to-do list, with citations and query fan-out showing why AI recommends a competitor</li><li>Measures the overall return of content, SEO, Reddit and ecommerce work, with a trend that builds from each new measurement</li></ul>
+        <p class="svc-n">Mentions, citations, competitors</p>
+      </div>
+      <div class="card card-paper compact svc">
+        <span class="badge b-done" style="align-self:flex-start;">Revenue</span>
+        <h4 class="title-sm">Ecommerce tracking</h4>
+        <ul class="clean"><li>Connects SEO, content and AI visibility to sales, not just traffic or rankings</li><li>Gets ahead on AI shopping by measuring sales from Shopify AI shopping</li><li>Every number shows its comparison and change, with plain definitions, noted data gaps and no double counting</li></ul>
+        <p class="svc-n">Sales, traffic and AI orders in one place</p>
+      </div>
+      <div class="card card-paper compact svc">
+        <span class="badge b-teal" style="align-self:flex-start;">Community</span>
+        <h4 class="title-sm">Reddit mentions tracking</h4>
+        <ul class="clean"><li>Finds threads asking for recommendations or comparing products, the moments a helpful answer can win a customer</li><li>A sorted inbox with replies already drafted, and Reddit is cited heavily in AI answers, so taking part also lifts AI visibility</li><li>Spots brand mentions and complaints early, and collects customer language and pain points for content and product pages</li></ul>
+        <p class="svc-n">Mentions and ready-to-use replies</p>
+      </div>
+    </div>
+    <div class="dash">
+      <span class="flag">Your dashboard</span>
+      <p class="bodys muted-l">Log in to see the content calendar, AI visibility, Reddit mentions and ecommerce sales in one place, updated as the work moves.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 03 - SIX MONTH PLAN ============ -->
+<section class="slide s-paper">
+  <span class="marker">03 - The plan</span>
+  <div class="slide-inner">
+    <div class="eyebrow">Six month content plan</div>
+    <h2 style="max-width:820px;">271 pages are scheduled<br>for the next six months.</h2>
+    <p class="lead muted-l" style="margin-top:16px; max-width:760px;">
+      Every page targets one main topic and groups the subtopics people search around it, 4,126 in total.
+      Together the pages carry 1,002,550 monthly searches across eight content hubs, from lactation cookies
+      and milk supply to latch, pumping and returning to work.
+    </p>
+    <div class="grid g4 keep2" style="margin-top:40px;">
+      <div class="card card-light"><div class="stat-num mint-dark">271</div><p class="stat-lbl muted-l">Pages scheduled, October to March</p></div>
+      <div class="card card-light"><div class="stat-num mint-dark">4,126</div><p class="stat-lbl muted-l">Subtopics covered inside those pages, about 15 per page</p></div>
+      <div class="card card-light"><div class="stat-num mint-dark">1,002,550</div><p class="stat-lbl muted-l">Total monthly search volume of the targeted keywords</p></div>
+      <div class="card card-light"><div class="stat-num mint-dark">96,670</div><p class="stat-lbl muted-l">Monthly searches behind the plan&#x27;s biggest page, how to use a nipple shield</p></div>
+    </div>
+    <div class="card card-dark" style="margin-top:20px; padding:22px 26px;">
+      <p class="bodys muted-d80">
+        <span class="mint" style="font-weight:600;">How the pages are built.</span>
+        Each page is built around one main topic, with its subtopics as sections, so a single page answers what used
+        to take several thin posts. The deepest page, cluster feeding, covers 215 subtopics. Publishing runs every
+        month from October to March, at 50 pages a month after a shorter October start.
+      </p>
+    </div>
+    <div class="dash">
+      <span class="flag">After March</span>
+      <p class="bodys muted-l"><strong class="mint-dark">446 more topics</strong> are already mapped for after March 2027, across the same eight hubs.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 04 - PAGE TYPES ============ -->
+<section class="slide s-light">
+  <span class="marker">04 - Page types</span>
+  <div class="slide-inner">
+    <div class="eyebrow">How each page is shaped</div>
+    <h2 style="max-width:820px;">Six kinds of pages, each matched to the search behind it</h2>
+    <p class="lead muted-l" style="margin-top:16px; max-width:760px;">
+      Each topic gets the format that fits what people want when they search it. Someone struggling with a shallow
+      latch needs a guide, while someone choosing bottle nipples needs a listicle.
+    </p>
+    <div class="grid g3 keep2 svc-grid" style="gap:14px;">
+      <div class="card card-paper compact svc">
+        <span class="badge b-done" style="align-self:flex-start;">Guide</span>
+        <h4 class="title-sm">Guides &amp; explainers</h4>
+        <p class="bodys muted-l" style="margin-top:10px;">In-depth answers to what-is and how-to questions, with each subtopic as its own section, so one page covers the whole question.</p>
+        <p class="svc-n">Example topics</p>
+        <ul class="clean ex"><li>How to use a nipple shield</li><li>Cluster feeding</li><li>How to store expressed breast milk</li></ul>
+      </div>
+      <div class="card card-paper compact svc">
+        <span class="badge b-teal" style="align-self:flex-start;">Listicle</span>
+        <h4 class="title-sm">Listicles</h4>
+        <p class="bodys muted-l" style="margin-top:10px;">Ranked or grouped lists that let readers scan the options quickly and pick the products or ideas that suit them.</p>
+        <p class="svc-n">Example topics</p>
+        <ul class="clean ex"><li>Best bottle nipples for breastfed babies</li><li>Best breast milk coolers</li><li>7-day breastfeeding diet plan</li></ul>
+      </div>
+      <div class="card card-paper compact svc">
+        <span class="badge b-done" style="align-self:flex-start;">Recipe</span>
+        <h4 class="title-sm">Recipes</h4>
+        <p class="bodys muted-l" style="margin-top:10px;">Step-by-step lactation recipes with ingredients and method, for moms who want to bake or blend their own.</p>
+        <p class="svc-n">Example topics</p>
+        <ul class="clean ex"><li>Oatmeal chocolate chip lactation cookies</li><li>Lactation bars</li><li>Lactation smoothies</li></ul>
+      </div>
+      <div class="card card-paper compact svc">
+        <span class="badge b-teal" style="align-self:flex-start;">Comparison</span>
+        <h4 class="title-sm">Comparisons</h4>
+        <p class="bodys muted-l" style="margin-top:10px;">Side-by-side looks at two options, for readers deciding between feeding approaches, herbs or products.</p>
+        <p class="svc-n">Example topics</p>
+        <ul class="clean ex"><li>Exclusive pumping vs. breastfeeding</li><li>Colostrum vs. breast milk</li><li>Fresh vs. frozen breast milk</li></ul>
+      </div>
+      <div class="card card-paper compact svc">
+        <span class="badge b-done" style="align-self:flex-start;">Collection</span>
+        <h4 class="title-sm">Collection &amp; product pages</h4>
+        <p class="bodys muted-l" style="margin-top:10px;">Category and product pages for shopping searches that pair the right Milky Mama products with buying advice.</p>
+        <p class="svc-n">Example topics</p>
+        <ul class="clean ex"><li>Lactation cookies</li><li>Lactation drinks</li><li>Fenugreek-free lactation supplements</li></ul>
+      </div>
+      <div class="card card-paper compact svc">
+        <span class="badge b-teal" style="align-self:flex-start;">Local</span>
+        <h4 class="title-sm">Services &amp; local pages</h4>
+        <p class="bodys muted-l" style="margin-top:10px;">Pages for moms looking for hands-on help or a place to pump: lactation consultants, classes and lactation rooms nearby.</p>
+        <p class="svc-n">Example topics</p>
+        <ul class="clean ex"><li>Private lactation consultants</li><li>Breastfeeding basics class</li><li>Portable lactation rooms</li></ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 05 - CONTENT HUBS ============ -->
+<section class="slide s-dark">
+  <span class="marker">05 - Coverage</span>
+  <div class="slide-inner">
+    <div class="eyebrow"><span class="dot"></span> What the plan covers</div>
+    <h2>Eight hubs across feeding, pumping, milk supply and life back at work</h2>
+    <p class="group-label">Largest hubs &middot; 179 pages &middot; 782,800 searches / mo</p>
+    <div class="grid g4 keep2" style="gap:14px;">
+      <div class="card-dark-el compact">
+        <span class="badge b-done-d">60 pages</span>
+        <h4 class="title-xs" style="margin-top:12px;"><a class="hublink" href="#nutrition">Lactation Support</a></h4>
+        <p class="hubmeta" style="margin-top:4px;">193,540 searches / mo &middot; 615 subtopics</p>
+        <p class="bodys muted-d80" style="margin-top:8px;">Breastfeeding diets, lactation cookies and recipes, caffeine and protein, special diets, and lactation teas.</p>
+      </div><div class="card-dark-el compact">
+        <span class="badge b-done-d">46 pages</span>
+        <h4 class="title-xs" style="margin-top:12px;"><a class="hublink" href="#bottle">Expressed Milk &amp; Bottle Feeding</a></h4>
+        <p class="hubmeta" style="margin-top:4px;">166,150 searches / mo &middot; 797 subtopics</p>
+        <p class="bodys muted-d80" style="margin-top:8px;">Storing, freezing and warming milk, bottle nipples, storage bags and coolers, and bottle refusal.</p>
+      </div><div class="card-dark-el compact">
+        <span class="badge b-done-d">37 pages</span>
+        <h4 class="title-xs" style="margin-top:12px;"><a class="hublink" href="#supply">Milk Supply Guide</a></h4>
+        <p class="hubmeta" style="margin-top:4px;">148,450 searches / mo &middot; 669 subtopics</p>
+        <p class="bodys muted-d80" style="margin-top:8px;">Cluster feeding, pumping schedules and power pumping, low supply, lactation supplements and lactation consultants.</p>
+      </div><div class="card-dark-el compact">
+        <span class="badge b-done-d">36 pages</span>
+        <h4 class="title-xs" style="margin-top:12px;"><a class="hublink" href="#latch">Latch &amp; Breastfeeding Comfort</a></h4>
+        <p class="hubmeta" style="margin-top:4px;">274,660 searches / mo &middot; 890 subtopics</p>
+        <p class="bodys muted-d80" style="margin-top:8px;">Nipple shields, clogged ducts and engorgement, breast and nipple pain, a deep latch and breastfeeding positions.</p>
+      </div>
+    </div>
+    <p class="group-label">Supporting hubs &middot; 92 pages &middot; 219,750 searches / mo</p>
+    <div class="grid g4 keep2" style="gap:14px;">
+      <div class="card-dark-el compact">
+        <span class="badge b-done-d">28 pages</span>
+        <h4 class="title-xs" style="margin-top:12px;"><a class="hublink" href="#start">Getting Started With Breastfeeding</a></h4>
+        <p class="hubmeta" style="margin-top:4px;">66,280 searches / mo &middot; 321 subtopics</p>
+        <p class="bodys muted-d80" style="margin-top:8px;">How often to feed, when milk comes in, colostrum, hand expressing and nursing covers.</p>
+      </div><div class="card-dark-el compact">
+        <span class="badge b-done-d">24 pages</span>
+        <h4 class="title-xs" style="margin-top:12px;"><a class="hublink" href="#work">Breastfeeding &amp; Work</a></h4>
+        <p class="hubmeta" style="margin-top:4px;">13,680 searches / mo &middot; 116 subtopics</p>
+        <p class="bodys muted-d80" style="margin-top:8px;">Lactation rooms, pumping rights at work, hands-free pumping, transporting milk and airport lactation rooms.</p>
+      </div><div class="card-dark-el compact">
+        <span class="badge b-done-d">21 pages</span>
+        <h4 class="title-xs" style="margin-top:12px;"><a class="hublink" href="#pumping">Pumping With Confidence</a></h4>
+        <p class="hubmeta" style="margin-top:4px;">118,560 searches / mo &middot; 463 subtopics</p>
+        <p class="bodys muted-d80" style="margin-top:8px;">Flange sizing and pumping pain, exclusive pumping, output per session, and weaning from the pump.</p>
+      </div><div class="card-dark-el compact">
+        <span class="badge b-done-d">19 pages</span>
+        <h4 class="title-xs" style="margin-top:12px;"><a class="hublink" href="#herbs">Herbs &amp; Supplement Decisions</a></h4>
+        <p class="hubmeta" style="margin-top:4px;">21,230 searches / mo &middot; 255 subtopics</p>
+        <p class="bodys muted-d80" style="margin-top:8px;">Fenugreek and fenugreek-free options, goat&#x27;s rue, moringa, fennel, anise and other herbs.</p>
+      </div>
+    </div>
+    <p class="bodys muted-d" style="margin-top:24px;">
+      Every scheduled page belongs to one of these hubs, so each new page has a home and an
+      internal link path the day it publishes.
+    </p>
+  </div>
+</section>
+
+<!-- ============ 06 - LACTATION FOODS ============ -->
+<section class="slide s-paper" id="nutrition">
+  <span class="marker">06 - Lactation foods</span>
+  <div class="slide-inner">
+    <div class="step-row" style="margin-bottom:22px;">
+      <div class="eyebrow" style="margin-bottom:0;">Hub 01 &middot; Lactation Support</div>
+      <span class="week week-l">60 pages</span>
+    </div>
+    <h2>Eating well, lactation cookies and what to drink while breastfeeding</h2>
+    <p class="lead muted-l" style="margin-top:14px; max-width:760px;">Healthy diet for a breastfeeding mom leads the hub at 72,500 searches a month, with lactation cookies at 41,820 and how much caffeine you can have while breastfeeding at 23,220. The hub covers breastfeeding diets, the foods and ingredients behind lactation treats, special diets like dairy-free and vegan, and 14 lactation cookie, bar, smoothie and tea recipes, a natural fit for Milky Mama&#x27;s lactation cookies and Emergency Lactation Brownies.</p>
+    <p class="cap muted-l45" style="margin-top:10px;">193,540 monthly searches across 60 pages and 615 subtopics.</p>
+    <p class="later-hint"><span class="later-n">+131</span> more topics planned for this hub after March</p>
+    <div class="grid g2" style="margin-top:28px;">
+      <div class="card card-light">
+        <h4 class="title-sm">Biggest demand</h4>
+        <p class="cap muted-l45" style="margin-top:6px;">Monthly searches for the hub&#x27;s largest pages</p>
+        <ul class="tlist"><li><span><span class="t-name">Healthy diet for a breastfeeding mom</span><span class="t-hub">Breastfeeding diet &middot; 67 subtopics</span></span><span class="t-val">72,500</span></li><li><span><span class="t-name">Lactation cookies</span><span class="t-hub">Lactation cookies &amp; recipes &middot; 22 subtopics</span></span><span class="t-val">41,820</span></li><li><span><span class="t-name">How much caffeine while breastfeeding?</span><span class="t-hub">Caffeine, protein &amp; drinks &middot; 62 subtopics</span></span><span class="t-val">23,220</span></li><li><span><span class="t-name">How much protein while breastfeeding?</span><span class="t-hub">Caffeine, protein &amp; drinks &middot; 41 subtopics</span></span><span class="t-val">6,830</span></li><li><span><span class="t-name">Protein shakes while breastfeeding</span><span class="t-hub">Caffeine, protein &amp; drinks &middot; 28 subtopics</span></span><span class="t-val">6,260</span></li><li><span><span class="t-name">Oats and breastfeeding</span><span class="t-hub">Lactation foods &amp; ingredients &middot; 17 subtopics</span></span><span class="t-val">5,860</span></li></ul>
+      </div>
+      <div class="card card-light">
+        <h4 class="title-sm">What the hub covers</h4>
+        <p class="cap muted-l45" style="margin-top:6px;">Scheduled pages by theme</p>
+        <ul class="tlist"><li><span><span class="t-name">Lactation cookies &amp; recipes</span><span class="t-hub">37% of the hub</span></span><span class="t-val">22 pages</span></li><li><span><span class="t-name">Breastfeeding diet</span><span class="t-hub">18% of the hub</span></span><span class="t-val">11 pages</span></li><li><span><span class="t-name">Special diets</span><span class="t-hub">15% of the hub</span></span><span class="t-val">9 pages</span></li><li><span><span class="t-name">Lactation teas &amp; brands</span><span class="t-hub">12% of the hub</span></span><span class="t-val">7 pages</span></li><li><span><span class="t-name">Caffeine, protein &amp; drinks</span><span class="t-hub">10% of the hub</span></span><span class="t-val">6 pages</span></li><li><span><span class="t-name">Lactation foods &amp; ingredients</span><span class="t-hub">8% of the hub</span></span><span class="t-val">5 pages</span></li></ul>
+      </div>
+    </div>
+    <details class="all">
+      <summary>All 60 Lactation Support pages</summary>
+      <div class="card card-light allcard"><ul class="tlist cols"><li><span><span class="t-name">Healthy diet for a breastfeeding mom</span><span class="t-hub">Breastfeeding diet &middot; 67 subtopics</span></span><span class="t-val">72,500</span></li><li><span><span class="t-name">Lactation cookies</span><span class="t-hub">Lactation cookies &amp; recipes &middot; 22 subtopics</span></span><span class="t-val">41,820</span></li><li><span><span class="t-name">How much caffeine while breastfeeding?</span><span class="t-hub">Caffeine, protein &amp; drinks &middot; 62 subtopics</span></span><span class="t-val">23,220</span></li><li><span><span class="t-name">How much protein while breastfeeding?</span><span class="t-hub">Caffeine, protein &amp; drinks &middot; 41 subtopics</span></span><span class="t-val">6,830</span></li><li><span><span class="t-name">Protein shakes while breastfeeding</span><span class="t-hub">Caffeine, protein &amp; drinks &middot; 28 subtopics</span></span><span class="t-val">6,260</span></li><li><span><span class="t-name">Oats and breastfeeding</span><span class="t-hub">Lactation foods &amp; ingredients &middot; 17 subtopics</span></span><span class="t-val">5,860</span></li><li><span><span class="t-name">Brewer&#x27;s yeast and breastfeeding</span><span class="t-hub">Lactation foods &amp; ingredients &middot; 13 subtopics</span></span><span class="t-val">5,340</span></li><li><span><span class="t-name">Oatmeal chocolate chip lactation cookies recipe</span><span class="t-hub">Lactation cookies &amp; recipes &middot; 22 subtopics</span></span><span class="t-val">5,020</span></li><li><span><span class="t-name">7-day breastfeeding diet plan</span><span class="t-hub">Breastfeeding diet &middot; 29 subtopics</span></span><span class="t-val">4,470</span></li><li><span><span class="t-name">Galactagogue foods</span><span class="t-hub">Lactation foods &amp; ingredients &middot; 4 subtopics</span></span><span class="t-val">2,610</span></li><li><span><span class="t-name">Losing weight while breastfeeding</span><span class="t-hub">Breastfeeding diet &middot; 34 subtopics</span></span><span class="t-val">2,400</span></li><li><span><span class="t-name">Dairy-free diet while breastfeeding</span><span class="t-hub">Special diets &middot; 12 subtopics</span></span><span class="t-val">2,240</span></li><li><span><span class="t-name">Oatmeal lactation cookies</span><span class="t-hub">Lactation cookies &amp; recipes &middot; 2 subtopics</span></span><span class="t-val">2,110</span></li><li><span><span class="t-name">Do lactation cookies work?</span><span class="t-hub">Lactation cookies &amp; recipes &middot; 27 subtopics</span></span><span class="t-val">1,870</span></li><li><span><span class="t-name">Lactation tea brands</span><span class="t-hub">Lactation teas &amp; brands &middot; 14 subtopics</span></span><span class="t-val">1,200</span></li><li><span><span class="t-name">Lactation cookie brands</span><span class="t-hub">Lactation teas &amp; brands &middot; 11 subtopics</span></span><span class="t-val">1,160</span></li><li><span><span class="t-name">Flaxseed and breastfeeding</span><span class="t-hub">Lactation foods &amp; ingredients &middot; 13 subtopics</span></span><span class="t-val">1,120</span></li><li><span><span class="t-name">Best protein powders for breastfeeding moms</span><span class="t-hub">Caffeine, protein &amp; drinks &middot; 21 subtopics</span></span><span class="t-val">970</span></li><li><span><span class="t-name">How many lactation cookies to eat</span><span class="t-hub">Lactation cookies &amp; recipes &middot; 26 subtopics</span></span><span class="t-val">920</span></li><li><span><span class="t-name">Vegan lactation cookies recipe</span><span class="t-hub">Lactation cookies &amp; recipes &middot; 11 subtopics</span></span><span class="t-val">800</span></li><li><span><span class="t-name">Lactation bars recipe</span><span class="t-hub">Lactation cookies &amp; recipes &middot; 9 subtopics</span></span><span class="t-val">540</span></li><li><span><span class="t-name">Cow&#x27;s milk protein allergy and breastfeeding</span><span class="t-hub">Special diets &middot; 7 subtopics</span></span><span class="t-val">510</span></li><li><span><span class="t-name">Breastfeeding elimination diet</span><span class="t-hub">Special diets &middot; 12 subtopics</span></span><span class="t-val">470</span></li><li><span><span class="t-name">Best hydration drinks for breastfeeding</span><span class="t-hub">Caffeine, protein &amp; drinks &middot; 7 subtopics</span></span><span class="t-val">450</span></li><li><span><span class="t-name">Lactation smoothie recipes</span><span class="t-hub">Lactation cookies &amp; recipes &middot; 13 subtopics</span></span><span class="t-val">430</span></li><li><span><span class="t-name">Peppermint tea and lactation</span><span class="t-hub">Lactation teas &amp; brands &middot; 1 subtopic</span></span><span class="t-val">390</span></li><li><span><span class="t-name">Gluten-free lactation cookies recipe</span><span class="t-hub">Lactation cookies &amp; recipes &middot; 10 subtopics</span></span><span class="t-val">290</span></li><li><span><span class="t-name">Vegan diet while breastfeeding</span><span class="t-hub">Special diets &middot; 4 subtopics</span></span><span class="t-val">200</span></li><li><span><span class="t-name">Lactation cookies from a mix</span><span class="t-hub">Lactation cookies &amp; recipes &middot; 3 subtopics</span></span><span class="t-val">190</span></li><li><span><span class="t-name">Can you buy lactation cookies with EBT?</span><span class="t-hub">Lactation cookies &amp; recipes &middot; 5 subtopics</span></span><span class="t-val">150</span></li><li><span><span class="t-name">Lactation tea recipe</span><span class="t-hub">Lactation cookies &amp; recipes &middot; 7 subtopics</span></span><span class="t-val">140</span></li><li><span><span class="t-name">Gluten-free breastfeeding snacks</span><span class="t-hub">Special diets &middot; 3 subtopics</span></span><span class="t-val">120</span></li><li><span><span class="t-name">Dairy- and soy-free diet while breastfeeding</span><span class="t-hub">Special diets &middot; 3 subtopics</span></span><span class="t-val">110</span></li><li><span><span class="t-name">Breastfeeding diet for infant reflux</span><span class="t-hub">Special diets &middot; 3 subtopics</span></span><span class="t-val">90</span></li><li><span><span class="t-name">Lactation cookie shelf life</span><span class="t-hub">Lactation cookies &amp; recipes &middot; 6 subtopics</span></span><span class="t-val">80</span></li><li><span><span class="t-name">Sugar-free lactation cookies recipe</span><span class="t-hub">Lactation cookies &amp; recipes &middot; 3 subtopics</span></span><span class="t-val">80</span></li><li><span><span class="t-name">Brewer&#x27;s yeast vs. nutritional yeast</span><span class="t-hub">Lactation foods &amp; ingredients &middot; 6 subtopics</span></span><span class="t-val">60</span></li><li><span><span class="t-name">Almond flour lactation cookies</span><span class="t-hub">Lactation cookies &amp; recipes &middot; 4 subtopics</span></span><span class="t-val">60</span></li><li><span><span class="t-name">Healthy Indian diet for breastfeeding moms</span><span class="t-hub">Breastfeeding diet &middot; 5 subtopics</span></span><span class="t-val">50</span></li><li><span><span class="t-name">Diet drinks while breastfeeding</span><span class="t-hub">Caffeine, protein &amp; drinks &middot; 3 subtopics</span></span><span class="t-val">50</span></li><li><span><span class="t-name">Japanese lactation bars</span><span class="t-hub">Lactation cookies &amp; recipes &middot; 1 subtopic</span></span><span class="t-val">50</span></li><li><span><span class="t-name">Lactation cookies and brownies</span><span class="t-hub">Lactation cookies &amp; recipes &middot; 2 subtopics</span></span><span class="t-val">40</span></li><li><span><span class="t-name">Fenugreek lactation cookies</span><span class="t-hub">Lactation cookies &amp; recipes &middot; 1 subtopic</span></span><span class="t-val">40</span></li><li><span><span class="t-name">High-protein lactation cookies</span><span class="t-hub">Lactation cookies &amp; recipes &middot; 2 subtopics</span></span><span class="t-val">30</span></li><li><span><span class="t-name">Peanut butter lactation cookies recipe</span><span class="t-hub">Lactation cookies &amp; recipes &middot; 1 subtopic</span></span><span class="t-val">30</span></li><li><span><span class="t-name">Fasting while breastfeeding</span><span class="t-hub">Breastfeeding diet &middot; 2 subtopics</span></span><span class="t-val">20</span></li><li><span><span class="t-name">Sage tea to reduce milk supply</span><span class="t-hub">Lactation teas &amp; brands &middot; 2 subtopics</span></span><span class="t-val">20</span></li><li><span><span class="t-name">Breastfeeding diet for FPIES</span><span class="t-hub">Special diets &middot; 2 subtopics</span></span><span class="t-val">10</span></li><li><span><span class="t-name">Anzac lactation cookies</span><span class="t-hub">Lactation cookies &amp; recipes &middot; 1 subtopic</span></span><span class="t-val">10</span></li><li><span><span class="t-name">Snickerdoodle lactation cookies</span><span class="t-hub">Lactation cookies &amp; recipes &middot; 1 subtopic</span></span><span class="t-val">10</span></li><li><span><span class="t-name">Is the military diet safe while breastfeeding?</span><span class="t-hub">Breastfeeding diet &middot; 1 subtopic</span></span><span class="t-val">10</span></li><li><span><span class="t-name">Lactation tea in Canada</span><span class="t-hub">Lactation teas &amp; brands &middot; 1 subtopic</span></span><span class="t-val">10</span></li><li><span><span class="t-name">Lactation bars in the UK</span><span class="t-hub">Lactation teas &amp; brands &middot; 1 subtopic</span></span><span class="t-val">10</span></li><li><span><span class="t-name">Gaining weight while breastfeeding</span><span class="t-hub">Breastfeeding diet &middot; 1 subtopic</span></span><span class="t-val">10</span></li><li><span><span class="t-name">Lactation tea in Australia</span><span class="t-hub">Lactation teas &amp; brands &middot; 1 subtopic</span></span><span class="t-val">10</span></li><li><span><span class="t-name">Boiled egg diet while breastfeeding</span><span class="t-hub">Breastfeeding diet &middot; 1 subtopic</span></span><span class="t-val">10</span></li><li><span><span class="t-name">Detox diets while breastfeeding</span><span class="t-hub">Breastfeeding diet &middot; 1 subtopic</span></span><span class="t-val">10</span></li><li><span><span class="t-name">Cabbage soup diet and breastfeeding</span><span class="t-hub">Breastfeeding diet &middot; 1 subtopic</span></span><span class="t-val">10</span></li><li><span><span class="t-name">Breastfeeding diet for newborn constipation</span><span class="t-hub">Special diets &middot; 1 subtopic</span></span><span class="t-val">10</span></li><li><span><span class="t-name">Nutrient needs in pregnancy and breastfeeding</span><span class="t-hub">Breastfeeding diet &middot; 1 subtopic</span></span><span class="t-val">10</span></li></ul></div>
+    </details>
+  </div>
+</section>
+
+<!-- ============ 07 - BOTTLE FEEDING ============ -->
+<section class="slide s-light" id="bottle">
+  <span class="marker">07 - Bottle feeding</span>
+  <div class="slide-inner">
+    <div class="step-row" style="margin-bottom:22px;">
+      <div class="eyebrow" style="margin-bottom:0;">Hub 02 &middot; Expressed Milk &amp; Bottle Feeding</div>
+      <span class="week week-l">46 pages</span>
+    </div>
+    <h2>Storing, warming and bottle feeding breast milk</h2>
+    <p class="lead muted-l" style="margin-top:14px; max-width:760px;">Warming up breast milk is the hub&#x27;s biggest page at 30,800 searches a month, followed by best bottle nipples for breastfed babies at 24,980 and high lipase milk at 15,700. The hub covers how to store, freeze, thaw and warm expressed milk, how to choose bottle nipples and storage bags, and how to get past bottle refusal.</p>
+    <p class="cap muted-l45" style="margin-top:10px;">166,150 monthly searches across 46 pages and 797 subtopics.</p>
+    <p class="later-hint"><span class="later-n">+31</span> more topics planned for this hub after March</p>
+    <div class="grid g2" style="margin-top:28px;">
+      <div class="card card-light">
+        <h4 class="title-sm">Biggest demand</h4>
+        <p class="cap muted-l45" style="margin-top:6px;">Monthly searches for the hub&#x27;s largest pages</p>
+        <ul class="tlist"><li><span><span class="t-name">How to warm up breast milk</span><span class="t-hub">Warming, thawing &amp; mixing &middot; 65 subtopics</span></span><span class="t-val">30,800</span></li><li><span><span class="t-name">Best bottle nipples for breastfed babies</span><span class="t-hub">Bottle nipples &middot; 79 subtopics</span></span><span class="t-val">24,980</span></li><li><span><span class="t-name">High lipase milk</span><span class="t-hub">Milk smell &amp; quality &middot; 42 subtopics</span></span><span class="t-val">15,700</span></li><li><span><span class="t-name">Best breast milk storage containers</span><span class="t-hub">Storage bags &amp; coolers &middot; 14 subtopics</span></span><span class="t-val">13,960</span></li><li><span><span class="t-name">How to store expressed breast milk</span><span class="t-hub">Storing &amp; freezing milk &middot; 58 subtopics</span></span><span class="t-val">11,930</span></li><li><span><span class="t-name">Best breast milk coolers</span><span class="t-hub">Storage bags &amp; coolers &middot; 22 subtopics</span></span><span class="t-val">11,880</span></li></ul>
+      </div>
+      <div class="card card-light">
+        <h4 class="title-sm">What the hub covers</h4>
+        <p class="cap muted-l45" style="margin-top:6px;">Scheduled pages by theme</p>
+        <ul class="tlist"><li><span><span class="t-name">Bottle nipples</span><span class="t-hub">30% of the hub</span></span><span class="t-val">14 pages</span></li><li><span><span class="t-name">Storage bags &amp; coolers</span><span class="t-hub">22% of the hub</span></span><span class="t-val">10 pages</span></li><li><span><span class="t-name">Milk smell &amp; quality</span><span class="t-hub">15% of the hub</span></span><span class="t-val">7 pages</span></li><li><span><span class="t-name">Storing &amp; freezing milk</span><span class="t-hub">13% of the hub</span></span><span class="t-val">6 pages</span></li><li><span><span class="t-name">Bottle refusal &amp; introducing a bottle</span><span class="t-hub">13% of the hub</span></span><span class="t-val">6 pages</span></li><li><span><span class="t-name">Warming, thawing &amp; mixing</span><span class="t-hub">7% of the hub</span></span><span class="t-val">3 pages</span></li></ul>
+      </div>
+    </div>
+    <details class="all">
+      <summary>All 46 Expressed Milk &amp; Bottle Feeding pages</summary>
+      <div class="card card-light allcard"><ul class="tlist cols"><li><span><span class="t-name">How to warm up breast milk</span><span class="t-hub">Warming, thawing &amp; mixing &middot; 65 subtopics</span></span><span class="t-val">30,800</span></li><li><span><span class="t-name">Best bottle nipples for breastfed babies</span><span class="t-hub">Bottle nipples &middot; 79 subtopics</span></span><span class="t-val">24,980</span></li><li><span><span class="t-name">High lipase milk</span><span class="t-hub">Milk smell &amp; quality &middot; 42 subtopics</span></span><span class="t-val">15,700</span></li><li><span><span class="t-name">Best breast milk storage containers</span><span class="t-hub">Storage bags &amp; coolers &middot; 14 subtopics</span></span><span class="t-val">13,960</span></li><li><span><span class="t-name">How to store expressed breast milk</span><span class="t-hub">Storing &amp; freezing milk &middot; 58 subtopics</span></span><span class="t-val">11,930</span></li><li><span><span class="t-name">Best breast milk coolers</span><span class="t-hub">Storage bags &amp; coolers &middot; 22 subtopics</span></span><span class="t-val">11,880</span></li><li><span><span class="t-name">Bottle nipple size guide</span><span class="t-hub">Bottle nipples &middot; 60 subtopics</span></span><span class="t-val">11,000</span></li><li><span><span class="t-name">How to bottle feed expressed breast milk</span><span class="t-hub">Bottle refusal &amp; introducing a bottle &middot; 19 subtopics</span></span><span class="t-val">10,140</span></li><li><span><span class="t-name">How to thaw breast milk</span><span class="t-hub">Warming, thawing &amp; mixing &middot; 20 subtopics</span></span><span class="t-val">10,020</span></li><li><span><span class="t-name">Freezing breast milk</span><span class="t-hub">Storing &amp; freezing milk &middot; 29 subtopics</span></span><span class="t-val">4,530</span></li><li><span><span class="t-name">Which breast milk storage bags are best?</span><span class="t-hub">Storage bags &amp; coolers &middot; 33 subtopics</span></span><span class="t-val">3,750</span></li><li><span><span class="t-name">How to use breast milk storage bags</span><span class="t-hub">Storage bags &amp; coolers &middot; 34 subtopics</span></span><span class="t-val">3,110</span></li><li><span><span class="t-name">What breast milk smells like</span><span class="t-hub">Milk smell &amp; quality &middot; 40 subtopics</span></span><span class="t-val">3,050</span></li><li><span><span class="t-name">Can you mix expressed breast milk?</span><span class="t-hub">Warming, thawing &amp; mixing &middot; 31 subtopics</span></span><span class="t-val">2,710</span></li><li><span><span class="t-name">How to overcome bottle refusal</span><span class="t-hub">Bottle refusal &amp; introducing a bottle &middot; 33 subtopics</span></span><span class="t-val">1,410</span></li><li><span><span class="t-name">Bottle nipples for preemies</span><span class="t-hub">Bottle nipples &middot; 2 subtopics</span></span><span class="t-val">1,020</span></li><li><span><span class="t-name">Why a bottle nipple keeps collapsing</span><span class="t-hub">Bottle nipples &middot; 11 subtopics</span></span><span class="t-val">700</span></li><li><span><span class="t-name">What to do with leftover breast milk</span><span class="t-hub">Storing &amp; freezing milk &middot; 19 subtopics</span></span><span class="t-val">660</span></li><li><span><span class="t-name">Can babies smell their mother&#x27;s milk?</span><span class="t-hub">Milk smell &amp; quality &middot; 9 subtopics</span></span><span class="t-val">590</span></li><li><span><span class="t-name">Fresh vs. frozen breast milk</span><span class="t-hub">Storing &amp; freezing milk &middot; 18 subtopics</span></span><span class="t-val">440</span></li><li><span><span class="t-name">Storage bags covered by insurance</span><span class="t-hub">Storage bags &amp; coolers &middot; 8 subtopics</span></span><span class="t-val">440</span></li><li><span><span class="t-name">How to clean bottle nipples</span><span class="t-hub">Bottle nipples &middot; 8 subtopics</span></span><span class="t-val">410</span></li><li><span><span class="t-name">How to travel with expressed breast milk</span><span class="t-hub">Storing &amp; freezing milk &middot; 19 subtopics</span></span><span class="t-val">390</span></li><li><span><span class="t-name">Introducing a bottle to a breastfed baby</span><span class="t-hub">Bottle refusal &amp; introducing a bottle &middot; 33 subtopics</span></span><span class="t-val">350</span></li><li><span><span class="t-name">Cereal bottle nipples</span><span class="t-hub">Bottle nipples &middot; 5 subtopics</span></span><span class="t-val">270</span></li><li><span><span class="t-name">How to pack breast milk for daycare</span><span class="t-hub">Storing &amp; freezing milk &middot; 12 subtopics</span></span><span class="t-val">230</span></li><li><span><span class="t-name">Why refrigerated breast milk separates</span><span class="t-hub">Milk smell &amp; quality &middot; 15 subtopics</span></span><span class="t-val">220</span></li><li><span><span class="t-name">Best sippy cups for bottle refusal</span><span class="t-hub">Bottle refusal &amp; introducing a bottle &middot; 4 subtopics</span></span><span class="t-val">200</span></li><li><span><span class="t-name">Can a bottle nipple be used as a pacifier?</span><span class="t-hub">Bottle nipples &middot; 6 subtopics</span></span><span class="t-val">170</span></li><li><span><span class="t-name">Best bottle nipple brushes</span><span class="t-hub">Bottle nipples &middot; 3 subtopics</span></span><span class="t-val">160</span></li><li><span><span class="t-name">Does bottle feeding cause nipple confusion?</span><span class="t-hub">Bottle refusal &amp; introducing a bottle &middot; 8 subtopics</span></span><span class="t-val">130</span></li><li><span><span class="t-name">Bottle nipple cleaners</span><span class="t-hub">Bottle nipples &middot; 3 subtopics</span></span><span class="t-val">110</span></li><li><span><span class="t-name">Storage bags vs. bottles</span><span class="t-hub">Storage bags &amp; coolers &middot; 6 subtopics</span></span><span class="t-val">70</span></li><li><span><span class="t-name">Bottle nipple sterilizers</span><span class="t-hub">Bottle nipples &middot; 1 subtopic</span></span><span class="t-val">70</span></li><li><span><span class="t-name">Mason jar bottle nipples</span><span class="t-hub">Bottle nipples &middot; 1 subtopic</span></span><span class="t-val">70</span></li><li><span><span class="t-name">Do nipple shields help with the switch to a bottle?</span><span class="t-hub">Bottle refusal &amp; introducing a bottle &middot; 5 subtopics</span></span><span class="t-val">60</span></li><li><span><span class="t-name">Does alcohol leave expressed breast milk?</span><span class="t-hub">Milk smell &amp; quality &middot; 5 subtopics</span></span><span class="t-val">60</span></li><li><span><span class="t-name">Getting breast milk smell out of clothes</span><span class="t-hub">Milk smell &amp; quality &middot; 4 subtopics</span></span><span class="t-val">60</span></li><li><span><span class="t-name">Where to donate breast milk storage bags</span><span class="t-hub">Storage bags &amp; coolers &middot; 1 subtopic</span></span><span class="t-val">50</span></li><li><span><span class="t-name">Bottle nipples for cleft lip</span><span class="t-hub">Bottle nipples &middot; 1 subtopic</span></span><span class="t-val">50</span></li><li><span><span class="t-name">Containers for breast milk bags</span><span class="t-hub">Storage bags &amp; coolers &middot; 1 subtopic</span></span><span class="t-val">50</span></li><li><span><span class="t-name">Why do I smell like breast milk?</span><span class="t-hub">Milk smell &amp; quality &middot; 3 subtopics</span></span><span class="t-val">40</span></li><li><span><span class="t-name">Clogged bottle nipples</span><span class="t-hub">Bottle nipples &middot; 3 subtopics</span></span><span class="t-val">40</span></li><li><span><span class="t-name">Are breast milk storage bags FSA eligible?</span><span class="t-hub">Storage bags &amp; coolers &middot; 2 subtopics</span></span><span class="t-val">30</span></li><li><span><span class="t-name">Pacifier-style bottle nipples</span><span class="t-hub">Bottle nipples &middot; 1 subtopic</span></span><span class="t-val">30</span></li><li><span><span class="t-name">DIY breast milk storage bags</span><span class="t-hub">Storage bags &amp; coolers &middot; 1 subtopic</span></span><span class="t-val">10</span></li></ul></div>
+    </details>
+  </div>
+</section>
+
+<!-- ============ 08 - MILK SUPPLY ============ -->
+<section class="slide s-paper" id="supply">
+  <span class="marker">08 - Milk supply</span>
+  <div class="slide-inner">
+    <div class="step-row" style="margin-bottom:22px;">
+      <div class="eyebrow" style="margin-bottom:0;">Hub 03 &middot; Milk Supply Guide</div>
+      <span class="week week-l">37 pages</span>
+    </div>
+    <h2>Cluster feeding, power pumping and building a full supply</h2>
+    <p class="lead muted-l" style="margin-top:14px; max-width:760px;">Cluster feeding is the hub&#x27;s biggest page at 87,410 searches a month and the deepest page in the plan, with 215 subtopics. Power pumping follows at 25,150 and pumping schedules at 12,870. The hub explains how to tell if a baby is getting enough, which lactation supplements and drinks to consider, and how to find and pay for a lactation consultant, which links naturally to Milky Mama&#x27;s consultations.</p>
+    <p class="cap muted-l45" style="margin-top:10px;">148,450 monthly searches across 37 pages and 669 subtopics.</p>
+    <p class="later-hint"><span class="later-n">+53</span> more topics planned for this hub after March</p>
+    <div class="grid g2" style="margin-top:28px;">
+      <div class="card card-light">
+        <h4 class="title-sm">Biggest demand</h4>
+        <p class="cap muted-l45" style="margin-top:6px;">Monthly searches for the hub&#x27;s largest pages</p>
+        <ul class="tlist"><li><span><span class="t-name">Cluster feeding</span><span class="t-hub">Cluster feeding &middot; 215 subtopics</span></span><span class="t-val">87,410</span></li><li><span><span class="t-name">Power pumping</span><span class="t-hub">Pumping schedules &amp; power pumping &middot; 92 subtopics</span></span><span class="t-val">25,150</span></li><li><span><span class="t-name">Pumping schedules</span><span class="t-hub">Pumping schedules &amp; power pumping &middot; 81 subtopics</span></span><span class="t-val">12,870</span></li><li><span><span class="t-name">Galactagogues</span><span class="t-hub">Lactation supplements &amp; drinks &middot; 33 subtopics</span></span><span class="t-val">9,670</span></li><li><span><span class="t-name">Cluster feeding a bottle-fed baby</span><span class="t-hub">Cluster feeding &middot; 11 subtopics</span></span><span class="t-val">1,510</span></li><li><span><span class="t-name">Best lactation supplements</span><span class="t-hub">Lactation supplements &amp; drinks &middot; 8 subtopics</span></span><span class="t-val">1,460</span></li></ul>
+      </div>
+      <div class="card card-light">
+        <h4 class="title-sm">What the hub covers</h4>
+        <p class="cap muted-l45" style="margin-top:6px;">Scheduled pages by theme</p>
+        <ul class="tlist"><li><span><span class="t-name">Lactation consultants</span><span class="t-hub">27% of the hub</span></span><span class="t-val">10 pages</span></li><li><span><span class="t-name">Cluster feeding</span><span class="t-hub">19% of the hub</span></span><span class="t-val">7 pages</span></li><li><span><span class="t-name">Lactation supplements &amp; drinks</span><span class="t-hub">19% of the hub</span></span><span class="t-val">7 pages</span></li><li><span><span class="t-name">Low supply &amp; getting enough</span><span class="t-hub">19% of the hub</span></span><span class="t-val">7 pages</span></li><li><span><span class="t-name">Pumping schedules &amp; power pumping</span><span class="t-hub">16% of the hub</span></span><span class="t-val">6 pages</span></li></ul>
+      </div>
+    </div>
+    <details class="all">
+      <summary>All 37 Milk Supply Guide pages</summary>
+      <div class="card card-light allcard"><ul class="tlist cols"><li><span><span class="t-name">Cluster feeding</span><span class="t-hub">Cluster feeding &middot; 215 subtopics</span></span><span class="t-val">87,410</span></li><li><span><span class="t-name">Power pumping</span><span class="t-hub">Pumping schedules &amp; power pumping &middot; 92 subtopics</span></span><span class="t-val">25,150</span></li><li><span><span class="t-name">Pumping schedules</span><span class="t-hub">Pumping schedules &amp; power pumping &middot; 81 subtopics</span></span><span class="t-val">12,870</span></li><li><span><span class="t-name">Galactagogues</span><span class="t-hub">Lactation supplements &amp; drinks &middot; 33 subtopics</span></span><span class="t-val">9,670</span></li><li><span><span class="t-name">Cluster feeding a bottle-fed baby</span><span class="t-hub">Cluster feeding &middot; 11 subtopics</span></span><span class="t-val">1,510</span></li><li><span><span class="t-name">Best lactation supplements</span><span class="t-hub">Lactation supplements &amp; drinks &middot; 8 subtopics</span></span><span class="t-val">1,460</span></li><li><span><span class="t-name">Cluster feeding at night</span><span class="t-hub">Cluster feeding &middot; 25 subtopics</span></span><span class="t-val">1,370</span></li><li><span><span class="t-name">Lactation drinks</span><span class="t-hub">Lactation supplements &amp; drinks &middot; 4 subtopics</span></span><span class="t-val">1,080</span></li><li><span><span class="t-name">Why am I not making enough milk?</span><span class="t-hub">Low supply &amp; getting enough &middot; 16 subtopics</span></span><span class="t-val">1,030</span></li><li><span><span class="t-name">Organic lactation supplements</span><span class="t-hub">Lactation supplements &amp; drinks &middot; 1 subtopic</span></span><span class="t-val">1,000</span></li><li><span><span class="t-name">Is my newborn getting enough milk?</span><span class="t-hub">Low supply &amp; getting enough &middot; 36 subtopics</span></span><span class="t-val">750</span></li><li><span><span class="t-name">Cluster feeding at 4 months</span><span class="t-hub">Cluster feeding &middot; 8 subtopics</span></span><span class="t-val">620</span></li><li><span><span class="t-name">Does insurance cover a lactation consultant?</span><span class="t-hub">Lactation consultants &middot; 8 subtopics</span></span><span class="t-val">550</span></li><li><span><span class="t-name">Fenugreek supplements for breastfeeding</span><span class="t-hub">Lactation supplements &amp; drinks &middot; 1 subtopic</span></span><span class="t-val">480</span></li><li><span><span class="t-name">Back-to-work pumping schedule</span><span class="t-hub">Pumping schedules &amp; power pumping &middot; 12 subtopics</span></span><span class="t-val">370</span></li><li><span><span class="t-name">Weaning-from-pumping schedule</span><span class="t-hub">Pumping schedules &amp; power pumping &middot; 5 subtopics</span></span><span class="t-val">370</span></li><li><span><span class="t-name">How to find a lactation consultant</span><span class="t-hub">Lactation consultants &middot; 15 subtopics</span></span><span class="t-val">330</span></li><li><span><span class="t-name">Can breast milk be not nutritious enough?</span><span class="t-hub">Low supply &amp; getting enough &middot; 15 subtopics</span></span><span class="t-val">240</span></li><li><span><span class="t-name">Weighted feeds</span><span class="t-hub">Low supply &amp; getting enough &middot; 4 subtopics</span></span><span class="t-val">230</span></li><li><span><span class="t-name">What to bring to a lactation appointment</span><span class="t-hub">Lactation consultants &middot; 5 subtopics</span></span><span class="t-val">220</span></li><li><span><span class="t-name">Cluster feeding vs. comfort nursing</span><span class="t-hub">Cluster feeding &middot; 7 subtopics</span></span><span class="t-val">210</span></li><li><span><span class="t-name">How to increase pumping output</span><span class="t-hub">Pumping schedules &amp; power pumping &middot; 12 subtopics</span></span><span class="t-val">190</span></li><li><span><span class="t-name">Cluster feeding vs. colic</span><span class="t-hub">Cluster feeding &middot; 10 subtopics</span></span><span class="t-val">190</span></li><li><span><span class="t-name">Best scales for weighted feeds</span><span class="t-hub">Low supply &amp; getting enough &middot; 7 subtopics</span></span><span class="t-val">160</span></li><li><span><span class="t-name">Lactation drink recipes</span><span class="t-hub">Lactation supplements &amp; drinks &middot; 5 subtopics</span></span><span class="t-val">150</span></li><li><span><span class="t-name">Cluster feeding and spitting up</span><span class="t-hub">Cluster feeding &middot; 6 subtopics</span></span><span class="t-val">140</span></li><li><span><span class="t-name">Private lactation consultants</span><span class="t-hub">Lactation consultants &middot; 6 subtopics</span></span><span class="t-val">110</span></li><li><span><span class="t-name">Combo feeding pumping schedule</span><span class="t-hub">Pumping schedules &amp; power pumping &middot; 5 subtopics</span></span><span class="t-val">110</span></li><li><span><span class="t-name">Bottles lactation consultants recommend</span><span class="t-hub">Lactation consultants &middot; 3 subtopics</span></span><span class="t-val">110</span></li><li><span><span class="t-name">Does TRICARE cover a lactation consultant?</span><span class="t-hub">Lactation consultants &middot; 2 subtopics</span></span><span class="t-val">90</span></li><li><span><span class="t-name">Pacifiers lactation consultants recommend</span><span class="t-hub">Lactation consultants &middot; 2 subtopics</span></span><span class="t-val">80</span></li><li><span><span class="t-name">Male lactation consultants</span><span class="t-hub">Lactation consultants &middot; 1 subtopic</span></span><span class="t-val">70</span></li><li><span><span class="t-name">Breast milk not coming in fast enough</span><span class="t-hub">Low supply &amp; getting enough &middot; 3 subtopics</span></span><span class="t-val">30</span></li><li><span><span class="t-name">Lactation consultant billing</span><span class="t-hub">Lactation consultants &middot; 1 subtopic</span></span><span class="t-val">30</span></li><li><span><span class="t-name">Lactation consultants in private practice</span><span class="t-hub">Lactation consultants &middot; 1 subtopic</span></span><span class="t-val">30</span></li><li><span><span class="t-name">Does caffeine affect breast milk?</span><span class="t-hub">Low supply &amp; getting enough &middot; 1 subtopic</span></span><span class="t-val">30</span></li><li><span><span class="t-name">Lactation vitamins</span><span class="t-hub">Lactation supplements &amp; drinks &middot; 2 subtopics</span></span><span class="t-val">10</span></li></ul></div>
+    </details>
+  </div>
+</section>
+
+<!-- ============ 09 - LATCH ============ -->
+<section class="slide s-light" id="latch">
+  <span class="marker">09 - Latch</span>
+  <div class="slide-inner">
+    <div class="step-row" style="margin-bottom:22px;">
+      <div class="eyebrow" style="margin-bottom:0;">Hub 04 &middot; Latch &amp; Breastfeeding Comfort</div>
+      <span class="week week-l">36 pages</span>
+    </div>
+    <h2>Latch, nipple shields and clogged ducts, without the pain</h2>
+    <p class="lead muted-l" style="margin-top:14px; max-width:760px;">How to use a nipple shield is the biggest page in the plan at 96,670 searches a month, with clogged milk duct treatment next at 87,030 and 183 subtopics. The hub covers getting a deep latch, breastfeeding positions for every situation, nipple and breast pain, engorgement and clogged ducts.</p>
+    <p class="cap muted-l45" style="margin-top:10px;">274,660 monthly searches across 36 pages and 890 subtopics.</p>
+    <p class="later-hint"><span class="later-n">+50</span> more topics planned for this hub after March</p>
+    <div class="grid g2" style="margin-top:28px;">
+      <div class="card card-light">
+        <h4 class="title-sm">Biggest demand</h4>
+        <p class="cap muted-l45" style="margin-top:6px;">Monthly searches for the hub&#x27;s largest pages</p>
+        <ul class="tlist"><li><span><span class="t-name">How to use a nipple shield</span><span class="t-hub">Nipple shields &middot; 114 subtopics</span></span><span class="t-val">96,670</span></li><li><span><span class="t-name">Clogged milk duct treatment</span><span class="t-hub">Clogged ducts &amp; engorgement &middot; 183 subtopics</span></span><span class="t-val">87,030</span></li><li><span><span class="t-name">Breast engorgement</span><span class="t-hub">Clogged ducts &amp; engorgement &middot; 50 subtopics</span></span><span class="t-val">11,450</span></li><li><span><span class="t-name">Breast pain while breastfeeding</span><span class="t-hub">Breast &amp; nipple pain &middot; 47 subtopics</span></span><span class="t-val">10,590</span></li><li><span><span class="t-name">Nipple pain while breastfeeding</span><span class="t-hub">Breast &amp; nipple pain &middot; 68 subtopics</span></span><span class="t-val">10,520</span></li><li><span><span class="t-name">Nipple vasospasm</span><span class="t-hub">Breast &amp; nipple pain &middot; 34 subtopics</span></span><span class="t-val">9,430</span></li></ul>
+      </div>
+      <div class="card card-light">
+        <h4 class="title-sm">What the hub covers</h4>
+        <p class="cap muted-l45" style="margin-top:6px;">Scheduled pages by theme</p>
+        <ul class="tlist"><li><span><span class="t-name">Breastfeeding positions</span><span class="t-hub">31% of the hub</span></span><span class="t-val">11 pages</span></li><li><span><span class="t-name">Clogged ducts &amp; engorgement</span><span class="t-hub">28% of the hub</span></span><span class="t-val">10 pages</span></li><li><span><span class="t-name">Breast &amp; nipple pain</span><span class="t-hub">17% of the hub</span></span><span class="t-val">6 pages</span></li><li><span><span class="t-name">Nipple shields</span><span class="t-hub">14% of the hub</span></span><span class="t-val">5 pages</span></li><li><span><span class="t-name">Latch</span><span class="t-hub">11% of the hub</span></span><span class="t-val">4 pages</span></li></ul>
+      </div>
+    </div>
+    <details class="all">
+      <summary>All 36 Latch &amp; Breastfeeding Comfort pages</summary>
+      <div class="card card-light allcard"><ul class="tlist cols"><li><span><span class="t-name">How to use a nipple shield</span><span class="t-hub">Nipple shields &middot; 114 subtopics</span></span><span class="t-val">96,670</span></li><li><span><span class="t-name">Clogged milk duct treatment</span><span class="t-hub">Clogged ducts &amp; engorgement &middot; 183 subtopics</span></span><span class="t-val">87,030</span></li><li><span><span class="t-name">Breast engorgement</span><span class="t-hub">Clogged ducts &amp; engorgement &middot; 50 subtopics</span></span><span class="t-val">11,450</span></li><li><span><span class="t-name">Breast pain while breastfeeding</span><span class="t-hub">Breast &amp; nipple pain &middot; 47 subtopics</span></span><span class="t-val">10,590</span></li><li><span><span class="t-name">Nipple pain while breastfeeding</span><span class="t-hub">Breast &amp; nipple pain &middot; 68 subtopics</span></span><span class="t-val">10,520</span></li><li><span><span class="t-name">Nipple vasospasm</span><span class="t-hub">Breast &amp; nipple pain &middot; 34 subtopics</span></span><span class="t-val">9,430</span></li><li><span><span class="t-name">Laid-back breastfeeding</span><span class="t-hub">Breastfeeding positions &middot; 22 subtopics</span></span><span class="t-val">8,790</span></li><li><span><span class="t-name">Milk blebs</span><span class="t-hub">Breast &amp; nipple pain &middot; 23 subtopics</span></span><span class="t-val">8,450</span></li><li><span><span class="t-name">Clicking while breastfeeding</span><span class="t-hub">Latch &middot; 25 subtopics</span></span><span class="t-val">7,680</span></li><li><span><span class="t-name">How to get a deep latch</span><span class="t-hub">Latch &middot; 113 subtopics</span></span><span class="t-val">6,030</span></li><li><span><span class="t-name">Silver nipple shields</span><span class="t-hub">Nipple shields &middot; 3 subtopics</span></span><span class="t-val">3,420</span></li><li><span><span class="t-name">Engorgement after stopping breastfeeding</span><span class="t-hub">Clogged ducts &amp; engorgement &middot; 39 subtopics</span></span><span class="t-val">2,000</span></li><li><span><span class="t-name">Lymphatic massage for clogged ducts</span><span class="t-hub">Clogged ducts &amp; engorgement &middot; 7 subtopics</span></span><span class="t-val">1,900</span></li><li><span><span class="t-name">Breastfeeding lying down</span><span class="t-hub">Breastfeeding positions &middot; 39 subtopics</span></span><span class="t-val">1,730</span></li><li><span><span class="t-name">The football hold</span><span class="t-hub">Breastfeeding positions &middot; 3 subtopics</span></span><span class="t-val">1,310</span></li><li><span><span class="t-name">Upright breastfeeding positions</span><span class="t-hub">Breastfeeding positions &middot; 3 subtopics</span></span><span class="t-val">1,150</span></li><li><span><span class="t-name">Best nipple shields</span><span class="t-hub">Nipple shields &middot; 12 subtopics</span></span><span class="t-val">1,030</span></li><li><span><span class="t-name">Moving from a nipple shield to the breast</span><span class="t-hub">Nipple shields &middot; 10 subtopics</span></span><span class="t-val">880</span></li><li><span><span class="t-name">Clogged milk duct in the armpit</span><span class="t-hub">Clogged ducts &amp; engorgement &middot; 5 subtopics</span></span><span class="t-val">650</span></li><li><span><span class="t-name">Hard, painless lump while breastfeeding</span><span class="t-hub">Clogged ducts &amp; engorgement &middot; 5 subtopics</span></span><span class="t-val">640</span></li><li><span><span class="t-name">Breast refusal</span><span class="t-hub">Latch &middot; 14 subtopics</span></span><span class="t-val">590</span></li><li><span><span class="t-name">Clogged milk duct when not breastfeeding</span><span class="t-hub">Clogged ducts &amp; engorgement &middot; 7 subtopics</span></span><span class="t-val">510</span></li><li><span><span class="t-name">Positions for a fast let-down</span><span class="t-hub">Breastfeeding positions &middot; 7 subtopics</span></span><span class="t-val">340</span></li><li><span><span class="t-name">Breastfeeding positions after a C-section</span><span class="t-hub">Breastfeeding positions &middot; 7 subtopics</span></span><span class="t-val">320</span></li><li><span><span class="t-name">Positions to reduce gas</span><span class="t-hub">Breastfeeding positions &middot; 6 subtopics</span></span><span class="t-val">300</span></li><li><span><span class="t-name">Clogged milk duct after weaning</span><span class="t-hub">Clogged ducts &amp; engorgement &middot; 15 subtopics</span></span><span class="t-val">240</span></li><li><span><span class="t-name">Best positions for larger breasts</span><span class="t-hub">Breastfeeding positions &middot; 5 subtopics</span></span><span class="t-val">210</span></li><li><span><span class="t-name">Shallow latch on a bottle</span><span class="t-hub">Latch &middot; 2 subtopics</span></span><span class="t-val">140</span></li><li><span><span class="t-name">Nipple pain when not breastfeeding</span><span class="t-hub">Breast &amp; nipple pain &middot; 1 subtopic</span></span><span class="t-val">140</span></li><li><span><span class="t-name">Positions for back pain</span><span class="t-hub">Breastfeeding positions &middot; 5 subtopics</span></span><span class="t-val">130</span></li><li><span><span class="t-name">Nipple shield with a supplemental nursing system</span><span class="t-hub">Nipple shields &middot; 4 subtopics</span></span><span class="t-val">120</span></li><li><span><span class="t-name">Painless red spot on the breast</span><span class="t-hub">Breast &amp; nipple pain &middot; 2 subtopics</span></span><span class="t-val">120</span></li><li><span><span class="t-name">Tandem breastfeeding positions</span><span class="t-hub">Breastfeeding positions &middot; 1 subtopic</span></span><span class="t-val">90</span></li><li><span><span class="t-name">Breast lump vs. clogged milk duct</span><span class="t-hub">Clogged ducts &amp; engorgement &middot; 5 subtopics</span></span><span class="t-val">20</span></li><li><span><span class="t-name">Positions for breastfeeding in public</span><span class="t-hub">Breastfeeding positions &middot; 3 subtopics</span></span><span class="t-val">20</span></li><li><span><span class="t-name">Red light therapy for clogged ducts</span><span class="t-hub">Clogged ducts &amp; engorgement &middot; 1 subtopic</span></span><span class="t-val">20</span></li></ul></div>
+    </details>
+  </div>
+</section>
+
+<!-- ============ 10 - FIRST WEEKS ============ -->
+<section class="slide s-paper" id="start">
+  <span class="marker">10 - First weeks</span>
+  <div class="slide-inner">
+    <div class="step-row" style="margin-bottom:22px;">
+      <div class="eyebrow" style="margin-bottom:0;">Hub 05 &middot; Getting Started With Breastfeeding</div>
+      <span class="week week-l">28 pages</span>
+    </div>
+    <h2>The first weeks: milk coming in, feeding often and nursing covers</h2>
+    <p class="lead muted-l" style="margin-top:14px; max-width:760px;">How often to breastfeed by age leads the hub at 15,610 searches a month, with two nursing cover pages close behind at 14,800 and 11,800. The hub covers when milk comes in, colostrum, hand expressing, breastfeeding basics and a breastfeeding basics class page, plus nursing covers in every style, from muslin to hooped.</p>
+    <p class="cap muted-l45" style="margin-top:10px;">66,280 monthly searches across 28 pages and 321 subtopics.</p>
+    <p class="later-hint"><span class="later-n">+46</span> more topics planned for this hub after March</p>
+    <div class="grid g2" style="margin-top:28px;">
+      <div class="card card-light">
+        <h4 class="title-sm">Biggest demand</h4>
+        <p class="cap muted-l45" style="margin-top:6px;">Monthly searches for the hub&#x27;s largest pages</p>
+        <ul class="tlist"><li><span><span class="t-name">How often to breastfeed, by age</span><span class="t-hub">Breastfeeding basics &middot; 105 subtopics</span></span><span class="t-val">15,610</span></li><li><span><span class="t-name">Nursing nipple covers</span><span class="t-hub">Nursing covers &middot; 1 subtopic</span></span><span class="t-val">14,800</span></li><li><span><span class="t-name">Breastfeeding nursing covers</span><span class="t-hub">Nursing covers &middot; 11 subtopics</span></span><span class="t-val">11,800</span></li><li><span><span class="t-name">Colostrum vs. breast milk</span><span class="t-hub">Milk coming in &middot; 27 subtopics</span></span><span class="t-val">5,530</span></li><li><span><span class="t-name">Best nursing covers</span><span class="t-hub">Nursing covers &middot; 19 subtopics</span></span><span class="t-val">4,290</span></li><li><span><span class="t-name">Hand expressing breast milk</span><span class="t-hub">Breastfeeding basics &middot; 17 subtopics</span></span><span class="t-val">4,130</span></li></ul>
+      </div>
+      <div class="card card-light">
+        <h4 class="title-sm">What the hub covers</h4>
+        <p class="cap muted-l45" style="margin-top:6px;">Scheduled pages by theme</p>
+        <ul class="tlist"><li><span><span class="t-name">Nursing covers</span><span class="t-hub">50% of the hub</span></span><span class="t-val">14 pages</span></li><li><span><span class="t-name">Milk coming in</span><span class="t-hub">29% of the hub</span></span><span class="t-val">8 pages</span></li><li><span><span class="t-name">Breastfeeding basics</span><span class="t-hub">21% of the hub</span></span><span class="t-val">6 pages</span></li></ul>
+      </div>
+    </div>
+    <details class="all">
+      <summary>All 28 Getting Started With Breastfeeding pages</summary>
+      <div class="card card-light allcard"><ul class="tlist cols"><li><span><span class="t-name">How often to breastfeed, by age</span><span class="t-hub">Breastfeeding basics &middot; 105 subtopics</span></span><span class="t-val">15,610</span></li><li><span><span class="t-name">Nursing nipple covers</span><span class="t-hub">Nursing covers &middot; 1 subtopic</span></span><span class="t-val">14,800</span></li><li><span><span class="t-name">Breastfeeding nursing covers</span><span class="t-hub">Nursing covers &middot; 11 subtopics</span></span><span class="t-val">11,800</span></li><li><span><span class="t-name">Colostrum vs. breast milk</span><span class="t-hub">Milk coming in &middot; 27 subtopics</span></span><span class="t-val">5,530</span></li><li><span><span class="t-name">Best nursing covers</span><span class="t-hub">Nursing covers &middot; 19 subtopics</span></span><span class="t-val">4,290</span></li><li><span><span class="t-name">Hand expressing breast milk</span><span class="t-hub">Breastfeeding basics &middot; 17 subtopics</span></span><span class="t-val">4,130</span></li><li><span><span class="t-name">When does breast milk come in?</span><span class="t-hub">Milk coming in &middot; 18 subtopics</span></span><span class="t-val">2,110</span></li><li><span><span class="t-name">Muslin nursing covers</span><span class="t-hub">Nursing covers &middot; 1 subtopic</span></span><span class="t-val">1,760</span></li><li><span><span class="t-name">Breastfeeding basics class</span><span class="t-hub">Breastfeeding basics &middot; 28 subtopics</span></span><span class="t-val">1,010</span></li><li><span><span class="t-name">DIY nursing cover</span><span class="t-hub">Nursing covers &middot; 11 subtopics</span></span><span class="t-val">800</span></li><li><span><span class="t-name">Poncho nursing covers</span><span class="t-hub">Nursing covers &middot; 3 subtopics</span></span><span class="t-val">610</span></li><li><span><span class="t-name">Breastfeeding basics</span><span class="t-hub">Breastfeeding basics &middot; 13 subtopics</span></span><span class="t-val">540</span></li><li><span><span class="t-name">Cotton nursing covers</span><span class="t-hub">Nursing covers &middot; 3 subtopics</span></span><span class="t-val">540</span></li><li><span><span class="t-name">Best gifts for breastfeeding moms</span><span class="t-hub">Breastfeeding basics &middot; 10 subtopics</span></span><span class="t-val">500</span></li><li><span><span class="t-name">How to stop milk from coming in</span><span class="t-hub">Milk coming in &middot; 8 subtopics</span></span><span class="t-val">480</span></li><li><span><span class="t-name">Nursing covers with a hoop</span><span class="t-hub">Nursing covers &middot; 6 subtopics</span></span><span class="t-val">470</span></li><li><span><span class="t-name">Engorgement when milk comes in</span><span class="t-hub">Milk coming in &middot; 7 subtopics</span></span><span class="t-val">370</span></li><li><span><span class="t-name">Delayed milk coming in</span><span class="t-hub">Milk coming in &middot; 15 subtopics</span></span><span class="t-val">300</span></li><li><span><span class="t-name">Nursing blanket covers</span><span class="t-hub">Nursing covers &middot; 2 subtopics</span></span><span class="t-val">160</span></li><li><span><span class="t-name">Storing colostrum in breast milk bags</span><span class="t-hub">Milk coming in &middot; 5 subtopics</span></span><span class="t-val">150</span></li><li><span><span class="t-name">Mesh nursing covers</span><span class="t-hub">Nursing covers &middot; 1 subtopic</span></span><span class="t-val">110</span></li><li><span><span class="t-name">Nursing in public without a cover</span><span class="t-hub">Nursing covers &middot; 3 subtopics</span></span><span class="t-val">70</span></li><li><span><span class="t-name">Linen nursing covers</span><span class="t-hub">Nursing covers &middot; 1 subtopic</span></span><span class="t-val">40</span></li><li><span><span class="t-name">Milk came in but isn&#x27;t coming out</span><span class="t-hub">Milk coming in &middot; 2 subtopics</span></span><span class="t-val">30</span></li><li><span><span class="t-name">Yellow breast milk that isn&#x27;t colostrum</span><span class="t-hub">Milk coming in &middot; 1 subtopic</span></span><span class="t-val">30</span></li><li><span><span class="t-name">Nursing covers for pumping</span><span class="t-hub">Nursing covers &middot; 1 subtopic</span></span><span class="t-val">20</span></li><li><span><span class="t-name">Does HSA cover nursing bras?</span><span class="t-hub">Breastfeeding basics &middot; 1 subtopic</span></span><span class="t-val">10</span></li><li><span><span class="t-name">Undercover nursing covers</span><span class="t-hub">Nursing covers &middot; 1 subtopic</span></span><span class="t-val">10</span></li></ul></div>
+    </details>
+  </div>
+</section>
+
+<!-- ============ 11 - WORK ============ -->
+<section class="slide s-light" id="work">
+  <span class="marker">11 - Work</span>
+  <div class="slide-inner">
+    <div class="step-row" style="margin-bottom:22px;">
+      <div class="eyebrow" style="margin-bottom:0;">Hub 06 &middot; Breastfeeding &amp; Work</div>
+      <span class="week week-l">24 pages</span>
+    </div>
+    <h2>Pumping at work, lactation rooms and getting milk home</h2>
+    <p class="lead muted-l" style="margin-top:14px; max-width:760px;">What is a lactation room? leads the hub at 4,990 searches a month, with cleaning breast pump parts at 4,270. The hub covers your rights to pump at work, lactation room requirements, design and supplies, hands-free pumping bras, taking milk home or on a plane, and airport lactation rooms in Denver, San Diego and San Francisco.</p>
+    <p class="cap muted-l45" style="margin-top:10px;">13,680 monthly searches across 24 pages and 116 subtopics.</p>
+    <p class="later-hint"><span class="later-n">+43</span> more topics planned for this hub after March</p>
+    <div class="grid g2" style="margin-top:28px;">
+      <div class="card card-light">
+        <h4 class="title-sm">Biggest demand</h4>
+        <p class="cap muted-l45" style="margin-top:6px;">Monthly searches for the hub&#x27;s largest pages</p>
+        <ul class="tlist"><li><span><span class="t-name">What is a lactation room?</span><span class="t-hub">Lactation rooms &middot; 11 subtopics</span></span><span class="t-val">4,990</span></li><li><span><span class="t-name">Cleaning breast pump parts</span><span class="t-hub">Pumping at work &middot; 6 subtopics</span></span><span class="t-val">4,270</span></li><li><span><span class="t-name">Lactation room signs</span><span class="t-hub">Lactation rooms &middot; 10 subtopics</span></span><span class="t-val">830</span></li><li><span><span class="t-name">Your rights to pump at work</span><span class="t-hub">Pumping at work &middot; 8 subtopics</span></span><span class="t-val">810</span></li><li><span><span class="t-name">Lactation room requirements</span><span class="t-hub">Lactation rooms &middot; 13 subtopics</span></span><span class="t-val">540</span></li><li><span><span class="t-name">Best hands-free pumping bras</span><span class="t-hub">Hands-free pumping &middot; 7 subtopics</span></span><span class="t-val">480</span></li></ul>
+      </div>
+      <div class="card card-light">
+        <h4 class="title-sm">What the hub covers</h4>
+        <p class="cap muted-l45" style="margin-top:6px;">Scheduled pages by theme</p>
+        <ul class="tlist"><li><span><span class="t-name">Lactation rooms</span><span class="t-hub">29% of the hub</span></span><span class="t-val">7 pages</span></li><li><span><span class="t-name">Airport &amp; local lactation rooms</span><span class="t-hub">21% of the hub</span></span><span class="t-val">5 pages</span></li><li><span><span class="t-name">Pumping at work</span><span class="t-hub">17% of the hub</span></span><span class="t-val">4 pages</span></li><li><span><span class="t-name">Hands-free pumping</span><span class="t-hub">17% of the hub</span></span><span class="t-val">4 pages</span></li><li><span><span class="t-name">Transporting milk</span><span class="t-hub">17% of the hub</span></span><span class="t-val">4 pages</span></li></ul>
+      </div>
+    </div>
+    <details class="all">
+      <summary>All 24 Breastfeeding &amp; Work pages</summary>
+      <div class="card card-light allcard"><ul class="tlist cols"><li><span><span class="t-name">What is a lactation room?</span><span class="t-hub">Lactation rooms &middot; 11 subtopics</span></span><span class="t-val">4,990</span></li><li><span><span class="t-name">Cleaning breast pump parts</span><span class="t-hub">Pumping at work &middot; 6 subtopics</span></span><span class="t-val">4,270</span></li><li><span><span class="t-name">Lactation room signs</span><span class="t-hub">Lactation rooms &middot; 10 subtopics</span></span><span class="t-val">830</span></li><li><span><span class="t-name">Your rights to pump at work</span><span class="t-hub">Pumping at work &middot; 8 subtopics</span></span><span class="t-val">810</span></li><li><span><span class="t-name">Lactation room requirements</span><span class="t-hub">Lactation rooms &middot; 13 subtopics</span></span><span class="t-val">540</span></li><li><span><span class="t-name">Best hands-free pumping bras</span><span class="t-hub">Hands-free pumping &middot; 7 subtopics</span></span><span class="t-val">480</span></li><li><span><span class="t-name">Breast pumping essentials</span><span class="t-hub">Pumping at work &middot; 4 subtopics</span></span><span class="t-val">440</span></li><li><span><span class="t-name">Lactation room design</span><span class="t-hub">Lactation rooms &middot; 10 subtopics</span></span><span class="t-val">360</span></li><li><span><span class="t-name">Lactation accommodation policies</span><span class="t-hub">Pumping at work &middot; 9 subtopics</span></span><span class="t-val">150</span></li><li><span><span class="t-name">Lactation room supplies</span><span class="t-hub">Lactation rooms &middot; 7 subtopics</span></span><span class="t-val">120</span></li><li><span><span class="t-name">Best chairs for a lactation room</span><span class="t-hub">Lactation rooms &middot; 2 subtopics</span></span><span class="t-val">120</span></li><li><span><span class="t-name">Labeling breast milk</span><span class="t-hub">Transporting milk &middot; 1 subtopic</span></span><span class="t-val">110</span></li><li><span><span class="t-name">Transporting frozen breast milk</span><span class="t-hub">Transporting milk &middot; 3 subtopics</span></span><span class="t-val">90</span></li><li><span><span class="t-name">How to make a hands-free pumping bra</span><span class="t-hub">Hands-free pumping &middot; 6 subtopics</span></span><span class="t-val">70</span></li><li><span><span class="t-name">Portable lactation rooms</span><span class="t-hub">Lactation rooms &middot; 5 subtopics</span></span><span class="t-val">70</span></li><li><span><span class="t-name">Flying with breast milk</span><span class="t-hub">Transporting milk &middot; 2 subtopics</span></span><span class="t-val">60</span></li><li><span><span class="t-name">How to use a hands-free pumping bra</span><span class="t-hub">Hands-free pumping &middot; 5 subtopics</span></span><span class="t-val">40</span></li><li><span><span class="t-name">Denver airport lactation rooms</span><span class="t-hub">Airport &amp; local lactation rooms &middot; 1 subtopic</span></span><span class="t-val">40</span></li><li><span><span class="t-name">San Diego airport lactation rooms</span><span class="t-hub">Airport &amp; local lactation rooms &middot; 1 subtopic</span></span><span class="t-val">20</span></li><li><span><span class="t-name">Lactation rooms in Rockville</span><span class="t-hub">Airport &amp; local lactation rooms &middot; 1 subtopic</span></span><span class="t-val">20</span></li><li><span><span class="t-name">SFO lactation rooms</span><span class="t-hub">Airport &amp; local lactation rooms &middot; 1 subtopic</span></span><span class="t-val">20</span></li><li><span><span class="t-name">Best hands-free pumps</span><span class="t-hub">Hands-free pumping &middot; 1 subtopic</span></span><span class="t-val">10</span></li><li><span><span class="t-name">Taking breast milk home from work</span><span class="t-hub">Transporting milk &middot; 1 subtopic</span></span><span class="t-val">10</span></li><li><span><span class="t-name">Lactation rooms in the Philippines</span><span class="t-hub">Airport &amp; local lactation rooms &middot; 1 subtopic</span></span><span class="t-val">10</span></li></ul></div>
+    </details>
+  </div>
+</section>
+
+<!-- ============ 12 - PUMPING ============ -->
+<section class="slide s-paper" id="pumping">
+  <span class="marker">12 - Pumping</span>
+  <div class="slide-inner">
+    <div class="step-row" style="margin-bottom:22px;">
+      <div class="eyebrow" style="margin-bottom:0;">Hub 07 &middot; Pumping With Confidence</div>
+      <span class="week week-l">21 pages</span>
+    </div>
+    <h2>Flange sizing, exclusive pumping and getting more milk</h2>
+    <p class="lead muted-l" style="margin-top:14px; max-width:760px;">Breast pump flange size is the hub&#x27;s biggest page at 70,180 searches a month, with how to increase milk supply when pumping at 21,410. The hub covers exclusive pumping schedules, how much milk to expect, pumping pain, let-down and weaning from the pump, and its nipple ruler page links to Milky Mama&#x27;s free printable nipple ruler.</p>
+    <p class="cap muted-l45" style="margin-top:10px;">118,560 monthly searches across 21 pages and 463 subtopics.</p>
+    <p class="later-hint"><span class="later-n">+55</span> more topics planned for this hub after March</p>
+    <div class="grid g2" style="margin-top:28px;">
+      <div class="card card-light">
+        <h4 class="title-sm">Biggest demand</h4>
+        <p class="cap muted-l45" style="margin-top:6px;">Monthly searches for the hub&#x27;s largest pages</p>
+        <ul class="tlist"><li><span><span class="t-name">Breast pump flange size</span><span class="t-hub">Flanges &amp; pumping pain &middot; 107 subtopics</span></span><span class="t-val">70,180</span></li><li><span><span class="t-name">How to increase milk supply when pumping</span><span class="t-hub">Supply &amp; output while pumping &middot; 90 subtopics</span></span><span class="t-val">21,410</span></li><li><span><span class="t-name">Pain from pumping</span><span class="t-hub">Flanges &amp; pumping pain &middot; 23 subtopics</span></span><span class="t-val">5,240</span></li><li><span><span class="t-name">Exclusive pumping</span><span class="t-hub">Exclusive pumping &middot; 21 subtopics</span></span><span class="t-val">4,650</span></li><li><span><span class="t-name">Nipple ruler</span><span class="t-hub">Flanges &amp; pumping pain &middot; 16 subtopics</span></span><span class="t-val">4,030</span></li><li><span><span class="t-name">Best breast pumps for exclusive pumping</span><span class="t-hub">Exclusive pumping &middot; 5 subtopics</span></span><span class="t-val">2,620</span></li></ul>
+      </div>
+      <div class="card card-light">
+        <h4 class="title-sm">What the hub covers</h4>
+        <p class="cap muted-l45" style="margin-top:6px;">Scheduled pages by theme</p>
+        <ul class="tlist"><li><span><span class="t-name">Exclusive pumping</span><span class="t-hub">38% of the hub</span></span><span class="t-val">8 pages</span></li><li><span><span class="t-name">Flanges &amp; pumping pain</span><span class="t-hub">29% of the hub</span></span><span class="t-val">6 pages</span></li><li><span><span class="t-name">Supply &amp; output while pumping</span><span class="t-hub">24% of the hub</span></span><span class="t-val">5 pages</span></li><li><span><span class="t-name">Weaning &amp; supply dips</span><span class="t-hub">10% of the hub</span></span><span class="t-val">2 pages</span></li></ul>
+      </div>
+    </div>
+    <details class="all">
+      <summary>All 21 Pumping With Confidence pages</summary>
+      <div class="card card-light allcard"><ul class="tlist cols"><li><span><span class="t-name">Breast pump flange size</span><span class="t-hub">Flanges &amp; pumping pain &middot; 107 subtopics</span></span><span class="t-val">70,180</span></li><li><span><span class="t-name">How to increase milk supply when pumping</span><span class="t-hub">Supply &amp; output while pumping &middot; 90 subtopics</span></span><span class="t-val">21,410</span></li><li><span><span class="t-name">Pain from pumping</span><span class="t-hub">Flanges &amp; pumping pain &middot; 23 subtopics</span></span><span class="t-val">5,240</span></li><li><span><span class="t-name">Exclusive pumping</span><span class="t-hub">Exclusive pumping &middot; 21 subtopics</span></span><span class="t-val">4,650</span></li><li><span><span class="t-name">Nipple ruler</span><span class="t-hub">Flanges &amp; pumping pain &middot; 16 subtopics</span></span><span class="t-val">4,030</span></li><li><span><span class="t-name">Best breast pumps for exclusive pumping</span><span class="t-hub">Exclusive pumping &middot; 5 subtopics</span></span><span class="t-val">2,620</span></li><li><span><span class="t-name">Weaning from pumping</span><span class="t-hub">Weaning &amp; supply dips &middot; 23 subtopics</span></span><span class="t-val">2,310</span></li><li><span><span class="t-name">Exclusive pumping schedule</span><span class="t-hub">Exclusive pumping &middot; 18 subtopics</span></span><span class="t-val">1,920</span></li><li><span><span class="t-name">How long can I go at night without pumping?</span><span class="t-hub">Supply &amp; output while pumping &middot; 53 subtopics</span></span><span class="t-val">1,790</span></li><li><span><span class="t-name">Breast massage while pumping</span><span class="t-hub">Supply &amp; output while pumping &middot; 8 subtopics</span></span><span class="t-val">1,610</span></li><li><span><span class="t-name">How to get a let-down while pumping</span><span class="t-hub">Supply &amp; output while pumping &middot; 22 subtopics</span></span><span class="t-val">860</span></li><li><span><span class="t-name">Lactation consultants for exclusive pumping</span><span class="t-hub">Exclusive pumping &middot; 1 subtopic</span></span><span class="t-val">590</span></li><li><span><span class="t-name">How much milk per pumping session</span><span class="t-hub">Supply &amp; output while pumping &middot; 25 subtopics</span></span><span class="t-val">480</span></li><li><span><span class="t-name">Exclusive pumping vs. breastfeeding</span><span class="t-hub">Exclusive pumping &middot; 19 subtopics</span></span><span class="t-val">480</span></li><li><span><span class="t-name">Exclusively pumping for a newborn</span><span class="t-hub">Exclusive pumping &middot; 14 subtopics</span></span><span class="t-val">130</span></li><li><span><span class="t-name">Anxiety while pumping</span><span class="t-hub">Flanges &amp; pumping pain &middot; 4 subtopics</span></span><span class="t-val">100</span></li><li><span><span class="t-name">Clogged ducts when exclusively pumping</span><span class="t-hub">Flanges &amp; pumping pain &middot; 3 subtopics</span></span><span class="t-val">60</span></li><li><span><span class="t-name">Can exclusive pumping prevent pregnancy?</span><span class="t-hub">Exclusive pumping &middot; 5 subtopics</span></span><span class="t-val">40</span></li><li><span><span class="t-name">Mastitis when exclusively pumping</span><span class="t-hub">Flanges &amp; pumping pain &middot; 4 subtopics</span></span><span class="t-val">40</span></li><li><span><span class="t-name">How much to feed when exclusively pumping</span><span class="t-hub">Exclusive pumping &middot; 1 subtopic</span></span><span class="t-val">10</span></li><li><span><span class="t-name">Milk supply dropping at 3 weeks of pumping</span><span class="t-hub">Weaning &amp; supply dips &middot; 1 subtopic</span></span><span class="t-val">10</span></li></ul></div>
+    </details>
+  </div>
+</section>
+
+<!-- ============ 13 - HERBS ============ -->
+<section class="slide s-light" id="herbs">
+  <span class="marker">13 - Herbs</span>
+  <div class="slide-inner">
+    <div class="step-row" style="margin-bottom:22px;">
+      <div class="eyebrow" style="margin-bottom:0;">Hub 08 &middot; Herbs &amp; Supplement Decisions</div>
+      <span class="week week-l">19 pages</span>
+    </div>
+    <h2>Fenugreek, moringa, goat&#x27;s rue and other lactation herbs</h2>
+    <p class="lead muted-l" style="margin-top:14px; max-width:760px;">Moringa for breastfeeding mothers leads the hub at 6,460 searches a month, with fenugreek at 6,280 and goat&#x27;s rue at 4,020. The hub explains what each herb is and how they compare, along with fenugreek allergies and fenugreek-free supplements, which ties directly to Milky Mama&#x27;s fenugreek-free line.</p>
+    <p class="cap muted-l45" style="margin-top:10px;">21,230 monthly searches across 19 pages and 255 subtopics.</p>
+    <p class="later-hint"><span class="later-n">+37</span> more topics planned for this hub after March</p>
+    <div class="grid g2" style="margin-top:28px;">
+      <div class="card card-light">
+        <h4 class="title-sm">Biggest demand</h4>
+        <p class="cap muted-l45" style="margin-top:6px;">Monthly searches for the hub&#x27;s largest pages</p>
+        <ul class="tlist"><li><span><span class="t-name">Moringa for breastfeeding mothers</span><span class="t-hub">Moringa &middot; 39 subtopics</span></span><span class="t-val">6,460</span></li><li><span><span class="t-name">Fenugreek for breastfeeding</span><span class="t-hub">Fenugreek &middot; 76 subtopics</span></span><span class="t-val">6,280</span></li><li><span><span class="t-name">Goat&#x27;s rue</span><span class="t-hub">Goat&#x27;s rue &middot; 16 subtopics</span></span><span class="t-val">4,020</span></li><li><span><span class="t-name">Goat&#x27;s rue for lactation</span><span class="t-hub">Goat&#x27;s rue &middot; 48 subtopics</span></span><span class="t-val">1,340</span></li><li><span><span class="t-name">Fennel and breastfeeding</span><span class="t-hub">Fennel, anise &amp; other herbs &middot; 17 subtopics</span></span><span class="t-val">1,230</span></li><li><span><span class="t-name">Fenugreek-free lactation supplements</span><span class="t-hub">Fenugreek &middot; 5 subtopics</span></span><span class="t-val">620</span></li></ul>
+      </div>
+      <div class="card card-light">
+        <h4 class="title-sm">What the hub covers</h4>
+        <p class="cap muted-l45" style="margin-top:6px;">Scheduled pages by theme</p>
+        <ul class="tlist"><li><span><span class="t-name">Fennel, anise &amp; other herbs</span><span class="t-hub">37% of the hub</span></span><span class="t-val">7 pages</span></li><li><span><span class="t-name">Fenugreek</span><span class="t-hub">26% of the hub</span></span><span class="t-val">5 pages</span></li><li><span><span class="t-name">Goat&#x27;s rue</span><span class="t-hub">26% of the hub</span></span><span class="t-val">5 pages</span></li><li><span><span class="t-name">Moringa</span><span class="t-hub">11% of the hub</span></span><span class="t-val">2 pages</span></li></ul>
+      </div>
+    </div>
+    <details class="all">
+      <summary>All 19 Herbs &amp; Supplement Decisions pages</summary>
+      <div class="card card-light allcard"><ul class="tlist cols"><li><span><span class="t-name">Moringa for breastfeeding mothers</span><span class="t-hub">Moringa &middot; 39 subtopics</span></span><span class="t-val">6,460</span></li><li><span><span class="t-name">Fenugreek for breastfeeding</span><span class="t-hub">Fenugreek &middot; 76 subtopics</span></span><span class="t-val">6,280</span></li><li><span><span class="t-name">Goat&#x27;s rue</span><span class="t-hub">Goat&#x27;s rue &middot; 16 subtopics</span></span><span class="t-val">4,020</span></li><li><span><span class="t-name">Goat&#x27;s rue for lactation</span><span class="t-hub">Goat&#x27;s rue &middot; 48 subtopics</span></span><span class="t-val">1,340</span></li><li><span><span class="t-name">Fennel and breastfeeding</span><span class="t-hub">Fennel, anise &amp; other herbs &middot; 17 subtopics</span></span><span class="t-val">1,230</span></li><li><span><span class="t-name">Fenugreek-free lactation supplements</span><span class="t-hub">Fenugreek &middot; 5 subtopics</span></span><span class="t-val">620</span></li><li><span><span class="t-name">Shatavari for breastfeeding</span><span class="t-hub">Fennel, anise &amp; other herbs &middot; 12 subtopics</span></span><span class="t-val">350</span></li><li><span><span class="t-name">Fenugreek allergy</span><span class="t-hub">Fenugreek &middot; 12 subtopics</span></span><span class="t-val">320</span></li><li><span><span class="t-name">Anise and breastfeeding</span><span class="t-hub">Fennel, anise &amp; other herbs &middot; 6 subtopics</span></span><span class="t-val">170</span></li><li><span><span class="t-name">Best moringa for breastfeeding</span><span class="t-hub">Moringa &middot; 3 subtopics</span></span><span class="t-val">120</span></li><li><span><span class="t-name">Herbs to induce lactation without pregnancy</span><span class="t-hub">Fennel, anise &amp; other herbs &middot; 4 subtopics</span></span><span class="t-val">110</span></li><li><span><span class="t-name">Star anise and breastfeeding</span><span class="t-hub">Fennel, anise &amp; other herbs &middot; 4 subtopics</span></span><span class="t-val">70</span></li><li><span><span class="t-name">Goat&#x27;s rue vs. moringa</span><span class="t-hub">Goat&#x27;s rue &middot; 3 subtopics</span></span><span class="t-val">30</span></li><li><span><span class="t-name">Goat&#x27;s rue seeds</span><span class="t-hub">Goat&#x27;s rue &middot; 1 subtopic</span></span><span class="t-val">30</span></li><li><span><span class="t-name">Which fenugreek brand for breastfeeding?</span><span class="t-hub">Fenugreek &middot; 3 subtopics</span></span><span class="t-val">20</span></li><li><span><span class="t-name">Ayurvedic herbs for lactation</span><span class="t-hub">Fennel, anise &amp; other herbs &middot; 2 subtopics</span></span><span class="t-val">20</span></li><li><span><span class="t-name">Goat&#x27;s rue vs. fenugreek</span><span class="t-hub">Goat&#x27;s rue &middot; 2 subtopics</span></span><span class="t-val">20</span></li><li><span><span class="t-name">Fenugreek recipes for breastfeeding</span><span class="t-hub">Fenugreek &middot; 1 subtopic</span></span><span class="t-val">10</span></li><li><span><span class="t-name">Chinese herbs for low milk supply</span><span class="t-hub">Fennel, anise &amp; other herbs &middot; 1 subtopic</span></span><span class="t-val">10</span></li></ul></div>
+    </details>
+  </div>
+</section>
+
+<!-- ============ 14 - CLOSE ============ -->
+<section class="slide s-dark hero-dark">
+  <span class="marker">14 - Next</span>
+  <div class="slide-inner" style="text-align:center;">
+    <div class="eyebrow" style="justify-content:center;"><span class="dot"></span> Where this goes from here</div>
+    <h1 class="display" style="max-width:880px; margin:0 auto;">The topics are chosen.<br>Now they become <span class="flip">pages.</span></h1>
+    <p class="lead muted-d80" style="max-width:660px; margin:24px auto 0;">
+      Six months, 271 pages across eight hubs, running alongside the SEO audit, product and collection optimizations,
+      AI visibility, ecommerce and Reddit tracking. Everything is in your dashboard as it goes live.
+    </p>
+    <p class="footer-note muted-d" style="margin-top:56px;">FlyRank &middot; Milky Mama content roadmap, Oct 2026 - Mar 2027</p>
+  </div>
+</section>
+
+<script>
+  const rail = document.getElementById('rail');
+  let ticking = false;
+  function updateRail() {
+    const max = document.documentElement.scrollHeight - window.innerHeight;
+    const pct = max > 0 ? (window.scrollY / max) * 100 : 0;
+    rail.style.width = Math.min(100, Math.max(0, pct)) + '%';
+    ticking = false;
+  }
+  window.addEventListener('scroll', () => {
+    if (!ticking) { window.requestAnimationFrame(updateRail); ticking = true; }
+  }, {passive:true});
+  window.addEventListener('resize', updateRail, {passive:true});
+  updateRail();
+</script>
+
+</body></html>
+</body></html>
