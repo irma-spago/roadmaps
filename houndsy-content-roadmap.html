@@ -1,0 +1,719 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Houndsy Content Roadmap</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;700&display=swap">
+<style>
+
+  :root {
+    --mint-300:#7EEFC1; --mint-400:#54E399; --mint-500:#31C97A; --mint-700:#1A7A4A;
+    --ink-800:#0A2224; --ink-850:#071E20; --ink-900:#051F21; --ink-950:#030F10;
+    --paper:#F8FAF9; --paper-sunken:#F0F4F2;
+    --teal-300:#5EC6A9; --teal-400:#3AADA6; --teal-500:#2A8C8A;
+    color-scheme:light;
+  }
+
+  * { margin:0; padding:0; box-sizing:border-box; }
+
+  html { scroll-behavior:smooth; }
+
+  body {
+    font-family:'Geist',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+    color:var(--ink-900);
+    background:var(--ink-950);
+    -webkit-font-smoothing:antialiased;
+    line-height:1.6;
+  }
+  @media (prefers-reduced-motion:reduce) { html { scroll-behavior:auto; } }
+
+  .mono { font-family:'Geist Mono',ui-monospace,Consolas,monospace; }
+
+  /* ---------- Section frame ---------- */
+  .slide {
+    position:relative;
+    min-height:100vh;
+    display:flex; flex-direction:column; justify-content:center;
+    padding:96px 48px;
+  }
+  .slide-inner { width:100%; max-width:1080px; margin:0 auto; position:relative; z-index:2; }
+  .slide-inner.wide { max-width:1240px; }
+
+  .s-dark { background:var(--ink-900); color:#fff; }
+  .s-paper { background:var(--paper); }
+  .s-light { background:#fff; }
+  .s-sunken { background:var(--paper-sunken); }
+
+  .marker {
+    position:absolute; top:40px; right:48px; z-index:3;
+    font-family:'Geist Mono',ui-monospace,Consolas,monospace;
+    font-size:11px; font-weight:700; letter-spacing:0.14em; text-transform:uppercase;
+  }
+  .s-dark .marker { color:rgba(255,255,255,0.55); }
+  .s-paper .marker, .s-light .marker, .s-sunken .marker { color:rgba(5,31,33,0.40); }
+
+  .eyebrow {
+    font-family:'Geist Mono',ui-monospace,Consolas,monospace;
+    font-size:11px; font-weight:700; letter-spacing:0.14em; text-transform:uppercase;
+    display:inline-flex; align-items:center; gap:8px;
+    margin-bottom:24px;
+  }
+  .s-dark .eyebrow { color:var(--mint-400); }
+  .s-paper .eyebrow, .s-light .eyebrow, .s-sunken .eyebrow { color:var(--teal-500); }
+
+  .dot { width:6px; height:6px; border-radius:9999px; background:var(--mint-400); display:inline-block;
+         animation:pulse 2.4s ease-in-out infinite; }
+  @keyframes pulse { 0%,100%{opacity:1;transform:scale(1);} 50%{opacity:0.4;transform:scale(0.7);} }
+
+  h1.display { font-size:56px; font-weight:700; letter-spacing:-0.032em; line-height:1.06; }
+  h2 { font-size:32px; font-weight:700; letter-spacing:-0.028em; line-height:1.12; }
+  h3 { font-size:24px; font-weight:700; letter-spacing:-0.022em; line-height:1.2; }
+  h4 { font-size:20px; font-weight:600; letter-spacing:-0.015em; }
+  .lead { font-size:18px; font-weight:400; line-height:1.6; }
+  h4.title-sm { font-size:17px; letter-spacing:-0.01em; line-height:1.3; }
+  h4.title-xs { font-size:16px; letter-spacing:-0.008em; line-height:1.3; }
+  .body { font-size:16px; line-height:1.6; }
+  .bodys { font-size:14px; line-height:1.55; }
+  .cap { font-size:12px; line-height:1.5; }
+
+  .muted-d { color:rgba(255,255,255,0.55); }
+  .muted-d80 { color:rgba(255,255,255,0.80); }
+  .muted-l { color:rgba(5,31,33,0.55); }
+  .muted-l45 { color:rgba(5,31,33,0.45); }
+  .mint { color:var(--mint-400); }
+  .mint-dark { color:var(--mint-700); }
+
+  /* ---------- Cards ---------- */
+  .card { border-radius:20px; padding:28px; }
+  .card.compact { padding:20px 22px; border-radius:16px; }
+  .card-light { background:#fff; border:1px solid #DDE4E7; }
+  .card-paper { background:var(--paper); border:1px solid #E4EAED; }
+  .card-dark { background:var(--ink-900); color:#fff; }
+  .card-dark-el { background:var(--ink-850); border:1px solid rgba(255,255,255,0.10); border-radius:20px; padding:28px; color:#fff; }
+  .card-dark-el.compact { padding:20px 22px; border-radius:16px; }
+
+  .grid { display:grid; gap:16px; align-items:stretch; }
+  .grid > * { height:100%; }
+  .g2 { grid-template-columns:repeat(2,1fr); }
+  .g3 { grid-template-columns:repeat(3,1fr); }
+  .g4 { grid-template-columns:repeat(4,1fr); }
+  .g5 { grid-template-columns:repeat(5,1fr); }
+
+  .stat-num { font-size:34px; font-weight:700; letter-spacing:-0.03em; line-height:1.05; }
+  .stat-lbl { font-size:13px; margin-top:10px; }
+
+  .pill {
+    display:inline-flex; align-items:center; gap:7px;
+    border-radius:9999px; padding:5px 13px; font-size:12px;
+  }
+  .pill-tag-d { background:rgba(255,255,255,0.07); border:1px solid rgba(255,255,255,0.10); color:rgba(255,255,255,0.80); }
+  .pill-tag-l { background:rgba(5,31,33,0.06); border:1px solid rgba(5,31,33,0.08); color:rgba(5,31,33,0.55); }
+  .pill-lead { background:rgba(49,201,122,0.12); border:1px solid rgba(49,201,122,0.25); color:var(--mint-700); }
+  .pill-row { display:flex; flex-wrap:wrap; gap:8px; }
+
+  .badge {
+    display:inline-flex; align-items:center; border-radius:8px;
+    font-size:10px; font-weight:700; letter-spacing:0.06em; text-transform:uppercase; padding:3px 8px;
+  }
+  .b-done   { background:rgba(49,201,122,0.12); color:var(--mint-700); }
+  .b-done-d { background:rgba(84,227,153,0.14); color:var(--mint-300); }
+  .b-move-d { background:rgba(94,198,169,0.16); color:var(--teal-300); }
+
+  .flag {
+    display:inline-flex; align-items:center; gap:7px;
+    border-radius:8px; padding:4px 10px;
+    font-family:'Geist Mono',ui-monospace,Consolas,monospace;
+    font-size:10px; font-weight:700; letter-spacing:0.08em; text-transform:uppercase;
+    background:rgba(49,201,122,0.10); color:var(--mint-700); border:1px dashed rgba(26,122,74,0.45);
+  }
+
+  /* ---------- Topic lists ---------- */
+  .tlist { list-style:none; margin-top:16px; }
+  .tlist li {
+    display:flex; align-items:baseline; justify-content:space-between; gap:14px;
+    padding:10px 0; border-bottom:1px solid rgba(5,31,33,0.08);
+  }
+  .tlist li:last-child { border-bottom:none; }
+  .tlist li:first-child { padding-top:0; }
+  .s-dark .tlist li { border-bottom-color:rgba(255,255,255,0.10); }
+  .t-name { font-size:14px; font-weight:500; line-height:1.35; }
+  .t-hub {
+    display:block; margin-top:3px;
+    font-family:'Geist Mono',ui-monospace,Consolas,monospace;
+    font-size:10px; letter-spacing:0.06em; text-transform:uppercase;
+    color:rgba(5,31,33,0.40);
+  }
+  .s-dark .t-hub { color:rgba(255,255,255,0.45); }
+  .t-val {
+    font-family:'Geist Mono',ui-monospace,Consolas,monospace;
+    font-size:12px; font-weight:700; white-space:nowrap; color:var(--mint-700);
+  }
+  .s-dark .t-val { color:var(--mint-300); }
+  .t-sub { font-weight:400; color:rgba(5,31,33,0.40); }
+  .s-dark .t-sub { color:rgba(255,255,255,0.45); }
+
+  /* ---------- Hero backgrounds ---------- */
+  .hero-dark {
+    background:radial-gradient(ellipse at 60% 40%, rgba(84,227,153,0.09), transparent 55%), var(--ink-900);
+  }
+  .hero-dark::before {
+    content:''; position:absolute; inset:0; z-index:1; pointer-events:none;
+    background-image:linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+                     linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+    background-size:48px 48px;
+  }
+
+  .accent-bar { width:44px; height:4px; border-radius:9999px; background:var(--mint-400); margin-bottom:28px; }
+  .flip { color:var(--mint-400); }
+  .arrow { color:var(--mint-400); font-weight:700; padding:0 4px; }
+
+  ul.clean { list-style:none; }
+  ul.clean li { position:relative; padding-left:26px; margin-bottom:12px; }
+  ul.clean li:last-child { margin-bottom:0; }
+  ul.clean li::before {
+    content:''; position:absolute; left:0; top:9px; width:7px; height:7px;
+    border-radius:9999px; background:var(--mint-400);
+  }
+
+  .divider { height:1px; background:rgba(5,31,33,0.08); margin:28px 0; }
+  .s-dark .divider { background:rgba(255,255,255,0.10); }
+
+  .footer-note { font-size:12px; }
+
+  .step-n { font-family:'Geist Mono',ui-monospace,Consolas,monospace; font-size:12px; font-weight:700; letter-spacing:0.14em; }
+  .step-row { display:flex; align-items:center; justify-content:space-between; gap:10px; }
+  .week {
+    font-family:'Geist Mono',ui-monospace,Consolas,monospace;
+    font-size:10px; font-weight:700; letter-spacing:0.10em; text-transform:uppercase;
+    border-radius:9999px; padding:3px 10px; white-space:nowrap;
+  }
+  .week-l { background:rgba(5,31,33,0.06); color:rgba(5,31,33,0.55); }
+  .week-d { background:rgba(84,227,153,0.12); color:var(--mint-300); }
+
+  .rail { position:fixed; top:0; left:0; height:3px; background:var(--mint-400); z-index:99; width:0; }
+
+  /* ---------- Responsive ---------- */
+  @media (max-width:1100px) {
+    .g5 { grid-template-columns:repeat(3,1fr); }
+  }
+  @media (max-width:900px) {
+    .slide { padding:80px 32px; }
+    .g2,.g3,.g4,.g5 { grid-template-columns:1fr; }
+    .g4.keep2, .g5.keep2 { grid-template-columns:repeat(2,1fr); }
+    .marker { top:24px; right:32px; }
+  }
+  @media (max-width:560px) {
+    .slide { padding:72px 20px; }
+    h1.display { font-size:34px; }
+    h2 { font-size:26px; }
+    h3 { font-size:21px; }
+    .lead { font-size:16px; }
+    .g4.keep2, .g5.keep2 { grid-template-columns:1fr; }
+  }
+  @media (prefers-reduced-motion:reduce) { .dot { animation:none; } }
+
+  .tlist li > span:first-child { min-width:0; }
+  .t-name { overflow-wrap:anywhere; }
+  .stat-num, .t-val { font-variant-numeric:tabular-nums; }
+  :focus-visible { outline:2px solid var(--mint-500); outline-offset:2px; }
+
+
+  .hubhead { display:flex; flex-wrap:wrap; align-items:baseline; gap:6px 14px; margin-top:6px; }
+  .hubmeta { font-family:'Geist Mono',ui-monospace,Consolas,monospace; font-size:11px; letter-spacing:0.06em; text-transform:uppercase; }
+  .s-dark .hubmeta { color:rgba(255,255,255,0.55); }
+  .group-label {
+    font-family:'Geist Mono',ui-monospace,Consolas,monospace;
+    font-size:10px; font-weight:700; letter-spacing:0.14em; text-transform:uppercase;
+    color:rgba(255,255,255,0.45); margin:28px 0 12px;
+  }
+  .group-label { margin-top:32px; }
+  .mstrip { display:grid; grid-template-columns:repeat(6,1fr); gap:10px; margin-top:20px; }
+  .mcell { background:#fff; border:1px solid #DDE4E7; border-radius:14px; padding:14px 16px; }
+  .mcell .mnum { font-size:22px; font-weight:700; letter-spacing:-0.02em; color:var(--mint-700); font-variant-numeric:tabular-nums; }
+  .mcell .mlbl { font-family:'Geist Mono',ui-monospace,Consolas,monospace; font-size:10px; font-weight:700; letter-spacing:0.10em; text-transform:uppercase; color:rgba(5,31,33,0.45); }
+  details.all { margin-top:22px; border-top:1px solid rgba(5,31,33,0.08); padding-top:18px; }
+  details.all summary {
+    cursor:pointer; list-style:none; display:inline-flex; align-items:center; gap:8px;
+    font-family:'Geist Mono',ui-monospace,Consolas,monospace;
+    font-size:11px; font-weight:700; letter-spacing:0.10em; text-transform:uppercase;
+    color:var(--teal-500); border-radius:9999px; padding:6px 14px;
+    background:rgba(42,140,138,0.08); border:1px solid rgba(42,140,138,0.22);
+  }
+  details.all summary::-webkit-details-marker { display:none; }
+  details.all summary::before { content:'+'; font-size:13px; line-height:1; }
+  details.all[open] summary::before { content:'\2212'; }
+  .allgrid { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin-top:18px; }
+  .allgrid .card { padding:20px 22px; border-radius:16px; }
+  .allgrid h5 { font-family:'Geist Mono',ui-monospace,Consolas,monospace; font-size:10px; font-weight:700; letter-spacing:0.12em; text-transform:uppercase; color:var(--teal-500); display:flex; justify-content:space-between; gap:10px; }
+  .allgrid h5 span { color:rgba(5,31,33,0.40); }
+  .allgrid .tlist li { padding:8px 0; }
+  .allgrid .t-name { font-size:13px; }
+  @media (max-width:900px) {
+    .mstrip { grid-template-columns:repeat(3,1fr); }
+    .allgrid { grid-template-columns:1fr; }
+  }
+  @media (max-width:560px) { .mstrip { grid-template-columns:repeat(2,1fr); } }
+
+
+  /* Scrolling fix: sections size to their content, the page always scrolls */
+  html, body { height:auto; }
+  html { overflow-y:auto; scroll-behavior:auto; }
+  .slide { min-height:0; }
+  .slide.hero-dark { padding-block:140px; }
+  @media (max-width:560px) { .slide.hero-dark { padding-block:96px; } }
+
+  /* GetBuddy additions */
+  .svc-grid { margin-top:40px; }
+  .svc h4 { margin-top:14px; }
+  .svc ul.clean { margin-top:14px; }
+  .svc ul.clean li { font-size:14px; line-height:1.5; color:rgba(5,31,33,0.72); margin-bottom:10px; }
+  .svc ul.clean li::before { top:7px; }
+  .svc-n { font-family:'Geist Mono',ui-monospace,Consolas,monospace; font-size:10px; font-weight:700; letter-spacing:0.10em; text-transform:uppercase; color:rgba(5,31,33,0.45); margin-top:18px; padding-top:14px; border-top:1px solid rgba(5,31,33,0.08); }
+  .b-teal { background:rgba(42,140,138,0.10); color:var(--teal-500); }
+  .dash {
+    margin-top:16px; display:flex; flex-wrap:wrap; align-items:center; gap:14px 24px;
+    background:rgba(49,201,122,0.07); border:1px solid rgba(49,201,122,0.25); border-radius:16px; padding:18px 22px;
+  }
+  .dash p { min-width:0; flex:1 1 360px; }
+  .svc { display:flex; flex-direction:column; }
+  .svc .svc-n { margin-top:auto; }
+  .svc ul.clean { margin-bottom:18px; }
+  a.hublink { color:inherit; text-decoration:none; }
+  a.hublink:hover { color:var(--mint-300); }
+
+  /* All topics: one card, three even columns */
+  .allcard { margin-top:18px; padding:22px 26px; border-radius:16px; }
+  .tlist.cols { columns:3 240px; column-gap:36px; margin-top:0; }
+  .tlist.cols li { break-inside:avoid; padding:9px 0; }
+  .tlist.cols .t-name { font-size:13px; }
+
+  /* Hugger Mugger: one width for every section, safe-area side gutters */
+  .slide { padding-block:96px; padding-left:max(48px, env(safe-area-inset-left, 0px)); padding-right:max(48px, env(safe-area-inset-right, 0px)); }
+  .slide-inner, .slide-inner.wide { max-width:1080px; }
+  .marker { right:max(48px, env(safe-area-inset-right, 0px)); }
+  h1.display, h2, h3 { text-wrap:balance; }
+  .svc .bodys { color:rgba(5,31,33,0.72); }
+  .svc ul.ex li { color:var(--ink-900); font-weight:500; }
+  .later-hint {
+    margin-top:14px; display:inline-flex; align-items:center; gap:10px;
+    font-family:'Geist Mono',ui-monospace,Consolas,monospace; font-size:11px; font-weight:700;
+    letter-spacing:0.08em; text-transform:uppercase; color:rgba(5,31,33,0.55);
+    border:1px dashed rgba(42,140,138,0.40); border-radius:9999px; padding:5px 14px 5px 6px;
+  }
+  .later-n { background:rgba(42,140,138,0.10); color:var(--teal-500); border-radius:9999px; padding:2px 9px; font-variant-numeric:tabular-nums; }
+  @media (max-width:900px) {
+    .slide { padding-block:80px; padding-left:max(32px, env(safe-area-inset-left, 0px)); padding-right:max(32px, env(safe-area-inset-right, 0px)); }
+    .marker { right:max(32px, env(safe-area-inset-right, 0px)); }
+    .g3.keep2 { grid-template-columns:repeat(2,1fr); }
+  }
+  @media (max-width:560px) {
+    .slide { padding-block:72px; padding-left:max(20px, env(safe-area-inset-left, 0px)); padding-right:max(20px, env(safe-area-inset-right, 0px)); }
+    .marker { right:max(20px, env(safe-area-inset-right, 0px)); }
+    .g3.keep2 { grid-template-columns:1fr; }
+    .later-hint { letter-spacing:0.04em; }
+  }
+  .slide.hero-dark { padding-block:140px; }
+  @media (max-width:560px) { .slide.hero-dark { padding-block:96px; } }
+
+</style>
+
+<div class="rail" id="rail"></div>
+
+<!-- ============ 01 - COVER ============ -->
+<section class="slide s-dark hero-dark">
+  <span class="marker">01 - The roadmap</span>
+  <div class="slide-inner">
+    <div class="eyebrow"><span class="dot"></span> Content roadmap &middot; FlyRank &times; Houndsy</div>
+    <h1 class="display">Smarter feeding, fresher kibble <span class="flip">&amp;</span> beautiful bowls</h1>
+    <p class="lead muted-d80" style="max-width:680px; margin-top:24px;">
+      Six months of content for houndsy.com, already scheduled. Five hubs covering feeding spaces and storage,
+      feeding routines, portions and nutrition, kibble freshness, and feeding comfort, with every page built
+      around one main topic and its subtopics.
+    </p>
+    <div class="pill-row" style="margin-top:36px;">
+      <span class="pill pill-tag-d">107 pages scheduled</span>
+      <span class="pill pill-tag-d">690 subtopics</span>
+      <span class="pill pill-tag-d">5 content hubs</span>
+      <span class="pill pill-tag-d">Oct 2026 - Mar 2027</span>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 02 - SERVICES ============ -->
+<section class="slide s-light">
+  <span class="marker">02 - The work</span>
+  <div class="slide-inner">
+    <div class="eyebrow">What we&#x27;re doing for Houndsy</div>
+    <h2 style="max-width:820px;">Six workstreams, one dashboard</h2>
+    <p class="lead muted-l" style="margin-top:16px; max-width:760px;">
+      Content, SEO, product page work, AI visibility, ecommerce and Reddit tracking run side by side.
+      Log in to your own dashboard to follow every page as it goes live, see where Houndsy is mentioned across
+      AI engines and Reddit, and track the sales that come from search and AI.
+    </p>
+    <div class="grid g3 keep2 svc-grid" style="gap:14px;">
+      <div class="card card-paper compact svc">
+        <span class="badge b-done" style="align-self:flex-start;">Content</span>
+        <h4 class="title-sm">New content strategy</h4>
+        <ul class="clean"><li>Each page has one main topic and the subtopics that belong to it</li><li>Pages go more in-depth, answering the full set of related questions in one place</li><li>Every page belongs to a hub, so it links to related pages the day it goes live</li></ul>
+        <p class="svc-n">107 pages &middot; 690 subtopics</p>
+      </div>
+      <div class="card card-paper compact svc">
+        <span class="badge b-teal" style="align-self:flex-start;">Technical</span>
+        <h4 class="title-sm">Website SEO audit</h4>
+        <ul class="clean"><li>On-page SEO audit of houndsy.com, page by page</li><li>Covers all on-page elements, from titles and headings to internal links</li><li>Each issue comes with a clear fix, so the team knows exactly what to change</li></ul>
+        <p class="svc-n">Every on-page element checked</p>
+      </div>
+      <div class="card card-paper compact svc">
+        <span class="badge b-done" style="align-self:flex-start;">Store</span>
+        <h4 class="title-sm">Product &amp; collection optimizations</h4>
+        <ul class="clean"><li>Analysis of Houndsy&#x27;s product and collection pages</li><li>Pages optimized based on SEO and GEO best practices, so they rank and get cited</li><li>Covers the dispenser, bowls and add-ons, with clear fixes for each</li></ul>
+        <p class="svc-n">Product and collection pages</p>
+      </div>
+      <div class="card card-paper compact svc">
+        <span class="badge b-teal" style="align-self:flex-start;">Visibility</span>
+        <h4 class="title-sm">AI visibility tracking</h4>
+        <ul class="clean"><li>Shows whether AI assistants mention the brand, and how they describe it</li><li>Turns missed, high-scoring prompts into a clear to-do list of content to create</li><li>Citations and fan-out show why AI picks a competitor, with trends over time</li></ul>
+        <p class="svc-n">Mentions, citations, competitors</p>
+      </div>
+      <div class="card card-paper compact svc">
+        <span class="badge b-done" style="align-self:flex-start;">Revenue</span>
+        <h4 class="title-sm">Ecommerce tracking</h4>
+        <ul class="clean"><li>Connects SEO, content and AI visibility to sales, not just traffic or rankings</li><li>Gets ahead on AI shopping by measuring sales from Shopify AI shopping</li><li>Every number shows its change, with plain definitions and no double counting</li></ul>
+        <p class="svc-n">Sales, traffic and AI orders in one place</p>
+      </div>
+      <div class="card card-paper compact svc">
+        <span class="badge b-teal" style="align-self:flex-start;">Community</span>
+        <h4 class="title-sm">Reddit mentions tracking</h4>
+        <ul class="clean"><li>Finds threads asking for advice, the moments a good answer wins a customer</li><li>A sorted inbox with drafted replies, and Reddit answers also lift AI visibility</li><li>Spots mentions and complaints early, and collects the words shoppers use</li></ul>
+        <p class="svc-n">Mentions and ready-to-use replies</p>
+      </div>
+    </div>
+    <div class="dash">
+      <span class="flag">Your dashboard</span>
+      <p class="bodys muted-l">Log in to see the content calendar, AI visibility, Reddit mentions and ecommerce sales in one place, updated as the work moves.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 03 - SIX MONTH PLAN ============ -->
+<section class="slide s-paper">
+  <span class="marker">03 - The plan</span>
+  <div class="slide-inner">
+    <div class="eyebrow">Six month content plan</div>
+    <h2 style="max-width:820px;">107 pages are scheduled<br>for the next six months.</h2>
+    <p class="lead muted-l" style="margin-top:16px; max-width:760px;">
+      Every page targets one main topic and groups the subtopics people search around it, 690 in total.
+      Together the pages carry 163,830 monthly searches across five content hubs, from food storage and
+      kibble dispensers to feeding schedules, portions and bowls.
+    </p>
+    <div class="grid g4 keep2" style="margin-top:40px;">
+      <div class="card card-light"><div class="stat-num mint-dark">107</div><p class="stat-lbl muted-l">Pages scheduled from October to March</p></div>
+      <div class="card card-light"><div class="stat-num mint-dark">690</div><p class="stat-lbl muted-l">Subtopics inside those pages, about 6 per page</p></div>
+      <div class="card card-light"><div class="stat-num mint-dark">163,830</div><p class="stat-lbl muted-l">Monthly searches across the targeted keywords</p></div>
+      <div class="card card-light"><div class="stat-num mint-dark">39,650</div><p class="stat-lbl muted-l">Searches a month for the top page, food storage containers</p></div>
+    </div>
+    <div class="card card-dark" style="margin-top:20px; padding:22px 26px;">
+      <p class="bodys muted-d80">
+        <span class="mint" style="font-weight:600;">How the pages are built.</span>
+        Each page is built around one main topic, with its subtopics as sections, so a single page answers what used
+        to take several thin posts. The deepest page, how many cups of dog food are in a pound, covers 133 subtopics. Publishing runs every
+        month from October to March, at 20 pages a month after a shorter October start.
+      </p>
+    </div>
+    <div class="dash">
+      <span class="flag">After March</span>
+      <p class="bodys muted-l"><strong class="mint-dark">71 more topics</strong> are already mapped for after March 2027, across the same five hubs.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 04 - PAGE TYPES ============ -->
+<section class="slide s-light">
+  <span class="marker">04 - Page types</span>
+  <div class="slide-inner">
+    <div class="eyebrow">How each page is shaped</div>
+    <h2 style="max-width:820px;">Six kinds of pages, each matched to the search behind it</h2>
+    <p class="lead muted-l" style="margin-top:16px; max-width:760px;">
+      Each topic gets the format that fits what people want when they search it. Someone setting up a puppy&#x27;s
+      routine needs a guide, while someone choosing a storage container needs a listicle.
+    </p>
+    <div class="grid g3 keep2 svc-grid" style="gap:14px;">
+      <div class="card card-paper compact svc">
+        <span class="badge b-done" style="align-self:flex-start;">Guide</span>
+        <h4 class="title-sm">Guides &amp; explainers</h4>
+        <p class="bodys muted-l" style="margin-top:10px;">In-depth answers to what-is and how-to questions, with each subtopic as a section, so one page covers it all.</p>
+        <p class="svc-n">Example topics</p>
+        <ul class="clean ex"><li>Puppy feeding schedule by age</li><li>Dog food shelf life</li><li>Switching dog food</li></ul>
+      </div>
+      <div class="card card-paper compact svc">
+        <span class="badge b-teal" style="align-self:flex-start;">Listicle</span>
+        <h4 class="title-sm">Listicles</h4>
+        <p class="bodys muted-l" style="margin-top:10px;">Ranked or grouped lists of products that let readers scan the options quickly and pick the one for their dog.</p>
+        <p class="svc-n">Example topics</p>
+        <ul class="clean ex"><li>Best dog food storage containers</li><li>Best stainless steel dog bowls</li><li>Best elevated dog bowls</li></ul>
+      </div>
+      <div class="card card-paper compact svc">
+        <span class="badge b-done" style="align-self:flex-start;">Comparison</span>
+        <h4 class="title-sm">Comparisons</h4>
+        <p class="bodys muted-l" style="margin-top:10px;">Side-by-side looks at two or three options, for readers choosing between bowls, foods or feeding styles.</p>
+        <p class="svc-n">Example topics</p>
+        <ul class="clean ex"><li>Ceramic vs. stainless steel bowls</li><li>Dry vs. wet vs. raw dog food</li><li>Free vs. scheduled feeding</li></ul>
+      </div>
+      <div class="card card-paper compact svc">
+        <span class="badge b-teal" style="align-self:flex-start;">Product</span>
+        <h4 class="title-sm">Product pages</h4>
+        <p class="bodys muted-l" style="margin-top:10px;">Pages for searches that name a product type, showing what it does, who it suits and where Houndsy fits in.</p>
+        <p class="svc-n">Example topics</p>
+        <ul class="clean ex"><li>Manual dog food dispensers</li><li>Dog bowl storage cabinets</li><li>Large mats for dog bowls</li></ul>
+      </div>
+      <div class="card card-paper compact svc">
+        <span class="badge b-done" style="align-self:flex-start;">DIY</span>
+        <h4 class="title-sm">DIY guides</h4>
+        <p class="bodys muted-l" style="margin-top:10px;">Step-by-step builds for stands, cabinets and dispensers, for owners who like to make their own feeding setup.</p>
+        <p class="svc-n">Example topics</p>
+        <ul class="clean ex"><li>DIY dog bowl stand</li><li>DIY dog food storage cabinet</li><li>DIY dog food dispenser</li></ul>
+      </div>
+      <div class="card card-paper compact svc">
+        <span class="badge b-teal" style="align-self:flex-start;">Tool</span>
+        <h4 class="title-sm">Tools &amp; calculators</h4>
+        <p class="bodys muted-l" style="margin-top:10px;">Hands-on pages people use rather than read: calculators and reminders that help get portions and timing right.</p>
+        <p class="svc-n">Example topics</p>
+        <ul class="clean ex"><li>Cups of dog food per pound</li><li>Dog body condition score</li><li>Dog feeding reminders</li></ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 05 - CONTENT HUBS ============ -->
+<section class="slide s-dark">
+  <span class="marker">05 - Coverage</span>
+  <div class="slide-inner">
+    <div class="eyebrow"><span class="dot"></span> What the plan covers</div>
+    <h2>Five hubs across storage, routines, portions and bowls</h2>
+    <p class="group-label">Largest hubs &middot; 79 pages &middot; 133,870 searches / mo</p>
+    <div class="grid g3" style="gap:14px;">
+      <div class="card-dark-el compact">
+        <span class="badge b-done-d">29 pages</span>
+        <h4 class="title-xs" style="margin-top:12px;"><a class="hublink" href="#storage">Feeding Spaces &amp; Storage</a></h4>
+        <p class="hubmeta" style="margin-top:4px;">82,400 searches / mo &middot; 225 subtopics</p>
+        <p class="bodys muted-d80" style="margin-top:8px;">Food storage containers and cabinets, ceramic and stainless bowls, dispensers, and DIY builds.</p>
+      </div><div class="card-dark-el compact">
+        <span class="badge b-done-d">28 pages</span>
+        <h4 class="title-xs" style="margin-top:12px;"><a class="hublink" href="#routines">Dog Feeding Routines</a></h4>
+        <p class="hubmeta" style="margin-top:4px;">25,080 searches / mo &middot; 110 subtopics</p>
+        <p class="bodys muted-d80" style="margin-top:8px;">Daily feeding schedules, puppy schedules by breed and age, automatic feeders, and feeding reminders.</p>
+      </div><div class="card-dark-el compact">
+        <span class="badge b-done-d">22 pages</span>
+        <h4 class="title-xs" style="margin-top:12px;"><a class="hublink" href="#portions">Dog Food Portions &amp; Nutrition</a></h4>
+        <p class="hubmeta" style="margin-top:4px;">26,390 searches / mo &middot; 217 subtopics</p>
+        <p class="bodys muted-d80" style="margin-top:8px;">Measuring portions, switching foods, wet vs. dry vs. raw, treats and calories, and food labels.</p>
+      </div>
+    </div>
+    <p class="group-label">Supporting hubs &middot; 28 pages &middot; 29,960 searches / mo</p>
+    <div class="grid g2" style="gap:14px;">
+      <div class="card-dark-el compact">
+        <span class="badge b-done-d">15 pages</span>
+        <h4 class="title-xs" style="margin-top:12px;"><a class="hublink" href="#freshness">Kibble Storage &amp; Freshness</a></h4>
+        <p class="hubmeta" style="margin-top:4px;">10,770 searches / mo &middot; 80 subtopics</p>
+        <p class="bodys muted-d80" style="margin-top:8px;">Shelf life and freshness, ants and pests, mold and recalls, cat food storage, and soaking kibble.</p>
+      </div><div class="card-dark-el compact">
+        <span class="badge b-done-d">13 pages</span>
+        <h4 class="title-xs" style="margin-top:12px;"><a class="hublink" href="#comfort">Feeding Comfort &amp; Fit</a></h4>
+        <p class="hubmeta" style="margin-top:4px;">19,190 searches / mo &middot; 58 subtopics</p>
+        <p class="bodys muted-d80" style="margin-top:8px;">Elevated and adjustable bowls, bowls by dog size, no-spill and non-slip bowls, mats and DIY stands.</p>
+      </div>
+    </div>
+    <p class="bodys muted-d" style="margin-top:24px;">
+      Every scheduled page belongs to one of these hubs, so each new page has a home and an
+      internal link path the day it publishes.
+    </p>
+  </div>
+</section>
+
+<!-- ============ 06 - STORAGE ============ -->
+<section class="slide s-paper" id="storage">
+  <span class="marker">06 - Storage</span>
+  <div class="slide-inner">
+    <div class="step-row" style="margin-bottom:22px;">
+      <div class="eyebrow" style="margin-bottom:0;">Hub 01 &middot; Feeding Spaces &amp; Storage</div>
+      <span class="week week-l">29 pages</span>
+    </div>
+    <h2>Dog food storage, modern bowls and kibble dispensers</h2>
+    <p class="lead muted-l" style="margin-top:14px; max-width:760px;">Best dog food storage containers is the biggest page in the plan at 39,650 searches a month, with best stainless steel dog bowls at 9,590 and manual dog food dispensers at 9,400. The hub covers food storage containers and cabinets, ceramic and stainless steel bowls, dog food dispensers and DIY builds, the home turf of the Houndsy Kibble Dispenser and bowls.</p>
+    <p class="cap muted-l45" style="margin-top:10px;">82,400 monthly searches across 29 pages and 225 subtopics.</p>
+    <p class="later-hint"><span class="later-n">+15</span> more topics planned for this hub after March</p>
+    <div class="grid g2" style="margin-top:28px;">
+      <div class="card card-light">
+        <h4 class="title-sm">Biggest demand</h4>
+        <p class="cap muted-l45" style="margin-top:6px;">Monthly searches for the hub&#x27;s largest pages</p>
+        <ul class="tlist"><li><span><span class="t-name">Best dog food storage containers</span><span class="t-hub">Food storage containers &middot; 39 subtopics</span></span><span class="t-val">39,650</span></li><li><span><span class="t-name">Best stainless steel dog bowls</span><span class="t-hub">Stainless steel bowls &middot; 20 subtopics</span></span><span class="t-val">9,590</span></li><li><span><span class="t-name">Manual dog food dispensers</span><span class="t-hub">Dog food dispensers &middot; 12 subtopics</span></span><span class="t-val">9,400</span></li><li><span><span class="t-name">Bulk dog food storage</span><span class="t-hub">Food storage containers &middot; 23 subtopics</span></span><span class="t-val">6,700</span></li><li><span><span class="t-name">Dog food cabinets</span><span class="t-hub">Cabinets &amp; DIY builds &middot; 13 subtopics</span></span><span class="t-val">2,910</span></li><li><span><span class="t-name">Non-plastic dog food storage</span><span class="t-hub">Food storage containers &middot; 8 subtopics</span></span><span class="t-val">2,910</span></li></ul>
+      </div>
+      <div class="card card-light">
+        <h4 class="title-sm">What the hub covers</h4>
+        <p class="cap muted-l45" style="margin-top:6px;">Scheduled pages by theme</p>
+        <ul class="tlist"><li><span><span class="t-name">Food storage containers</span><span class="t-hub">31% of the hub</span></span><span class="t-val">9 pages</span></li><li><span><span class="t-name">Dog food dispensers</span><span class="t-hub">17% of the hub</span></span><span class="t-val">5 pages</span></li><li><span><span class="t-name">Cabinets &amp; DIY builds</span><span class="t-hub">17% of the hub</span></span><span class="t-val">5 pages</span></li><li><span><span class="t-name">Ceramic bowls</span><span class="t-hub">14% of the hub</span></span><span class="t-val">4 pages</span></li><li><span><span class="t-name">Bowl care &amp; feeding spaces</span><span class="t-hub">14% of the hub</span></span><span class="t-val">4 pages</span></li><li><span><span class="t-name">Stainless steel bowls</span><span class="t-hub">7% of the hub</span></span><span class="t-val">2 pages</span></li></ul>
+      </div>
+    </div>
+    <details class="all">
+      <summary>All 29 Feeding Spaces &amp; Storage pages</summary>
+      <div class="card card-light allcard"><ul class="tlist cols"><li><span><span class="t-name">Best dog food storage containers</span><span class="t-hub">Food storage containers &middot; 39 subtopics</span></span><span class="t-val">39,650</span></li><li><span><span class="t-name">Best stainless steel dog bowls</span><span class="t-hub">Stainless steel bowls &middot; 20 subtopics</span></span><span class="t-val">9,590</span></li><li><span><span class="t-name">Manual dog food dispensers</span><span class="t-hub">Dog food dispensers &middot; 12 subtopics</span></span><span class="t-val">9,400</span></li><li><span><span class="t-name">Bulk dog food storage</span><span class="t-hub">Food storage containers &middot; 23 subtopics</span></span><span class="t-val">6,700</span></li><li><span><span class="t-name">Dog food cabinets</span><span class="t-hub">Cabinets &amp; DIY builds &middot; 13 subtopics</span></span><span class="t-val">2,910</span></li><li><span><span class="t-name">Non-plastic dog food storage</span><span class="t-hub">Food storage containers &middot; 8 subtopics</span></span><span class="t-val">2,910</span></li><li><span><span class="t-name">Raised ceramic dog bowls</span><span class="t-hub">Ceramic bowls &middot; 3 subtopics</span></span><span class="t-val">1,830</span></li><li><span><span class="t-name">Dog food storage ideas</span><span class="t-hub">Food storage containers &middot; 15 subtopics</span></span><span class="t-val">1,420</span></li><li><span><span class="t-name">How to clean dog bowls</span><span class="t-hub">Bowl care &amp; feeding spaces &middot; 4 subtopics</span></span><span class="t-val">1,340</span></li><li><span><span class="t-name">Ceramic vs. stainless steel dog bowls</span><span class="t-hub">Ceramic bowls &middot; 19 subtopics</span></span><span class="t-val">1,320</span></li><li><span><span class="t-name">Dog food storage for two dogs</span><span class="t-hub">Food storage containers &middot; 7 subtopics</span></span><span class="t-val">850</span></li><li><span><span class="t-name">Dog water station ideas</span><span class="t-hub">Bowl care &amp; feeding spaces &middot; 4 subtopics</span></span><span class="t-val">730</span></li><li><span><span class="t-name">Modern dog bowls</span><span class="t-hub">Bowl care &amp; feeding spaces &middot; 4 subtopics</span></span><span class="t-val">680</span></li><li><span><span class="t-name">Ceramic dog food and water bowls</span><span class="t-hub">Ceramic bowls &middot; 3 subtopics</span></span><span class="t-val">490</span></li><li><span><span class="t-name">Dog bowl trays</span><span class="t-hub">Bowl care &amp; feeding spaces &middot; 4 subtopics</span></span><span class="t-val">430</span></li><li><span><span class="t-name">Best dog food dispensers</span><span class="t-hub">Dog food dispensers &middot; 6 subtopics</span></span><span class="t-val">400</span></li><li><span><span class="t-name">Storage mites in dog food</span><span class="t-hub">Food storage containers &middot; 6 subtopics</span></span><span class="t-val">340</span></li><li><span><span class="t-name">DIY dog food dispenser</span><span class="t-hub">Cabinets &amp; DIY builds &middot; 8 subtopics</span></span><span class="t-val">300</span></li><li><span><span class="t-name">Wall-mounted dog food dispensers</span><span class="t-hub">Dog food dispensers &middot; 4 subtopics</span></span><span class="t-val">240</span></li><li><span><span class="t-name">Long-term dog food storage</span><span class="t-hub">Food storage containers &middot; 4 subtopics</span></span><span class="t-val">190</span></li><li><span><span class="t-name">Gravity dog food dispensers</span><span class="t-hub">Dog food dispensers &middot; 2 subtopics</span></span><span class="t-val">180</span></li><li><span><span class="t-name">DIY dog food storage cabinet</span><span class="t-hub">Cabinets &amp; DIY builds &middot; 5 subtopics</span></span><span class="t-val">160</span></li><li><span><span class="t-name">Dog food storage bins on wheels</span><span class="t-hub">Food storage containers &middot; 2 subtopics</span></span><span class="t-val">160</span></li><li><span><span class="t-name">Homemade dog food storage</span><span class="t-hub">Food storage containers &middot; 2 subtopics</span></span><span class="t-val">50</span></li><li><span><span class="t-name">Ceramic dog bowls made in USA</span><span class="t-hub">Ceramic bowls &middot; 2 subtopics</span></span><span class="t-val">40</span></li><li><span><span class="t-name">DIY wall-mounted dog food dispenser</span><span class="t-hub">Cabinets &amp; DIY builds &middot; 1 subtopic</span></span><span class="t-val">40</span></li><li><span><span class="t-name">How to make a dog food dispenser out of cardboard</span><span class="t-hub">Cabinets &amp; DIY builds &middot; 3 subtopics</span></span><span class="t-val">30</span></li><li><span><span class="t-name">Simple machine dog food dispensers</span><span class="t-hub">Dog food dispensers &middot; 1 subtopic</span></span><span class="t-val">10</span></li><li><span><span class="t-name">Do stainless steel dog bowls cause tear stains?</span><span class="t-hub">Stainless steel bowls &middot; 1 subtopic</span></span><span class="t-val">10</span></li></ul></div>
+    </details>
+  </div>
+</section>
+
+<!-- ============ 07 - ROUTINES ============ -->
+<section class="slide s-light" id="routines">
+  <span class="marker">07 - Routines</span>
+  <div class="slide-inner">
+    <div class="step-row" style="margin-bottom:22px;">
+      <div class="eyebrow" style="margin-bottom:0;">Hub 02 &middot; Dog Feeding Routines</div>
+      <span class="week week-l">28 pages</span>
+    </div>
+    <h2>Feeding schedules for every age, breed and household</h2>
+    <p class="lead muted-l" style="margin-top:14px; max-width:760px;">Automatic dog food feeders lead the hub at 15,120 searches a month, with puppy feeding schedules by age at 4,390 and dog feeding schedules at 2,970. The hub covers daily feeding schedules, puppy schedules for 15 breeds from Yorkies to Great Danes, automatic feeders, and feeding reminders, a fit for the Kibble Sensor&#x27;s feeding tracking.</p>
+    <p class="cap muted-l45" style="margin-top:10px;">25,080 monthly searches across 28 pages and 110 subtopics.</p>
+    <p class="later-hint"><span class="later-n">+31</span> more topics planned for this hub after March</p>
+    <div class="grid g2" style="margin-top:28px;">
+      <div class="card card-light">
+        <h4 class="title-sm">Biggest demand</h4>
+        <p class="cap muted-l45" style="margin-top:6px;">Monthly searches for the hub&#x27;s largest pages</p>
+        <ul class="tlist"><li><span><span class="t-name">Automatic dog food feeders</span><span class="t-hub">Automatic feeders &middot; 2 subtopics</span></span><span class="t-val">15,120</span></li><li><span><span class="t-name">Puppy feeding schedule by age</span><span class="t-hub">Puppy feeding basics &middot; 35 subtopics</span></span><span class="t-val">4,390</span></li><li><span><span class="t-name">Dog feeding schedule</span><span class="t-hub">Daily feeding schedules &middot; 33 subtopics</span></span><span class="t-val">2,970</span></li><li><span><span class="t-name">Best automatic dog feeders</span><span class="t-hub">Automatic feeders &middot; 2 subtopics</span></span><span class="t-val">930</span></li><li><span><span class="t-name">Labrador puppy feeding schedule</span><span class="t-hub">Large breed puppies &middot; 2 subtopics</span></span><span class="t-val">520</span></li><li><span><span class="t-name">Free feeding vs. scheduled feeding</span><span class="t-hub">Daily feeding schedules &middot; 7 subtopics</span></span><span class="t-val">470</span></li></ul>
+      </div>
+      <div class="card card-light">
+        <h4 class="title-sm">What the hub covers</h4>
+        <p class="cap muted-l45" style="margin-top:6px;">Scheduled pages by theme</p>
+        <ul class="tlist"><li><span><span class="t-name">Small &amp; medium breed puppies</span><span class="t-hub">29% of the hub</span></span><span class="t-val">8 pages</span></li><li><span><span class="t-name">Large breed puppies</span><span class="t-hub">25% of the hub</span></span><span class="t-val">7 pages</span></li><li><span><span class="t-name">Automatic feeders</span><span class="t-hub">14% of the hub</span></span><span class="t-val">4 pages</span></li><li><span><span class="t-name">Reminders &amp; routines</span><span class="t-hub">14% of the hub</span></span><span class="t-val">4 pages</span></li><li><span><span class="t-name">Daily feeding schedules</span><span class="t-hub">11% of the hub</span></span><span class="t-val">3 pages</span></li><li><span><span class="t-name">Puppy feeding basics</span><span class="t-hub">7% of the hub</span></span><span class="t-val">2 pages</span></li></ul>
+      </div>
+    </div>
+    <details class="all">
+      <summary>All 28 Dog Feeding Routines pages</summary>
+      <div class="card card-light allcard"><ul class="tlist cols"><li><span><span class="t-name">Automatic dog food feeders</span><span class="t-hub">Automatic feeders &middot; 2 subtopics</span></span><span class="t-val">15,120</span></li><li><span><span class="t-name">Puppy feeding schedule by age</span><span class="t-hub">Puppy feeding basics &middot; 35 subtopics</span></span><span class="t-val">4,390</span></li><li><span><span class="t-name">Dog feeding schedule</span><span class="t-hub">Daily feeding schedules &middot; 33 subtopics</span></span><span class="t-val">2,970</span></li><li><span><span class="t-name">Best automatic dog feeders</span><span class="t-hub">Automatic feeders &middot; 2 subtopics</span></span><span class="t-val">930</span></li><li><span><span class="t-name">Labrador puppy feeding schedule</span><span class="t-hub">Large breed puppies &middot; 2 subtopics</span></span><span class="t-val">520</span></li><li><span><span class="t-name">Free feeding vs. scheduled feeding</span><span class="t-hub">Daily feeding schedules &middot; 7 subtopics</span></span><span class="t-val">470</span></li><li><span><span class="t-name">Automatic feeders for two large dogs</span><span class="t-hub">Automatic feeders &middot; 3 subtopics</span></span><span class="t-val">170</span></li><li><span><span class="t-name">Feeding instructions for your dog sitter</span><span class="t-hub">Reminders &amp; routines &middot; 3 subtopics</span></span><span class="t-val">110</span></li><li><span><span class="t-name">Shih Tzu puppy feeding schedule</span><span class="t-hub">Small &amp; medium breed puppies &middot; 2 subtopics</span></span><span class="t-val">40</span></li><li><span><span class="t-name">Dog dinner time</span><span class="t-hub">Reminders &amp; routines &middot; 1 subtopic</span></span><span class="t-val">40</span></li><li><span><span class="t-name">Dog feeding reminders</span><span class="t-hub">Reminders &amp; routines &middot; 1 subtopic</span></span><span class="t-val">40</span></li><li><span><span class="t-name">Puppy feeding and potty schedule</span><span class="t-hub">Puppy feeding basics &middot; 1 subtopic</span></span><span class="t-val">30</span></li><li><span><span class="t-name">Goldendoodle puppy feeding schedule</span><span class="t-hub">Large breed puppies &middot; 1 subtopic</span></span><span class="t-val">30</span></li><li><span><span class="t-name">Yorkie puppy feeding schedule</span><span class="t-hub">Small &amp; medium breed puppies &middot; 1 subtopic</span></span><span class="t-val">30</span></li><li><span><span class="t-name">French bulldog puppy feeding schedule</span><span class="t-hub">Small &amp; medium breed puppies &middot; 1 subtopic</span></span><span class="t-val">20</span></li><li><span><span class="t-name">Pit bull puppy feeding schedule</span><span class="t-hub">Large breed puppies &middot; 1 subtopic</span></span><span class="t-val">20</span></li><li><span><span class="t-name">Dachshund puppy feeding schedule</span><span class="t-hub">Small &amp; medium breed puppies &middot; 1 subtopic</span></span><span class="t-val">20</span></li><li><span><span class="t-name">What time should an older dog eat dinner?</span><span class="t-hub">Reminders &amp; routines &middot; 1 subtopic</span></span><span class="t-val">20</span></li><li><span><span class="t-name">Great Dane puppy feeding schedule</span><span class="t-hub">Large breed puppies &middot; 1 subtopic</span></span><span class="t-val">20</span></li><li><span><span class="t-name">Feeding two dogs at the same time</span><span class="t-hub">Daily feeding schedules &middot; 3 subtopics</span></span><span class="t-val">10</span></li><li><span><span class="t-name">English bulldog puppy feeding schedule</span><span class="t-hub">Small &amp; medium breed puppies &middot; 1 subtopic</span></span><span class="t-val">10</span></li><li><span><span class="t-name">Jack Russell puppy feeding schedule</span><span class="t-hub">Small &amp; medium breed puppies &middot; 1 subtopic</span></span><span class="t-val">10</span></li><li><span><span class="t-name">How to train a dog to use an automatic feeder</span><span class="t-hub">Automatic feeders &middot; 1 subtopic</span></span><span class="t-val">10</span></li><li><span><span class="t-name">Bichon Frise puppy feeding schedule</span><span class="t-hub">Small &amp; medium breed puppies &middot; 1 subtopic</span></span><span class="t-val">10</span></li><li><span><span class="t-name">Boston terrier puppy feeding schedule</span><span class="t-hub">Small &amp; medium breed puppies &middot; 1 subtopic</span></span><span class="t-val">10</span></li><li><span><span class="t-name">Saint Bernard puppy feeding schedule</span><span class="t-hub">Large breed puppies &middot; 1 subtopic</span></span><span class="t-val">10</span></li><li><span><span class="t-name">Husky puppy feeding schedule</span><span class="t-hub">Large breed puppies &middot; 1 subtopic</span></span><span class="t-val">10</span></li><li><span><span class="t-name">Mastiff puppy feeding schedule</span><span class="t-hub">Large breed puppies &middot; 1 subtopic</span></span><span class="t-val">10</span></li></ul></div>
+    </details>
+  </div>
+</section>
+
+<!-- ============ 08 - PORTIONS ============ -->
+<section class="slide s-paper" id="portions">
+  <span class="marker">08 - Portions</span>
+  <div class="slide-inner">
+    <div class="step-row" style="margin-bottom:22px;">
+      <div class="eyebrow" style="margin-bottom:0;">Hub 03 &middot; Dog Food Portions &amp; Nutrition</div>
+      <span class="week week-l">22 pages</span>
+    </div>
+    <h2>Portions, switching foods and wet vs. dry</h2>
+    <p class="lead muted-l" style="margin-top:14px; max-width:760px;">How many cups of dog food are in a pound? leads the hub at 14,580 searches a month and is the deepest page in the plan, with 133 subtopics. Dog body condition score follows at 5,120. The hub covers measuring portions, switching foods safely, wet vs. dry vs. raw, treats and calories, and reading labels, all tied to Houndsy&#x27;s portion-sized bowls.</p>
+    <p class="cap muted-l45" style="margin-top:10px;">26,390 monthly searches across 22 pages and 217 subtopics.</p>
+    <p class="later-hint"><span class="later-n">+17</span> more topics planned for this hub after March</p>
+    <div class="grid g2" style="margin-top:28px;">
+      <div class="card card-light">
+        <h4 class="title-sm">Biggest demand</h4>
+        <p class="cap muted-l45" style="margin-top:6px;">Monthly searches for the hub&#x27;s largest pages</p>
+        <ul class="tlist"><li><span><span class="t-name">How many cups of dog food are in a pound?</span><span class="t-hub">Measuring portions &middot; 133 subtopics</span></span><span class="t-val">14,580</span></li><li><span><span class="t-name">Dog body condition score</span><span class="t-hub">Labels &amp; body condition &middot; 13 subtopics</span></span><span class="t-val">5,120</span></li><li><span><span class="t-name">How to read dog food labels</span><span class="t-hub">Labels &amp; body condition &middot; 5 subtopics</span></span><span class="t-val">1,380</span></li><li><span><span class="t-name">Switching dog food</span><span class="t-hub">Switching foods &middot; 13 subtopics</span></span><span class="t-val">1,290</span></li><li><span><span class="t-name">Best dog food measuring cups</span><span class="t-hub">Measuring portions &middot; 4 subtopics</span></span><span class="t-val">1,140</span></li><li><span><span class="t-name">Low-calorie dog treats</span><span class="t-hub">Treats &amp; calories &middot; 2 subtopics</span></span><span class="t-val">1,000</span></li></ul>
+      </div>
+      <div class="card card-light">
+        <h4 class="title-sm">What the hub covers</h4>
+        <p class="cap muted-l45" style="margin-top:6px;">Scheduled pages by theme</p>
+        <ul class="tlist"><li><span><span class="t-name">Switching foods</span><span class="t-hub">32% of the hub</span></span><span class="t-val">7 pages</span></li><li><span><span class="t-name">Wet vs. dry vs. raw</span><span class="t-hub">27% of the hub</span></span><span class="t-val">6 pages</span></li><li><span><span class="t-name">Measuring portions</span><span class="t-hub">14% of the hub</span></span><span class="t-val">3 pages</span></li><li><span><span class="t-name">Labels &amp; body condition</span><span class="t-hub">9% of the hub</span></span><span class="t-val">2 pages</span></li><li><span><span class="t-name">Treats &amp; calories</span><span class="t-hub">9% of the hub</span></span><span class="t-val">2 pages</span></li><li><span><span class="t-name">Cat feeding</span><span class="t-hub">9% of the hub</span></span><span class="t-val">2 pages</span></li></ul>
+      </div>
+    </div>
+    <details class="all">
+      <summary>All 22 Dog Food Portions &amp; Nutrition pages</summary>
+      <div class="card card-light allcard"><ul class="tlist cols"><li><span><span class="t-name">How many cups of dog food are in a pound?</span><span class="t-hub">Measuring portions &middot; 133 subtopics</span></span><span class="t-val">14,580</span></li><li><span><span class="t-name">Dog body condition score</span><span class="t-hub">Labels &amp; body condition &middot; 13 subtopics</span></span><span class="t-val">5,120</span></li><li><span><span class="t-name">How to read dog food labels</span><span class="t-hub">Labels &amp; body condition &middot; 5 subtopics</span></span><span class="t-val">1,380</span></li><li><span><span class="t-name">Switching dog food</span><span class="t-hub">Switching foods &middot; 13 subtopics</span></span><span class="t-val">1,290</span></li><li><span><span class="t-name">Best dog food measuring cups</span><span class="t-hub">Measuring portions &middot; 4 subtopics</span></span><span class="t-val">1,140</span></li><li><span><span class="t-name">Low-calorie dog treats</span><span class="t-hub">Treats &amp; calories &middot; 2 subtopics</span></span><span class="t-val">1,000</span></li><li><span><span class="t-name">Dry vs. wet vs. raw dog food</span><span class="t-hub">Wet vs. dry vs. raw &middot; 11 subtopics</span></span><span class="t-val">560</span></li><li><span><span class="t-name">Should I mix wet and dry dog food?</span><span class="t-hub">Wet vs. dry vs. raw &middot; 4 subtopics</span></span><span class="t-val">470</span></li><li><span><span class="t-name">Should you mix wet and dry cat food?</span><span class="t-hub">Cat feeding &middot; 6 subtopics</span></span><span class="t-val">380</span></li><li><span><span class="t-name">Wet dog food feeding guidelines</span><span class="t-hub">Wet vs. dry vs. raw &middot; 6 subtopics</span></span><span class="t-val">180</span></li><li><span><span class="t-name">Switching dog to raw food</span><span class="t-hub">Switching foods &middot; 3 subtopics</span></span><span class="t-val">90</span></li><li><span><span class="t-name">Calories in dog treats</span><span class="t-hub">Treats &amp; calories &middot; 2 subtopics</span></span><span class="t-val">60</span></li><li><span><span class="t-name">How many grams of dog food should a puppy eat?</span><span class="t-hub">Measuring portions &middot; 3 subtopics</span></span><span class="t-val">20</span></li><li><span><span class="t-name">Wet mix vs. dry mix</span><span class="t-hub">Wet vs. dry vs. raw &middot; 2 subtopics</span></span><span class="t-val">20</span></li><li><span><span class="t-name">Switching dog to homemade food</span><span class="t-hub">Switching foods &middot; 2 subtopics</span></span><span class="t-val">20</span></li><li><span><span class="t-name">Wet vs. dry dog food</span><span class="t-hub">Wet vs. dry vs. raw &middot; 1 subtopic</span></span><span class="t-val">20</span></li><li><span><span class="t-name">Switching senior dog to wet food</span><span class="t-hub">Switching foods &middot; 2 subtopics</span></span><span class="t-val">10</span></li><li><span><span class="t-name">How many grams of raw food to feed dog?</span><span class="t-hub">Wet vs. dry vs. raw &middot; 1 subtopic</span></span><span class="t-val">10</span></li><li><span><span class="t-name">Switching from canned to dry dog food</span><span class="t-hub">Switching foods &middot; 1 subtopic</span></span><span class="t-val">10</span></li><li><span><span class="t-name">Best wet cat food to mix with dry</span><span class="t-hub">Cat feeding &middot; 1 subtopic</span></span><span class="t-val">10</span></li><li><span><span class="t-name">Switching to adult dog food</span><span class="t-hub">Switching foods &middot; 1 subtopic</span></span><span class="t-val">10</span></li><li><span><span class="t-name">Dog not drinking water after switching to wet food</span><span class="t-hub">Switching foods &middot; 1 subtopic</span></span><span class="t-val">10</span></li></ul></div>
+    </details>
+  </div>
+</section>
+
+<!-- ============ 09 - FRESHNESS ============ -->
+<section class="slide s-light" id="freshness">
+  <span class="marker">09 - Freshness</span>
+  <div class="slide-inner">
+    <div class="step-row" style="margin-bottom:22px;">
+      <div class="eyebrow" style="margin-bottom:0;">Hub 04 &middot; Kibble Storage &amp; Freshness</div>
+      <span class="week week-l">15 pages</span>
+    </div>
+    <h2>Keeping kibble fresh, dry and pest-free</h2>
+    <p class="lead muted-l" style="margin-top:14px; max-width:760px;">Best cat food storage containers lead the hub at 6,270 searches a month, with dog food shelf life at 1,560 and storing dry cat food at 1,070. The hub covers shelf life and freshness, ants, mold and pests, cat food storage, soaking kibble and bag sizes, a natural fit for the dispenser&#x27;s 25 to 30 lb kibble bin.</p>
+    <p class="cap muted-l45" style="margin-top:10px;">10,770 monthly searches across 15 pages and 80 subtopics.</p>
+    <p class="later-hint"><span class="later-n">+3</span> more topics planned for this hub after March</p>
+    <div class="grid g2" style="margin-top:28px;">
+      <div class="card card-light">
+        <h4 class="title-sm">Biggest demand</h4>
+        <p class="cap muted-l45" style="margin-top:6px;">Monthly searches for the hub&#x27;s largest pages</p>
+        <ul class="tlist"><li><span><span class="t-name">Best cat food storage containers</span><span class="t-hub">Cat food storage &middot; 14 subtopics</span></span><span class="t-val">6,270</span></li><li><span><span class="t-name">Dog food shelf life</span><span class="t-hub">Shelf life &amp; freshness &middot; 26 subtopics</span></span><span class="t-val">1,560</span></li><li><span><span class="t-name">Storing dry cat food</span><span class="t-hub">Cat food storage &middot; 5 subtopics</span></span><span class="t-val">1,070</span></li><li><span><span class="t-name">Dog food mold</span><span class="t-hub">Mold &amp; recalls &middot; 5 subtopics</span></span><span class="t-val">940</span></li><li><span><span class="t-name">How to get rid of ants in dog food</span><span class="t-hub">Ants &amp; pests &middot; 8 subtopics</span></span><span class="t-val">530</span></li><li><span><span class="t-name">How long can kibble be left out?</span><span class="t-hub">Shelf life &amp; freshness &middot; 6 subtopics</span></span><span class="t-val">110</span></li></ul>
+      </div>
+      <div class="card card-light">
+        <h4 class="title-sm">What the hub covers</h4>
+        <p class="cap muted-l45" style="margin-top:6px;">Scheduled pages by theme</p>
+        <ul class="tlist"><li><span><span class="t-name">Shelf life &amp; freshness</span><span class="t-hub">27% of the hub</span></span><span class="t-val">4 pages</span></li><li><span><span class="t-name">Cat food storage</span><span class="t-hub">20% of the hub</span></span><span class="t-val">3 pages</span></li><li><span><span class="t-name">Mold &amp; recalls</span><span class="t-hub">13% of the hub</span></span><span class="t-val">2 pages</span></li><li><span><span class="t-name">Ants &amp; pests</span><span class="t-hub">13% of the hub</span></span><span class="t-val">2 pages</span></li><li><span><span class="t-name">Bag sizes &amp; lot numbers</span><span class="t-hub">13% of the hub</span></span><span class="t-val">2 pages</span></li><li><span><span class="t-name">Soaking &amp; feeding kibble</span><span class="t-hub">13% of the hub</span></span><span class="t-val">2 pages</span></li></ul>
+      </div>
+    </div>
+    <details class="all">
+      <summary>All 15 Kibble Storage &amp; Freshness pages</summary>
+      <div class="card card-light allcard"><ul class="tlist cols"><li><span><span class="t-name">Best cat food storage containers</span><span class="t-hub">Cat food storage &middot; 14 subtopics</span></span><span class="t-val">6,270</span></li><li><span><span class="t-name">Dog food shelf life</span><span class="t-hub">Shelf life &amp; freshness &middot; 26 subtopics</span></span><span class="t-val">1,560</span></li><li><span><span class="t-name">Storing dry cat food</span><span class="t-hub">Cat food storage &middot; 5 subtopics</span></span><span class="t-val">1,070</span></li><li><span><span class="t-name">Dog food mold</span><span class="t-hub">Mold &amp; recalls &middot; 5 subtopics</span></span><span class="t-val">940</span></li><li><span><span class="t-name">How to get rid of ants in dog food</span><span class="t-hub">Ants &amp; pests &middot; 8 subtopics</span></span><span class="t-val">530</span></li><li><span><span class="t-name">How long can kibble be left out?</span><span class="t-hub">Shelf life &amp; freshness &middot; 6 subtopics</span></span><span class="t-val">110</span></li><li><span><span class="t-name">Dog food bag sizes compared</span><span class="t-hub">Bag sizes &amp; lot numbers &middot; 1 subtopic</span></span><span class="t-val">90</span></li><li><span><span class="t-name">How long to soak kibble in water</span><span class="t-hub">Soaking &amp; feeding kibble &middot; 4 subtopics</span></span><span class="t-val">70</span></li><li><span><span class="t-name">Can dogs eat dog food with ants in it?</span><span class="t-hub">Ants &amp; pests &middot; 4 subtopics</span></span><span class="t-val">60</span></li><li><span><span class="t-name">What dog food has the longest shelf life?</span><span class="t-hub">Shelf life &amp; freshness &middot; 2 subtopics</span></span><span class="t-val">20</span></li><li><span><span class="t-name">Raccoon-proof cat food storage</span><span class="t-hub">Cat food storage &middot; 1 subtopic</span></span><span class="t-val">10</span></li><li><span><span class="t-name">How to store dog kibble long term</span><span class="t-hub">Shelf life &amp; freshness &middot; 1 subtopic</span></span><span class="t-val">10</span></li><li><span><span class="t-name">How to look up a dog food lot number</span><span class="t-hub">Bag sizes &amp; lot numbers &middot; 1 subtopic</span></span><span class="t-val">10</span></li><li><span><span class="t-name">How long to feed puppy kibble</span><span class="t-hub">Soaking &amp; feeding kibble &middot; 1 subtopic</span></span><span class="t-val">10</span></li><li><span><span class="t-name">Dog food recalls due to mold</span><span class="t-hub">Mold &amp; recalls &middot; 1 subtopic</span></span><span class="t-val">10</span></li></ul></div>
+    </details>
+  </div>
+</section>
+
+<!-- ============ 10 - COMFORT ============ -->
+<section class="slide s-paper" id="comfort">
+  <span class="marker">10 - Comfort</span>
+  <div class="slide-inner">
+    <div class="step-row" style="margin-bottom:22px;">
+      <div class="eyebrow" style="margin-bottom:0;">Hub 05 &middot; Feeding Comfort &amp; Fit</div>
+      <span class="week week-l">13 pages</span>
+    </div>
+    <h2>Elevated, no-spill and right-size dog bowls</h2>
+    <p class="lead muted-l" style="margin-top:14px; max-width:760px;">The smallest hub, at 13 pages. Best elevated dog bowls for large dogs lead at 6,040 searches a month, with dog bowls for large breeds at 4,230 and no-spill water bowls at 3,130. The hub covers elevated and adjustable bowls, bowls by dog size, no-spill and non-slip bowls, mats and DIY stands, matching the elevated Water Bowl and Silicone Mat.</p>
+    <p class="cap muted-l45" style="margin-top:10px;">19,190 monthly searches across 13 pages and 58 subtopics.</p>
+    <p class="later-hint"><span class="later-n">+5</span> more topics planned for this hub after March</p>
+    <div class="grid g2" style="margin-top:28px;">
+      <div class="card card-light">
+        <h4 class="title-sm">Biggest demand</h4>
+        <p class="cap muted-l45" style="margin-top:6px;">Monthly searches for the hub&#x27;s largest pages</p>
+        <ul class="tlist"><li><span><span class="t-name">Best elevated dog bowls for large dogs</span><span class="t-hub">Elevated &amp; adjustable bowls &middot; 10 subtopics</span></span><span class="t-val">6,040</span></li><li><span><span class="t-name">Dog bowls for large breeds</span><span class="t-hub">Bowls by dog size &middot; 9 subtopics</span></span><span class="t-val">4,230</span></li><li><span><span class="t-name">No-spill dog water bowls</span><span class="t-hub">No-spill &amp; non-slip bowls &middot; 6 subtopics</span></span><span class="t-val">3,130</span></li><li><span><span class="t-name">Best dog bowls for small dogs</span><span class="t-hub">Bowls by dog size &middot; 5 subtopics</span></span><span class="t-val">1,900</span></li><li><span><span class="t-name">Small dog bowls with stands</span><span class="t-hub">Elevated &amp; adjustable bowls &middot; 4 subtopics</span></span><span class="t-val">1,460</span></li><li><span><span class="t-name">DIY dog bowl stand</span><span class="t-hub">DIY bowl stands &middot; 7 subtopics</span></span><span class="t-val">700</span></li></ul>
+      </div>
+      <div class="card card-light">
+        <h4 class="title-sm">What the hub covers</h4>
+        <p class="cap muted-l45" style="margin-top:6px;">Scheduled pages by theme</p>
+        <ul class="tlist"><li><span><span class="t-name">Elevated &amp; adjustable bowls</span><span class="t-hub">23% of the hub</span></span><span class="t-val">3 pages</span></li><li><span><span class="t-name">Bowls by dog size</span><span class="t-hub">15% of the hub</span></span><span class="t-val">2 pages</span></li><li><span><span class="t-name">No-spill &amp; non-slip bowls</span><span class="t-hub">15% of the hub</span></span><span class="t-val">2 pages</span></li><li><span><span class="t-name">DIY bowl stands</span><span class="t-hub">15% of the hub</span></span><span class="t-val">2 pages</span></li><li><span><span class="t-name">Bowl storage &amp; placement</span><span class="t-hub">15% of the hub</span></span><span class="t-val">2 pages</span></li><li><span><span class="t-name">Bowl mats</span><span class="t-hub">15% of the hub</span></span><span class="t-val">2 pages</span></li></ul>
+      </div>
+    </div>
+    <details class="all">
+      <summary>All 13 Feeding Comfort &amp; Fit pages</summary>
+      <div class="card card-light allcard"><ul class="tlist cols"><li><span><span class="t-name">Best elevated dog bowls for large dogs</span><span class="t-hub">Elevated &amp; adjustable bowls &middot; 10 subtopics</span></span><span class="t-val">6,040</span></li><li><span><span class="t-name">Dog bowls for large breeds</span><span class="t-hub">Bowls by dog size &middot; 9 subtopics</span></span><span class="t-val">4,230</span></li><li><span><span class="t-name">No-spill dog water bowls</span><span class="t-hub">No-spill &amp; non-slip bowls &middot; 6 subtopics</span></span><span class="t-val">3,130</span></li><li><span><span class="t-name">Best dog bowls for small dogs</span><span class="t-hub">Bowls by dog size &middot; 5 subtopics</span></span><span class="t-val">1,900</span></li><li><span><span class="t-name">Small dog bowls with stands</span><span class="t-hub">Elevated &amp; adjustable bowls &middot; 4 subtopics</span></span><span class="t-val">1,460</span></li><li><span><span class="t-name">DIY dog bowl stand</span><span class="t-hub">DIY bowl stands &middot; 7 subtopics</span></span><span class="t-val">700</span></li><li><span><span class="t-name">Best non-slip dog bowls</span><span class="t-hub">No-spill &amp; non-slip bowls &middot; 4 subtopics</span></span><span class="t-val">670</span></li><li><span><span class="t-name">Adjustable-height dog bowls</span><span class="t-hub">Elevated &amp; adjustable bowls &middot; 6 subtopics</span></span><span class="t-val">560</span></li><li><span><span class="t-name">Dog bowl storage cabinets</span><span class="t-hub">Bowl storage &amp; placement &middot; 3 subtopics</span></span><span class="t-val">290</span></li><li><span><span class="t-name">Large mats for dog bowls</span><span class="t-hub">Bowl mats &middot; 1 subtopic</span></span><span class="t-val">170</span></li><li><span><span class="t-name">DIY dog bowl stand with storage plans</span><span class="t-hub">DIY bowl stands &middot; 1 subtopic</span></span><span class="t-val">20</span></li><li><span><span class="t-name">Where to put dog bowls in a small home</span><span class="t-hub">Bowl storage &amp; placement &middot; 1 subtopic</span></span><span class="t-val">10</span></li><li><span><span class="t-name">Small rubber mats for dog bowls</span><span class="t-hub">Bowl mats &middot; 1 subtopic</span></span><span class="t-val">10</span></li></ul></div>
+    </details>
+  </div>
+</section>
+
+<!-- ============ 11 - CLOSE ============ -->
+<section class="slide s-dark hero-dark">
+  <span class="marker">11 - Next</span>
+  <div class="slide-inner" style="text-align:center;">
+    <div class="eyebrow" style="justify-content:center;"><span class="dot"></span> Where this goes from here</div>
+    <h1 class="display" style="max-width:880px; margin:0 auto;">The topics are chosen.<br>Now they become <span class="flip">pages.</span></h1>
+    <p class="lead muted-d80" style="max-width:660px; margin:24px auto 0;">
+      Six months, 107 pages across five hubs, running alongside the SEO audit, product and collection
+      optimizations, AI visibility, ecommerce and Reddit tracking. Everything is in your dashboard as it goes live.
+    </p>
+    <p class="footer-note muted-d" style="margin-top:56px;">FlyRank &middot; Houndsy content roadmap, Oct 2026 - Mar 2027</p>
+  </div>
+</section>
+
+<script>
+  const rail = document.getElementById('rail');
+  let ticking = false;
+  function updateRail() {
+    const max = document.documentElement.scrollHeight - window.innerHeight;
+    const pct = max > 0 ? (window.scrollY / max) * 100 : 0;
+    rail.style.width = Math.min(100, Math.max(0, pct)) + '%';
+    ticking = false;
+  }
+  window.addEventListener('scroll', () => {
+    if (!ticking) { window.requestAnimationFrame(updateRail); ticking = true; }
+  }, {passive:true});
+  window.addEventListener('resize', updateRail, {passive:true});
+  updateRail();
+</script>
+
+</body></html>
+</body></html>
