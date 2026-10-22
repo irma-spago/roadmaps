@@ -1,0 +1,791 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>BUBS Naturals Content Roadmap</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;700&display=swap">
+<style>
+
+  :root {
+    --mint-300:#7EEFC1; --mint-400:#54E399; --mint-500:#31C97A; --mint-700:#1A7A4A;
+    --ink-800:#0A2224; --ink-850:#071E20; --ink-900:#051F21; --ink-950:#030F10;
+    --paper:#F8FAF9; --paper-sunken:#F0F4F2;
+    --teal-300:#5EC6A9; --teal-400:#3AADA6; --teal-500:#2A8C8A;
+    color-scheme:light;
+  }
+
+  * { margin:0; padding:0; box-sizing:border-box; }
+
+  html { scroll-behavior:smooth; }
+
+  body {
+    font-family:'Geist',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+    color:var(--ink-900);
+    background:var(--ink-950);
+    -webkit-font-smoothing:antialiased;
+    line-height:1.6;
+  }
+  @media (prefers-reduced-motion:reduce) { html { scroll-behavior:auto; } }
+
+  .mono { font-family:'Geist Mono',ui-monospace,Consolas,monospace; }
+
+  /* ---------- Section frame ---------- */
+  .slide {
+    position:relative;
+    min-height:100vh;
+    display:flex; flex-direction:column; justify-content:center;
+    padding:96px 48px;
+  }
+  .slide-inner { width:100%; max-width:1080px; margin:0 auto; position:relative; z-index:2; }
+  .slide-inner.wide { max-width:1240px; }
+
+  .s-dark { background:var(--ink-900); color:#fff; }
+  .s-paper { background:var(--paper); }
+  .s-light { background:#fff; }
+  .s-sunken { background:var(--paper-sunken); }
+
+  .marker {
+    position:absolute; top:40px; right:48px; z-index:3;
+    font-family:'Geist Mono',ui-monospace,Consolas,monospace;
+    font-size:11px; font-weight:700; letter-spacing:0.14em; text-transform:uppercase;
+  }
+  .s-dark .marker { color:rgba(255,255,255,0.55); }
+  .s-paper .marker, .s-light .marker, .s-sunken .marker { color:rgba(5,31,33,0.40); }
+
+  .eyebrow {
+    font-family:'Geist Mono',ui-monospace,Consolas,monospace;
+    font-size:11px; font-weight:700; letter-spacing:0.14em; text-transform:uppercase;
+    display:inline-flex; align-items:center; gap:8px;
+    margin-bottom:24px;
+  }
+  .s-dark .eyebrow { color:var(--mint-400); }
+  .s-paper .eyebrow, .s-light .eyebrow, .s-sunken .eyebrow { color:var(--teal-500); }
+
+  .dot { width:6px; height:6px; border-radius:9999px; background:var(--mint-400); display:inline-block;
+         animation:pulse 2.4s ease-in-out infinite; }
+  @keyframes pulse { 0%,100%{opacity:1;transform:scale(1);} 50%{opacity:0.4;transform:scale(0.7);} }
+
+  h1.display { font-size:56px; font-weight:700; letter-spacing:-0.032em; line-height:1.06; }
+  h2 { font-size:32px; font-weight:700; letter-spacing:-0.028em; line-height:1.12; }
+  h3 { font-size:24px; font-weight:700; letter-spacing:-0.022em; line-height:1.2; }
+  h4 { font-size:20px; font-weight:600; letter-spacing:-0.015em; }
+  .lead { font-size:18px; font-weight:400; line-height:1.6; }
+  h4.title-sm { font-size:17px; letter-spacing:-0.01em; line-height:1.3; }
+  h4.title-xs { font-size:16px; letter-spacing:-0.008em; line-height:1.3; }
+  .body { font-size:16px; line-height:1.6; }
+  .bodys { font-size:14px; line-height:1.55; }
+  .cap { font-size:12px; line-height:1.5; }
+
+  .muted-d { color:rgba(255,255,255,0.55); }
+  .muted-d80 { color:rgba(255,255,255,0.80); }
+  .muted-l { color:rgba(5,31,33,0.55); }
+  .muted-l45 { color:rgba(5,31,33,0.45); }
+  .mint { color:var(--mint-400); }
+  .mint-dark { color:var(--mint-700); }
+
+  /* ---------- Cards ---------- */
+  .card { border-radius:20px; padding:28px; }
+  .card.compact { padding:20px 22px; border-radius:16px; }
+  .card-light { background:#fff; border:1px solid #DDE4E7; }
+  .card-paper { background:var(--paper); border:1px solid #E4EAED; }
+  .card-dark { background:var(--ink-900); color:#fff; }
+  .card-dark-el { background:var(--ink-850); border:1px solid rgba(255,255,255,0.10); border-radius:20px; padding:28px; color:#fff; }
+  .card-dark-el.compact { padding:20px 22px; border-radius:16px; }
+
+  .grid { display:grid; gap:16px; align-items:stretch; }
+  .grid > * { height:100%; }
+  .g2 { grid-template-columns:repeat(2,1fr); }
+  .g3 { grid-template-columns:repeat(3,1fr); }
+  .g4 { grid-template-columns:repeat(4,1fr); }
+  .g5 { grid-template-columns:repeat(5,1fr); }
+
+  .stat-num { font-size:34px; font-weight:700; letter-spacing:-0.03em; line-height:1.05; }
+  .stat-lbl { font-size:13px; margin-top:10px; }
+
+  .pill {
+    display:inline-flex; align-items:center; gap:7px;
+    border-radius:9999px; padding:5px 13px; font-size:12px;
+  }
+  .pill-tag-d { background:rgba(255,255,255,0.07); border:1px solid rgba(255,255,255,0.10); color:rgba(255,255,255,0.80); }
+  .pill-tag-l { background:rgba(5,31,33,0.06); border:1px solid rgba(5,31,33,0.08); color:rgba(5,31,33,0.55); }
+  .pill-lead { background:rgba(49,201,122,0.12); border:1px solid rgba(49,201,122,0.25); color:var(--mint-700); }
+  .pill-row { display:flex; flex-wrap:wrap; gap:8px; }
+
+  .badge {
+    display:inline-flex; align-items:center; border-radius:8px;
+    font-size:10px; font-weight:700; letter-spacing:0.06em; text-transform:uppercase; padding:3px 8px;
+  }
+  .b-done   { background:rgba(49,201,122,0.12); color:var(--mint-700); }
+  .b-done-d { background:rgba(84,227,153,0.14); color:var(--mint-300); }
+  .b-move-d { background:rgba(94,198,169,0.16); color:var(--teal-300); }
+
+  .flag {
+    display:inline-flex; align-items:center; gap:7px;
+    border-radius:8px; padding:4px 10px;
+    font-family:'Geist Mono',ui-monospace,Consolas,monospace;
+    font-size:10px; font-weight:700; letter-spacing:0.08em; text-transform:uppercase;
+    background:rgba(49,201,122,0.10); color:var(--mint-700); border:1px dashed rgba(26,122,74,0.45);
+  }
+
+  /* ---------- Topic lists ---------- */
+  .tlist { list-style:none; margin-top:16px; }
+  .tlist li {
+    display:flex; align-items:baseline; justify-content:space-between; gap:14px;
+    padding:10px 0; border-bottom:1px solid rgba(5,31,33,0.08);
+  }
+  .tlist li:last-child { border-bottom:none; }
+  .tlist li:first-child { padding-top:0; }
+  .s-dark .tlist li { border-bottom-color:rgba(255,255,255,0.10); }
+  .t-name { font-size:14px; font-weight:500; line-height:1.35; }
+  .t-hub {
+    display:block; margin-top:3px;
+    font-family:'Geist Mono',ui-monospace,Consolas,monospace;
+    font-size:10px; letter-spacing:0.06em; text-transform:uppercase;
+    color:rgba(5,31,33,0.40);
+  }
+  .s-dark .t-hub { color:rgba(255,255,255,0.45); }
+  .t-val {
+    font-family:'Geist Mono',ui-monospace,Consolas,monospace;
+    font-size:12px; font-weight:700; white-space:nowrap; color:var(--mint-700);
+  }
+  .s-dark .t-val { color:var(--mint-300); }
+  .t-sub { font-weight:400; color:rgba(5,31,33,0.40); }
+  .s-dark .t-sub { color:rgba(255,255,255,0.45); }
+
+  /* ---------- Hero backgrounds ---------- */
+  .hero-dark {
+    background:radial-gradient(ellipse at 60% 40%, rgba(84,227,153,0.09), transparent 55%), var(--ink-900);
+  }
+  .hero-dark::before {
+    content:''; position:absolute; inset:0; z-index:1; pointer-events:none;
+    background-image:linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+                     linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+    background-size:48px 48px;
+  }
+
+  .accent-bar { width:44px; height:4px; border-radius:9999px; background:var(--mint-400); margin-bottom:28px; }
+  .flip { color:var(--mint-400); }
+  .arrow { color:var(--mint-400); font-weight:700; padding:0 4px; }
+
+  ul.clean { list-style:none; }
+  ul.clean li { position:relative; padding-left:26px; margin-bottom:12px; }
+  ul.clean li:last-child { margin-bottom:0; }
+  ul.clean li::before {
+    content:''; position:absolute; left:0; top:9px; width:7px; height:7px;
+    border-radius:9999px; background:var(--mint-400);
+  }
+
+  .divider { height:1px; background:rgba(5,31,33,0.08); margin:28px 0; }
+  .s-dark .divider { background:rgba(255,255,255,0.10); }
+
+  .footer-note { font-size:12px; }
+
+  .step-n { font-family:'Geist Mono',ui-monospace,Consolas,monospace; font-size:12px; font-weight:700; letter-spacing:0.14em; }
+  .step-row { display:flex; align-items:center; justify-content:space-between; gap:10px; }
+  .week {
+    font-family:'Geist Mono',ui-monospace,Consolas,monospace;
+    font-size:10px; font-weight:700; letter-spacing:0.10em; text-transform:uppercase;
+    border-radius:9999px; padding:3px 10px; white-space:nowrap;
+  }
+  .week-l { background:rgba(5,31,33,0.06); color:rgba(5,31,33,0.55); }
+  .week-d { background:rgba(84,227,153,0.12); color:var(--mint-300); }
+
+  .rail { position:fixed; top:0; left:0; height:3px; background:var(--mint-400); z-index:99; width:0; }
+
+  /* ---------- Responsive ---------- */
+  @media (max-width:1100px) {
+    .g5 { grid-template-columns:repeat(3,1fr); }
+  }
+  @media (max-width:900px) {
+    .slide { padding:80px 32px; }
+    .g2,.g3,.g4,.g5 { grid-template-columns:1fr; }
+    .g4.keep2, .g5.keep2 { grid-template-columns:repeat(2,1fr); }
+    .marker { top:24px; right:32px; }
+  }
+  @media (max-width:560px) {
+    .slide { padding:72px 20px; }
+    h1.display { font-size:34px; }
+    h2 { font-size:26px; }
+    h3 { font-size:21px; }
+    .lead { font-size:16px; }
+    .g4.keep2, .g5.keep2 { grid-template-columns:1fr; }
+  }
+  @media (prefers-reduced-motion:reduce) { .dot { animation:none; } }
+
+  .tlist li > span:first-child { min-width:0; }
+  .t-name { overflow-wrap:anywhere; }
+  .stat-num, .t-val { font-variant-numeric:tabular-nums; }
+  :focus-visible { outline:2px solid var(--mint-500); outline-offset:2px; }
+
+
+  .hubhead { display:flex; flex-wrap:wrap; align-items:baseline; gap:6px 14px; margin-top:6px; }
+  .hubmeta { font-family:'Geist Mono',ui-monospace,Consolas,monospace; font-size:11px; letter-spacing:0.06em; text-transform:uppercase; }
+  .s-dark .hubmeta { color:rgba(255,255,255,0.55); }
+  .group-label {
+    font-family:'Geist Mono',ui-monospace,Consolas,monospace;
+    font-size:10px; font-weight:700; letter-spacing:0.14em; text-transform:uppercase;
+    color:rgba(255,255,255,0.45); margin:28px 0 12px;
+  }
+  .group-label { margin-top:32px; }
+  .mstrip { display:grid; grid-template-columns:repeat(6,1fr); gap:10px; margin-top:20px; }
+  .mcell { background:#fff; border:1px solid #DDE4E7; border-radius:14px; padding:14px 16px; }
+  .mcell .mnum { font-size:22px; font-weight:700; letter-spacing:-0.02em; color:var(--mint-700); font-variant-numeric:tabular-nums; }
+  .mcell .mlbl { font-family:'Geist Mono',ui-monospace,Consolas,monospace; font-size:10px; font-weight:700; letter-spacing:0.10em; text-transform:uppercase; color:rgba(5,31,33,0.45); }
+  details.all { margin-top:22px; border-top:1px solid rgba(5,31,33,0.08); padding-top:18px; }
+  details.all summary {
+    cursor:pointer; list-style:none; display:inline-flex; align-items:center; gap:8px;
+    font-family:'Geist Mono',ui-monospace,Consolas,monospace;
+    font-size:11px; font-weight:700; letter-spacing:0.10em; text-transform:uppercase;
+    color:var(--teal-500); border-radius:9999px; padding:6px 14px;
+    background:rgba(42,140,138,0.08); border:1px solid rgba(42,140,138,0.22);
+  }
+  details.all summary::-webkit-details-marker { display:none; }
+  details.all summary::before { content:'+'; font-size:13px; line-height:1; }
+  details.all[open] summary::before { content:'\2212'; }
+  .allgrid { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin-top:18px; }
+  .allgrid .card { padding:20px 22px; border-radius:16px; }
+  .allgrid h5 { font-family:'Geist Mono',ui-monospace,Consolas,monospace; font-size:10px; font-weight:700; letter-spacing:0.12em; text-transform:uppercase; color:var(--teal-500); display:flex; justify-content:space-between; gap:10px; }
+  .allgrid h5 span { color:rgba(5,31,33,0.40); }
+  .allgrid .tlist li { padding:8px 0; }
+  .allgrid .t-name { font-size:13px; }
+  @media (max-width:900px) {
+    .mstrip { grid-template-columns:repeat(3,1fr); }
+    .allgrid { grid-template-columns:1fr; }
+  }
+  @media (max-width:560px) { .mstrip { grid-template-columns:repeat(2,1fr); } }
+
+
+  /* Scrolling fix: sections size to their content, the page always scrolls */
+  html, body { height:auto; }
+  html { overflow-y:auto; scroll-behavior:auto; }
+  .slide { min-height:0; }
+  .slide.hero-dark { padding-block:140px; }
+  @media (max-width:560px) { .slide.hero-dark { padding-block:96px; } }
+
+  /* GetBuddy additions */
+  .svc-grid { margin-top:40px; }
+  .svc h4 { margin-top:14px; }
+  .svc ul.clean { margin-top:14px; }
+  .svc ul.clean li { font-size:14px; line-height:1.5; color:rgba(5,31,33,0.72); margin-bottom:10px; }
+  .svc ul.clean li::before { top:7px; }
+  .svc-n { font-family:'Geist Mono',ui-monospace,Consolas,monospace; font-size:10px; font-weight:700; letter-spacing:0.10em; text-transform:uppercase; color:rgba(5,31,33,0.45); margin-top:18px; padding-top:14px; border-top:1px solid rgba(5,31,33,0.08); }
+  .b-teal { background:rgba(42,140,138,0.10); color:var(--teal-500); }
+  .dash {
+    margin-top:16px; display:flex; flex-wrap:wrap; align-items:center; gap:14px 24px;
+    background:rgba(49,201,122,0.07); border:1px solid rgba(49,201,122,0.25); border-radius:16px; padding:18px 22px;
+  }
+  .dash p { min-width:0; flex:1 1 360px; }
+  .svc { display:flex; flex-direction:column; }
+  .svc .svc-n { margin-top:auto; }
+  .svc ul.clean { margin-bottom:18px; }
+  a.hublink { color:inherit; text-decoration:none; }
+  a.hublink:hover { color:var(--mint-300); }
+
+  /* All topics: one card, three even columns */
+  .allcard { margin-top:18px; padding:22px 26px; border-radius:16px; }
+  .tlist.cols { columns:3 240px; column-gap:36px; margin-top:0; }
+  .tlist.cols li { break-inside:avoid; padding:9px 0; }
+  .tlist.cols .t-name { font-size:13px; }
+
+  /* Hugger Mugger: one width for every section, safe-area side gutters */
+  .slide { padding-block:96px; padding-left:max(48px, env(safe-area-inset-left, 0px)); padding-right:max(48px, env(safe-area-inset-right, 0px)); }
+  .slide-inner, .slide-inner.wide { max-width:1080px; }
+  .marker { right:max(48px, env(safe-area-inset-right, 0px)); }
+  h1.display, h2, h3 { text-wrap:balance; }
+  .svc .bodys { color:rgba(5,31,33,0.72); }
+  .svc ul.ex li { color:var(--ink-900); font-weight:500; }
+  .later-hint {
+    margin-top:14px; display:inline-flex; align-items:center; gap:10px;
+    font-family:'Geist Mono',ui-monospace,Consolas,monospace; font-size:11px; font-weight:700;
+    letter-spacing:0.08em; text-transform:uppercase; color:rgba(5,31,33,0.55);
+    border:1px dashed rgba(42,140,138,0.40); border-radius:9999px; padding:5px 14px 5px 6px;
+  }
+  .later-n { background:rgba(42,140,138,0.10); color:var(--teal-500); border-radius:9999px; padding:2px 9px; font-variant-numeric:tabular-nums; }
+  @media (max-width:900px) {
+    .slide { padding-block:80px; padding-left:max(32px, env(safe-area-inset-left, 0px)); padding-right:max(32px, env(safe-area-inset-right, 0px)); }
+    .marker { right:max(32px, env(safe-area-inset-right, 0px)); }
+    .g3.keep2 { grid-template-columns:repeat(2,1fr); }
+  }
+  @media (max-width:560px) {
+    .slide { padding-block:72px; padding-left:max(20px, env(safe-area-inset-left, 0px)); padding-right:max(20px, env(safe-area-inset-right, 0px)); }
+    .marker { right:max(20px, env(safe-area-inset-right, 0px)); }
+    .g3.keep2 { grid-template-columns:1fr; }
+    .later-hint { letter-spacing:0.04em; }
+  }
+  .slide.hero-dark { padding-block:140px; }
+  @media (max-width:560px) { .slide.hero-dark { padding-block:96px; } }
+
+</style>
+
+<div class="rail" id="rail"></div>
+
+<!-- ============ 01 - COVER ============ -->
+<section class="slide s-dark hero-dark">
+  <span class="marker">01 - The roadmap</span>
+  <div class="slide-inner">
+    <div class="eyebrow"><span class="dot"></span> Content roadmap &middot; FlyRank &times; BUBS Naturals</div>
+    <h1 class="display">Collagen, creatine, hydration <span class="flip">&amp;</span> stronger workouts</h1>
+    <p class="lead muted-d80" style="max-width:680px; margin-top:24px;">
+      Six months of content for bubsnaturals.com, already scheduled. Seven hubs covering workouts and training,
+      electrolytes, coffee and creamers, vitamin C, creatine, collagen and apple cider vinegar, with every page
+      built around one main topic and its subtopics.
+    </p>
+    <div class="pill-row" style="margin-top:36px;">
+      <span class="pill pill-tag-d">266 pages scheduled</span>
+      <span class="pill pill-tag-d">3,811 subtopics</span>
+      <span class="pill pill-tag-d">7 content hubs</span>
+      <span class="pill pill-tag-d">Oct 2026 - Mar 2027</span>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 02 - SERVICES ============ -->
+<section class="slide s-light">
+  <span class="marker">02 - The work</span>
+  <div class="slide-inner">
+    <div class="eyebrow">What we&#x27;re doing for BUBS Naturals</div>
+    <h2 style="max-width:820px;">Six workstreams, one dashboard</h2>
+    <p class="lead muted-l" style="margin-top:16px; max-width:760px;">
+      Content, SEO, product page work, AI visibility, ecommerce and Reddit tracking run side by side.
+      Log in to your own dashboard to follow every page as it goes live, see where BUBS Naturals is mentioned across
+      AI engines and Reddit, and track the sales that come from search and AI.
+    </p>
+    <div class="grid g3 keep2 svc-grid" style="gap:14px;">
+      <div class="card card-paper compact svc">
+        <span class="badge b-done" style="align-self:flex-start;">Content</span>
+        <h4 class="title-sm">New content strategy</h4>
+        <ul class="clean"><li>Each page has one main topic and the subtopics that belong to it</li><li>Pages go more in-depth, answering the full set of related questions in one place</li><li>Every page belongs to a hub, so it links to related pages the day it goes live</li></ul>
+        <p class="svc-n">266 pages &middot; 3,811 subtopics</p>
+      </div>
+      <div class="card card-paper compact svc">
+        <span class="badge b-teal" style="align-self:flex-start;">Technical</span>
+        <h4 class="title-sm">Website SEO audit</h4>
+        <ul class="clean"><li>On-page SEO audit of bubsnaturals.com, page by page</li><li>Covers all on-page elements, from titles and headings to internal links</li><li>Each issue comes with a clear fix, so the team knows exactly what to change</li></ul>
+        <p class="svc-n">Every on-page element checked</p>
+      </div>
+      <div class="card card-paper compact svc">
+        <span class="badge b-done" style="align-self:flex-start;">Store</span>
+        <h4 class="title-sm">Product &amp; collection optimizations</h4>
+        <ul class="clean"><li>Analysis of BUBS Naturals&#x27; product and collection pages</li><li>Pages optimized based on SEO and GEO best practices, so they rank and get cited</li><li>Covers collagen, creamers and electrolytes, with clear fixes for each</li></ul>
+        <p class="svc-n">Product and collection pages</p>
+      </div>
+      <div class="card card-paper compact svc">
+        <span class="badge b-teal" style="align-self:flex-start;">Visibility</span>
+        <h4 class="title-sm">AI visibility tracking</h4>
+        <ul class="clean"><li>Shows whether AI assistants mention the brand, and how they describe it</li><li>Turns missed, high-scoring prompts into a clear to-do list of content to create</li><li>Citations and fan-out show why AI picks a competitor, with trends over time</li></ul>
+        <p class="svc-n">Mentions, citations, competitors</p>
+      </div>
+      <div class="card card-paper compact svc">
+        <span class="badge b-done" style="align-self:flex-start;">Revenue</span>
+        <h4 class="title-sm">Ecommerce tracking</h4>
+        <ul class="clean"><li>Connects SEO, content and AI visibility to sales, not just traffic or rankings</li><li>Gets ahead on AI shopping by measuring sales from Shopify AI shopping</li><li>Every number shows its change, with plain definitions and no double counting</li></ul>
+        <p class="svc-n">Sales, traffic and AI orders in one place</p>
+      </div>
+      <div class="card card-paper compact svc">
+        <span class="badge b-teal" style="align-self:flex-start;">Community</span>
+        <h4 class="title-sm">Reddit mentions tracking</h4>
+        <ul class="clean"><li>Finds threads asking for advice, the moments a good answer wins a customer</li><li>A sorted inbox with drafted replies, and Reddit answers also lift AI visibility</li><li>Spots mentions and complaints early, and collects the words shoppers use</li></ul>
+        <p class="svc-n">Mentions and ready-to-use replies</p>
+      </div>
+    </div>
+    <div class="dash">
+      <span class="flag">Your dashboard</span>
+      <p class="bodys muted-l">Log in to see the content calendar, AI visibility, Reddit mentions and ecommerce sales in one place, updated as the work moves.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 03 - SIX MONTH PLAN ============ -->
+<section class="slide s-paper">
+  <span class="marker">03 - The plan</span>
+  <div class="slide-inner">
+    <div class="eyebrow">Six month content plan</div>
+    <h2 style="max-width:820px;">266 pages are scheduled<br>for the next six months.</h2>
+    <p class="lead muted-l" style="margin-top:16px; max-width:760px;">
+      Every page targets one main topic and groups the subtopics people search around it, 3,811 in total.
+      Together the pages carry 6,372,430 monthly searches across seven content hubs, from workout routines
+      and electrolytes to creamers, creatine and collagen.
+    </p>
+    <div class="grid g4 keep2" style="margin-top:40px;">
+      <div class="card card-light"><div class="stat-num mint-dark">266</div><p class="stat-lbl muted-l">Pages scheduled from October to March</p></div>
+      <div class="card card-light"><div class="stat-num mint-dark">3,811</div><p class="stat-lbl muted-l">Subtopics inside those pages, about 14 per page</p></div>
+      <div class="card card-light"><div class="stat-num mint-dark">6,372,430</div><p class="stat-lbl muted-l">Monthly searches across the targeted keywords</p></div>
+      <div class="card card-light"><div class="stat-num mint-dark">517,280</div><p class="stat-lbl muted-l">Searches a month for the top page, workout routines</p></div>
+    </div>
+    <div class="card card-dark" style="margin-top:20px; padding:22px 26px;">
+      <p class="bodys muted-d80">
+        <span class="mint" style="font-weight:600;">How the pages are built.</span>
+        Each page is built around one main topic, with its subtopics as sections, so a single page answers what used
+        to take several thin posts. The deepest page, progressive overload, covers 184 subtopics. Publishing runs every
+        month from October to March, at 50 pages a month after a shorter October start.
+      </p>
+    </div>
+    <div class="dash">
+      <span class="flag">After March</span>
+      <p class="bodys muted-l"><strong class="mint-dark">806 more topics</strong> are already mapped for after March 2027, across the same seven hubs.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 04 - PAGE TYPES ============ -->
+<section class="slide s-light">
+  <span class="marker">04 - Page types</span>
+  <div class="slide-inner">
+    <div class="eyebrow">How each page is shaped</div>
+    <h2 style="max-width:820px;">Six kinds of pages, each matched to the search behind it</h2>
+    <p class="lead muted-l" style="margin-top:16px; max-width:760px;">
+      Each topic gets the format that fits what people want when they search it. Someone planning a workout
+      needs a guide, while someone choosing a creamer needs a listicle or a product page.
+    </p>
+    <div class="grid g3 keep2 svc-grid" style="gap:14px;">
+      <div class="card card-paper compact svc">
+        <span class="badge b-done" style="align-self:flex-start;">Guide</span>
+        <h4 class="title-sm">Guides &amp; explainers</h4>
+        <p class="bodys muted-l" style="margin-top:10px;">In-depth answers to what-is and how-to questions, with each subtopic as a section, so one page covers it all.</p>
+        <p class="svc-n">Example topics</p>
+        <ul class="clean ex"><li>Creatine monohydrate benefits</li><li>Progressive overload</li><li>Electrolyte drinks for diarrhea</li></ul>
+      </div>
+      <div class="card card-paper compact svc">
+        <span class="badge b-teal" style="align-self:flex-start;">Listicle</span>
+        <h4 class="title-sm">Listicles</h4>
+        <p class="bodys muted-l" style="margin-top:10px;">Ranked or grouped lists of products, foods and ideas that let readers scan the options and pick what fits them.</p>
+        <p class="svc-n">Example topics</p>
+        <ul class="clean ex"><li>Vitamin C rich foods</li><li>Best coconut creamers</li><li>Best electrolyte drinks</li></ul>
+      </div>
+      <div class="card card-paper compact svc">
+        <span class="badge b-done" style="align-self:flex-start;">Comparison</span>
+        <h4 class="title-sm">Comparisons</h4>
+        <p class="bodys muted-l" style="margin-top:10px;">Side-by-side looks at two options, for readers deciding between supplements, ingredients or training methods.</p>
+        <p class="svc-n">Example topics</p>
+        <ul class="clean ex"><li>Whey protein vs. collagen</li><li>Hypertrophy vs. strength training</li><li>Coconut creamer vs. coconut milk</li></ul>
+      </div>
+      <div class="card card-paper compact svc">
+        <span class="badge b-teal" style="align-self:flex-start;">Recipe</span>
+        <h4 class="title-sm">Recipes</h4>
+        <p class="bodys muted-l" style="margin-top:10px;">Step-by-step recipes for drinks and coffees, with ingredients and method, for readers who like to make their own.</p>
+        <p class="svc-n">Example topics</p>
+        <ul class="clean ex"><li>Homemade electrolyte drink</li><li>Protein coffee at home</li><li>Apple cider vinegar drink</li></ul>
+      </div>
+      <div class="card card-paper compact svc">
+        <span class="badge b-done" style="align-self:flex-start;">Product</span>
+        <h4 class="title-sm">Product pages</h4>
+        <p class="bodys muted-l" style="margin-top:10px;">Pages for searches that name a product type, explaining what it does, who it suits and how to use it well.</p>
+        <p class="svc-n">Example topics</p>
+        <ul class="clean ex"><li>Grass-fed collagen peptides</li><li>Handheld milk frothers</li><li>BUBS Naturals MCT oil powder</li></ul>
+      </div>
+      <div class="card card-paper compact svc">
+        <span class="badge b-teal" style="align-self:flex-start;">Collection</span>
+        <h4 class="title-sm">Collection pages</h4>
+        <p class="bodys muted-l" style="margin-top:10px;">Category pages for shopping searches that pair the right BUBS Naturals products with buying advice.</p>
+        <p class="svc-n">Example topics</p>
+        <ul class="clean ex"><li>Electrolyte drinks</li><li>Sports nutrition products</li><li>Vitamin C rich food recipes</li></ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 05 - CONTENT HUBS ============ -->
+<section class="slide s-dark">
+  <span class="marker">05 - Coverage</span>
+  <div class="slide-inner">
+    <div class="eyebrow"><span class="dot"></span> What the plan covers</div>
+    <h2>Seven hubs across training, hydration, coffee and supplements</h2>
+    <p class="group-label">Largest hubs &middot; 184 pages &middot; 5,131,070 searches / mo</p>
+    <div class="grid g3" style="gap:14px;">
+      <div class="card-dark-el compact">
+        <span class="badge b-done-d">102 pages</span>
+        <h4 class="title-xs" style="margin-top:12px;"><a class="hublink" href="#workouts">Workouts &amp; Training</a></h4>
+        <p class="hubmeta" style="margin-top:4px;">3,402,030 searches / mo &middot; 1,286 subtopics</p>
+        <p class="bodys muted-d80" style="margin-top:8px;">Workout routines, strength and interval training, running plans, recovery, and sports nutrition.</p>
+      </div><div class="card-dark-el compact">
+        <span class="badge b-done-d">41 pages</span>
+        <h4 class="title-xs" style="margin-top:12px;"><a class="hublink" href="#electrolytes">All About Electrolytes</a></h4>
+        <p class="hubmeta" style="margin-top:4px;">1,159,580 searches / mo &middot; 593 subtopics</p>
+        <p class="bodys muted-d80" style="margin-top:8px;">Electrolyte drinks, dehydration and sweat, hydration for sport, sick days and hangovers, and DIY mixes.</p>
+      </div><div class="card-dark-el compact">
+        <span class="badge b-done-d">41 pages</span>
+        <h4 class="title-xs" style="margin-top:12px;"><a class="hublink" href="#coffee">Coffee &amp; Creamers</a></h4>
+        <p class="hubmeta" style="margin-top:4px;">569,460 searches / mo &middot; 384 subtopics</p>
+        <p class="bodys muted-d80" style="margin-top:8px;">Milk frothers, protein coffee, dairy-free, coconut and MCT creamers, and coffee and creamer recipes.</p>
+      </div>
+    </div>
+    <p class="group-label">Supporting hubs &middot; 82 pages &middot; 1,241,360 searches / mo</p>
+    <div class="grid g4 keep2" style="gap:14px;">
+      <div class="card-dark-el compact">
+        <span class="badge b-done-d">28 pages</span>
+        <h4 class="title-xs" style="margin-top:12px;"><a class="hublink" href="#vitaminc">All About Vitamin C</a></h4>
+        <p class="hubmeta" style="margin-top:4px;">630,410 searches / mo &middot; 627 subtopics</p>
+        <p class="bodys muted-d80" style="margin-top:8px;">Vitamin C foods, immunity and colds, deficiency and side effects, supplements, and skin and collagen.</p>
+      </div><div class="card-dark-el compact">
+        <span class="badge b-done-d">22 pages</span>
+        <h4 class="title-xs" style="margin-top:12px;"><a class="hublink" href="#creatine">Creatine &amp; Fitness</a></h4>
+        <p class="hubmeta" style="margin-top:4px;">455,560 searches / mo &middot; 564 subtopics</p>
+        <p class="bodys muted-d80" style="margin-top:8px;">Creatine benefits, dosage and loading, side effects and safety, muscle and brain, and other forms.</p>
+      </div><div class="card-dark-el compact">
+        <span class="badge b-done-d">18 pages</span>
+        <h4 class="title-xs" style="margin-top:12px;"><a class="hublink" href="#collagen">All About Collagen</a></h4>
+        <p class="hubmeta" style="margin-top:4px;">52,190 searches / mo &middot; 201 subtopics</p>
+        <p class="bodys muted-d80" style="margin-top:8px;">Collagen types and sources, benefits, dosage, collagen vs. other proteins, and collagen recipes.</p>
+      </div><div class="card-dark-el compact">
+        <span class="badge b-done-d">14 pages</span>
+        <h4 class="title-xs" style="margin-top:12px;"><a class="hublink" href="#acv">Apple Cider Vinegar</a></h4>
+        <p class="hubmeta" style="margin-top:4px;">103,200 searches / mo &middot; 156 subtopics</p>
+        <p class="bodys muted-d80" style="margin-top:8px;">ACV drink recipes, weight loss, how much to take each day, side effects, and capsules vs. liquid.</p>
+      </div>
+    </div>
+    <p class="bodys muted-d" style="margin-top:24px;">
+      Every scheduled page belongs to one of these hubs, so each new page has a home and an
+      internal link path the day it publishes.
+    </p>
+  </div>
+</section>
+
+<!-- ============ 06 - WORKOUTS ============ -->
+<section class="slide s-paper" id="workouts">
+  <span class="marker">06 - Workouts</span>
+  <div class="slide-inner">
+    <div class="step-row" style="margin-bottom:22px;">
+      <div class="eyebrow" style="margin-bottom:0;">Hub 01 &middot; Workouts &amp; Training</div>
+      <span class="week week-l">102 pages</span>
+    </div>
+    <h2>Workout routines, strength training and smarter recovery</h2>
+    <p class="lead muted-l" style="margin-top:14px; max-width:760px;">How to create a workout routine is the biggest page in the plan at 517,280 searches a month, with HIIT workouts at 499,150 and strength training for beginners at 443,160. The hub covers routines for every goal, strength and interval training, running plans from 5K to half marathon, recovery and soreness, and sports nutrition, where BUBS collagen and creatine fit in.</p>
+    <p class="cap muted-l45" style="margin-top:10px;">3,402,030 monthly searches across 102 pages and 1,286 subtopics.</p>
+    <p class="later-hint"><span class="later-n">+243</span> more topics planned for this hub after March</p>
+    <div class="grid g2" style="margin-top:28px;">
+      <div class="card card-light">
+        <h4 class="title-sm">Biggest demand</h4>
+        <p class="cap muted-l45" style="margin-top:6px;">Monthly searches for the hub&#x27;s largest pages</p>
+        <ul class="tlist"><li><span><span class="t-name">How to create a workout routine</span><span class="t-hub">Workout routines &middot; 45 subtopics</span></span><span class="t-val">517,280</span></li><li><span><span class="t-name">HIIT workouts</span><span class="t-hub">HIIT &amp; intervals &middot; 67 subtopics</span></span><span class="t-val">499,150</span></li><li><span><span class="t-name">Strength training for beginners</span><span class="t-hub">Strength training &middot; 82 subtopics</span></span><span class="t-val">443,160</span></li><li><span><span class="t-name">Best protein powders for building muscle</span><span class="t-hub">Sports nutrition &middot; 11 subtopics</span></span><span class="t-val">245,650</span></li><li><span><span class="t-name">Muscle-building meal plan</span><span class="t-hub">Sports nutrition &middot; 26 subtopics</span></span><span class="t-val">210,320</span></li><li><span><span class="t-name">Strength training for runners workout</span><span class="t-hub">Strength training &middot; 22 subtopics</span></span><span class="t-val">156,840</span></li></ul>
+      </div>
+      <div class="card card-light">
+        <h4 class="title-sm">What the hub covers</h4>
+        <p class="cap muted-l45" style="margin-top:6px;">Scheduled pages by theme</p>
+        <ul class="tlist"><li><span><span class="t-name">Sports nutrition</span><span class="t-hub">21% of the hub</span></span><span class="t-val">21 pages</span></li><li><span><span class="t-name">Running &amp; endurance</span><span class="t-hub">19% of the hub</span></span><span class="t-val">19 pages</span></li><li><span><span class="t-name">Workout routines</span><span class="t-hub">18% of the hub</span></span><span class="t-val">18 pages</span></li><li><span><span class="t-name">Recovery, soreness &amp; mobility</span><span class="t-hub">18% of the hub</span></span><span class="t-val">18 pages</span></li><li><span><span class="t-name">Strength training</span><span class="t-hub">16% of the hub</span></span><span class="t-val">16 pages</span></li><li><span><span class="t-name">HIIT &amp; intervals</span><span class="t-hub">10% of the hub</span></span><span class="t-val">10 pages</span></li></ul>
+      </div>
+    </div>
+    <details class="all">
+      <summary>All 102 Workouts &amp; Training pages</summary>
+      <div class="card card-light allcard"><ul class="tlist cols"><li><span><span class="t-name">How to create a workout routine</span><span class="t-hub">Workout routines &middot; 45 subtopics</span></span><span class="t-val">517,280</span></li><li><span><span class="t-name">HIIT workouts</span><span class="t-hub">HIIT &amp; intervals &middot; 67 subtopics</span></span><span class="t-val">499,150</span></li><li><span><span class="t-name">Strength training for beginners</span><span class="t-hub">Strength training &middot; 82 subtopics</span></span><span class="t-val">443,160</span></li><li><span><span class="t-name">Best protein powders for building muscle</span><span class="t-hub">Sports nutrition &middot; 11 subtopics</span></span><span class="t-val">245,650</span></li><li><span><span class="t-name">Muscle-building meal plan</span><span class="t-hub">Sports nutrition &middot; 26 subtopics</span></span><span class="t-val">210,320</span></li><li><span><span class="t-name">Strength training for runners workout</span><span class="t-hub">Strength training &middot; 22 subtopics</span></span><span class="t-val">156,840</span></li><li><span><span class="t-name">Half marathon running training plan</span><span class="t-hub">Running &amp; endurance &middot; 5 subtopics</span></span><span class="t-val">134,290</span></li><li><span><span class="t-name">Strength training for older adults</span><span class="t-hub">Strength training &middot; 59 subtopics</span></span><span class="t-val">122,300</span></li><li><span><span class="t-name">Bodyweight workout routine</span><span class="t-hub">Workout routines &middot; 34 subtopics</span></span><span class="t-val">119,490</span></li><li><span><span class="t-name">Best workout routine for weight loss</span><span class="t-hub">Workout routines &middot; 24 subtopics</span></span><span class="t-val">93,730</span></li><li><span><span class="t-name">Interval training running routines</span><span class="t-hub">HIIT &amp; intervals &middot; 17 subtopics</span></span><span class="t-val">81,300</span></li><li><span><span class="t-name">Foam rolling muscle soreness</span><span class="t-hub">Recovery, soreness &amp; mobility &middot; 2 subtopics</span></span><span class="t-val">66,200</span></li><li><span><span class="t-name">Workout routine to build muscle mass</span><span class="t-hub">Workout routines &middot; 30 subtopics</span></span><span class="t-val">49,830</span></li><li><span><span class="t-name">Exercise band workout routine</span><span class="t-hub">Workout routines &middot; 5 subtopics</span></span><span class="t-val">49,420</span></li><li><span><span class="t-name">Progressive overload</span><span class="t-hub">Strength training &middot; 184 subtopics</span></span><span class="t-val">48,640</span></li><li><span><span class="t-name">Best pre workout meal</span><span class="t-hub">Sports nutrition &middot; 122 subtopics</span></span><span class="t-val">36,940</span></li><li><span><span class="t-name">Active recovery workout</span><span class="t-hub">Recovery, soreness &amp; mobility &middot; 83 subtopics</span></span><span class="t-val">33,390</span></li><li><span><span class="t-name">Dumbbell workout routine</span><span class="t-hub">Workout routines &middot; 5 subtopics</span></span><span class="t-val">28,400</span></li><li><span><span class="t-name">10K running training plan</span><span class="t-hub">Running &amp; endurance &middot; 4 subtopics</span></span><span class="t-val">27,400</span></li><li><span><span class="t-name">Running training treadmill</span><span class="t-hub">Running &amp; endurance &middot; 12 subtopics</span></span><span class="t-val">27,350</span></li><li><span><span class="t-name">Knee strength training</span><span class="t-hub">Strength training &middot; 1 subtopic</span></span><span class="t-val">27,100</span></li><li><span><span class="t-name">Cellulite strength training</span><span class="t-hub">Strength training &middot; 1 subtopic</span></span><span class="t-val">27,100</span></li><li><span><span class="t-name">Hypertrophy vs. strength training</span><span class="t-hub">Strength training &middot; 4 subtopics</span></span><span class="t-val">26,400</span></li><li><span><span class="t-name">Push pull leg workout routine</span><span class="t-hub">Workout routines &middot; 7 subtopics</span></span><span class="t-val">25,000</span></li><li><span><span class="t-name">Muscle soreness back</span><span class="t-hub">Recovery, soreness &amp; mobility &middot; 3 subtopics</span></span><span class="t-val">24,800</span></li><li><span><span class="t-name">Ab workout routine</span><span class="t-hub">Workout routines &middot; 11 subtopics</span></span><span class="t-val">20,700</span></li><li><span><span class="t-name">Split workout routine</span><span class="t-hub">Workout routines &middot; 3 subtopics</span></span><span class="t-val">15,690</span></li><li><span><span class="t-name">Grip strength training exercises</span><span class="t-hub">Strength training &middot; 3 subtopics</span></span><span class="t-val">15,100</span></li><li><span><span class="t-name">Strength training for loose skin</span><span class="t-hub">Strength training &middot; 1 subtopic</span></span><span class="t-val">14,800</span></li><li><span><span class="t-name">Sports nutrition guide</span><span class="t-hub">Sports nutrition &middot; 40 subtopics</span></span><span class="t-val">13,820</span></li><li><span><span class="t-name">Strength training hips</span><span class="t-hub">Strength training &middot; 2 subtopics</span></span><span class="t-val">13,100</span></li><li><span><span class="t-name">Strength training vs. cardio</span><span class="t-hub">Strength training &middot; 18 subtopics</span></span><span class="t-val">12,970</span></li><li><span><span class="t-name">Post-workout recovery drinks</span><span class="t-hub">Sports nutrition &middot; 22 subtopics</span></span><span class="t-val">12,330</span></li><li><span><span class="t-name">Glute workout routine</span><span class="t-hub">Workout routines &middot; 5 subtopics</span></span><span class="t-val">11,190</span></li><li><span><span class="t-name">Training for muscle endurance</span><span class="t-hub">Running &amp; endurance &middot; 24 subtopics</span></span><span class="t-val">10,910</span></li><li><span><span class="t-name">High intensity workout routine</span><span class="t-hub">HIIT &amp; intervals &middot; 1 subtopic</span></span><span class="t-val">9,900</span></li><li><span><span class="t-name">Kettlebell workout routine</span><span class="t-hub">Workout routines &middot; 2 subtopics</span></span><span class="t-val">9,800</span></li><li><span><span class="t-name">Bike interval training</span><span class="t-hub">HIIT &amp; intervals &middot; 10 subtopics</span></span><span class="t-val">8,360</span></li><li><span><span class="t-name">Choosing a sports nutrition company</span><span class="t-hub">Sports nutrition &middot; 2 subtopics</span></span><span class="t-val">8,000</span></li><li><span><span class="t-name">Exercises shoulder mobility</span><span class="t-hub">Recovery, soreness &amp; mobility &middot; 10 subtopics</span></span><span class="t-val">7,600</span></li><li><span><span class="t-name">Best muscle soreness cream</span><span class="t-hub">Recovery, soreness &amp; mobility &middot; 7 subtopics</span></span><span class="t-val">6,840</span></li><li><span><span class="t-name">Endurance training guide</span><span class="t-hub">Running &amp; endurance &middot; 62 subtopics</span></span><span class="t-val">6,690</span></li><li><span><span class="t-name">Plyometric workout routine</span><span class="t-hub">Workout routines &middot; 5 subtopics</span></span><span class="t-val">5,870</span></li><li><span><span class="t-name">Massage muscle soreness</span><span class="t-hub">Recovery, soreness &amp; mobility &middot; 2 subtopics</span></span><span class="t-val">5,510</span></li><li><span><span class="t-name">Can you take collagen and creatine together?</span><span class="t-hub">Sports nutrition &middot; 28 subtopics</span></span><span class="t-val">5,460</span></li><li><span><span class="t-name">After workout stretch routine</span><span class="t-hub">Recovery, soreness &amp; mobility &middot; 3 subtopics</span></span><span class="t-val">5,400</span></li><li><span><span class="t-name">Muscle soreness in thighs</span><span class="t-hub">Recovery, soreness &amp; mobility &middot; 2 subtopics</span></span><span class="t-val">5,400</span></li><li><span><span class="t-name">Post workout recovery nutrition</span><span class="t-hub">Sports nutrition &middot; 16 subtopics</span></span><span class="t-val">5,380</span></li><li><span><span class="t-name">Warm up routine before workout</span><span class="t-hub">Workout routines &middot; 2 subtopics</span></span><span class="t-val">4,800</span></li><li><span><span class="t-name">Sports nutrition products</span><span class="t-hub">Sports nutrition &middot; 6 subtopics</span></span><span class="t-val">4,770</span></li><li><span><span class="t-name">Muscle joint soreness</span><span class="t-hub">Recovery, soreness &amp; mobility &middot; 1 subtopic</span></span><span class="t-val">4,400</span></li><li><span><span class="t-name">Push workout routine</span><span class="t-hub">Workout routines &middot; 2 subtopics</span></span><span class="t-val">3,200</span></li><li><span><span class="t-name">Rowing machine workout routine</span><span class="t-hub">Workout routines &middot; 6 subtopics</span></span><span class="t-val">2,940</span></li><li><span><span class="t-name">Amino acids building muscle</span><span class="t-hub">Sports nutrition &middot; 2 subtopics</span></span><span class="t-val">2,900</span></li><li><span><span class="t-name">High intensity strength training workout</span><span class="t-hub">HIIT &amp; intervals &middot; 2 subtopics</span></span><span class="t-val">2,600</span></li><li><span><span class="t-name">Muscle soreness heat or ice</span><span class="t-hub">Recovery, soreness &amp; mobility &middot; 2 subtopics</span></span><span class="t-val">2,490</span></li><li><span><span class="t-name">Strength training for hikers</span><span class="t-hub">Strength training &middot; 1 subtopic</span></span><span class="t-val">2,400</span></li><li><span><span class="t-name">Bicep workout routine</span><span class="t-hub">Workout routines &middot; 3 subtopics</span></span><span class="t-val">2,150</span></li><li><span><span class="t-name">MMA workout routine</span><span class="t-hub">Workout routines &middot; 2 subtopics</span></span><span class="t-val">1,760</span></li><li><span><span class="t-name">Interval training for 10K run</span><span class="t-hub">HIIT &amp; intervals &middot; 3 subtopics</span></span><span class="t-val">1,440</span></li><li><span><span class="t-name">Hydration and muscle soreness</span><span class="t-hub">Recovery, soreness &amp; mobility &middot; 5 subtopics</span></span><span class="t-val">1,410</span></li><li><span><span class="t-name">Interval training soccer</span><span class="t-hub">HIIT &amp; intervals &middot; 4 subtopics</span></span><span class="t-val">1,290</span></li><li><span><span class="t-name">VO2 max interval training</span><span class="t-hub">HIIT &amp; intervals &middot; 5 subtopics</span></span><span class="t-val">940</span></li><li><span><span class="t-name">Circuit training workout routine</span><span class="t-hub">Workout routines &middot; 5 subtopics</span></span><span class="t-val">880</span></li><li><span><span class="t-name">Strength training baseball</span><span class="t-hub">Strength training &middot; 1 subtopic</span></span><span class="t-val">880</span></li><li><span><span class="t-name">Posture strength training</span><span class="t-hub">Strength training &middot; 1 subtopic</span></span><span class="t-val">880</span></li><li><span><span class="t-name">Running a half marathon without training</span><span class="t-hub">Running &amp; endurance &middot; 4 subtopics</span></span><span class="t-val">840</span></li><li><span><span class="t-name">Best collagen and creatine supplement</span><span class="t-hub">Sports nutrition &middot; 4 subtopics</span></span><span class="t-val">830</span></li><li><span><span class="t-name">Running form training</span><span class="t-hub">Running &amp; endurance &middot; 5 subtopics</span></span><span class="t-val">770</span></li><li><span><span class="t-name">Organic sports nutrition products</span><span class="t-hub">Sports nutrition &middot; 1 subtopic</span></span><span class="t-val">720</span></li><li><span><span class="t-name">Strength training vs. endurance training</span><span class="t-hub">Running &amp; endurance &middot; 13 subtopics</span></span><span class="t-val">560</span></li><li><span><span class="t-name">Books about sports nutrition</span><span class="t-hub">Sports nutrition &middot; 2 subtopics</span></span><span class="t-val">400</span></li><li><span><span class="t-name">Active recovery vs. rest day</span><span class="t-hub">Recovery, soreness &amp; mobility &middot; 11 subtopics</span></span><span class="t-val">300</span></li><li><span><span class="t-name">Muscle soreness scale</span><span class="t-hub">Recovery, soreness &amp; mobility &middot; 1 subtopic</span></span><span class="t-val">260</span></li><li><span><span class="t-name">Post workout heart rate recovery</span><span class="t-hub">Recovery, soreness &amp; mobility &middot; 3 subtopics</span></span><span class="t-val">240</span></li><li><span><span class="t-name">Sports nutrition for runners</span><span class="t-hub">Sports nutrition &middot; 2 subtopics</span></span><span class="t-val">220</span></li><li><span><span class="t-name">Sports nutrition wholesale</span><span class="t-hub">Sports nutrition &middot; 3 subtopics</span></span><span class="t-val">210</span></li><li><span><span class="t-name">Training for running back</span><span class="t-hub">Running &amp; endurance &middot; 1 subtopic</span></span><span class="t-val">210</span></li><li><span><span class="t-name">Running 5K without training</span><span class="t-hub">Running &amp; endurance &middot; 3 subtopics</span></span><span class="t-val">170</span></li><li><span><span class="t-name">Active recovery after marathon</span><span class="t-hub">Recovery, soreness &amp; mobility &middot; 1 subtopic</span></span><span class="t-val">170</span></li><li><span><span class="t-name">Cryotherapy for muscle soreness</span><span class="t-hub">Recovery, soreness &amp; mobility &middot; 1 subtopic</span></span><span class="t-val">170</span></li><li><span><span class="t-name">Sprint endurance training</span><span class="t-hub">Running &amp; endurance &middot; 3 subtopics</span></span><span class="t-val">140</span></li><li><span><span class="t-name">10 mile running training plan</span><span class="t-hub">Running &amp; endurance &middot; 1 subtopic</span></span><span class="t-val">140</span></li><li><span><span class="t-name">Pre workout meal vegan</span><span class="t-hub">Sports nutrition &middot; 7 subtopics</span></span><span class="t-val">130</span></li><li><span><span class="t-name">Plant-based sports nutrition</span><span class="t-hub">Sports nutrition &middot; 3 subtopics</span></span><span class="t-val">130</span></li><li><span><span class="t-name">Rib mobility exercises</span><span class="t-hub">Recovery, soreness &amp; mobility &middot; 2 subtopics</span></span><span class="t-val">130</span></li><li><span><span class="t-name">Polarized endurance training</span><span class="t-hub">Running &amp; endurance &middot; 4 subtopics</span></span><span class="t-val">120</span></li><li><span><span class="t-name">Hill running training</span><span class="t-hub">Running &amp; endurance &middot; 1 subtopic</span></span><span class="t-val">110</span></li><li><span><span class="t-name">Fartlek running training</span><span class="t-hub">Running &amp; endurance &middot; 4 subtopics</span></span><span class="t-val">90</span></li><li><span><span class="t-name">10-20-30 interval training</span><span class="t-hub">HIIT &amp; intervals &middot; 2 subtopics</span></span><span class="t-val">80</span></li><li><span><span class="t-name">Sprint interval training for women over 50</span><span class="t-hub">HIIT &amp; intervals &middot; 2 subtopics</span></span><span class="t-val">70</span></li><li><span><span class="t-name">Mid distance running training</span><span class="t-hub">Running &amp; endurance &middot; 1 subtopic</span></span><span class="t-val">70</span></li><li><span><span class="t-name">Sports nutrition vitamins</span><span class="t-hub">Sports nutrition &middot; 1 subtopic</span></span><span class="t-val">50</span></li><li><span><span class="t-name">Active sports nutrition</span><span class="t-hub">Sports nutrition &middot; 1 subtopic</span></span><span class="t-val">50</span></li><li><span><span class="t-name">Mobility exercises vs. stretching</span><span class="t-hub">Recovery, soreness &amp; mobility &middot; 3 subtopics</span></span><span class="t-val">40</span></li><li><span><span class="t-name">Time under tension vs. progressive overload</span><span class="t-hub">Strength training &middot; 2 subtopics</span></span><span class="t-val">30</span></li><li><span><span class="t-name">Running training for boxing</span><span class="t-hub">Running &amp; endurance &middot; 1 subtopic</span></span><span class="t-val">30</span></li><li><span><span class="t-name">Power endurance training</span><span class="t-hub">Running &amp; endurance &middot; 1 subtopic</span></span><span class="t-val">30</span></li><li><span><span class="t-name">Norwegian method endurance training</span><span class="t-hub">Running &amp; endurance &middot; 1 subtopic</span></span><span class="t-val">30</span></li><li><span><span class="t-name">The 3-2-1 progressive overload method</span><span class="t-hub">Strength training &middot; 2 subtopics</span></span><span class="t-val">20</span></li><li><span><span class="t-name">Hydration sports nutrition</span><span class="t-hub">Sports nutrition &middot; 1 subtopic</span></span><span class="t-val">20</span></li><li><span><span class="t-name">Endurance training supplements</span><span class="t-hub">Sports nutrition &middot; 1 subtopic</span></span><span class="t-val">20</span></li></ul></div>
+    </details>
+  </div>
+</section>
+
+<!-- ============ 07 - ELECTROLYTES ============ -->
+<section class="slide s-light" id="electrolytes">
+  <span class="marker">07 - Electrolytes</span>
+  <div class="slide-inner">
+    <div class="step-row" style="margin-bottom:22px;">
+      <div class="eyebrow" style="margin-bottom:0;">Hub 02 &middot; All About Electrolytes</div>
+      <span class="week week-l">41 pages</span>
+    </div>
+    <h2>Electrolyte drinks, dehydration and staying hydrated</h2>
+    <p class="lead muted-l" style="margin-top:14px; max-width:760px;">Electrolyte drinks lead the hub at 347,430 searches a month, with electrolyte drinks for diarrhea at 294,420 and for dehydration at 95,350. The hub covers choosing electrolyte drinks, dehydration and sweat, hydration for running, hiking and fasting, hangovers and sick days, and homemade options, a natural home for Hydrate or Die.</p>
+    <p class="cap muted-l45" style="margin-top:10px;">1,159,580 monthly searches across 41 pages and 593 subtopics.</p>
+    <p class="later-hint"><span class="later-n">+93</span> more topics planned for this hub after March</p>
+    <div class="grid g2" style="margin-top:28px;">
+      <div class="card card-light">
+        <h4 class="title-sm">Biggest demand</h4>
+        <p class="cap muted-l45" style="margin-top:6px;">Monthly searches for the hub&#x27;s largest pages</p>
+        <ul class="tlist"><li><span><span class="t-name">Electrolyte drinks</span><span class="t-hub">Choosing electrolyte drinks &middot; 36 subtopics</span></span><span class="t-val">347,430</span></li><li><span><span class="t-name">Electrolyte drinks for diarrhea</span><span class="t-hub">Sick days &amp; health needs &middot; 11 subtopics</span></span><span class="t-val">294,420</span></li><li><span><span class="t-name">Electrolyte drinks for dehydration</span><span class="t-hub">Dehydration &amp; sweat &middot; 7 subtopics</span></span><span class="t-val">95,350</span></li><li><span><span class="t-name">Electrolyte drinks for hangovers</span><span class="t-hub">Sick days &amp; health needs &middot; 9 subtopics</span></span><span class="t-val">88,410</span></li><li><span><span class="t-name">Electrolyte drink benefits</span><span class="t-hub">Choosing electrolyte drinks &middot; 60 subtopics</span></span><span class="t-val">84,640</span></li><li><span><span class="t-name">Best electrolyte drinks</span><span class="t-hub">Choosing electrolyte drinks &middot; 64 subtopics</span></span><span class="t-val">77,500</span></li></ul>
+      </div>
+      <div class="card card-light">
+        <h4 class="title-sm">What the hub covers</h4>
+        <p class="cap muted-l45" style="margin-top:6px;">Scheduled pages by theme</p>
+        <ul class="tlist"><li><span><span class="t-name">Sick days &amp; health needs</span><span class="t-hub">27% of the hub</span></span><span class="t-val">11 pages</span></li><li><span><span class="t-name">Choosing electrolyte drinks</span><span class="t-hub">24% of the hub</span></span><span class="t-val">10 pages</span></li><li><span><span class="t-name">Hydration for sport</span><span class="t-hub">17% of the hub</span></span><span class="t-val">7 pages</span></li><li><span><span class="t-name">DIY &amp; alternatives</span><span class="t-hub">12% of the hub</span></span><span class="t-val">5 pages</span></li><li><span><span class="t-name">Dehydration &amp; sweat</span><span class="t-hub">10% of the hub</span></span><span class="t-val">4 pages</span></li><li><span><span class="t-name">Sports drinks compared</span><span class="t-hub">10% of the hub</span></span><span class="t-val">4 pages</span></li></ul>
+      </div>
+    </div>
+    <details class="all">
+      <summary>All 41 All About Electrolytes pages</summary>
+      <div class="card card-light allcard"><ul class="tlist cols"><li><span><span class="t-name">Electrolyte drinks</span><span class="t-hub">Choosing electrolyte drinks &middot; 36 subtopics</span></span><span class="t-val">347,430</span></li><li><span><span class="t-name">Electrolyte drinks for diarrhea</span><span class="t-hub">Sick days &amp; health needs &middot; 11 subtopics</span></span><span class="t-val">294,420</span></li><li><span><span class="t-name">Electrolyte drinks for dehydration</span><span class="t-hub">Dehydration &amp; sweat &middot; 7 subtopics</span></span><span class="t-val">95,350</span></li><li><span><span class="t-name">Electrolyte drinks for hangovers</span><span class="t-hub">Sick days &amp; health needs &middot; 9 subtopics</span></span><span class="t-val">88,410</span></li><li><span><span class="t-name">Electrolyte drink benefits</span><span class="t-hub">Choosing electrolyte drinks &middot; 60 subtopics</span></span><span class="t-val">84,640</span></li><li><span><span class="t-name">Best electrolyte drinks</span><span class="t-hub">Choosing electrolyte drinks &middot; 64 subtopics</span></span><span class="t-val">77,500</span></li><li><span><span class="t-name">Homemade electrolyte drink recipe</span><span class="t-hub">DIY &amp; alternatives &middot; 28 subtopics</span></span><span class="t-val">25,520</span></li><li><span><span class="t-name">Best low sugar electrolyte drinks</span><span class="t-hub">Choosing electrolyte drinks &middot; 9 subtopics</span></span><span class="t-val">24,390</span></li><li><span><span class="t-name">Best electrolyte drinks when sick</span><span class="t-hub">Sick days &amp; health needs &middot; 8 subtopics</span></span><span class="t-val">22,320</span></li><li><span><span class="t-name">Electrolytes for running</span><span class="t-hub">Hydration for sport &middot; 43 subtopics</span></span><span class="t-val">20,010</span></li><li><span><span class="t-name">Electrolyte drink for muscle cramps</span><span class="t-hub">Hydration for sport &middot; 23 subtopics</span></span><span class="t-val">16,600</span></li><li><span><span class="t-name">What drinks have electrolyte?</span><span class="t-hub">Choosing electrolyte drinks &middot; 11 subtopics</span></span><span class="t-val">14,220</span></li><li><span><span class="t-name">Long-term dehydration symptoms</span><span class="t-hub">Dehydration &amp; sweat &middot; 8 subtopics</span></span><span class="t-val">5,890</span></li><li><span><span class="t-name">Why is sweat salty?</span><span class="t-hub">Dehydration &amp; sweat &middot; 41 subtopics</span></span><span class="t-val">5,210</span></li><li><span><span class="t-name">Electrolyte drinks for fasting</span><span class="t-hub">Hydration for sport &middot; 7 subtopics</span></span><span class="t-val">4,330</span></li><li><span><span class="t-name">Best electrolyte drinks for pregnancy</span><span class="t-hub">Sick days &amp; health needs &middot; 13 subtopics</span></span><span class="t-val">4,180</span></li><li><span><span class="t-name">Do sports drinks have caffeine?</span><span class="t-hub">Sports drinks compared &middot; 6 subtopics</span></span><span class="t-val">4,110</span></li><li><span><span class="t-name">Electrolyte drinks for headaches</span><span class="t-hub">Sick days &amp; health needs &middot; 3 subtopics</span></span><span class="t-val">3,810</span></li><li><span><span class="t-name">Energy drinks vs. sports drinks</span><span class="t-hub">Sports drinks compared &middot; 9 subtopics</span></span><span class="t-val">3,760</span></li><li><span><span class="t-name">Electrolyte drinks for POTS</span><span class="t-hub">Sick days &amp; health needs &middot; 4 subtopics</span></span><span class="t-val">3,170</span></li><li><span><span class="t-name">Dehydration from diarrhea symptoms</span><span class="t-hub">Sick days &amp; health needs &middot; 19 subtopics</span></span><span class="t-val">2,090</span></li><li><span><span class="t-name">Electrolyte drink flavors</span><span class="t-hub">Choosing electrolyte drinks &middot; 16 subtopics</span></span><span class="t-val">1,990</span></li><li><span><span class="t-name">Electrolyte drinks for elderly</span><span class="t-hub">Sick days &amp; health needs &middot; 4 subtopics</span></span><span class="t-val">1,830</span></li><li><span><span class="t-name">Sports drinks vs. water</span><span class="t-hub">Sports drinks compared &middot; 20 subtopics</span></span><span class="t-val">1,680</span></li><li><span><span class="t-name">Dehydration symptoms when sick</span><span class="t-hub">Sick days &amp; health needs &middot; 13 subtopics</span></span><span class="t-val">1,560</span></li><li><span><span class="t-name">Urinary symptoms of dehydration</span><span class="t-hub">Dehydration &amp; sweat &middot; 8 subtopics</span></span><span class="t-val">890</span></li><li><span><span class="t-name">How much sodium do you lose in sweat?</span><span class="t-hub">Hydration for sport &middot; 20 subtopics</span></span><span class="t-val">810</span></li><li><span><span class="t-name">Electrolyte drinks without artificial sweeteners</span><span class="t-hub">Choosing electrolyte drinks &middot; 6 subtopics</span></span><span class="t-val">590</span></li><li><span><span class="t-name">Sweat rate formula</span><span class="t-hub">Hydration for sport &middot; 36 subtopics</span></span><span class="t-val">450</span></li><li><span><span class="t-name">Electrolyte drinks for hiking</span><span class="t-hub">Hydration for sport &middot; 3 subtopics</span></span><span class="t-val">390</span></li><li><span><span class="t-name">Electrolyte drinks for carnivore diet</span><span class="t-hub">Hydration for sport &middot; 4 subtopics</span></span><span class="t-val">370</span></li><li><span><span class="t-name">Dye free sports drinks</span><span class="t-hub">Choosing electrolyte drinks &middot; 4 subtopics</span></span><span class="t-val">350</span></li><li><span><span class="t-name">Homemade electrolyte drink powder</span><span class="t-hub">DIY &amp; alternatives &middot; 12 subtopics</span></span><span class="t-val">290</span></li><li><span><span class="t-name">Protein sports drinks</span><span class="t-hub">Choosing electrolyte drinks &middot; 3 subtopics</span></span><span class="t-val">220</span></li><li><span><span class="t-name">How to replenish electrolytes without sports drinks</span><span class="t-hub">DIY &amp; alternatives &middot; 7 subtopics</span></span><span class="t-val">180</span></li><li><span><span class="t-name">Electrolyte drinks on GLP-1 medications</span><span class="t-hub">Sick days &amp; health needs &middot; 2 subtopics</span></span><span class="t-val">160</span></li><li><span><span class="t-name">Potassium citrate vs. potassium chloride for electrolytes</span><span class="t-hub">DIY &amp; alternatives &middot; 5 subtopics</span></span><span class="t-val">150</span></li><li><span><span class="t-name">ORS electrolyte drink benefits</span><span class="t-hub">DIY &amp; alternatives &middot; 2 subtopics</span></span><span class="t-val">100</span></li><li><span><span class="t-name">Are sports drinks acidic?</span><span class="t-hub">Sports drinks compared &middot; 7 subtopics</span></span><span class="t-val">90</span></li><li><span><span class="t-name">New sports drinks</span><span class="t-hub">Choosing electrolyte drinks &middot; 1 subtopic</span></span><span class="t-val">70</span></li><li><span><span class="t-name">Electrolyte drinks for IBS</span><span class="t-hub">Sick days &amp; health needs &middot; 1 subtopic</span></span><span class="t-val">50</span></li></ul></div>
+    </details>
+  </div>
+</section>
+
+<!-- ============ 08 - COFFEE ============ -->
+<section class="slide s-paper" id="coffee">
+  <span class="marker">08 - Coffee</span>
+  <div class="slide-inner">
+    <div class="step-row" style="margin-bottom:22px;">
+      <div class="eyebrow" style="margin-bottom:0;">Hub 03 &middot; Coffee &amp; Creamers</div>
+      <span class="week week-l">41 pages</span>
+    </div>
+    <h2>Creamers, protein coffee and the perfect froth</h2>
+    <p class="lead muted-l" style="margin-top:14px; max-width:760px;">Handheld milk frothers lead the hub at 215,130 searches a month, with best coconut creamers at 89,050 and how to make protein coffee at home at 73,940. The hub covers milk frothers, protein coffee, dairy-free, coconut and MCT creamers, and coffee and creamer recipes, matching the MCT Oil Creamer and Butter MCT Oil Creamer.</p>
+    <p class="cap muted-l45" style="margin-top:10px;">569,460 monthly searches across 41 pages and 384 subtopics.</p>
+    <p class="later-hint"><span class="later-n">+109</span> more topics planned for this hub after March</p>
+    <div class="grid g2" style="margin-top:28px;">
+      <div class="card card-light">
+        <h4 class="title-sm">Biggest demand</h4>
+        <p class="cap muted-l45" style="margin-top:6px;">Monthly searches for the hub&#x27;s largest pages</p>
+        <ul class="tlist"><li><span><span class="t-name">Handheld milk frothers</span><span class="t-hub">Milk frothers &middot; 42 subtopics</span></span><span class="t-val">215,130</span></li><li><span><span class="t-name">Best coconut creamers</span><span class="t-hub">Coconut &amp; MCT creamers &middot; 29 subtopics</span></span><span class="t-val">89,050</span></li><li><span><span class="t-name">How to make protein coffee at home</span><span class="t-hub">Protein coffee &middot; 58 subtopics</span></span><span class="t-val">73,940</span></li><li><span><span class="t-name">Dairy-free coffee creamers</span><span class="t-hub">Dairy-free creamers &middot; 39 subtopics</span></span><span class="t-val">73,460</span></li><li><span><span class="t-name">Best-rated milk frothers</span><span class="t-hub">Milk frothers &middot; 21 subtopics</span></span><span class="t-val">53,280</span></li><li><span><span class="t-name">Best protein powder to add to coffee</span><span class="t-hub">Protein coffee &middot; 17 subtopics</span></span><span class="t-val">13,010</span></li></ul>
+      </div>
+      <div class="card card-light">
+        <h4 class="title-sm">What the hub covers</h4>
+        <p class="cap muted-l45" style="margin-top:6px;">Scheduled pages by theme</p>
+        <ul class="tlist"><li><span><span class="t-name">Milk frothers</span><span class="t-hub">24% of the hub</span></span><span class="t-val">10 pages</span></li><li><span><span class="t-name">Coconut &amp; MCT creamers</span><span class="t-hub">22% of the hub</span></span><span class="t-val">9 pages</span></li><li><span><span class="t-name">Dairy-free creamers</span><span class="t-hub">20% of the hub</span></span><span class="t-val">8 pages</span></li><li><span><span class="t-name">Protein coffee</span><span class="t-hub">15% of the hub</span></span><span class="t-val">6 pages</span></li><li><span><span class="t-name">Coffee &amp; creamer recipes</span><span class="t-hub">15% of the hub</span></span><span class="t-val">6 pages</span></li><li><span><span class="t-name">Low-sugar &amp; powdered creamers</span><span class="t-hub">5% of the hub</span></span><span class="t-val">2 pages</span></li></ul>
+      </div>
+    </div>
+    <details class="all">
+      <summary>All 41 Coffee &amp; Creamers pages</summary>
+      <div class="card card-light allcard"><ul class="tlist cols"><li><span><span class="t-name">Handheld milk frothers</span><span class="t-hub">Milk frothers &middot; 42 subtopics</span></span><span class="t-val">215,130</span></li><li><span><span class="t-name">Best coconut creamers</span><span class="t-hub">Coconut &amp; MCT creamers &middot; 29 subtopics</span></span><span class="t-val">89,050</span></li><li><span><span class="t-name">How to make protein coffee at home</span><span class="t-hub">Protein coffee &middot; 58 subtopics</span></span><span class="t-val">73,940</span></li><li><span><span class="t-name">Dairy-free coffee creamers</span><span class="t-hub">Dairy-free creamers &middot; 39 subtopics</span></span><span class="t-val">73,460</span></li><li><span><span class="t-name">Best-rated milk frothers</span><span class="t-hub">Milk frothers &middot; 21 subtopics</span></span><span class="t-val">53,280</span></li><li><span><span class="t-name">Best protein powder to add to coffee</span><span class="t-hub">Protein coffee &middot; 17 subtopics</span></span><span class="t-val">13,010</span></li><li><span><span class="t-name">Coconut creamer vs. coconut milk</span><span class="t-hub">Coconut &amp; MCT creamers &middot; 3 subtopics</span></span><span class="t-val">9,910</span></li><li><span><span class="t-name">MCT oil coffee recipe</span><span class="t-hub">Coffee &amp; creamer recipes &middot; 31 subtopics</span></span><span class="t-val">8,520</span></li><li><span><span class="t-name">How to froth milk without frother</span><span class="t-hub">Milk frothers &middot; 3 subtopics</span></span><span class="t-val">6,400</span></li><li><span><span class="t-name">Best low sugar coffee creamer</span><span class="t-hub">Low-sugar &amp; powdered creamers &middot; 15 subtopics</span></span><span class="t-val">5,830</span></li><li><span><span class="t-name">How to use a milk frother</span><span class="t-hub">Milk frothers &middot; 16 subtopics</span></span><span class="t-val">4,770</span></li><li><span><span class="t-name">BUBS Naturals MCT oil powder</span><span class="t-hub">Coconut &amp; MCT creamers &middot; 18 subtopics</span></span><span class="t-val">3,250</span></li><li><span><span class="t-name">Coffee creamer alternatives</span><span class="t-hub">Dairy-free creamers &middot; 7 subtopics</span></span><span class="t-val">2,000</span></li><li><span><span class="t-name">Milk frother vs. milk steamer</span><span class="t-hub">Milk frothers &middot; 3 subtopics</span></span><span class="t-val">1,580</span></li><li><span><span class="t-name">Is protein coffee good for weight loss?</span><span class="t-hub">Protein coffee &middot; 8 subtopics</span></span><span class="t-val">1,400</span></li><li><span><span class="t-name">High-protein coffee powder</span><span class="t-hub">Protein coffee &middot; 1 subtopic</span></span><span class="t-val">1,300</span></li><li><span><span class="t-name">How to clean a milk frother</span><span class="t-hub">Milk frothers &middot; 3 subtopics</span></span><span class="t-val">1,100</span></li><li><span><span class="t-name">Dairy free vanilla creamer</span><span class="t-hub">Dairy-free creamers &middot; 11 subtopics</span></span><span class="t-val">1,080</span></li><li><span><span class="t-name">MCT oil coffee benefits</span><span class="t-hub">Coconut &amp; MCT creamers &middot; 3 subtopics</span></span><span class="t-val">900</span></li><li><span><span class="t-name">Milk frother vs. immersion blender</span><span class="t-hub">Milk frothers &middot; 3 subtopics</span></span><span class="t-val">850</span></li><li><span><span class="t-name">Almond coconut coffee creamer</span><span class="t-hub">Dairy-free creamers &middot; 3 subtopics</span></span><span class="t-val">590</span></li><li><span><span class="t-name">Dairy free collagen creamer</span><span class="t-hub">Dairy-free creamers &middot; 6 subtopics</span></span><span class="t-val">330</span></li><li><span><span class="t-name">Dairy free peppermint mocha creamer</span><span class="t-hub">Dairy-free creamers &middot; 3 subtopics</span></span><span class="t-val">250</span></li><li><span><span class="t-name">MCT oil benefits weight loss</span><span class="t-hub">Coconut &amp; MCT creamers &middot; 9 subtopics</span></span><span class="t-val">230</span></li><li><span><span class="t-name">Dishwasher-safe milk frothers</span><span class="t-hub">Milk frothers &middot; 1 subtopic</span></span><span class="t-val">210</span></li><li><span><span class="t-name">Milk frother recipes</span><span class="t-hub">Milk frothers &middot; 1 subtopic</span></span><span class="t-val">170</span></li><li><span><span class="t-name">Dairy-free sweet cream creamer</span><span class="t-hub">Dairy-free creamers &middot; 4 subtopics</span></span><span class="t-val">140</span></li><li><span><span class="t-name">Milk frothers for whipped cream</span><span class="t-hub">Milk frothers &middot; 1 subtopic</span></span><span class="t-val">140</span></li><li><span><span class="t-name">Protein before coffee</span><span class="t-hub">Protein coffee &middot; 1 subtopic</span></span><span class="t-val">140</span></li><li><span><span class="t-name">How to use powdered coffee creamer</span><span class="t-hub">Low-sugar &amp; powdered creamers &middot; 6 subtopics</span></span><span class="t-val">130</span></li><li><span><span class="t-name">Dairy free oat creamer</span><span class="t-hub">Dairy-free creamers &middot; 2 subtopics</span></span><span class="t-val">120</span></li><li><span><span class="t-name">How to make protein cold foam for coffee</span><span class="t-hub">Protein coffee &middot; 1 subtopic</span></span><span class="t-val">70</span></li><li><span><span class="t-name">Best C8 MCT oil powder</span><span class="t-hub">Coconut &amp; MCT creamers &middot; 3 subtopics</span></span><span class="t-val">30</span></li><li><span><span class="t-name">Coconut oil coffee creamer recipe</span><span class="t-hub">Coffee &amp; creamer recipes &middot; 2 subtopics</span></span><span class="t-val">30</span></li><li><span><span class="t-name">Collagen and MCT oil benefits</span><span class="t-hub">Coconut &amp; MCT creamers &middot; 2 subtopics</span></span><span class="t-val">30</span></li><li><span><span class="t-name">Keto coffee creamer bombs</span><span class="t-hub">Coconut &amp; MCT creamers &middot; 1 subtopic</span></span><span class="t-val">30</span></li><li><span><span class="t-name">Coconut mushroom creamer</span><span class="t-hub">Coconut &amp; MCT creamers &middot; 1 subtopic</span></span><span class="t-val">20</span></li><li><span><span class="t-name">Dairy-free peppermint mocha creamer recipe</span><span class="t-hub">Coffee &amp; creamer recipes &middot; 3 subtopics</span></span><span class="t-val">10</span></li><li><span><span class="t-name">Dalgona coffee recipe keto</span><span class="t-hub">Coffee &amp; creamer recipes &middot; 1 subtopic</span></span><span class="t-val">10</span></li><li><span><span class="t-name">Matcha latte MCT oil powder</span><span class="t-hub">Coffee &amp; creamer recipes &middot; 1 subtopic</span></span><span class="t-val">10</span></li><li><span><span class="t-name">Butter coffee no MCT oil</span><span class="t-hub">Coffee &amp; creamer recipes &middot; 1 subtopic</span></span><span class="t-val">10</span></li></ul></div>
+    </details>
+  </div>
+</section>
+
+<!-- ============ 09 - VITAMIN C ============ -->
+<section class="slide s-light" id="vitaminc">
+  <span class="marker">09 - Vitamin C</span>
+  <div class="slide-inner">
+    <div class="step-row" style="margin-bottom:22px;">
+      <div class="eyebrow" style="margin-bottom:0;">Hub 04 &middot; All About Vitamin C</div>
+      <span class="week week-l">28 pages</span>
+    </div>
+    <h2>Vitamin C foods, immunity and choosing a supplement</h2>
+    <p class="lead muted-l" style="margin-top:14px; max-width:760px;">Vitamin C rich foods lead the hub at 321,270 searches a month, with foods rich in vitamins A and C at 132,350 and vitamin C deficiency signs at 80,490. The hub covers vitamin C foods, colds and immunity, deficiency and side effects, supplement forms and timing, and vitamin C&#x27;s role in collagen, skin and hair.</p>
+    <p class="cap muted-l45" style="margin-top:10px;">630,410 monthly searches across 28 pages and 627 subtopics.</p>
+    <p class="later-hint"><span class="later-n">+127</span> more topics planned for this hub after March</p>
+    <div class="grid g2" style="margin-top:28px;">
+      <div class="card card-light">
+        <h4 class="title-sm">Biggest demand</h4>
+        <p class="cap muted-l45" style="margin-top:6px;">Monthly searches for the hub&#x27;s largest pages</p>
+        <ul class="tlist"><li><span><span class="t-name">Vitamin C rich foods</span><span class="t-hub">Vitamin C foods &middot; 101 subtopics</span></span><span class="t-val">321,270</span></li><li><span><span class="t-name">Foods rich in vitamins A and C</span><span class="t-hub">Vitamin C foods &middot; 8 subtopics</span></span><span class="t-val">132,350</span></li><li><span><span class="t-name">Vitamin C deficiency signs and symptoms</span><span class="t-hub">Deficiency &amp; side effects &middot; 127 subtopics</span></span><span class="t-val">80,490</span></li><li><span><span class="t-name">Foods with vitamins A, B, C, D and E</span><span class="t-hub">Vitamin C foods &middot; 2 subtopics</span></span><span class="t-val">27,110</span></li><li><span><span class="t-name">Does vitamin C help a cold?</span><span class="t-hub">Immunity &amp; colds &middot; 68 subtopics</span></span><span class="t-val">21,040</span></li><li><span><span class="t-name">Vitamin C immune system benefits</span><span class="t-hub">Immunity &amp; colds &middot; 38 subtopics</span></span><span class="t-val">19,520</span></li></ul>
+      </div>
+      <div class="card card-light">
+        <h4 class="title-sm">What the hub covers</h4>
+        <p class="cap muted-l45" style="margin-top:6px;">Scheduled pages by theme</p>
+        <ul class="tlist"><li><span><span class="t-name">Vitamin C foods</span><span class="t-hub">25% of the hub</span></span><span class="t-val">7 pages</span></li><li><span><span class="t-name">Supplements &amp; timing</span><span class="t-hub">21% of the hub</span></span><span class="t-val">6 pages</span></li><li><span><span class="t-name">Vitamin C forms compared</span><span class="t-hub">18% of the hub</span></span><span class="t-val">5 pages</span></li><li><span><span class="t-name">Immunity &amp; colds</span><span class="t-hub">14% of the hub</span></span><span class="t-val">4 pages</span></li><li><span><span class="t-name">Deficiency &amp; side effects</span><span class="t-hub">11% of the hub</span></span><span class="t-val">3 pages</span></li><li><span><span class="t-name">Skin, hair &amp; collagen</span><span class="t-hub">11% of the hub</span></span><span class="t-val">3 pages</span></li></ul>
+      </div>
+    </div>
+    <details class="all">
+      <summary>All 28 All About Vitamin C pages</summary>
+      <div class="card card-light allcard"><ul class="tlist cols"><li><span><span class="t-name">Vitamin C rich foods</span><span class="t-hub">Vitamin C foods &middot; 101 subtopics</span></span><span class="t-val">321,270</span></li><li><span><span class="t-name">Foods rich in vitamins A and C</span><span class="t-hub">Vitamin C foods &middot; 8 subtopics</span></span><span class="t-val">132,350</span></li><li><span><span class="t-name">Vitamin C deficiency signs and symptoms</span><span class="t-hub">Deficiency &amp; side effects &middot; 127 subtopics</span></span><span class="t-val">80,490</span></li><li><span><span class="t-name">Foods with vitamins A, B, C, D and E</span><span class="t-hub">Vitamin C foods &middot; 2 subtopics</span></span><span class="t-val">27,110</span></li><li><span><span class="t-name">Does vitamin C help a cold?</span><span class="t-hub">Immunity &amp; colds &middot; 68 subtopics</span></span><span class="t-val">21,040</span></li><li><span><span class="t-name">Vitamin C immune system benefits</span><span class="t-hub">Immunity &amp; colds &middot; 38 subtopics</span></span><span class="t-val">19,520</span></li><li><span><span class="t-name">Vitamin C supplement side effects</span><span class="t-hub">Deficiency &amp; side effects &middot; 63 subtopics</span></span><span class="t-val">13,440</span></li><li><span><span class="t-name">Foods with vitamins C and E</span><span class="t-hub">Vitamin C foods &middot; 5 subtopics</span></span><span class="t-val">4,080</span></li><li><span><span class="t-name">Collagen synthesis and vitamin C</span><span class="t-hub">Skin, hair &amp; collagen &middot; 69 subtopics</span></span><span class="t-val">3,700</span></li><li><span><span class="t-name">Vitamin C benefits for skin lightening</span><span class="t-hub">Skin, hair &amp; collagen &middot; 10 subtopics</span></span><span class="t-val">2,860</span></li><li><span><span class="t-name">Foods high in vitamins C and D</span><span class="t-hub">Vitamin C foods &middot; 7 subtopics</span></span><span class="t-val">1,320</span></li><li><span><span class="t-name">Best time to take vitamin C capsules</span><span class="t-hub">Supplements &amp; timing &middot; 20 subtopics</span></span><span class="t-val">960</span></li><li><span><span class="t-name">Vitamin C capsules during pregnancy</span><span class="t-hub">Supplements &amp; timing &middot; 22 subtopics</span></span><span class="t-val">530</span></li><li><span><span class="t-name">How to use vitamin C tablets</span><span class="t-hub">Supplements &amp; timing &middot; 15 subtopics</span></span><span class="t-val">430</span></li><li><span><span class="t-name">Vitamin C powder vs. pill</span><span class="t-hub">Vitamin C forms compared &middot; 21 subtopics</span></span><span class="t-val">250</span></li><li><span><span class="t-name">Is vitamin D or C better for immunity?</span><span class="t-hub">Vitamin C forms compared &middot; 6 subtopics</span></span><span class="t-val">240</span></li><li><span><span class="t-name">Vitamin C benefits hair</span><span class="t-hub">Skin, hair &amp; collagen &middot; 7 subtopics</span></span><span class="t-val">230</span></li><li><span><span class="t-name">Low vitamin C foods</span><span class="t-hub">Vitamin C foods &middot; 6 subtopics</span></span><span class="t-val">160</span></li><li><span><span class="t-name">Vitamin C tablets kidney stones</span><span class="t-hub">Deficiency &amp; side effects &middot; 6 subtopics</span></span><span class="t-val">130</span></li><li><span><span class="t-name">Vitamin C oral vs. intravenous</span><span class="t-hub">Vitamin C forms compared &middot; 10 subtopics</span></span><span class="t-val">90</span></li><li><span><span class="t-name">Buffered vitamin C vs. liposomal vitamin C</span><span class="t-hub">Vitamin C forms compared &middot; 5 subtopics</span></span><span class="t-val">60</span></li><li><span><span class="t-name">Is zinc or vitamin C better for a cold?</span><span class="t-hub">Vitamin C forms compared &middot; 2 subtopics</span></span><span class="t-val">60</span></li><li><span><span class="t-name">How to make buffered vitamin C</span><span class="t-hub">Supplements &amp; timing &middot; 2 subtopics</span></span><span class="t-val">30</span></li><li><span><span class="t-name">Homemade vitamin C powder</span><span class="t-hub">Supplements &amp; timing &middot; 2 subtopics</span></span><span class="t-val">20</span></li><li><span><span class="t-name">Vegan vitamin C capsules</span><span class="t-hub">Supplements &amp; timing &middot; 2 subtopics</span></span><span class="t-val">10</span></li><li><span><span class="t-name">Vitamin C rich food recipes</span><span class="t-hub">Vitamin C foods &middot; 1 subtopic</span></span><span class="t-val">10</span></li><li><span><span class="t-name">Garlic and vitamin C dosage</span><span class="t-hub">Immunity &amp; colds &middot; 1 subtopic</span></span><span class="t-val">10</span></li><li><span><span class="t-name">Vitamin C chewable tablets for sore throat</span><span class="t-hub">Immunity &amp; colds &middot; 1 subtopic</span></span><span class="t-val">10</span></li></ul></div>
+    </details>
+  </div>
+</section>
+
+<!-- ============ 10 - CREATINE ============ -->
+<section class="slide s-paper" id="creatine">
+  <span class="marker">10 - Creatine</span>
+  <div class="slide-inner">
+    <div class="step-row" style="margin-bottom:22px;">
+      <div class="eyebrow" style="margin-bottom:0;">Hub 05 &middot; Creatine &amp; Fitness</div>
+      <span class="week week-l">22 pages</span>
+    </div>
+    <h2>Creatine benefits, dosage and how to take it safely</h2>
+    <p class="lead muted-l" style="margin-top:14px; max-width:760px;">Creatine monohydrate benefits lead the hub at 184,640 searches a month, with creatine side effects at 139,300 and the loading phase at 48,610. The hub covers dosage, loading and timing, side effects and safety, muscle, performance and brain benefits, and how other creatine forms compare, all linking to BUBS Boost Creatine.</p>
+    <p class="cap muted-l45" style="margin-top:10px;">455,560 monthly searches across 22 pages and 564 subtopics.</p>
+    <p class="later-hint"><span class="later-n">+86</span> more topics planned for this hub after March</p>
+    <div class="grid g2" style="margin-top:28px;">
+      <div class="card card-light">
+        <h4 class="title-sm">Biggest demand</h4>
+        <p class="cap muted-l45" style="margin-top:6px;">Monthly searches for the hub&#x27;s largest pages</p>
+        <ul class="tlist"><li><span><span class="t-name">Creatine monohydrate benefits</span><span class="t-hub">Creatine benefits &middot; 56 subtopics</span></span><span class="t-val">184,640</span></li><li><span><span class="t-name">Creatine side effects</span><span class="t-hub">Side effects &amp; safety &middot; 69 subtopics</span></span><span class="t-val">139,300</span></li><li><span><span class="t-name">Creatine loading phase</span><span class="t-hub">Dosage &amp; loading &middot; 139 subtopics</span></span><span class="t-val">48,610</span></li><li><span><span class="t-name">Creatine dosage</span><span class="t-hub">Dosage &amp; loading &middot; 90 subtopics</span></span><span class="t-val">32,830</span></li><li><span><span class="t-name">Does creatine affect your kidneys or liver?</span><span class="t-hub">Side effects &amp; safety &middot; 28 subtopics</span></span><span class="t-val">20,070</span></li><li><span><span class="t-name">Creatine timing</span><span class="t-hub">Dosage &amp; loading &middot; 46 subtopics</span></span><span class="t-val">10,740</span></li></ul>
+      </div>
+      <div class="card card-light">
+        <h4 class="title-sm">What the hub covers</h4>
+        <p class="cap muted-l45" style="margin-top:6px;">Scheduled pages by theme</p>
+        <ul class="tlist"><li><span><span class="t-name">Other creatine forms</span><span class="t-hub">36% of the hub</span></span><span class="t-val">8 pages</span></li><li><span><span class="t-name">Dosage &amp; loading</span><span class="t-hub">18% of the hub</span></span><span class="t-val">4 pages</span></li><li><span><span class="t-name">Muscle &amp; performance</span><span class="t-hub">18% of the hub</span></span><span class="t-val">4 pages</span></li><li><span><span class="t-name">Side effects &amp; safety</span><span class="t-hub">14% of the hub</span></span><span class="t-val">3 pages</span></li><li><span><span class="t-name">Brain &amp; cognition</span><span class="t-hub">9% of the hub</span></span><span class="t-val">2 pages</span></li><li><span><span class="t-name">Creatine benefits</span><span class="t-hub">5% of the hub</span></span><span class="t-val">1 page</span></li></ul>
+      </div>
+    </div>
+    <details class="all">
+      <summary>All 22 Creatine &amp; Fitness pages</summary>
+      <div class="card card-light allcard"><ul class="tlist cols"><li><span><span class="t-name">Creatine monohydrate benefits</span><span class="t-hub">Creatine benefits &middot; 56 subtopics</span></span><span class="t-val">184,640</span></li><li><span><span class="t-name">Creatine side effects</span><span class="t-hub">Side effects &amp; safety &middot; 69 subtopics</span></span><span class="t-val">139,300</span></li><li><span><span class="t-name">Creatine loading phase</span><span class="t-hub">Dosage &amp; loading &middot; 139 subtopics</span></span><span class="t-val">48,610</span></li><li><span><span class="t-name">Creatine dosage</span><span class="t-hub">Dosage &amp; loading &middot; 90 subtopics</span></span><span class="t-val">32,830</span></li><li><span><span class="t-name">Does creatine affect your kidneys or liver?</span><span class="t-hub">Side effects &amp; safety &middot; 28 subtopics</span></span><span class="t-val">20,070</span></li><li><span><span class="t-name">Creatine timing</span><span class="t-hub">Dosage &amp; loading &middot; 46 subtopics</span></span><span class="t-val">10,740</span></li><li><span><span class="t-name">Is creatine good for muscle growth?</span><span class="t-hub">Muscle &amp; performance &middot; 39 subtopics</span></span><span class="t-val">8,260</span></li><li><span><span class="t-name">Creatine cognitive benefits</span><span class="t-hub">Brain &amp; cognition &middot; 25 subtopics</span></span><span class="t-val">8,160</span></li><li><span><span class="t-name">What is the relationship between ATP and creatine phosphate?</span><span class="t-hub">Muscle &amp; performance &middot; 23 subtopics</span></span><span class="t-val">1,140</span></li><li><span><span class="t-name">Benefits of taking creatine without working out</span><span class="t-hub">Muscle &amp; performance &middot; 12 subtopics</span></span><span class="t-val">490</span></li><li><span><span class="t-name">Creatine HMB benefits</span><span class="t-hub">Other creatine forms &middot; 2 subtopics</span></span><span class="t-val">480</span></li><li><span><span class="t-name">How long to see benefits of creatine?</span><span class="t-hub">Muscle &amp; performance &middot; 7 subtopics</span></span><span class="t-val">440</span></li><li><span><span class="t-name">How much water should I drink during creatine loading phase?</span><span class="t-hub">Dosage &amp; loading &middot; 10 subtopics</span></span><span class="t-val">230</span></li><li><span><span class="t-name">Creatine nitrate benefits</span><span class="t-hub">Other creatine forms &middot; 3 subtopics</span></span><span class="t-val">50</span></li><li><span><span class="t-name">Creatine malate benefits</span><span class="t-hub">Other creatine forms &middot; 3 subtopics</span></span><span class="t-val">30</span></li><li><span><span class="t-name">Magnesium creatine chelate benefits</span><span class="t-hub">Other creatine forms &middot; 4 subtopics</span></span><span class="t-val">20</span></li><li><span><span class="t-name">Creatine alpha ketoglutarate benefits</span><span class="t-hub">Other creatine forms &middot; 3 subtopics</span></span><span class="t-val">20</span></li><li><span><span class="t-name">Creatine vs. steroids muscle growth</span><span class="t-hub">Side effects &amp; safety &middot; 1 subtopic</span></span><span class="t-val">10</span></li><li><span><span class="t-name">Creatine 4200 benefits</span><span class="t-hub">Other creatine forms &middot; 1 subtopic</span></span><span class="t-val">10</span></li><li><span><span class="t-name">High-strength creatine</span><span class="t-hub">Other creatine forms &middot; 1 subtopic</span></span><span class="t-val">10</span></li><li><span><span class="t-name">Creatine brain fog dosage</span><span class="t-hub">Brain &amp; cognition &middot; 1 subtopic</span></span><span class="t-val">10</span></li><li><span><span class="t-name">Creatine glycerol phosphate side effects</span><span class="t-hub">Other creatine forms &middot; 1 subtopic</span></span><span class="t-val">10</span></li></ul></div>
+    </details>
+  </div>
+</section>
+
+<!-- ============ 11 - COLLAGEN ============ -->
+<section class="slide s-light" id="collagen">
+  <span class="marker">11 - Collagen</span>
+  <div class="slide-inner">
+    <div class="step-row" style="margin-bottom:22px;">
+      <div class="eyebrow" style="margin-bottom:0;">Hub 06 &middot; All About Collagen</div>
+      <span class="week week-l">18 pages</span>
+    </div>
+    <h2>Collagen types, benefits and grass-fed collagen peptides</h2>
+    <p class="lead muted-l" style="margin-top:14px; max-width:760px;">Grass-fed collagen peptides lead the hub at 29,210 searches a month, a direct match for BUBS&#x27;s best-selling Collagen Peptides. Types of collagen follow at 12,390 and whey protein vs. collagen at 4,550. The hub covers collagen types and sources, benefits, dosage, how collagen compares with other proteins, and collagen drink recipes.</p>
+    <p class="cap muted-l45" style="margin-top:10px;">52,190 monthly searches across 18 pages and 201 subtopics.</p>
+    <p class="later-hint"><span class="later-n">+108</span> more topics planned for this hub after March</p>
+    <div class="grid g2" style="margin-top:28px;">
+      <div class="card card-light">
+        <h4 class="title-sm">Biggest demand</h4>
+        <p class="cap muted-l45" style="margin-top:6px;">Monthly searches for the hub&#x27;s largest pages</p>
+        <ul class="tlist"><li><span><span class="t-name">Grass-fed collagen peptides</span><span class="t-hub">Types &amp; sources &middot; 36 subtopics</span></span><span class="t-val">29,210</span></li><li><span><span class="t-name">Types of collagen and what they do</span><span class="t-hub">Types &amp; sources &middot; 72 subtopics</span></span><span class="t-val">12,390</span></li><li><span><span class="t-name">Whey protein vs. collagen</span><span class="t-hub">Collagen vs. other proteins &middot; 37 subtopics</span></span><span class="t-val">4,550</span></li><li><span><span class="t-name">Benefits liquid collagen</span><span class="t-hub">Formats &amp; products &middot; 6 subtopics</span></span><span class="t-val">3,560</span></li><li><span><span class="t-name">Collagen supplement for tendons</span><span class="t-hub">Collagen benefits &middot; 25 subtopics</span></span><span class="t-val">1,700</span></li><li><span><span class="t-name">Collagen rich recipes</span><span class="t-hub">Collagen recipes &middot; 5 subtopics</span></span><span class="t-val">290</span></li></ul>
+      </div>
+      <div class="card card-light">
+        <h4 class="title-sm">What the hub covers</h4>
+        <p class="cap muted-l45" style="margin-top:6px;">Scheduled pages by theme</p>
+        <ul class="tlist"><li><span><span class="t-name">Collagen benefits</span><span class="t-hub">22% of the hub</span></span><span class="t-val">4 pages</span></li><li><span><span class="t-name">Types &amp; sources</span><span class="t-hub">17% of the hub</span></span><span class="t-val">3 pages</span></li><li><span><span class="t-name">Collagen vs. other proteins</span><span class="t-hub">17% of the hub</span></span><span class="t-val">3 pages</span></li><li><span><span class="t-name">Formats &amp; products</span><span class="t-hub">17% of the hub</span></span><span class="t-val">3 pages</span></li><li><span><span class="t-name">Dosage &amp; side effects</span><span class="t-hub">17% of the hub</span></span><span class="t-val">3 pages</span></li><li><span><span class="t-name">Collagen recipes</span><span class="t-hub">11% of the hub</span></span><span class="t-val">2 pages</span></li></ul>
+      </div>
+    </div>
+    <details class="all">
+      <summary>All 18 All About Collagen pages</summary>
+      <div class="card card-light allcard"><ul class="tlist cols"><li><span><span class="t-name">Grass-fed collagen peptides</span><span class="t-hub">Types &amp; sources &middot; 36 subtopics</span></span><span class="t-val">29,210</span></li><li><span><span class="t-name">Types of collagen and what they do</span><span class="t-hub">Types &amp; sources &middot; 72 subtopics</span></span><span class="t-val">12,390</span></li><li><span><span class="t-name">Whey protein vs. collagen</span><span class="t-hub">Collagen vs. other proteins &middot; 37 subtopics</span></span><span class="t-val">4,550</span></li><li><span><span class="t-name">Benefits liquid collagen</span><span class="t-hub">Formats &amp; products &middot; 6 subtopics</span></span><span class="t-val">3,560</span></li><li><span><span class="t-name">Collagen supplement for tendons</span><span class="t-hub">Collagen benefits &middot; 25 subtopics</span></span><span class="t-val">1,700</span></li><li><span><span class="t-name">Collagen rich recipes</span><span class="t-hub">Collagen recipes &middot; 5 subtopics</span></span><span class="t-val">290</span></li><li><span><span class="t-name">Colostrum vs. collagen benefits</span><span class="t-hub">Collagen vs. other proteins &middot; 2 subtopics</span></span><span class="t-val">180</span></li><li><span><span class="t-name">Collagen drink recipes</span><span class="t-hub">Collagen recipes &middot; 3 subtopics</span></span><span class="t-val">80</span></li><li><span><span class="t-name">Which collagen powder has all 5 types of collagen?</span><span class="t-hub">Types &amp; sources &middot; 2 subtopics</span></span><span class="t-val">80</span></li><li><span><span class="t-name">Marine collagen vs. grass fed</span><span class="t-hub">Collagen vs. other proteins &middot; 2 subtopics</span></span><span class="t-val">60</span></li><li><span><span class="t-name">Collagen glow up powder benefits</span><span class="t-hub">Collagen benefits &middot; 2 subtopics</span></span><span class="t-val">20</span></li><li><span><span class="t-name">Collagen with biotin benefits</span><span class="t-hub">Collagen benefits &middot; 2 subtopics</span></span><span class="t-val">10</span></li><li><span><span class="t-name">Frozen collagen dosage</span><span class="t-hub">Dosage &amp; side effects &middot; 2 subtopics</span></span><span class="t-val">10</span></li><li><span><span class="t-name">Bulk coffee collagen</span><span class="t-hub">Formats &amp; products &middot; 1 subtopic</span></span><span class="t-val">10</span></li><li><span><span class="t-name">Collagen snap packets</span><span class="t-hub">Formats &amp; products &middot; 1 subtopic</span></span><span class="t-val">10</span></li><li><span><span class="t-name">Collagen with ceramides benefits</span><span class="t-hub">Collagen benefits &middot; 1 subtopic</span></span><span class="t-val">10</span></li><li><span><span class="t-name">Collagen leaky gut dosage</span><span class="t-hub">Dosage &amp; side effects &middot; 1 subtopic</span></span><span class="t-val">10</span></li><li><span><span class="t-name">Collagen coffee slim side effects</span><span class="t-hub">Dosage &amp; side effects &middot; 1 subtopic</span></span><span class="t-val">10</span></li></ul></div>
+    </details>
+  </div>
+</section>
+
+<!-- ============ 12 - ACV ============ -->
+<section class="slide s-paper" id="acv">
+  <span class="marker">12 - ACV</span>
+  <div class="slide-inner">
+    <div class="step-row" style="margin-bottom:22px;">
+      <div class="eyebrow" style="margin-bottom:0;">Hub 07 &middot; Apple Cider Vinegar</div>
+      <span class="week week-l">14 pages</span>
+    </div>
+    <h2>Apple cider vinegar drinks, dosage and weight loss</h2>
+    <p class="lead muted-l" style="margin-top:14px; max-width:760px;">The smallest hub, at 14 pages. How to make an apple cider vinegar drink leads at 45,440 searches a month, with does ACV help weight loss at 29,500 and how much to drink per day at 13,000. The hub covers ACV drink recipes, daily dosage and side effects, weight loss, and capsules vs. liquid, matching BUBS&#x27;s apple cider vinegar.</p>
+    <p class="cap muted-l45" style="margin-top:10px;">103,200 monthly searches across 14 pages and 156 subtopics.</p>
+    <p class="later-hint"><span class="later-n">+40</span> more topics planned for this hub after March</p>
+    <div class="grid g2" style="margin-top:28px;">
+      <div class="card card-light">
+        <h4 class="title-sm">Biggest demand</h4>
+        <p class="cap muted-l45" style="margin-top:6px;">Monthly searches for the hub&#x27;s largest pages</p>
+        <ul class="tlist"><li><span><span class="t-name">How to make an apple cider vinegar drink</span><span class="t-hub">ACV drink recipes &middot; 23 subtopics</span></span><span class="t-val">45,440</span></li><li><span><span class="t-name">Does ACV help weight loss?</span><span class="t-hub">ACV &amp; weight loss &middot; 54 subtopics</span></span><span class="t-val">29,500</span></li><li><span><span class="t-name">How much apple cider vinegar drink per day?</span><span class="t-hub">Daily dosage &middot; 31 subtopics</span></span><span class="t-val">13,000</span></li><li><span><span class="t-name">Side effects of ACV and baking soda</span><span class="t-hub">Side effects &middot; 3 subtopics</span></span><span class="t-val">5,410</span></li><li><span><span class="t-name">Apple cider vinegar drink honey</span><span class="t-hub">ACV drink recipes &middot; 4 subtopics</span></span><span class="t-val">2,980</span></li><li><span><span class="t-name">Apple cider vinegar cinnamon drink</span><span class="t-hub">ACV drink recipes &middot; 2 subtopics</span></span><span class="t-val">1,910</span></li></ul>
+      </div>
+      <div class="card card-light">
+        <h4 class="title-sm">What the hub covers</h4>
+        <p class="cap muted-l45" style="margin-top:6px;">Scheduled pages by theme</p>
+        <ul class="tlist"><li><span><span class="t-name">ACV drink recipes</span><span class="t-hub">50% of the hub</span></span><span class="t-val">7 pages</span></li><li><span><span class="t-name">ACV &amp; weight loss</span><span class="t-hub">14% of the hub</span></span><span class="t-val">2 pages</span></li><li><span><span class="t-name">Daily dosage</span><span class="t-hub">14% of the hub</span></span><span class="t-val">2 pages</span></li><li><span><span class="t-name">Side effects</span><span class="t-hub">7% of the hub</span></span><span class="t-val">1 page</span></li><li><span><span class="t-name">Capsules vs. liquid</span><span class="t-hub">7% of the hub</span></span><span class="t-val">1 page</span></li><li><span><span class="t-name">Making ACV</span><span class="t-hub">7% of the hub</span></span><span class="t-val">1 page</span></li></ul>
+      </div>
+    </div>
+    <details class="all">
+      <summary>All 14 Apple Cider Vinegar pages</summary>
+      <div class="card card-light allcard"><ul class="tlist cols"><li><span><span class="t-name">How to make an apple cider vinegar drink</span><span class="t-hub">ACV drink recipes &middot; 23 subtopics</span></span><span class="t-val">45,440</span></li><li><span><span class="t-name">Does ACV help weight loss?</span><span class="t-hub">ACV &amp; weight loss &middot; 54 subtopics</span></span><span class="t-val">29,500</span></li><li><span><span class="t-name">How much apple cider vinegar drink per day?</span><span class="t-hub">Daily dosage &middot; 31 subtopics</span></span><span class="t-val">13,000</span></li><li><span><span class="t-name">Side effects of ACV and baking soda</span><span class="t-hub">Side effects &middot; 3 subtopics</span></span><span class="t-val">5,410</span></li><li><span><span class="t-name">Apple cider vinegar drink honey</span><span class="t-hub">ACV drink recipes &middot; 4 subtopics</span></span><span class="t-val">2,980</span></li><li><span><span class="t-name">Apple cider vinegar cinnamon drink</span><span class="t-hub">ACV drink recipes &middot; 2 subtopics</span></span><span class="t-val">1,910</span></li><li><span><span class="t-name">ACV supplement vs. liquid</span><span class="t-hub">Capsules vs. liquid &middot; 20 subtopics</span></span><span class="t-val">1,790</span></li><li><span><span class="t-name">Apple cider vinegar drink with cayenne pepper</span><span class="t-hub">ACV drink recipes &middot; 3 subtopics</span></span><span class="t-val">1,380</span></li><li><span><span class="t-name">Cranberry juice and apple cider vinegar drink</span><span class="t-hub">ACV drink recipes &middot; 2 subtopics</span></span><span class="t-val">730</span></li><li><span><span class="t-name">How to make ACV with the mother</span><span class="t-hub">Making ACV &middot; 2 subtopics</span></span><span class="t-val">440</span></li><li><span><span class="t-name">Recommended dosage of apple cider vinegar capsules</span><span class="t-hub">Daily dosage &middot; 7 subtopics</span></span><span class="t-val">410</span></li><li><span><span class="t-name">Aloe vera apple cider vinegar drink</span><span class="t-hub">ACV drink recipes &middot; 2 subtopics</span></span><span class="t-val">140</span></li><li><span><span class="t-name">Grapefruit juice and apple cider vinegar drink</span><span class="t-hub">ACV drink recipes &middot; 2 subtopics</span></span><span class="t-val">60</span></li><li><span><span class="t-name">Keto ACV for weight loss</span><span class="t-hub">ACV &amp; weight loss &middot; 1 subtopic</span></span><span class="t-val">10</span></li></ul></div>
+    </details>
+  </div>
+</section>
+
+<!-- ============ 13 - CLOSE ============ -->
+<section class="slide s-dark hero-dark">
+  <span class="marker">13 - Next</span>
+  <div class="slide-inner" style="text-align:center;">
+    <div class="eyebrow" style="justify-content:center;"><span class="dot"></span> Where this goes from here</div>
+    <h1 class="display" style="max-width:880px; margin:0 auto;">The topics are chosen.<br>Now they become <span class="flip">pages.</span></h1>
+    <p class="lead muted-d80" style="max-width:660px; margin:24px auto 0;">
+      Six months, 266 pages across seven hubs, running alongside the SEO audit, product and collection
+      optimizations, AI visibility, ecommerce and Reddit tracking. Everything is in your dashboard as it goes live.
+    </p>
+    <p class="footer-note muted-d" style="margin-top:56px;">FlyRank &middot; BUBS Naturals content roadmap, Oct 2026 - Mar 2027</p>
+  </div>
+</section>
+
+<script>
+  const rail = document.getElementById('rail');
+  let ticking = false;
+  function updateRail() {
+    const max = document.documentElement.scrollHeight - window.innerHeight;
+    const pct = max > 0 ? (window.scrollY / max) * 100 : 0;
+    rail.style.width = Math.min(100, Math.max(0, pct)) + '%';
+    ticking = false;
+  }
+  window.addEventListener('scroll', () => {
+    if (!ticking) { window.requestAnimationFrame(updateRail); ticking = true; }
+  }, {passive:true});
+  window.addEventListener('resize', updateRail, {passive:true});
+  updateRail();
+</script>
+
+</body></html>
+</body></html>
