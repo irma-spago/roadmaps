@@ -1,0 +1,778 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Baxter Boo Content Roadmap</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;700&display=swap">
+<style>
+
+  :root {
+    --mint-300:#7EEFC1; --mint-400:#54E399; --mint-500:#31C97A; --mint-700:#1A7A4A;
+    --ink-800:#0A2224; --ink-850:#071E20; --ink-900:#051F21; --ink-950:#030F10;
+    --paper:#F8FAF9; --paper-sunken:#F0F4F2;
+    --teal-300:#5EC6A9; --teal-400:#3AADA6; --teal-500:#2A8C8A;
+    color-scheme:light;
+  }
+
+  * { margin:0; padding:0; box-sizing:border-box; }
+
+  html { scroll-behavior:smooth; }
+
+  body {
+    font-family:'Geist',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+    color:var(--ink-900);
+    background:var(--ink-950);
+    -webkit-font-smoothing:antialiased;
+    line-height:1.6;
+  }
+  @media (prefers-reduced-motion:reduce) { html { scroll-behavior:auto; } }
+
+  .mono { font-family:'Geist Mono',ui-monospace,Consolas,monospace; }
+
+  /* ---------- Section frame ---------- */
+  .slide {
+    position:relative;
+    min-height:100vh;
+    display:flex; flex-direction:column; justify-content:center;
+    padding:96px 48px;
+  }
+  .slide-inner { width:100%; max-width:1080px; margin:0 auto; position:relative; z-index:2; }
+  .slide-inner.wide { max-width:1240px; }
+
+  .s-dark { background:var(--ink-900); color:#fff; }
+  .s-paper { background:var(--paper); }
+  .s-light { background:#fff; }
+  .s-sunken { background:var(--paper-sunken); }
+
+  .marker {
+    position:absolute; top:40px; right:48px; z-index:3;
+    font-family:'Geist Mono',ui-monospace,Consolas,monospace;
+    font-size:11px; font-weight:700; letter-spacing:0.14em; text-transform:uppercase;
+  }
+  .s-dark .marker { color:rgba(255,255,255,0.55); }
+  .s-paper .marker, .s-light .marker, .s-sunken .marker { color:rgba(5,31,33,0.40); }
+
+  .eyebrow {
+    font-family:'Geist Mono',ui-monospace,Consolas,monospace;
+    font-size:11px; font-weight:700; letter-spacing:0.14em; text-transform:uppercase;
+    display:inline-flex; align-items:center; gap:8px;
+    margin-bottom:24px;
+  }
+  .s-dark .eyebrow { color:var(--mint-400); }
+  .s-paper .eyebrow, .s-light .eyebrow, .s-sunken .eyebrow { color:var(--teal-500); }
+
+  .dot { width:6px; height:6px; border-radius:9999px; background:var(--mint-400); display:inline-block;
+         animation:pulse 2.4s ease-in-out infinite; }
+  @keyframes pulse { 0%,100%{opacity:1;transform:scale(1);} 50%{opacity:0.4;transform:scale(0.7);} }
+
+  h1.display { font-size:56px; font-weight:700; letter-spacing:-0.032em; line-height:1.06; }
+  h2 { font-size:32px; font-weight:700; letter-spacing:-0.028em; line-height:1.12; }
+  h3 { font-size:24px; font-weight:700; letter-spacing:-0.022em; line-height:1.2; }
+  h4 { font-size:20px; font-weight:600; letter-spacing:-0.015em; }
+  .lead { font-size:18px; font-weight:400; line-height:1.6; }
+  h4.title-sm { font-size:17px; letter-spacing:-0.01em; line-height:1.3; }
+  h4.title-xs { font-size:16px; letter-spacing:-0.008em; line-height:1.3; }
+  .body { font-size:16px; line-height:1.6; }
+  .bodys { font-size:14px; line-height:1.55; }
+  .cap { font-size:12px; line-height:1.5; }
+
+  .muted-d { color:rgba(255,255,255,0.55); }
+  .muted-d80 { color:rgba(255,255,255,0.80); }
+  .muted-l { color:rgba(5,31,33,0.55); }
+  .muted-l45 { color:rgba(5,31,33,0.45); }
+  .mint { color:var(--mint-400); }
+  .mint-dark { color:var(--mint-700); }
+
+  /* ---------- Cards ---------- */
+  .card { border-radius:20px; padding:28px; }
+  .card.compact { padding:20px 22px; border-radius:16px; }
+  .card-light { background:#fff; border:1px solid #DDE4E7; }
+  .card-paper { background:var(--paper); border:1px solid #E4EAED; }
+  .card-dark { background:var(--ink-900); color:#fff; }
+  .card-dark-el { background:var(--ink-850); border:1px solid rgba(255,255,255,0.10); border-radius:20px; padding:28px; color:#fff; }
+  .card-dark-el.compact { padding:20px 22px; border-radius:16px; }
+
+  .grid { display:grid; gap:16px; align-items:stretch; }
+  .grid > * { height:100%; }
+  .g2 { grid-template-columns:repeat(2,1fr); }
+  .g3 { grid-template-columns:repeat(3,1fr); }
+  .g4 { grid-template-columns:repeat(4,1fr); }
+  .g5 { grid-template-columns:repeat(5,1fr); }
+
+  .stat-num { font-size:34px; font-weight:700; letter-spacing:-0.03em; line-height:1.05; }
+  .stat-lbl { font-size:13px; margin-top:10px; }
+
+  .pill {
+    display:inline-flex; align-items:center; gap:7px;
+    border-radius:9999px; padding:5px 13px; font-size:12px;
+  }
+  .pill-tag-d { background:rgba(255,255,255,0.07); border:1px solid rgba(255,255,255,0.10); color:rgba(255,255,255,0.80); }
+  .pill-tag-l { background:rgba(5,31,33,0.06); border:1px solid rgba(5,31,33,0.08); color:rgba(5,31,33,0.55); }
+  .pill-lead { background:rgba(49,201,122,0.12); border:1px solid rgba(49,201,122,0.25); color:var(--mint-700); }
+  .pill-row { display:flex; flex-wrap:wrap; gap:8px; }
+
+  .badge {
+    display:inline-flex; align-items:center; border-radius:8px;
+    font-size:10px; font-weight:700; letter-spacing:0.06em; text-transform:uppercase; padding:3px 8px;
+  }
+  .b-done   { background:rgba(49,201,122,0.12); color:var(--mint-700); }
+  .b-done-d { background:rgba(84,227,153,0.14); color:var(--mint-300); }
+  .b-move-d { background:rgba(94,198,169,0.16); color:var(--teal-300); }
+
+  .flag {
+    display:inline-flex; align-items:center; gap:7px;
+    border-radius:8px; padding:4px 10px;
+    font-family:'Geist Mono',ui-monospace,Consolas,monospace;
+    font-size:10px; font-weight:700; letter-spacing:0.08em; text-transform:uppercase;
+    background:rgba(49,201,122,0.10); color:var(--mint-700); border:1px dashed rgba(26,122,74,0.45);
+  }
+
+  /* ---------- Topic lists ---------- */
+  .tlist { list-style:none; margin-top:16px; }
+  .tlist li {
+    display:flex; align-items:baseline; justify-content:space-between; gap:14px;
+    padding:10px 0; border-bottom:1px solid rgba(5,31,33,0.08);
+  }
+  .tlist li:last-child { border-bottom:none; }
+  .tlist li:first-child { padding-top:0; }
+  .s-dark .tlist li { border-bottom-color:rgba(255,255,255,0.10); }
+  .t-name { font-size:14px; font-weight:500; line-height:1.35; }
+  .t-hub {
+    display:block; margin-top:3px;
+    font-family:'Geist Mono',ui-monospace,Consolas,monospace;
+    font-size:10px; letter-spacing:0.06em; text-transform:uppercase;
+    color:rgba(5,31,33,0.40);
+  }
+  .s-dark .t-hub { color:rgba(255,255,255,0.45); }
+  .t-val {
+    font-family:'Geist Mono',ui-monospace,Consolas,monospace;
+    font-size:12px; font-weight:700; white-space:nowrap; color:var(--mint-700);
+  }
+  .s-dark .t-val { color:var(--mint-300); }
+  .t-sub { font-weight:400; color:rgba(5,31,33,0.40); }
+  .s-dark .t-sub { color:rgba(255,255,255,0.45); }
+
+  /* ---------- Hero backgrounds ---------- */
+  .hero-dark {
+    background:radial-gradient(ellipse at 60% 40%, rgba(84,227,153,0.09), transparent 55%), var(--ink-900);
+  }
+  .hero-dark::before {
+    content:''; position:absolute; inset:0; z-index:1; pointer-events:none;
+    background-image:linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+                     linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+    background-size:48px 48px;
+  }
+
+  .accent-bar { width:44px; height:4px; border-radius:9999px; background:var(--mint-400); margin-bottom:28px; }
+  .flip { color:var(--mint-400); }
+  .arrow { color:var(--mint-400); font-weight:700; padding:0 4px; }
+
+  ul.clean { list-style:none; }
+  ul.clean li { position:relative; padding-left:26px; margin-bottom:12px; }
+  ul.clean li:last-child { margin-bottom:0; }
+  ul.clean li::before {
+    content:''; position:absolute; left:0; top:9px; width:7px; height:7px;
+    border-radius:9999px; background:var(--mint-400);
+  }
+
+  .divider { height:1px; background:rgba(5,31,33,0.08); margin:28px 0; }
+  .s-dark .divider { background:rgba(255,255,255,0.10); }
+
+  .footer-note { font-size:12px; }
+
+  .step-n { font-family:'Geist Mono',ui-monospace,Consolas,monospace; font-size:12px; font-weight:700; letter-spacing:0.14em; }
+  .step-row { display:flex; align-items:center; justify-content:space-between; gap:10px; }
+  .week {
+    font-family:'Geist Mono',ui-monospace,Consolas,monospace;
+    font-size:10px; font-weight:700; letter-spacing:0.10em; text-transform:uppercase;
+    border-radius:9999px; padding:3px 10px; white-space:nowrap;
+  }
+  .week-l { background:rgba(5,31,33,0.06); color:rgba(5,31,33,0.55); }
+  .week-d { background:rgba(84,227,153,0.12); color:var(--mint-300); }
+
+  .rail { position:fixed; top:0; left:0; height:3px; background:var(--mint-400); z-index:99; width:0; }
+
+  /* ---------- Responsive ---------- */
+  @media (max-width:1100px) {
+    .g5 { grid-template-columns:repeat(3,1fr); }
+  }
+  @media (max-width:900px) {
+    .slide { padding:80px 32px; }
+    .g2,.g3,.g4,.g5 { grid-template-columns:1fr; }
+    .g4.keep2, .g5.keep2 { grid-template-columns:repeat(2,1fr); }
+    .marker { top:24px; right:32px; }
+  }
+  @media (max-width:560px) {
+    .slide { padding:72px 20px; }
+    h1.display { font-size:34px; }
+    h2 { font-size:26px; }
+    h3 { font-size:21px; }
+    .lead { font-size:16px; }
+    .g4.keep2, .g5.keep2 { grid-template-columns:1fr; }
+  }
+  @media (prefers-reduced-motion:reduce) { .dot { animation:none; } }
+
+  .tlist li > span:first-child { min-width:0; }
+  .t-name { overflow-wrap:anywhere; }
+  .stat-num, .t-val { font-variant-numeric:tabular-nums; }
+  :focus-visible { outline:2px solid var(--mint-500); outline-offset:2px; }
+
+
+  .hubhead { display:flex; flex-wrap:wrap; align-items:baseline; gap:6px 14px; margin-top:6px; }
+  .hubmeta { font-family:'Geist Mono',ui-monospace,Consolas,monospace; font-size:11px; letter-spacing:0.06em; text-transform:uppercase; }
+  .s-dark .hubmeta { color:rgba(255,255,255,0.55); }
+  .group-label {
+    font-family:'Geist Mono',ui-monospace,Consolas,monospace;
+    font-size:10px; font-weight:700; letter-spacing:0.14em; text-transform:uppercase;
+    color:rgba(255,255,255,0.45); margin:28px 0 12px;
+  }
+  .group-label { margin-top:32px; }
+  .mstrip { display:grid; grid-template-columns:repeat(6,1fr); gap:10px; margin-top:20px; }
+  .mcell { background:#fff; border:1px solid #DDE4E7; border-radius:14px; padding:14px 16px; }
+  .mcell .mnum { font-size:22px; font-weight:700; letter-spacing:-0.02em; color:var(--mint-700); font-variant-numeric:tabular-nums; }
+  .mcell .mlbl { font-family:'Geist Mono',ui-monospace,Consolas,monospace; font-size:10px; font-weight:700; letter-spacing:0.10em; text-transform:uppercase; color:rgba(5,31,33,0.45); }
+  details.all { margin-top:22px; border-top:1px solid rgba(5,31,33,0.08); padding-top:18px; }
+  details.all summary {
+    cursor:pointer; list-style:none; display:inline-flex; align-items:center; gap:8px;
+    font-family:'Geist Mono',ui-monospace,Consolas,monospace;
+    font-size:11px; font-weight:700; letter-spacing:0.10em; text-transform:uppercase;
+    color:var(--teal-500); border-radius:9999px; padding:6px 14px;
+    background:rgba(42,140,138,0.08); border:1px solid rgba(42,140,138,0.22);
+  }
+  details.all summary::-webkit-details-marker { display:none; }
+  details.all summary::before { content:'+'; font-size:13px; line-height:1; }
+  details.all[open] summary::before { content:'\2212'; }
+  .allgrid { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin-top:18px; }
+  .allgrid .card { padding:20px 22px; border-radius:16px; }
+  .allgrid h5 { font-family:'Geist Mono',ui-monospace,Consolas,monospace; font-size:10px; font-weight:700; letter-spacing:0.12em; text-transform:uppercase; color:var(--teal-500); display:flex; justify-content:space-between; gap:10px; }
+  .allgrid h5 span { color:rgba(5,31,33,0.40); }
+  .allgrid .tlist li { padding:8px 0; }
+  .allgrid .t-name { font-size:13px; }
+  @media (max-width:900px) {
+    .mstrip { grid-template-columns:repeat(3,1fr); }
+    .allgrid { grid-template-columns:1fr; }
+  }
+  @media (max-width:560px) { .mstrip { grid-template-columns:repeat(2,1fr); } }
+
+
+  /* Scrolling fix: sections size to their content, the page always scrolls */
+  html, body { height:auto; }
+  html { overflow-y:auto; scroll-behavior:auto; }
+  .slide { min-height:0; }
+  .slide.hero-dark { padding-block:140px; }
+  @media (max-width:560px) { .slide.hero-dark { padding-block:96px; } }
+
+  /* GetBuddy additions */
+  .svc-grid { margin-top:40px; }
+  .svc h4 { margin-top:14px; }
+  .svc ul.clean { margin-top:14px; }
+  .svc ul.clean li { font-size:14px; line-height:1.5; color:rgba(5,31,33,0.72); margin-bottom:10px; }
+  .svc ul.clean li::before { top:7px; }
+  .svc-n { font-family:'Geist Mono',ui-monospace,Consolas,monospace; font-size:10px; font-weight:700; letter-spacing:0.10em; text-transform:uppercase; color:rgba(5,31,33,0.45); margin-top:18px; padding-top:14px; border-top:1px solid rgba(5,31,33,0.08); }
+  .b-teal { background:rgba(42,140,138,0.10); color:var(--teal-500); }
+  .dash {
+    margin-top:16px; display:flex; flex-wrap:wrap; align-items:center; gap:14px 24px;
+    background:rgba(49,201,122,0.07); border:1px solid rgba(49,201,122,0.25); border-radius:16px; padding:18px 22px;
+  }
+  .dash p { min-width:0; flex:1 1 360px; }
+  .svc { display:flex; flex-direction:column; }
+  .svc .svc-n { margin-top:auto; }
+  .svc ul.clean { margin-bottom:18px; }
+  a.hublink { color:inherit; text-decoration:none; }
+  a.hublink:hover { color:var(--mint-300); }
+
+  /* All topics: one card, three even columns */
+  .allcard { margin-top:18px; padding:22px 26px; border-radius:16px; }
+  .tlist.cols { columns:3 240px; column-gap:36px; margin-top:0; }
+  .tlist.cols li { break-inside:avoid; padding:9px 0; }
+  .tlist.cols .t-name { font-size:13px; }
+
+  /* Hugger Mugger: one width for every section, safe-area side gutters */
+  .slide { padding-block:96px; padding-left:max(48px, env(safe-area-inset-left, 0px)); padding-right:max(48px, env(safe-area-inset-right, 0px)); }
+  .slide-inner, .slide-inner.wide { max-width:1080px; }
+  .marker { right:max(48px, env(safe-area-inset-right, 0px)); }
+  h1.display, h2, h3 { text-wrap:balance; }
+  .svc .bodys { color:rgba(5,31,33,0.72); }
+  .svc ul.ex li { color:var(--ink-900); font-weight:500; }
+  .later-hint {
+    margin-top:14px; display:inline-flex; align-items:center; gap:10px;
+    font-family:'Geist Mono',ui-monospace,Consolas,monospace; font-size:11px; font-weight:700;
+    letter-spacing:0.08em; text-transform:uppercase; color:rgba(5,31,33,0.55);
+    border:1px dashed rgba(42,140,138,0.40); border-radius:9999px; padding:5px 14px 5px 6px;
+  }
+  .later-n { background:rgba(42,140,138,0.10); color:var(--teal-500); border-radius:9999px; padding:2px 9px; font-variant-numeric:tabular-nums; }
+  @media (max-width:900px) {
+    .slide { padding-block:80px; padding-left:max(32px, env(safe-area-inset-left, 0px)); padding-right:max(32px, env(safe-area-inset-right, 0px)); }
+    .marker { right:max(32px, env(safe-area-inset-right, 0px)); }
+    .g3.keep2 { grid-template-columns:repeat(2,1fr); }
+  }
+  @media (max-width:560px) {
+    .slide { padding-block:72px; padding-left:max(20px, env(safe-area-inset-left, 0px)); padding-right:max(20px, env(safe-area-inset-right, 0px)); }
+    .marker { right:max(20px, env(safe-area-inset-right, 0px)); }
+    .g3.keep2 { grid-template-columns:1fr; }
+    .later-hint { letter-spacing:0.04em; }
+  }
+  .slide.hero-dark { padding-block:140px; }
+  @media (max-width:560px) { .slide.hero-dark { padding-block:96px; } }
+
+</style>
+
+<div class="rail" id="rail"></div>
+
+<!-- ============ 01 - COVER ============ -->
+<section class="slide s-dark hero-dark">
+  <span class="marker">01 - The roadmap</span>
+  <div class="slide-inner">
+    <div class="eyebrow"><span class="dot"></span> Content roadmap &middot; FlyRank &times; Baxter Boo</div>
+    <h1 class="display">Happy pets, healthy habits <span class="flip">&amp;</span> everything in between</h1>
+    <p class="lead muted-d80" style="max-width:680px; margin-top:24px;">
+      Six months of content for baxterboo.com, already scheduled. Seven hubs covering pet lifestyle and
+      celebrations, grooming, preventive care, nutrition, behavior and training, walking and travel, and sleep and
+      home comfort, with every page built around one main topic and its subtopics.
+    </p>
+    <div class="pill-row" style="margin-top:36px;">
+      <span class="pill pill-tag-d">532 pages scheduled</span>
+      <span class="pill pill-tag-d">4,387 subtopics</span>
+      <span class="pill pill-tag-d">7 content hubs</span>
+      <span class="pill pill-tag-d">Oct 2026 - Mar 2027</span>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 02 - SERVICES ============ -->
+<section class="slide s-light">
+  <span class="marker">02 - The work</span>
+  <div class="slide-inner">
+    <div class="eyebrow">What we&#x27;re doing for Baxter Boo</div>
+    <h2 style="max-width:820px;">Four workstreams, one dashboard</h2>
+    <p class="lead muted-l" style="margin-top:16px; max-width:760px;">
+      Content, SEO, AI visibility and Reddit tracking run side by side. Log in to your own dashboard to follow
+      every page as it goes live and see where Baxter Boo is mentioned across AI engines and Reddit.
+    </p>
+    <div class="grid g2 svc-grid" style="gap:14px;">
+      <div class="card card-paper compact svc">
+        <span class="badge b-done" style="align-self:flex-start;">Content</span>
+        <h4 class="title-sm">New content strategy</h4>
+        <ul class="clean"><li>Each page has one main topic and the subtopics that belong to it, grouped as sections</li><li>Pages go more in-depth, answering the full set of related questions in one place</li><li>Every page belongs to a hub, so it links to related pages the day it goes live</li></ul>
+        <p class="svc-n">532 pages &middot; 4,387 subtopics</p>
+      </div>
+      <div class="card card-paper compact svc">
+        <span class="badge b-teal" style="align-self:flex-start;">Technical</span>
+        <h4 class="title-sm">Website SEO audit</h4>
+        <ul class="clean"><li>On-page SEO audit of baxterboo.com, covering every key page on the site</li><li>Covers all on-page elements, from titles and headings to internal links</li><li>Each issue comes with a clear fix, so the team knows exactly what to change</li></ul>
+        <p class="svc-n">Every on-page element checked</p>
+      </div>
+      <div class="card card-paper compact svc">
+        <span class="badge b-done" style="align-self:flex-start;">Visibility</span>
+        <h4 class="title-sm">AI visibility tracking</h4>
+        <ul class="clean"><li>Shows whether AI assistants mention the brand, and how they describe it</li><li>Turns missed, high-scoring prompts into a clear to-do list of content to create</li><li>Citations and fan-out show why AI picks a competitor, with trends over time</li></ul>
+        <p class="svc-n">Mentions, citations, competitors</p>
+      </div>
+      <div class="card card-paper compact svc">
+        <span class="badge b-teal" style="align-self:flex-start;">Community</span>
+        <h4 class="title-sm">Reddit mentions tracking</h4>
+        <ul class="clean"><li>Finds threads asking for advice, the moments a good answer wins a customer</li><li>A sorted inbox with drafted replies, and Reddit answers also lift AI visibility</li><li>Spots mentions and complaints early, and collects the words shoppers use</li></ul>
+        <p class="svc-n">Mentions and ready-to-use replies</p>
+      </div>
+    </div>
+    <div class="dash">
+      <span class="flag">Your dashboard</span>
+      <p class="bodys muted-l">Log in to see the content calendar, AI visibility and Reddit mentions in one place, updated as the work moves.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 03 - SIX MONTH PLAN ============ -->
+<section class="slide s-paper">
+  <span class="marker">03 - The plan</span>
+  <div class="slide-inner">
+    <div class="eyebrow">Six month content plan</div>
+    <h2 style="max-width:820px;">532 pages are scheduled<br>for the next six months.</h2>
+    <p class="lead muted-l" style="margin-top:16px; max-width:760px;">
+      Every page targets one main topic and groups the subtopics people search around it, 4,387 in total.
+      Together the pages carry 12,889,680 monthly searches across seven content hubs, from cat trees and
+      crate training to heartworm prevention, kitten food, harnesses and dog sweaters.
+    </p>
+    <div class="grid g4 keep2" style="margin-top:40px;">
+      <div class="card card-light"><div class="stat-num mint-dark">532</div><p class="stat-lbl muted-l">Pages scheduled from October to March</p></div>
+      <div class="card card-light"><div class="stat-num mint-dark">4,387</div><p class="stat-lbl muted-l">Subtopics inside those pages, about 8 per page</p></div>
+      <div class="card card-light"><div class="stat-num mint-dark">12,889,680</div><p class="stat-lbl muted-l">Monthly searches across the targeted keywords</p></div>
+      <div class="card card-light"><div class="stat-num mint-dark">561,300</div><p class="stat-lbl muted-l">Searches a month for the top page, cat trees</p></div>
+    </div>
+    <div class="card card-dark" style="margin-top:20px; padding:22px 26px;">
+      <p class="bodys muted-d80">
+        <span class="mint" style="font-weight:600;">How the pages are built.</span>
+        Each page is built around one main topic, with its subtopics as sections, so a single page answers what used
+        to take several thin posts. The deepest page, dog crate training tips, covers 153 subtopics. Publishing runs every
+        month from October to March, at 100 pages a month after a shorter October start.
+      </p>
+    </div>
+    <div class="dash">
+      <span class="flag">After March</span>
+      <p class="bodys muted-l"><strong class="mint-dark">1,556 more topics</strong> are already mapped for after March 2027, across the same seven hubs.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 04 - PAGE TYPES ============ -->
+<section class="slide s-light">
+  <span class="marker">04 - Page types</span>
+  <div class="slide-inner">
+    <div class="eyebrow">How each page is shaped</div>
+    <h2 style="max-width:820px;">Six kinds of pages, each matched to the search behind it</h2>
+    <p class="lead muted-l" style="margin-top:16px; max-width:760px;">
+      Each topic gets the format that fits what people want when they search it. Someone shopping for a cat tree
+      needs a collection page, while someone crate training a puppy needs a guide.
+    </p>
+    <div class="grid g3 keep2 svc-grid" style="gap:14px;">
+      <div class="card card-paper compact svc">
+        <span class="badge b-done" style="align-self:flex-start;">Collection</span>
+        <h4 class="title-sm">Collection pages</h4>
+        <p class="bodys muted-l" style="margin-top:10px;">Category pages for shopping searches that pair the right products from 500+ brands with buying advice.</p>
+        <p class="svc-n">Example topics</p>
+        <ul class="clean ex"><li>Cat trees</li><li>Heartworm prevention for dogs</li><li>Dog sweaters</li></ul>
+      </div>
+      <div class="card card-paper compact svc">
+        <span class="badge b-teal" style="align-self:flex-start;">Guide</span>
+        <h4 class="title-sm">Guides &amp; explainers</h4>
+        <p class="bodys muted-l" style="margin-top:10px;">In-depth answers to what-is and how-to questions, with each subtopic as a section, so one page covers it all.</p>
+        <p class="svc-n">Example topics</p>
+        <ul class="clean ex"><li>Dog crate training tips</li><li>Puppy vaccination schedule</li><li>How to size a dog harness</li></ul>
+      </div>
+      <div class="card card-paper compact svc">
+        <span class="badge b-done" style="align-self:flex-start;">Listicle</span>
+        <h4 class="title-sm">Listicles</h4>
+        <p class="bodys muted-l" style="margin-top:10px;">Ranked or grouped lists of products and gifts that let readers scan the options and pick what fits their pet.</p>
+        <p class="svc-n">Example topics</p>
+        <ul class="clean ex"><li>Memorial pet gifts</li><li>Best dog joint supplements</li><li>Best dog harnesses</li></ul>
+      </div>
+      <div class="card card-paper compact svc">
+        <span class="badge b-teal" style="align-self:flex-start;">Comparison</span>
+        <h4 class="title-sm">Comparisons</h4>
+        <p class="bodys muted-l" style="margin-top:10px;">Side-by-side looks at two options, for owners choosing between foods, gear, tools or treatments.</p>
+        <p class="svc-n">Example topics</p>
+        <ul class="clean ex"><li>Dog harness vs. collar</li><li>Grain-free vs. grain dog food</li><li>Slicker vs. deshedding brush</li></ul>
+      </div>
+      <div class="card card-paper compact svc">
+        <span class="badge b-done" style="align-self:flex-start;">Recipe</span>
+        <h4 class="title-sm">Recipes</h4>
+        <p class="bodys muted-l" style="margin-top:10px;">Simple DIY recipes for treats, toppers and paw balm, for owners who like to make a few things at home.</p>
+        <p class="svc-n">Example topics</p>
+        <ul class="clean ex"><li>Healthy homemade dog treats</li><li>Homemade dog food toppers</li><li>Dog paw balm</li></ul>
+      </div>
+      <div class="card card-paper compact svc">
+        <span class="badge b-teal" style="align-self:flex-start;">Product</span>
+        <h4 class="title-sm">Product &amp; service pages</h4>
+        <p class="bodys muted-l" style="margin-top:10px;">Pages for searches that name a product or a service, from self-cleaning brushes to an online pet pharmacy.</p>
+        <p class="svc-n">Example topics</p>
+        <ul class="clean ex"><li>Online pet pharmacy</li><li>Self-cleaning slicker brush</li><li>Personalized dog mugs</li></ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 05 - CONTENT HUBS ============ -->
+<section class="slide s-dark">
+  <span class="marker">05 - Coverage</span>
+  <div class="slide-inner">
+    <div class="eyebrow"><span class="dot"></span> What the plan covers</div>
+    <h2>Seven hubs across lifestyle, grooming, health, food, training and travel</h2>
+    <p class="group-label">Largest hubs &middot; 332 pages &middot; 5,275,940 searches / mo</p>
+    <div class="grid g3" style="gap:14px;">
+      <div class="card-dark-el compact">
+        <span class="badge b-done-d">167 pages</span>
+        <h4 class="title-xs" style="margin-top:12px;"><a class="hublink" href="#lifestyle">Pet Lifestyle &amp; Celebrations</a></h4>
+        <p class="hubmeta" style="margin-top:4px;">701,920 searches / mo &middot; 997 subtopics</p>
+        <p class="bodys muted-d80" style="margin-top:8px;">Dog clothes and sweaters, coats and boots, gifts for pet lovers and breeds, holidays and costumes.</p>
+      </div><div class="card-dark-el compact">
+        <span class="badge b-done-d">89 pages</span>
+        <h4 class="title-xs" style="margin-top:12px;"><a class="hublink" href="#grooming">Grooming, Skin &amp; Coat Care</a></h4>
+        <p class="hubmeta" style="margin-top:4px;">1,089,180 searches / mo &middot; 716 subtopics</p>
+        <p class="bodys muted-d80" style="margin-top:8px;">Dog shampoos, brushes and deshedding tools, brushes by breed, cat grooming, and skin and ear care.</p>
+      </div><div class="card-dark-el compact">
+        <span class="badge b-done-d">76 pages</span>
+        <h4 class="title-xs" style="margin-top:12px;"><a class="hublink" href="#wellness">Preventive Care &amp; Pet Wellness</a></h4>
+        <p class="hubmeta" style="margin-top:4px;">3,484,840 searches / mo &middot; 671 subtopics</p>
+        <p class="bodys muted-d80" style="margin-top:8px;">Heartworm, flea and tick prevention, vaccines and deworming, skin and ears, hairballs, joints and diets.</p>
+      </div>
+    </div>
+    <p class="group-label">Supporting hubs &middot; 200 pages &middot; 7,613,740 searches / mo</p>
+    <div class="grid g4 keep2" style="gap:14px;">
+      <div class="card-dark-el compact">
+        <span class="badge b-done-d">67 pages</span>
+        <h4 class="title-xs" style="margin-top:12px;"><a class="hublink" href="#nutrition">Pet Nutrition &amp; Feeding</a></h4>
+        <p class="hubmeta" style="margin-top:4px;">1,811,850 searches / mo &middot; 232 subtopics</p>
+        <p class="bodys muted-d80" style="margin-top:8px;">Kitten and cat food, puppy food, sensitive stomachs and allergies, freeze-dried and raw, and treats.</p>
+      </div><div class="card-dark-el compact">
+        <span class="badge b-done-d">47 pages</span>
+        <h4 class="title-xs" style="margin-top:12px;"><a class="hublink" href="#behavior">Behavior, Training &amp; Enrichment</a></h4>
+        <p class="hubmeta" style="margin-top:4px;">2,649,770 searches / mo &middot; 756 subtopics</p>
+        <p class="bodys muted-d80" style="margin-top:8px;">Crate and potty training, barking, separation anxiety, enrichment toys and cat play.</p>
+      </div><div class="card-dark-el compact">
+        <span class="badge b-done-d">45 pages</span>
+        <h4 class="title-xs" style="margin-top:12px;"><a class="hublink" href="#travel">Walking, Travel &amp; Safety</a></h4>
+        <p class="hubmeta" style="margin-top:4px;">1,687,710 searches / mo &middot; 600 subtopics</p>
+        <p class="bodys muted-d80" style="margin-top:8px;">Harnesses and sizing, leashes and collars, pet carriers, car seats and car travel, strollers and life jackets.</p>
+      </div><div class="card-dark-el compact">
+        <span class="badge b-done-d">41 pages</span>
+        <h4 class="title-xs" style="margin-top:12px;"><a class="hublink" href="#sleep">Sleep, Home &amp; Comfort</a></h4>
+        <p class="hubmeta" style="margin-top:4px;">1,464,410 searches / mo &middot; 415 subtopics</p>
+        <p class="bodys muted-d80" style="margin-top:8px;">Dog beds, cat trees and perches, cat beds, how pets sleep, and blankets, mats and home comfort.</p>
+      </div>
+    </div>
+    <p class="bodys muted-d" style="margin-top:24px;">
+      Every scheduled page belongs to one of these hubs, so each new page has a home and an
+      internal link path the day it publishes.
+    </p>
+  </div>
+</section>
+
+<!-- ============ 06 - LIFESTYLE ============ -->
+<section class="slide s-paper" id="lifestyle">
+  <span class="marker">06 - Lifestyle</span>
+  <div class="slide-inner">
+    <div class="step-row" style="margin-bottom:22px;">
+      <div class="eyebrow" style="margin-bottom:0;">Hub 01 &middot; Pet Lifestyle &amp; Celebrations</div>
+      <span class="week week-l">167 pages</span>
+    </div>
+    <h2>Dog clothes, gifts and holiday fun for pet lovers</h2>
+    <p class="lead muted-l" style="margin-top:14px; max-width:760px;">Memorial pet gifts lead the hub at 67,180 searches a month, with dog sweaters at 63,780 and winter dog coats at 61,480. The hub covers dog clothes and sweaters, coats and boots, gifts for pet lovers and for specific breeds, holiday outfits and costumes, and cold-weather care and DIY projects, matching Baxter Boo&#x27;s dog and cat clothing range.</p>
+    <p class="cap muted-l45" style="margin-top:10px;">701,920 monthly searches across 167 pages and 997 subtopics.</p>
+    <p class="later-hint"><span class="later-n">+557</span> more topics planned for this hub after March</p>
+    <div class="grid g2" style="margin-top:28px;">
+      <div class="card card-light">
+        <h4 class="title-sm">Biggest demand</h4>
+        <p class="cap muted-l45" style="margin-top:6px;">Monthly searches for the hub&#x27;s largest pages</p>
+        <ul class="tlist"><li><span><span class="t-name">Memorial pet gifts</span><span class="t-hub">Gifts for pet lovers &middot; 66 subtopics</span></span><span class="t-val">67,180</span></li><li><span><span class="t-name">Dog sweaters</span><span class="t-hub">Dog clothes &amp; sweaters &middot; 83 subtopics</span></span><span class="t-val">63,780</span></li><li><span><span class="t-name">Winter dog coats</span><span class="t-hub">Coats &amp; boots &middot; 35 subtopics</span></span><span class="t-val">61,480</span></li><li><span><span class="t-name">Dachshund dog clothes</span><span class="t-hub">Dog clothes &amp; sweaters &middot; 8 subtopics</span></span><span class="t-val">35,140</span></li><li><span><span class="t-name">Dog bandanas</span><span class="t-hub">Dog clothes &amp; sweaters &middot; 106 subtopics</span></span><span class="t-val">30,310</span></li><li><span><span class="t-name">Dog shoes and boots</span><span class="t-hub">Coats &amp; boots &middot; 63 subtopics</span></span><span class="t-val">30,140</span></li></ul>
+      </div>
+      <div class="card card-light">
+        <h4 class="title-sm">What the hub covers</h4>
+        <p class="cap muted-l45" style="margin-top:6px;">Scheduled pages by theme</p>
+        <ul class="tlist"><li><span><span class="t-name">Dog clothes &amp; sweaters</span><span class="t-hub">26% of the hub</span></span><span class="t-val">43 pages</span></li><li><span><span class="t-name">Holidays &amp; costumes</span><span class="t-hub">18% of the hub</span></span><span class="t-val">30 pages</span></li><li><span><span class="t-name">Coats &amp; boots</span><span class="t-hub">17% of the hub</span></span><span class="t-val">29 pages</span></li><li><span><span class="t-name">Gifts for pet lovers</span><span class="t-hub">17% of the hub</span></span><span class="t-val">28 pages</span></li><li><span><span class="t-name">Breed gifts</span><span class="t-hub">11% of the hub</span></span><span class="t-val">19 pages</span></li><li><span><span class="t-name">Cold weather &amp; DIY</span><span class="t-hub">11% of the hub</span></span><span class="t-val">18 pages</span></li></ul>
+      </div>
+    </div>
+    <details class="all">
+      <summary>All 167 Pet Lifestyle &amp; Celebrations pages</summary>
+      <div class="card card-light allcard"><ul class="tlist cols"><li><span><span class="t-name">Memorial pet gifts</span><span class="t-hub">Gifts for pet lovers &middot; 66 subtopics</span></span><span class="t-val">67,180</span></li><li><span><span class="t-name">Dog sweaters</span><span class="t-hub">Dog clothes &amp; sweaters &middot; 83 subtopics</span></span><span class="t-val">63,780</span></li><li><span><span class="t-name">Winter dog coats</span><span class="t-hub">Coats &amp; boots &middot; 35 subtopics</span></span><span class="t-val">61,480</span></li><li><span><span class="t-name">Dachshund dog clothes</span><span class="t-hub">Dog clothes &amp; sweaters &middot; 8 subtopics</span></span><span class="t-val">35,140</span></li><li><span><span class="t-name">Dog bandanas</span><span class="t-hub">Dog clothes &amp; sweaters &middot; 106 subtopics</span></span><span class="t-val">30,310</span></li><li><span><span class="t-name">Dog shoes and boots</span><span class="t-hub">Coats &amp; boots &middot; 63 subtopics</span></span><span class="t-val">30,140</span></li><li><span><span class="t-name">Cat lover gifts</span><span class="t-hub">Gifts for pet lovers &middot; 59 subtopics</span></span><span class="t-val">29,020</span></li><li><span><span class="t-name">Dog hoodies</span><span class="t-hub">Dog clothes &amp; sweaters &middot; 17 subtopics</span></span><span class="t-val">26,080</span></li><li><span><span class="t-name">Dog lover gifts</span><span class="t-hub">Gifts for pet lovers &middot; 29 subtopics</span></span><span class="t-val">25,960</span></li><li><span><span class="t-name">Dog coats</span><span class="t-hub">Coats &amp; boots &middot; 51 subtopics</span></span><span class="t-val">22,520</span></li><li><span><span class="t-name">Christmas dog sweaters</span><span class="t-hub">Holidays &amp; costumes &middot; 5 subtopics</span></span><span class="t-val">22,520</span></li><li><span><span class="t-name">Christmas dog gifts</span><span class="t-hub">Holidays &amp; costumes &middot; 10 subtopics</span></span><span class="t-val">18,120</span></li><li><span><span class="t-name">Hot dog costumes for pets</span><span class="t-hub">Holidays &amp; costumes &middot; 3 subtopics</span></span><span class="t-val">18,020</span></li><li><span><span class="t-name">Best dog gifts</span><span class="t-hub">Gifts for pet lovers &middot; 13 subtopics</span></span><span class="t-val">17,470</span></li><li><span><span class="t-name">Dachshund dog gifts</span><span class="t-hub">Breed gifts &middot; 7 subtopics</span></span><span class="t-val">15,600</span></li><li><span><span class="t-name">Dog snow boots</span><span class="t-hub">Coats &amp; boots &middot; 12 subtopics</span></span><span class="t-val">15,160</span></li><li><span><span class="t-name">Gifts for cats</span><span class="t-hub">Gifts for pet lovers &middot; 15 subtopics</span></span><span class="t-val">11,380</span></li><li><span><span class="t-name">Dog lover Christmas gifts</span><span class="t-hub">Holidays &amp; costumes &middot; 7 subtopics</span></span><span class="t-val">11,380</span></li><li><span><span class="t-name">Cooling dog vest</span><span class="t-hub">Coats &amp; boots &middot; 10 subtopics</span></span><span class="t-val">11,300</span></li><li><span><span class="t-name">Custom dog gifts for owners</span><span class="t-hub">Gifts for pet lovers &middot; 7 subtopics</span></span><span class="t-val">10,400</span></li><li><span><span class="t-name">Dog mom gifts</span><span class="t-hub">Gifts for pet lovers &middot; 6 subtopics</span></span><span class="t-val">10,030</span></li><li><span><span class="t-name">Christmas dog stocking</span><span class="t-hub">Holidays &amp; costumes &middot; 2 subtopics</span></span><span class="t-val">8,800</span></li><li><span><span class="t-name">How to remove dog hair from clothes</span><span class="t-hub">Cold weather &amp; DIY &middot; 14 subtopics</span></span><span class="t-val">6,440</span></li><li><span><span class="t-name">Dachshund dog sweaters</span><span class="t-hub">Dog clothes &amp; sweaters &middot; 3 subtopics</span></span><span class="t-val">6,390</span></li><li><span><span class="t-name">Dog bandanas personalized</span><span class="t-hub">Dog clothes &amp; sweaters &middot; 6 subtopics</span></span><span class="t-val">5,970</span></li><li><span><span class="t-name">Dog clothes French bulldog</span><span class="t-hub">Dog clothes &amp; sweaters &middot; 2 subtopics</span></span><span class="t-val">5,800</span></li><li><span><span class="t-name">How to measure a dog for clothes</span><span class="t-hub">Cold weather &amp; DIY &middot; 13 subtopics</span></span><span class="t-val">5,430</span></li><li><span><span class="t-name">Dog as Christmas present</span><span class="t-hub">Holidays &amp; costumes &middot; 1 subtopic</span></span><span class="t-val">5,400</span></li><li><span><span class="t-name">Custom dog sweaters</span><span class="t-hub">Dog clothes &amp; sweaters &middot; 4 subtopics</span></span><span class="t-val">4,870</span></li><li><span><span class="t-name">Dog boots hot pavement</span><span class="t-hub">Coats &amp; boots &middot; 6 subtopics</span></span><span class="t-val">4,730</span></li><li><span><span class="t-name">Dog clothes for large dogs</span><span class="t-hub">Dog clothes &amp; sweaters &middot; 6 subtopics</span></span><span class="t-val">4,480</span></li><li><span><span class="t-name">Dog clothes luxury</span><span class="t-hub">Dog clothes &amp; sweaters &middot; 5 subtopics</span></span><span class="t-val">4,140</span></li><li><span><span class="t-name">Cat Christmas gifts</span><span class="t-hub">Holidays &amp; costumes &middot; 4 subtopics</span></span><span class="t-val">3,960</span></li><li><span><span class="t-name">Dog clothes customizable</span><span class="t-hub">Dog clothes &amp; sweaters &middot; 5 subtopics</span></span><span class="t-val">3,920</span></li><li><span><span class="t-name">Dog coats Dachshund</span><span class="t-hub">Coats &amp; boots &middot; 3 subtopics</span></span><span class="t-val">3,900</span></li><li><span><span class="t-name">Chihuahua dog clothes</span><span class="t-hub">Dog clothes &amp; sweaters &middot; 2 subtopics</span></span><span class="t-val">3,800</span></li><li><span><span class="t-name">Custom dog hoodie</span><span class="t-hub">Dog clothes &amp; sweaters &middot; 5 subtopics</span></span><span class="t-val">3,600</span></li><li><span><span class="t-name">Dog sweaters French bulldog</span><span class="t-hub">Dog clothes &amp; sweaters &middot; 2 subtopics</span></span><span class="t-val">3,200</span></li><li><span><span class="t-name">Personalized dog pajamas</span><span class="t-hub">Dog clothes &amp; sweaters &middot; 3 subtopics</span></span><span class="t-val">3,000</span></li><li><span><span class="t-name">Affordable dog clothes</span><span class="t-hub">Dog clothes &amp; sweaters &middot; 4 subtopics</span></span><span class="t-val">2,880</span></li><li><span><span class="t-name">Birthday dog clothes</span><span class="t-hub">Holidays &amp; costumes &middot; 5 subtopics</span></span><span class="t-val">2,660</span></li><li><span><span class="t-name">Cat lover funny gifts</span><span class="t-hub">Gifts for pet lovers &middot; 17 subtopics</span></span><span class="t-val">2,550</span></li><li><span><span class="t-name">How to sew dog clothes</span><span class="t-hub">Cold weather &amp; DIY &middot; 8 subtopics</span></span><span class="t-val">2,400</span></li><li><span><span class="t-name">How to make dog sweaters</span><span class="t-hub">Cold weather &amp; DIY &middot; 7 subtopics</span></span><span class="t-val">2,150</span></li><li><span><span class="t-name">Gifts for a cat mom</span><span class="t-hub">Gifts for pet lovers &middot; 5 subtopics</span></span><span class="t-val">2,150</span></li><li><span><span class="t-name">Dog walker gifts</span><span class="t-hub">Gifts for pet lovers &middot; 9 subtopics</span></span><span class="t-val">2,030</span></li><li><span><span class="t-name">Dog sweaters pitbull</span><span class="t-hub">Dog clothes &amp; sweaters &middot; 3 subtopics</span></span><span class="t-val">1,930</span></li><li><span><span class="t-name">Xmas clothes for cats</span><span class="t-hub">Holidays &amp; costumes &middot; 1 subtopic</span></span><span class="t-val">1,900</span></li><li><span><span class="t-name">Yorkshire terrier dog clothes</span><span class="t-hub">Dog clothes &amp; sweaters &middot; 2 subtopics</span></span><span class="t-val">1,760</span></li><li><span><span class="t-name">Chihuahua dog sweaters</span><span class="t-hub">Dog clothes &amp; sweaters &middot; 1 subtopic</span></span><span class="t-val">1,600</span></li><li><span><span class="t-name">Dog groomer gifts</span><span class="t-hub">Gifts for pet lovers &middot; 5 subtopics</span></span><span class="t-val">1,420</span></li><li><span><span class="t-name">Dog gifts baskets</span><span class="t-hub">Gifts for pet lovers &middot; 3 subtopics</span></span><span class="t-val">1,330</span></li><li><span><span class="t-name">Italian greyhound dog sweaters</span><span class="t-hub">Dog clothes &amp; sweaters &middot; 2 subtopics</span></span><span class="t-val">1,310</span></li><li><span><span class="t-name">Dog clothes Italian greyhound</span><span class="t-hub">Dog clothes &amp; sweaters &middot; 1 subtopic</span></span><span class="t-val">1,300</span></li><li><span><span class="t-name">Heated dog clothes</span><span class="t-hub">Dog clothes &amp; sweaters &middot; 3 subtopics</span></span><span class="t-val">1,250</span></li><li><span><span class="t-name">Frenchie dog gifts</span><span class="t-hub">Breed gifts &middot; 1 subtopic</span></span><span class="t-val">1,000</span></li><li><span><span class="t-name">Dog-pattern clothes</span><span class="t-hub">Dog clothes &amp; sweaters &middot; 1 subtopic</span></span><span class="t-val">1,000</span></li><li><span><span class="t-name">Pit bull dog coats</span><span class="t-hub">Coats &amp; boots &middot; 2 subtopics</span></span><span class="t-val">960</span></li><li><span><span class="t-name">Cat daddy gifts</span><span class="t-hub">Gifts for pet lovers &middot; 2 subtopics</span></span><span class="t-val">930</span></li><li><span><span class="t-name">Dog snowsuit with built-in boots</span><span class="t-hub">Coats &amp; boots &middot; 5 subtopics</span></span><span class="t-val">920</span></li><li><span><span class="t-name">Dog Easter clothes</span><span class="t-hub">Holidays &amp; costumes &middot; 3 subtopics</span></span><span class="t-val">900</span></li><li><span><span class="t-name">Keeping dogs safe in cold weather</span><span class="t-hub">Cold weather &amp; DIY &middot; 22 subtopics</span></span><span class="t-val">800</span></li><li><span><span class="t-name">Dog mushing boots</span><span class="t-hub">Coats &amp; boots &middot; 4 subtopics</span></span><span class="t-val">780</span></li><li><span><span class="t-name">Dog sitter gifts</span><span class="t-hub">Gifts for pet lovers &middot; 3 subtopics</span></span><span class="t-val">780</span></li><li><span><span class="t-name">German shepherd dog gifts</span><span class="t-hub">Breed gifts &middot; 2 subtopics</span></span><span class="t-val">780</span></li><li><span><span class="t-name">Pug dog gifts</span><span class="t-hub">Breed gifts &middot; 1 subtopic</span></span><span class="t-val">720</span></li><li><span><span class="t-name">Wiener dog hoodie</span><span class="t-hub">Dog clothes &amp; sweaters &middot; 2 subtopics</span></span><span class="t-val">710</span></li><li><span><span class="t-name">Labrador dog gifts</span><span class="t-hub">Breed gifts &middot; 2 subtopics</span></span><span class="t-val">710</span></li><li><span><span class="t-name">How to make dog boots</span><span class="t-hub">Cold weather &amp; DIY &middot; 7 subtopics</span></span><span class="t-val">690</span></li><li><span><span class="t-name">How to measure a dog for boots</span><span class="t-hub">Cold weather &amp; DIY &middot; 5 subtopics</span></span><span class="t-val">690</span></li><li><span><span class="t-name">Valentine&#x27;s day gifts for dog</span><span class="t-hub">Holidays &amp; costumes &middot; 2 subtopics</span></span><span class="t-val">640</span></li><li><span><span class="t-name">French bulldog dog coats</span><span class="t-hub">Coats &amp; boots &middot; 2 subtopics</span></span><span class="t-val">620</span></li><li><span><span class="t-name">New dog owner gifts</span><span class="t-hub">Gifts for pet lovers &middot; 6 subtopics</span></span><span class="t-val">600</span></li><li><span><span class="t-name">Dog bandanas Halloween</span><span class="t-hub">Holidays &amp; costumes &middot; 1 subtopic</span></span><span class="t-val">600</span></li><li><span><span class="t-name">Puppy dog gifts</span><span class="t-hub">Gifts for pet lovers &middot; 1 subtopic</span></span><span class="t-val">590</span></li><li><span><span class="t-name">Personalized pet gifts for cat owners</span><span class="t-hub">Gifts for pet lovers &middot; 3 subtopics</span></span><span class="t-val">560</span></li><li><span><span class="t-name">Dog trainer gifts</span><span class="t-hub">Gifts for pet lovers &middot; 3 subtopics</span></span><span class="t-val">540</span></li><li><span><span class="t-name">Dog clothes wardrobe</span><span class="t-hub">Dog clothes &amp; sweaters &middot; 4 subtopics</span></span><span class="t-val">520</span></li><li><span><span class="t-name">Gifts for senior dog</span><span class="t-hub">Gifts for pet lovers &middot; 2 subtopics</span></span><span class="t-val">520</span></li><li><span><span class="t-name">Christmas pet photoshoot</span><span class="t-hub">Holidays &amp; costumes &middot; 2 subtopics</span></span><span class="t-val">490</span></li><li><span><span class="t-name">Cavalier King Charles dog gifts</span><span class="t-hub">Breed gifts &middot; 1 subtopic</span></span><span class="t-val">480</span></li><li><span><span class="t-name">How to put boots on a dog</span><span class="t-hub">Cold weather &amp; DIY &middot; 6 subtopics</span></span><span class="t-val">460</span></li><li><span><span class="t-name">Cat lover Christmas gifts</span><span class="t-hub">Holidays &amp; costumes &middot; 6 subtopics</span></span><span class="t-val">440</span></li><li><span><span class="t-name">Cavalier King Charles dog clothes</span><span class="t-hub">Dog clothes &amp; sweaters &middot; 2 subtopics</span></span><span class="t-val">420</span></li><li><span><span class="t-name">Dog bandanas wedding</span><span class="t-hub">Holidays &amp; costumes &middot; 1 subtopic</span></span><span class="t-val">390</span></li><li><span><span class="t-name">Dog costumes Mardi Gras</span><span class="t-hub">Holidays &amp; costumes &middot; 1 subtopic</span></span><span class="t-val">390</span></li><li><span><span class="t-name">Orange cat gifts</span><span class="t-hub">Breed gifts &middot; 2 subtopics</span></span><span class="t-val">350</span></li><li><span><span class="t-name">Dog hoodie pitbull</span><span class="t-hub">Dog clothes &amp; sweaters &middot; 1 subtopic</span></span><span class="t-val">320</span></li><li><span><span class="t-name">Chihuahua dog gifts</span><span class="t-hub">Breed gifts &middot; 1 subtopic</span></span><span class="t-val">320</span></li><li><span><span class="t-name">Dog boots leggings</span><span class="t-hub">Coats &amp; boots &middot; 1 subtopic</span></span><span class="t-val">320</span></li><li><span><span class="t-name">Dog training gifts</span><span class="t-hub">Gifts for pet lovers &middot; 2 subtopics</span></span><span class="t-val">280</span></li><li><span><span class="t-name">Dog photo gifts</span><span class="t-hub">Gifts for pet lovers &middot; 5 subtopics</span></span><span class="t-val">270</span></li><li><span><span class="t-name">Expensive dog gifts</span><span class="t-hub">Gifts for pet lovers &middot; 6 subtopics</span></span><span class="t-val">260</span></li><li><span><span class="t-name">Shih Tzu dog gifts</span><span class="t-hub">Breed gifts &middot; 1 subtopic</span></span><span class="t-val">260</span></li><li><span><span class="t-name">Dog calming hoodie</span><span class="t-hub">Dog clothes &amp; sweaters &middot; 1 subtopic</span></span><span class="t-val">260</span></li><li><span><span class="t-name">Maltese dog sweaters</span><span class="t-hub">Dog clothes &amp; sweaters &middot; 1 subtopic</span></span><span class="t-val">260</span></li><li><span><span class="t-name">Dog boat boots</span><span class="t-hub">Coats &amp; boots &middot; 3 subtopics</span></span><span class="t-val">250</span></li><li><span><span class="t-name">Full coverage dog coats</span><span class="t-hub">Coats &amp; boots &middot; 4 subtopics</span></span><span class="t-val">240</span></li><li><span><span class="t-name">Dogs that do well in cold weather</span><span class="t-hub">Cold weather &amp; DIY &middot; 3 subtopics</span></span><span class="t-val">240</span></li><li><span><span class="t-name">Dog coats for sighthounds</span><span class="t-hub">Coats &amp; boots &middot; 3 subtopics</span></span><span class="t-val">240</span></li><li><span><span class="t-name">Tortie cat gifts</span><span class="t-hub">Breed gifts &middot; 3 subtopics</span></span><span class="t-val">220</span></li><li><span><span class="t-name">Sphynx cat gifts</span><span class="t-hub">Breed gifts &middot; 2 subtopics</span></span><span class="t-val">220</span></li><li><span><span class="t-name">Best small dog gifts</span><span class="t-hub">Gifts for pet lovers &middot; 2 subtopics</span></span><span class="t-val">210</span></li><li><span><span class="t-name">Hot dog clothes</span><span class="t-hub">Dog clothes &amp; sweaters &middot; 1 subtopic</span></span><span class="t-val">210</span></li><li><span><span class="t-name">Scottie dog gifts</span><span class="t-hub">Breed gifts &middot; 1 subtopic</span></span><span class="t-val">210</span></li><li><span><span class="t-name">Luxury gifts for dog lovers</span><span class="t-hub">Gifts for pet lovers &middot; 1 subtopic</span></span><span class="t-val">210</span></li><li><span><span class="t-name">Pomeranian dog gifts</span><span class="t-hub">Breed gifts &middot; 1 subtopic</span></span><span class="t-val">170</span></li><li><span><span class="t-name">Calico cat gifts</span><span class="t-hub">Breed gifts &middot; 1 subtopic</span></span><span class="t-val">170</span></li><li><span><span class="t-name">Dog coats for yorkies</span><span class="t-hub">Coats &amp; boots &middot; 1 subtopic</span></span><span class="t-val">170</span></li><li><span><span class="t-name">Pitbull dog gifts</span><span class="t-hub">Breed gifts &middot; 1 subtopic</span></span><span class="t-val">170</span></li><li><span><span class="t-name">Valentine dog sweaters</span><span class="t-hub">Holidays &amp; costumes &middot; 1 subtopic</span></span><span class="t-val">170</span></li><li><span><span class="t-name">Luxury dog bandanas</span><span class="t-hub">Dog clothes &amp; sweaters &middot; 5 subtopics</span></span><span class="t-val">140</span></li><li><span><span class="t-name">Bernese Mountain dog clothes</span><span class="t-hub">Dog clothes &amp; sweaters &middot; 1 subtopic</span></span><span class="t-val">140</span></li><li><span><span class="t-name">St. Patrick&#x27;s day dog bandanas</span><span class="t-hub">Holidays &amp; costumes &middot; 1 subtopic</span></span><span class="t-val">140</span></li><li><span><span class="t-name">Great Pyrenees dog gifts</span><span class="t-hub">Breed gifts &middot; 1 subtopic</span></span><span class="t-val">140</span></li><li><span><span class="t-name">Luxury gifts for cat lovers</span><span class="t-hub">Gifts for pet lovers &middot; 1 subtopic</span></span><span class="t-val">140</span></li><li><span><span class="t-name">Dog and human gifts</span><span class="t-hub">Gifts for pet lovers &middot; 1 subtopic</span></span><span class="t-val">140</span></li><li><span><span class="t-name">Dalmatian dog gifts</span><span class="t-hub">Breed gifts &middot; 1 subtopic</span></span><span class="t-val">140</span></li><li><span><span class="t-name">Dog cupid costumes</span><span class="t-hub">Holidays &amp; costumes &middot; 1 subtopic</span></span><span class="t-val">140</span></li><li><span><span class="t-name">Bichon Frise dog clothes</span><span class="t-hub">Dog clothes &amp; sweaters &middot; 1 subtopic</span></span><span class="t-val">110</span></li><li><span><span class="t-name">Labradoodle dog gifts</span><span class="t-hub">Breed gifts &middot; 1 subtopic</span></span><span class="t-val">110</span></li><li><span><span class="t-name">Dog coats for poodles</span><span class="t-hub">Coats &amp; boots &middot; 1 subtopic</span></span><span class="t-val">110</span></li><li><span><span class="t-name">Cat Valentine gifts</span><span class="t-hub">Holidays &amp; costumes &middot; 1 subtopic</span></span><span class="t-val">110</span></li><li><span><span class="t-name">Vizsla dog gifts</span><span class="t-hub">Breed gifts &middot; 1 subtopic</span></span><span class="t-val">110</span></li><li><span><span class="t-name">Crochet patterns for dog coats</span><span class="t-hub">Cold weather &amp; DIY &middot; 1 subtopic</span></span><span class="t-val">110</span></li><li><span><span class="t-name">Standard poodle dog sweaters</span><span class="t-hub">Dog clothes &amp; sweaters &middot; 1 subtopic</span></span><span class="t-val">110</span></li><li><span><span class="t-name">Dog boots for knuckling</span><span class="t-hub">Coats &amp; boots &middot; 1 subtopic</span></span><span class="t-val">110</span></li><li><span><span class="t-name">Dogs paws in cold weather</span><span class="t-hub">Cold weather &amp; DIY &middot; 1 subtopic</span></span><span class="t-val">110</span></li><li><span><span class="t-name">Chinese New Year dog costumes</span><span class="t-hub">Holidays &amp; costumes &middot; 1 subtopic</span></span><span class="t-val">110</span></li><li><span><span class="t-name">Dog treat gifts</span><span class="t-hub">Gifts for pet lovers &middot; 2 subtopics</span></span><span class="t-val">90</span></li><li><span><span class="t-name">Hypoallergenic dog clothes</span><span class="t-hub">Dog clothes &amp; sweaters &middot; 2 subtopics</span></span><span class="t-val">90</span></li><li><span><span class="t-name">Clothes for stray dogs</span><span class="t-hub">Dog clothes &amp; sweaters &middot; 1 subtopic</span></span><span class="t-val">90</span></li><li><span><span class="t-name">Corgi dog clothes</span><span class="t-hub">Dog clothes &amp; sweaters &middot; 1 subtopic</span></span><span class="t-val">90</span></li><li><span><span class="t-name">Dog coats Jack Russell</span><span class="t-hub">Coats &amp; boots &middot; 1 subtopic</span></span><span class="t-val">90</span></li><li><span><span class="t-name">Cocker spaniel dog clothes</span><span class="t-hub">Dog clothes &amp; sweaters &middot; 1 subtopic</span></span><span class="t-val">70</span></li><li><span><span class="t-name">Japanese dog clothes</span><span class="t-hub">Dog clothes &amp; sweaters &middot; 1 subtopic</span></span><span class="t-val">70</span></li><li><span><span class="t-name">Saint Patrick&#x27;s day dog clothes</span><span class="t-hub">Holidays &amp; costumes &middot; 1 subtopic</span></span><span class="t-val">70</span></li><li><span><span class="t-name">Dog sweaters for miniature schnauzers</span><span class="t-hub">Dog clothes &amp; sweaters &middot; 1 subtopic</span></span><span class="t-val">70</span></li><li><span><span class="t-name">Dog Easter sweaters</span><span class="t-hub">Holidays &amp; costumes &middot; 1 subtopic</span></span><span class="t-val">70</span></li><li><span><span class="t-name">Dog graduation clothes</span><span class="t-hub">Holidays &amp; costumes &middot; 1 subtopic</span></span><span class="t-val">70</span></li><li><span><span class="t-name">Dog bandanas sports</span><span class="t-hub">Dog clothes &amp; sweaters &middot; 2 subtopics</span></span><span class="t-val">60</span></li><li><span><span class="t-name">Does cold weather make arthritis worse in dogs?</span><span class="t-hub">Cold weather &amp; DIY &middot; 2 subtopics</span></span><span class="t-val">60</span></li><li><span><span class="t-name">Dog coats for Cane Corso</span><span class="t-hub">Coats &amp; boots &middot; 1 subtopic</span></span><span class="t-val">50</span></li><li><span><span class="t-name">Crochet dog boots</span><span class="t-hub">Cold weather &amp; DIY &middot; 1 subtopic</span></span><span class="t-val">50</span></li><li><span><span class="t-name">Cockapoo dog coats</span><span class="t-hub">Coats &amp; boots &middot; 1 subtopic</span></span><span class="t-val">50</span></li><li><span><span class="t-name">Valentine&#x27;s day pet photoshoot</span><span class="t-hub">Holidays &amp; costumes &middot; 2 subtopics</span></span><span class="t-val">40</span></li><li><span><span class="t-name">Dog coats Pomeranian</span><span class="t-hub">Coats &amp; boots &middot; 1 subtopic</span></span><span class="t-val">40</span></li><li><span><span class="t-name">Dog boots video guide</span><span class="t-hub">Coats &amp; boots &middot; 1 subtopic</span></span><span class="t-val">40</span></li><li><span><span class="t-name">What yarn is best for dog sweaters?</span><span class="t-hub">Cold weather &amp; DIY &middot; 2 subtopics</span></span><span class="t-val">30</span></li><li><span><span class="t-name">Can cold weather cause seizures in dogs?</span><span class="t-hub">Cold weather &amp; DIY &middot; 2 subtopics</span></span><span class="t-val">30</span></li><li><span><span class="t-name">Dog coats for cavapoo</span><span class="t-hub">Coats &amp; boots &middot; 1 subtopic</span></span><span class="t-val">30</span></li><li><span><span class="t-name">Dog boots for corns</span><span class="t-hub">Coats &amp; boots &middot; 1 subtopic</span></span><span class="t-val">30</span></li><li><span><span class="t-name">Custom dog boots</span><span class="t-hub">Coats &amp; boots &middot; 1 subtopic</span></span><span class="t-val">30</span></li><li><span><span class="t-name">Eid clothes for cats</span><span class="t-hub">Holidays &amp; costumes &middot; 2 subtopics</span></span><span class="t-val">20</span></li><li><span><span class="t-name">Do dogs need more food in cold weather?</span><span class="t-hub">Cold weather &amp; DIY &middot; 2 subtopics</span></span><span class="t-val">20</span></li><li><span><span class="t-name">Boston terrier dog coats</span><span class="t-hub">Coats &amp; boots &middot; 1 subtopic</span></span><span class="t-val">20</span></li><li><span><span class="t-name">Graduation dog bandanas</span><span class="t-hub">Holidays &amp; costumes &middot; 1 subtopic</span></span><span class="t-val">20</span></li><li><span><span class="t-name">Weimaraner dog coats</span><span class="t-hub">Coats &amp; boots &middot; 1 subtopic</span></span><span class="t-val">20</span></li><li><span><span class="t-name">Cat Easter gifts</span><span class="t-hub">Holidays &amp; costumes &middot; 1 subtopic</span></span><span class="t-val">20</span></li><li><span><span class="t-name">Do dogs sleep more in cold weather?</span><span class="t-hub">Cold weather &amp; DIY &middot; 1 subtopic</span></span><span class="t-val">20</span></li><li><span><span class="t-name">Spring dog sweaters</span><span class="t-hub">Dog clothes &amp; sweaters &middot; 1 subtopic</span></span><span class="t-val">20</span></li><li><span><span class="t-name">Baxter Boo dog sweaters</span><span class="t-hub">Dog clothes &amp; sweaters &middot; 1 subtopic</span></span><span class="t-val">10</span></li><li><span><span class="t-name">Dog waterproof coats for Bichon Frise</span><span class="t-hub">Coats &amp; boots &middot; 1 subtopic</span></span><span class="t-val">10</span></li><li><span><span class="t-name">Free crochet dog sweaters beginners</span><span class="t-hub">Cold weather &amp; DIY &middot; 1 subtopic</span></span><span class="t-val">10</span></li><li><span><span class="t-name">Cat graduation gifts</span><span class="t-hub">Holidays &amp; costumes &middot; 1 subtopic</span></span><span class="t-val">10</span></li><li><span><span class="t-name">Personalized dog mugs</span><span class="t-hub">Gifts for pet lovers &middot; 1 subtopic</span></span><span class="t-val">10</span></li><li><span><span class="t-name">Birthday party dog cake</span><span class="t-hub">Holidays &amp; costumes &middot; 1 subtopic</span></span><span class="t-val">10</span></li></ul></div>
+    </details>
+  </div>
+</section>
+
+<!-- ============ 07 - GROOMING ============ -->
+<section class="slide s-light" id="grooming">
+  <span class="marker">07 - Grooming</span>
+  <div class="slide-inner">
+    <div class="step-row" style="margin-bottom:22px;">
+      <div class="eyebrow" style="margin-bottom:0;">Hub 02 &middot; Grooming, Skin &amp; Coat Care</div>
+      <span class="week week-l">89 pages</span>
+    </div>
+    <h2>Shampoos, brushes and healthy skin and coats</h2>
+    <p class="lead muted-l" style="margin-top:14px; max-width:760px;">Dog shampoo leads the hub at 193,260 searches a month, with hypoallergenic dog shampoo at 99,940 and dry skin in dogs at 69,180. Cat shedding covers 139 subtopics. The hub covers dog shampoos, brushes and deshedding tools, slicker brushes for more than 20 breeds, cat grooming and shedding, and skin, ear, teeth and paw care.</p>
+    <p class="cap muted-l45" style="margin-top:10px;">1,089,180 monthly searches across 89 pages and 716 subtopics.</p>
+    <p class="later-hint"><span class="later-n">+198</span> more topics planned for this hub after March</p>
+    <div class="grid g2" style="margin-top:28px;">
+      <div class="card card-light">
+        <h4 class="title-sm">Biggest demand</h4>
+        <p class="cap muted-l45" style="margin-top:6px;">Monthly searches for the hub&#x27;s largest pages</p>
+        <ul class="tlist"><li><span><span class="t-name">Dog shampoo</span><span class="t-hub">Dog shampoos &middot; 16 subtopics</span></span><span class="t-val">193,260</span></li><li><span><span class="t-name">Hypoallergenic dog shampoo</span><span class="t-hub">Dog shampoos &middot; 21 subtopics</span></span><span class="t-val">99,940</span></li><li><span><span class="t-name">Dry skin in dogs</span><span class="t-hub">Skin, ears, teeth &amp; paws &middot; 28 subtopics</span></span><span class="t-val">69,180</span></li><li><span><span class="t-name">Antifungal dog shampoo</span><span class="t-hub">Dog shampoos &middot; 8 subtopics</span></span><span class="t-val">60,930</span></li><li><span><span class="t-name">Cat shedding</span><span class="t-hub">Cat grooming &amp; shedding &middot; 139 subtopics</span></span><span class="t-val">60,400</span></li><li><span><span class="t-name">Dog brushes</span><span class="t-hub">Brushes &amp; deshedding tools &middot; 8 subtopics</span></span><span class="t-val">53,890</span></li></ul>
+      </div>
+      <div class="card card-light">
+        <h4 class="title-sm">What the hub covers</h4>
+        <p class="cap muted-l45" style="margin-top:6px;">Scheduled pages by theme</p>
+        <ul class="tlist"><li><span><span class="t-name">Brushes for specific breeds</span><span class="t-hub">30% of the hub</span></span><span class="t-val">27 pages</span></li><li><span><span class="t-name">Cat grooming &amp; shedding</span><span class="t-hub">20% of the hub</span></span><span class="t-val">18 pages</span></li><li><span><span class="t-name">Dog shampoos</span><span class="t-hub">16% of the hub</span></span><span class="t-val">14 pages</span></li><li><span><span class="t-name">Skin, ears, teeth &amp; paws</span><span class="t-hub">13% of the hub</span></span><span class="t-val">12 pages</span></li><li><span><span class="t-name">Brushes &amp; deshedding tools</span><span class="t-hub">12% of the hub</span></span><span class="t-val">11 pages</span></li><li><span><span class="t-name">Bathing &amp; shedding</span><span class="t-hub">8% of the hub</span></span><span class="t-val">7 pages</span></li></ul>
+      </div>
+    </div>
+    <details class="all">
+      <summary>All 89 Grooming, Skin &amp; Coat Care pages</summary>
+      <div class="card card-light allcard"><ul class="tlist cols"><li><span><span class="t-name">Dog shampoo</span><span class="t-hub">Dog shampoos &middot; 16 subtopics</span></span><span class="t-val">193,260</span></li><li><span><span class="t-name">Hypoallergenic dog shampoo</span><span class="t-hub">Dog shampoos &middot; 21 subtopics</span></span><span class="t-val">99,940</span></li><li><span><span class="t-name">Dry skin in dogs</span><span class="t-hub">Skin, ears, teeth &amp; paws &middot; 28 subtopics</span></span><span class="t-val">69,180</span></li><li><span><span class="t-name">Antifungal dog shampoo</span><span class="t-hub">Dog shampoos &middot; 8 subtopics</span></span><span class="t-val">60,930</span></li><li><span><span class="t-name">Cat shedding</span><span class="t-hub">Cat grooming &amp; shedding &middot; 139 subtopics</span></span><span class="t-val">60,400</span></li><li><span><span class="t-name">Dog brushes</span><span class="t-hub">Brushes &amp; deshedding tools &middot; 8 subtopics</span></span><span class="t-val">53,890</span></li><li><span><span class="t-name">Cat shampoo</span><span class="t-hub">Cat grooming &amp; shedding &middot; 9 subtopics</span></span><span class="t-val">53,360</span></li><li><span><span class="t-name">Deshedding brushes for dogs</span><span class="t-hub">Brushes &amp; deshedding tools &middot; 12 subtopics</span></span><span class="t-val">53,120</span></li><li><span><span class="t-name">Slicker brushes</span><span class="t-hub">Brushes &amp; deshedding tools &middot; 70 subtopics</span></span><span class="t-val">43,580</span></li><li><span><span class="t-name">How to clean a dog&#x27;s ears</span><span class="t-hub">Skin, ears, teeth &amp; paws &middot; 8 subtopics</span></span><span class="t-val">41,520</span></li><li><span><span class="t-name">Best cat brush shedding</span><span class="t-hub">Cat grooming &amp; shedding &middot; 11 subtopics</span></span><span class="t-val">32,240</span></li><li><span><span class="t-name">Dog flea shampoo</span><span class="t-hub">Dog shampoos &middot; 7 subtopics</span></span><span class="t-val">31,650</span></li><li><span><span class="t-name">Cat grooming brushes</span><span class="t-hub">Cat grooming &amp; shedding &middot; 5 subtopics</span></span><span class="t-val">22,600</span></li><li><span><span class="t-name">Deshedding dog shampoo</span><span class="t-hub">Dog shampoos &middot; 7 subtopics</span></span><span class="t-val">22,470</span></li><li><span><span class="t-name">Dog and cat brushing teeth</span><span class="t-hub">Skin, ears, teeth &amp; paws &middot; 20 subtopics</span></span><span class="t-val">20,190</span></li><li><span><span class="t-name">Dog tear stains</span><span class="t-hub">Skin, ears, teeth &amp; paws &middot; 45 subtopics</span></span><span class="t-val">19,900</span></li><li><span><span class="t-name">Bathing dog</span><span class="t-hub">Bathing &amp; shedding &middot; 4 subtopics</span></span><span class="t-val">17,880</span></li><li><span><span class="t-name">How to remove matted fur from a cat</span><span class="t-hub">Cat grooming &amp; shedding &middot; 66 subtopics</span></span><span class="t-val">17,840</span></li><li><span><span class="t-name">Can you use human shampoo on a dog?</span><span class="t-hub">Dog shampoos &middot; 10 subtopics</span></span><span class="t-val">16,860</span></li><li><span><span class="t-name">Dog shampoo containing chlorhexidine</span><span class="t-hub">Dog shampoos &middot; 3 subtopics</span></span><span class="t-val">16,200</span></li><li><span><span class="t-name">Puppy dog shampoo</span><span class="t-hub">Dog shampoos &middot; 3 subtopics</span></span><span class="t-val">15,670</span></li><li><span><span class="t-name">Why is my dog not shedding?</span><span class="t-hub">Bathing &amp; shedding &middot; 1 subtopic</span></span><span class="t-val">12,100</span></li><li><span><span class="t-name">Dog ear cleaning supplies</span><span class="t-hub">Skin, ears, teeth &amp; paws &middot; 5 subtopics</span></span><span class="t-val">9,130</span></li><li><span><span class="t-name">Cat hypoallergenic shampoo</span><span class="t-hub">Cat grooming &amp; shedding &middot; 4 subtopics</span></span><span class="t-val">6,430</span></li><li><span><span class="t-name">Dog shampoo natural</span><span class="t-hub">Dog shampoos &middot; 5 subtopics</span></span><span class="t-val">5,870</span></li><li><span><span class="t-name">Best dog food to reduce shedding</span><span class="t-hub">Bathing &amp; shedding &middot; 6 subtopics</span></span><span class="t-val">5,680</span></li><li><span><span class="t-name">Slicker brush for long haired Dachshund</span><span class="t-hub">Brushes for specific breeds &middot; 1 subtopic</span></span><span class="t-val">5,400</span></li><li><span><span class="t-name">Bathing a dog with fleas</span><span class="t-hub">Bathing &amp; shedding &middot; 1 subtopic</span></span><span class="t-val">5,400</span></li><li><span><span class="t-name">Dog hair lint brush</span><span class="t-hub">Brushes &amp; deshedding tools &middot; 1 subtopic</span></span><span class="t-val">5,400</span></li><li><span><span class="t-name">Poodle dog brush</span><span class="t-hub">Brushes for specific breeds &middot; 3 subtopics</span></span><span class="t-val">4,550</span></li><li><span><span class="t-name">Can I use cat shampoo on my dog?</span><span class="t-hub">Cat grooming &amp; shedding &middot; 3 subtopics</span></span><span class="t-val">4,390</span></li><li><span><span class="t-name">Best brush long hair cat</span><span class="t-hub">Cat grooming &amp; shedding &middot; 5 subtopics</span></span><span class="t-val">4,120</span></li><li><span><span class="t-name">Dog mite shampoo</span><span class="t-hub">Dog shampoos &middot; 2 subtopics</span></span><span class="t-val">3,900</span></li><li><span><span class="t-name">Slicker brush for husky</span><span class="t-hub">Brushes for specific breeds &middot; 3 subtopics</span></span><span class="t-val">3,790</span></li><li><span><span class="t-name">Pomeranian slicker brush</span><span class="t-hub">Brushes for specific breeds &middot; 2 subtopics</span></span><span class="t-val">3,630</span></li><li><span><span class="t-name">Brush dog vacuum</span><span class="t-hub">Brushes &amp; deshedding tools &middot; 2 subtopics</span></span><span class="t-val">2,910</span></li><li><span><span class="t-name">Cat paw care</span><span class="t-hub">Skin, ears, teeth &amp; paws &middot; 1 subtopic</span></span><span class="t-val">2,900</span></li><li><span><span class="t-name">Dog shedding supplement</span><span class="t-hub">Bathing &amp; shedding &middot; 2 subtopics</span></span><span class="t-val">2,660</span></li><li><span><span class="t-name">Medicated shampoo for cat</span><span class="t-hub">Cat grooming &amp; shedding &middot; 1 subtopic</span></span><span class="t-val">2,400</span></li><li><span><span class="t-name">Shorthair cat brush</span><span class="t-hub">Cat grooming &amp; shedding &middot; 4 subtopics</span></span><span class="t-val">2,390</span></li><li><span><span class="t-name">Slicker brush for border collie</span><span class="t-hub">Brushes for specific breeds &middot; 3 subtopics</span></span><span class="t-val">2,330</span></li><li><span><span class="t-name">Cracked dog paws</span><span class="t-hub">Skin, ears, teeth &amp; paws &middot; 6 subtopics</span></span><span class="t-val">1,850</span></li><li><span><span class="t-name">Slicker brush for yorkie</span><span class="t-hub">Brushes for specific breeds &middot; 2 subtopics</span></span><span class="t-val">1,760</span></li><li><span><span class="t-name">Dog bathing sprayers</span><span class="t-hub">Bathing &amp; shedding &middot; 5 subtopics</span></span><span class="t-val">1,700</span></li><li><span><span class="t-name">Best cat food for shedding</span><span class="t-hub">Cat grooming &amp; shedding &middot; 12 subtopics</span></span><span class="t-val">1,620</span></li><li><span><span class="t-name">Slicker brush for Cavalier King Charles spaniel</span><span class="t-hub">Brushes for specific breeds &middot; 2 subtopics</span></span><span class="t-val">1,610</span></li><li><span><span class="t-name">How to use a slicker brush</span><span class="t-hub">Brushes &amp; deshedding tools &middot; 19 subtopics</span></span><span class="t-val">1,600</span></li><li><span><span class="t-name">Slicker brush for Bernese Mountain dog</span><span class="t-hub">Brushes for specific breeds &middot; 3 subtopics</span></span><span class="t-val">1,520</span></li><li><span><span class="t-name">Cat shedding season</span><span class="t-hub">Cat grooming &amp; shedding &middot; 25 subtopics</span></span><span class="t-val">1,260</span></li><li><span><span class="t-name">Dog dandruff vs. flea eggs</span><span class="t-hub">Skin, ears, teeth &amp; paws &middot; 3 subtopics</span></span><span class="t-val">1,240</span></li><li><span><span class="t-name">Slicker brushes for Great Pyrenees</span><span class="t-hub">Brushes for specific breeds &middot; 3 subtopics</span></span><span class="t-val">1,220</span></li><li><span><span class="t-name">Slicker brush for labradoodle</span><span class="t-hub">Brushes for specific breeds &middot; 1 subtopic</span></span><span class="t-val">1,000</span></li><li><span><span class="t-name">Dog shampoo for Yorkshire terriers</span><span class="t-hub">Dog shampoos &middot; 1 subtopic</span></span><span class="t-val">1,000</span></li><li><span><span class="t-name">Slicker brush for double-coated dogs</span><span class="t-hub">Brushes for specific breeds &middot; 2 subtopics</span></span><span class="t-val">980</span></li><li><span><span class="t-name">Slicker brush for Labrador</span><span class="t-hub">Brushes for specific breeds &middot; 3 subtopics</span></span><span class="t-val">940</span></li><li><span><span class="t-name">Slicker brush for maltipoo</span><span class="t-hub">Brushes for specific breeds &middot; 1 subtopic</span></span><span class="t-val">880</span></li><li><span><span class="t-name">Slicker brush for Shiba Inu</span><span class="t-hub">Brushes for specific breeds &middot; 3 subtopics</span></span><span class="t-val">810</span></li><li><span><span class="t-name">Dog paw balm</span><span class="t-hub">Skin, ears, teeth &amp; paws &middot; 11 subtopics</span></span><span class="t-val">780</span></li><li><span><span class="t-name">Best cat brush for matted fur</span><span class="t-hub">Cat grooming &amp; shedding &middot; 6 subtopics</span></span><span class="t-val">780</span></li><li><span><span class="t-name">Slicker brush for long haired dogs</span><span class="t-hub">Brushes for specific breeds &middot; 2 subtopics</span></span><span class="t-val">730</span></li><li><span><span class="t-name">Cat ringworm shampoo</span><span class="t-hub">Cat grooming &amp; shedding &middot; 1 subtopic</span></span><span class="t-val">720</span></li><li><span><span class="t-name">Miconazole dog shampoo</span><span class="t-hub">Dog shampoos &middot; 1 subtopic</span></span><span class="t-val">720</span></li><li><span><span class="t-name">Slicker brush for Samoyed</span><span class="t-hub">Brushes for specific breeds &middot; 2 subtopics</span></span><span class="t-val">660</span></li><li><span><span class="t-name">Slicker brush cockapoo</span><span class="t-hub">Brushes for specific breeds &middot; 2 subtopics</span></span><span class="t-val">600</span></li><li><span><span class="t-name">Dog shampoo for poison ivy</span><span class="t-hub">Dog shampoos &middot; 1 subtopic</span></span><span class="t-val">590</span></li><li><span><span class="t-name">Slicker brush for pomsky</span><span class="t-hub">Brushes for specific breeds &middot; 2 subtopics</span></span><span class="t-val">530</span></li><li><span><span class="t-name">Dog shampoo for long hair Chihuahua</span><span class="t-hub">Dog shampoos &middot; 1 subtopic</span></span><span class="t-val">480</span></li><li><span><span class="t-name">Cat undercoat rake</span><span class="t-hub">Cat grooming &amp; shedding &middot; 1 subtopic</span></span><span class="t-val">390</span></li><li><span><span class="t-name">Deshedding nozzle</span><span class="t-hub">Brushes &amp; deshedding tools &middot; 1 subtopic</span></span><span class="t-val">390</span></li><li><span><span class="t-name">Professional dog clippers for thick coats</span><span class="t-hub">Brushes &amp; deshedding tools &middot; 3 subtopics</span></span><span class="t-val">320</span></li><li><span><span class="t-name">Slicker brush for Rottweiler</span><span class="t-hub">Brushes for specific breeds &middot; 2 subtopics</span></span><span class="t-val">280</span></li><li><span><span class="t-name">Slicker brush for Havanese</span><span class="t-hub">Brushes for specific breeds &middot; 2 subtopics</span></span><span class="t-val">260</span></li><li><span><span class="t-name">Dog nail trimming scissors</span><span class="t-hub">Brushes &amp; deshedding tools &middot; 1 subtopic</span></span><span class="t-val">260</span></li><li><span><span class="t-name">Cat shedding blade</span><span class="t-hub">Cat grooming &amp; shedding &middot; 2 subtopics</span></span><span class="t-val">220</span></li><li><span><span class="t-name">Slicker brush for Chihuahua</span><span class="t-hub">Brushes for specific breeds &middot; 1 subtopic</span></span><span class="t-val">210</span></li><li><span><span class="t-name">Slicker vs. deshedding brush</span><span class="t-hub">Brushes &amp; deshedding tools &middot; 9 subtopics</span></span><span class="t-val">170</span></li><li><span><span class="t-name">Slicker brush Maltese</span><span class="t-hub">Brushes for specific breeds &middot; 1 subtopic</span></span><span class="t-val">170</span></li><li><span><span class="t-name">Best slicker brush for doodles</span><span class="t-hub">Brushes for specific breeds &middot; 2 subtopics</span></span><span class="t-val">140</span></li><li><span><span class="t-name">Slicker brush for border terrier</span><span class="t-hub">Brushes for specific breeds &middot; 1 subtopic</span></span><span class="t-val">140</span></li><li><span><span class="t-name">Dog mouth opener for brushing teeth</span><span class="t-hub">Skin, ears, teeth &amp; paws &middot; 2 subtopics</span></span><span class="t-val">130</span></li><li><span><span class="t-name">Slicker brush for collies</span><span class="t-hub">Brushes for specific breeds &middot; 1 subtopic</span></span><span class="t-val">110</span></li><li><span><span class="t-name">Dog shakes head after ear cleaning</span><span class="t-hub">Skin, ears, teeth &amp; paws &middot; 1 subtopic</span></span><span class="t-val">90</span></li><li><span><span class="t-name">Cat brushing post</span><span class="t-hub">Cat grooming &amp; shedding &middot; 4 subtopics</span></span><span class="t-val">80</span></li><li><span><span class="t-name">Best dog food for coats</span><span class="t-hub">Bathing &amp; shedding &middot; 1 subtopic</span></span><span class="t-val">70</span></li><li><span><span class="t-name">Pin slicker brushes</span><span class="t-hub">Brushes for specific breeds &middot; 1 subtopic</span></span><span class="t-val">60</span></li><li><span><span class="t-name">Undercoat rake for Keeshond</span><span class="t-hub">Brushes for specific breeds &middot; 1 subtopic</span></span><span class="t-val">20</span></li><li><span><span class="t-name">Removing cat urine from coir matting</span><span class="t-hub">Cat grooming &amp; shedding &middot; 2 subtopics</span></span><span class="t-val">10</span></li><li><span><span class="t-name">Self-cleaning slicker brush</span><span class="t-hub">Brushes &amp; deshedding tools &middot; 1 subtopic</span></span><span class="t-val">10</span></li><li><span><span class="t-name">Dog paw balm vs. wax</span><span class="t-hub">Skin, ears, teeth &amp; paws &middot; 1 subtopic</span></span><span class="t-val">10</span></li></ul></div>
+    </details>
+  </div>
+</section>
+
+<!-- ============ 08 - WELLNESS ============ -->
+<section class="slide s-paper" id="wellness">
+  <span class="marker">08 - Wellness</span>
+  <div class="slide-inner">
+    <div class="step-row" style="margin-bottom:22px;">
+      <div class="eyebrow" style="margin-bottom:0;">Hub 03 &middot; Preventive Care &amp; Pet Wellness</div>
+      <span class="week week-l">76 pages</span>
+    </div>
+    <h2>Heartworm, fleas and ticks, and everyday pet health</h2>
+    <p class="lead muted-l" style="margin-top:14px; max-width:760px;">Heartworm prevention for dogs leads the hub at 413,040 searches a month, with flea and tick medication at 409,610 and preventing heartworm at 271,870. The hub covers heartworm, flea and tick prevention, vaccines and deworming, ear, skin and allergy problems, cat hairballs and vomiting, and joints, pain and prescription diets, linking to Baxter Boo&#x27;s pet pharmacy.</p>
+    <p class="cap muted-l45" style="margin-top:10px;">3,484,840 monthly searches across 76 pages and 671 subtopics.</p>
+    <p class="later-hint"><span class="later-n">+222</span> more topics planned for this hub after March</p>
+    <div class="grid g2" style="margin-top:28px;">
+      <div class="card card-light">
+        <h4 class="title-sm">Biggest demand</h4>
+        <p class="cap muted-l45" style="margin-top:6px;">Monthly searches for the hub&#x27;s largest pages</p>
+        <ul class="tlist"><li><span><span class="t-name">Heartworm prevention for dogs</span><span class="t-hub">Heartworm &middot; 13 subtopics</span></span><span class="t-val">413,040</span></li><li><span><span class="t-name">Flea and tick medication for dogs</span><span class="t-hub">Flea &amp; tick prevention &middot; 29 subtopics</span></span><span class="t-val">409,610</span></li><li><span><span class="t-name">How to prevent heartworm in dogs</span><span class="t-hub">Heartworm &middot; 7 subtopics</span></span><span class="t-val">271,870</span></li><li><span><span class="t-name">Dog ear infections</span><span class="t-hub">Ears, skin &amp; allergies &middot; 5 subtopics</span></span><span class="t-val">242,500</span></li><li><span><span class="t-name">Kennel cough treatment</span><span class="t-hub">Vaccines &amp; deworming &middot; 9 subtopics</span></span><span class="t-val">226,600</span></li><li><span><span class="t-name">Heartworm</span><span class="t-hub">Heartworm &middot; 12 subtopics</span></span><span class="t-val">196,500</span></li></ul>
+      </div>
+      <div class="card card-light">
+        <h4 class="title-sm">What the hub covers</h4>
+        <p class="cap muted-l45" style="margin-top:6px;">Scheduled pages by theme</p>
+        <ul class="tlist"><li><span><span class="t-name">Flea &amp; tick prevention</span><span class="t-hub">28% of the hub</span></span><span class="t-val">21 pages</span></li><li><span><span class="t-name">Joints, pain &amp; special diets</span><span class="t-hub">24% of the hub</span></span><span class="t-val">18 pages</span></li><li><span><span class="t-name">Vaccines &amp; deworming</span><span class="t-hub">16% of the hub</span></span><span class="t-val">12 pages</span></li><li><span><span class="t-name">Cat hairballs &amp; vomiting</span><span class="t-hub">14% of the hub</span></span><span class="t-val">11 pages</span></li><li><span><span class="t-name">Ears, skin &amp; allergies</span><span class="t-hub">12% of the hub</span></span><span class="t-val">9 pages</span></li><li><span><span class="t-name">Heartworm</span><span class="t-hub">7% of the hub</span></span><span class="t-val">5 pages</span></li></ul>
+      </div>
+    </div>
+    <details class="all">
+      <summary>All 76 Preventive Care &amp; Pet Wellness pages</summary>
+      <div class="card card-light allcard"><ul class="tlist cols"><li><span><span class="t-name">Heartworm prevention for dogs</span><span class="t-hub">Heartworm &middot; 13 subtopics</span></span><span class="t-val">413,040</span></li><li><span><span class="t-name">Flea and tick medication for dogs</span><span class="t-hub">Flea &amp; tick prevention &middot; 29 subtopics</span></span><span class="t-val">409,610</span></li><li><span><span class="t-name">How to prevent heartworm in dogs</span><span class="t-hub">Heartworm &middot; 7 subtopics</span></span><span class="t-val">271,870</span></li><li><span><span class="t-name">Dog ear infections</span><span class="t-hub">Ears, skin &amp; allergies &middot; 5 subtopics</span></span><span class="t-val">242,500</span></li><li><span><span class="t-name">Kennel cough treatment</span><span class="t-hub">Vaccines &amp; deworming &middot; 9 subtopics</span></span><span class="t-val">226,600</span></li><li><span><span class="t-name">Heartworm</span><span class="t-hub">Heartworm &middot; 12 subtopics</span></span><span class="t-val">196,500</span></li><li><span><span class="t-name">Dog dewormer medication</span><span class="t-hub">Vaccines &amp; deworming &middot; 27 subtopics</span></span><span class="t-val">190,950</span></li><li><span><span class="t-name">Puppy vaccination schedule</span><span class="t-hub">Vaccines &amp; deworming &middot; 72 subtopics</span></span><span class="t-val">188,900</span></li><li><span><span class="t-name">Ear mites in dogs</span><span class="t-hub">Ears, skin &amp; allergies &middot; 4 subtopics</span></span><span class="t-val">181,600</span></li><li><span><span class="t-name">Arthritis in dogs</span><span class="t-hub">Joints, pain &amp; special diets &middot; 16 subtopics</span></span><span class="t-val">168,600</span></li><li><span><span class="t-name">Heartworm prevention in puppies</span><span class="t-hub">Heartworm &middot; 5 subtopics</span></span><span class="t-val">156,920</span></li><li><span><span class="t-name">How to help with cat hairballs</span><span class="t-hub">Cat hairballs &amp; vomiting &middot; 60 subtopics</span></span><span class="t-val">156,010</span></li><li><span><span class="t-name">Cat vomiting</span><span class="t-hub">Cat hairballs &amp; vomiting &middot; 15 subtopics</span></span><span class="t-val">124,000</span></li><li><span><span class="t-name">Kennel cough vaccine</span><span class="t-hub">Vaccines &amp; deworming &middot; 5 subtopics</span></span><span class="t-val">121,520</span></li><li><span><span class="t-name">What pain relief can I give my dog?</span><span class="t-hub">Joints, pain &amp; special diets &middot; 13 subtopics</span></span><span class="t-val">84,670</span></li><li><span><span class="t-name">Flea and tick medication for cats</span><span class="t-hub">Flea &amp; tick prevention &middot; 10 subtopics</span></span><span class="t-val">77,610</span></li><li><span><span class="t-name">Can a dog take allergy medicine?</span><span class="t-hub">Ears, skin &amp; allergies &middot; 8 subtopics</span></span><span class="t-val">62,160</span></li><li><span><span class="t-name">Itchy skin dog</span><span class="t-hub">Ears, skin &amp; allergies &middot; 59 subtopics</span></span><span class="t-val">34,530</span></li><li><span><span class="t-name">Best dog joint supplements</span><span class="t-hub">Joints, pain &amp; special diets &middot; 22 subtopics</span></span><span class="t-val">30,320</span></li><li><span><span class="t-name">Oral flea prevention for dogs</span><span class="t-hub">Flea &amp; tick prevention &middot; 9 subtopics</span></span><span class="t-val">21,670</span></li><li><span><span class="t-name">Cat vomiting after eating</span><span class="t-hub">Cat hairballs &amp; vomiting &middot; 6 subtopics</span></span><span class="t-val">20,780</span></li><li><span><span class="t-name">Parvovirus puppy vaccinations</span><span class="t-hub">Vaccines &amp; deworming &middot; 1 subtopic</span></span><span class="t-val">14,800</span></li><li><span><span class="t-name">Cat food urinary tract health</span><span class="t-hub">Joints, pain &amp; special diets &middot; 15 subtopics</span></span><span class="t-val">12,560</span></li><li><span><span class="t-name">Online pet pharmacy</span><span class="t-hub">Joints, pain &amp; special diets &middot; 6 subtopics</span></span><span class="t-val">9,680</span></li><li><span><span class="t-name">Cat vomiting blood</span><span class="t-hub">Cat hairballs &amp; vomiting &middot; 2 subtopics</span></span><span class="t-val">8,200</span></li><li><span><span class="t-name">Natural flea prevention dogs</span><span class="t-hub">Flea &amp; tick prevention &middot; 14 subtopics</span></span><span class="t-val">7,990</span></li><li><span><span class="t-name">Cat daily vomiting</span><span class="t-hub">Cat hairballs &amp; vomiting &middot; 3 subtopics</span></span><span class="t-val">7,600</span></li><li><span><span class="t-name">Antiseptic for dog hot spots</span><span class="t-hub">Ears, skin &amp; allergies &middot; 3 subtopics</span></span><span class="t-val">5,500</span></li><li><span><span class="t-name">Arthritis dog supplement</span><span class="t-hub">Joints, pain &amp; special diets &middot; 1 subtopic</span></span><span class="t-val">4,400</span></li><li><span><span class="t-name">OTC dog dewormer</span><span class="t-hub">Vaccines &amp; deworming &middot; 3 subtopics</span></span><span class="t-val">3,700</span></li><li><span><span class="t-name">Flea and tick prevention for dogs side effects</span><span class="t-hub">Flea &amp; tick prevention &middot; 6 subtopics</span></span><span class="t-val">3,540</span></li><li><span><span class="t-name">Natural flea prevention cats</span><span class="t-hub">Flea &amp; tick prevention &middot; 4 subtopics</span></span><span class="t-val">2,950</span></li><li><span><span class="t-name">Dog dewormer schedule</span><span class="t-hub">Vaccines &amp; deworming &middot; 8 subtopics</span></span><span class="t-val">2,920</span></li><li><span><span class="t-name">How often should a cat have hairballs?</span><span class="t-hub">Cat hairballs &amp; vomiting &middot; 37 subtopics</span></span><span class="t-val">2,830</span></li><li><span><span class="t-name">Flea and tick prevention for dogs topical</span><span class="t-hub">Flea &amp; tick prevention &middot; 3 subtopics</span></span><span class="t-val">2,200</span></li><li><span><span class="t-name">Dewormer dog side effects</span><span class="t-hub">Vaccines &amp; deworming &middot; 10 subtopics</span></span><span class="t-val">2,110</span></li><li><span><span class="t-name">Cat diarrhea probiotics</span><span class="t-hub">Cat hairballs &amp; vomiting &middot; 2 subtopics</span></span><span class="t-val">1,910</span></li><li><span><span class="t-name">Cat supplement for hairballs</span><span class="t-hub">Cat hairballs &amp; vomiting &middot; 5 subtopics</span></span><span class="t-val">1,550</span></li><li><span><span class="t-name">Dry cat food urinary tract health</span><span class="t-hub">Joints, pain &amp; special diets &middot; 3 subtopics</span></span><span class="t-val">1,500</span></li><li><span><span class="t-name">When can a puppy go outside after vaccinations?</span><span class="t-hub">Vaccines &amp; deworming &middot; 57 subtopics</span></span><span class="t-val">1,110</span></li><li><span><span class="t-name">Dog food for urinary health without vet prescription</span><span class="t-hub">Joints, pain &amp; special diets &middot; 3 subtopics</span></span><span class="t-val">800</span></li><li><span><span class="t-name">Best non-prescription dog food for kidney disease</span><span class="t-hub">Joints, pain &amp; special diets &middot; 5 subtopics</span></span><span class="t-val">720</span></li><li><span><span class="t-name">Prescription diabetic dog food</span><span class="t-hub">Joints, pain &amp; special diets &middot; 2 subtopics</span></span><span class="t-val">600</span></li><li><span><span class="t-name">Pet vaccination records</span><span class="t-hub">Vaccines &amp; deworming &middot; 2 subtopics</span></span><span class="t-val">600</span></li><li><span><span class="t-name">Flea and tick prevention for cats and dogs</span><span class="t-hub">Flea &amp; tick prevention &middot; 2 subtopics</span></span><span class="t-val">530</span></li><li><span><span class="t-name">Flea prevention for small dogs</span><span class="t-hub">Flea &amp; tick prevention &middot; 4 subtopics</span></span><span class="t-val">430</span></li><li><span><span class="t-name">Wet cat food for hairballs</span><span class="t-hub">Cat hairballs &amp; vomiting &middot; 3 subtopics</span></span><span class="t-val">400</span></li><li><span><span class="t-name">Prescription dog food urinary</span><span class="t-hub">Joints, pain &amp; special diets &middot; 3 subtopics</span></span><span class="t-val">340</span></li><li><span><span class="t-name">Non prescription flea and tick prevention for dogs</span><span class="t-hub">Flea &amp; tick prevention &middot; 2 subtopics</span></span><span class="t-val">280</span></li><li><span><span class="t-name">Low fat dog food non prescription</span><span class="t-hub">Joints, pain &amp; special diets &middot; 1 subtopic</span></span><span class="t-val">260</span></li><li><span><span class="t-name">Injectable flea and tick prevention for dogs</span><span class="t-hub">Flea &amp; tick prevention &middot; 3 subtopics</span></span><span class="t-val">220</span></li><li><span><span class="t-name">Prescription weight loss dog food</span><span class="t-hub">Joints, pain &amp; special diets &middot; 2 subtopics</span></span><span class="t-val">220</span></li><li><span><span class="t-name">Mineral oil for cat hairballs</span><span class="t-hub">Cat hairballs &amp; vomiting &middot; 1 subtopic</span></span><span class="t-val">210</span></li><li><span><span class="t-name">Olive oil in dog food for itchy skin</span><span class="t-hub">Ears, skin &amp; allergies &middot; 3 subtopics</span></span><span class="t-val">200</span></li><li><span><span class="t-name">Flea tick worm prevention for dogs</span><span class="t-hub">Flea &amp; tick prevention &middot; 5 subtopics</span></span><span class="t-val">190</span></li><li><span><span class="t-name">Flea and tick prevention for cats without vet prescription</span><span class="t-hub">Flea &amp; tick prevention &middot; 2 subtopics</span></span><span class="t-val">170</span></li><li><span><span class="t-name">Natural flea prevention for dogs and cats</span><span class="t-hub">Flea &amp; tick prevention &middot; 1 subtopic</span></span><span class="t-val">140</span></li><li><span><span class="t-name">Oral vs. topical flea and tick prevention for dogs</span><span class="t-hub">Flea &amp; tick prevention &middot; 7 subtopics</span></span><span class="t-val">130</span></li><li><span><span class="t-name">Cat food for hairballs and sensitive stomach</span><span class="t-hub">Cat hairballs &amp; vomiting &middot; 2 subtopics</span></span><span class="t-val">120</span></li><li><span><span class="t-name">Aloe vera dog itchy skin</span><span class="t-hub">Ears, skin &amp; allergies &middot; 1 subtopic</span></span><span class="t-val">110</span></li><li><span><span class="t-name">Flea and tick prevention for dogs with seizures</span><span class="t-hub">Flea &amp; tick prevention &middot; 1 subtopic</span></span><span class="t-val">110</span></li><li><span><span class="t-name">3 month flea and tick prevention for dogs</span><span class="t-hub">Flea &amp; tick prevention &middot; 1 subtopic</span></span><span class="t-val">90</span></li><li><span><span class="t-name">Dog will not eat prescription food</span><span class="t-hub">Joints, pain &amp; special diets &middot; 5 subtopics</span></span><span class="t-val">70</span></li><li><span><span class="t-name">Does dog dewormer need to be refrigerated?</span><span class="t-hub">Vaccines &amp; deworming &middot; 3 subtopics</span></span><span class="t-val">60</span></li><li><span><span class="t-name">Does pet insurance cover prescription dog food?</span><span class="t-hub">Joints, pain &amp; special diets &middot; 2 subtopics</span></span><span class="t-val">60</span></li><li><span><span class="t-name">Flea tick ear mite prevention for cats</span><span class="t-hub">Flea &amp; tick prevention &middot; 2 subtopics</span></span><span class="t-val">50</span></li><li><span><span class="t-name">Side effects of heartworm prevention medication in dogs</span><span class="t-hub">Heartworm &middot; 2 subtopics</span></span><span class="t-val">50</span></li><li><span><span class="t-name">Dog dental care powder</span><span class="t-hub">Joints, pain &amp; special diets &middot; 1 subtopic</span></span><span class="t-val">50</span></li><li><span><span class="t-name">Dog itchy skin powder</span><span class="t-hub">Ears, skin &amp; allergies &middot; 1 subtopic</span></span><span class="t-val">50</span></li><li><span><span class="t-name">Puppy training before vaccinations</span><span class="t-hub">Vaccines &amp; deworming &middot; 4 subtopics</span></span><span class="t-val">40</span></li><li><span><span class="t-name">Dog joint supplements for luxating patella</span><span class="t-hub">Joints, pain &amp; special diets &middot; 1 subtopic</span></span><span class="t-val">40</span></li><li><span><span class="t-name">Dog dental care kit</span><span class="t-hub">Joints, pain &amp; special diets &middot; 1 subtopic</span></span><span class="t-val">40</span></li><li><span><span class="t-name">Non toxic flea and tick prevention for cats</span><span class="t-hub">Flea &amp; tick prevention &middot; 1 subtopic</span></span><span class="t-val">20</span></li><li><span><span class="t-name">Best flea and tick prevention for senior dogs</span><span class="t-hub">Flea &amp; tick prevention &middot; 1 subtopic</span></span><span class="t-val">10</span></li><li><span><span class="t-name">Flea and tick prevention for dogs prescription</span><span class="t-hub">Flea &amp; tick prevention &middot; 1 subtopic</span></span><span class="t-val">10</span></li><li><span><span class="t-name">Burow&#x27;s solution for dog hot spots</span><span class="t-hub">Ears, skin &amp; allergies &middot; 1 subtopic</span></span><span class="t-val">10</span></li></ul></div>
+    </details>
+  </div>
+</section>
+
+<!-- ============ 09 - NUTRITION ============ -->
+<section class="slide s-light" id="nutrition">
+  <span class="marker">09 - Nutrition</span>
+  <div class="slide-inner">
+    <div class="step-row" style="margin-bottom:22px;">
+      <div class="eyebrow" style="margin-bottom:0;">Hub 04 &middot; Pet Nutrition &amp; Feeding</div>
+      <span class="week week-l">67 pages</span>
+    </div>
+    <h2>Puppy, kitten and sensitive-stomach food, and treats</h2>
+    <p class="lead muted-l" style="margin-top:14px; max-width:760px;">Kitten food leads the hub at 306,600 searches a month, with grain-free dog food at 206,140 and puppy food at 151,900. The hub covers kitten and cat food, puppy food, food for sensitive stomachs and allergies, freeze-dried and raw diets, grain-free and senior food, and treats and toppers, mostly as collection pages across Baxter Boo&#x27;s 500+ brands.</p>
+    <p class="cap muted-l45" style="margin-top:10px;">1,811,850 monthly searches across 67 pages and 232 subtopics.</p>
+    <p class="later-hint"><span class="later-n">+173</span> more topics planned for this hub after March</p>
+    <div class="grid g2" style="margin-top:28px;">
+      <div class="card card-light">
+        <h4 class="title-sm">Biggest demand</h4>
+        <p class="cap muted-l45" style="margin-top:6px;">Monthly searches for the hub&#x27;s largest pages</p>
+        <ul class="tlist"><li><span><span class="t-name">Kitten food</span><span class="t-hub">Kitten &amp; cat food &middot; 10 subtopics</span></span><span class="t-val">306,600</span></li><li><span><span class="t-name">Grain-free dog food</span><span class="t-hub">Grain-free, senior &amp; wet food &middot; 4 subtopics</span></span><span class="t-val">206,140</span></li><li><span><span class="t-name">Puppy food</span><span class="t-hub">Puppy food &middot; 10 subtopics</span></span><span class="t-val">151,900</span></li><li><span><span class="t-name">Best wet cat food</span><span class="t-hub">Kitten &amp; cat food &middot; 8 subtopics</span></span><span class="t-val">132,710</span></li><li><span><span class="t-name">Wet kitten food</span><span class="t-hub">Kitten &amp; cat food &middot; 5 subtopics</span></span><span class="t-val">130,300</span></li><li><span><span class="t-name">Symptoms of dog food allergies</span><span class="t-hub">Sensitive stomachs &amp; allergies &middot; 2 subtopics</span></span><span class="t-val">121,000</span></li></ul>
+      </div>
+      <div class="card card-light">
+        <h4 class="title-sm">What the hub covers</h4>
+        <p class="cap muted-l45" style="margin-top:6px;">Scheduled pages by theme</p>
+        <ul class="tlist"><li><span><span class="t-name">Sensitive stomachs &amp; allergies</span><span class="t-hub">27% of the hub</span></span><span class="t-val">18 pages</span></li><li><span><span class="t-name">Kitten &amp; cat food</span><span class="t-hub">22% of the hub</span></span><span class="t-val">15 pages</span></li><li><span><span class="t-name">Freeze-dried &amp; raw</span><span class="t-hub">22% of the hub</span></span><span class="t-val">15 pages</span></li><li><span><span class="t-name">Treats &amp; toppers</span><span class="t-hub">15% of the hub</span></span><span class="t-val">10 pages</span></li><li><span><span class="t-name">Grain-free, senior &amp; wet food</span><span class="t-hub">9% of the hub</span></span><span class="t-val">6 pages</span></li><li><span><span class="t-name">Puppy food</span><span class="t-hub">4% of the hub</span></span><span class="t-val">3 pages</span></li></ul>
+      </div>
+    </div>
+    <details class="all">
+      <summary>All 67 Pet Nutrition &amp; Feeding pages</summary>
+      <div class="card card-light allcard"><ul class="tlist cols"><li><span><span class="t-name">Kitten food</span><span class="t-hub">Kitten &amp; cat food &middot; 10 subtopics</span></span><span class="t-val">306,600</span></li><li><span><span class="t-name">Grain-free dog food</span><span class="t-hub">Grain-free, senior &amp; wet food &middot; 4 subtopics</span></span><span class="t-val">206,140</span></li><li><span><span class="t-name">Puppy food</span><span class="t-hub">Puppy food &middot; 10 subtopics</span></span><span class="t-val">151,900</span></li><li><span><span class="t-name">Best wet cat food</span><span class="t-hub">Kitten &amp; cat food &middot; 8 subtopics</span></span><span class="t-val">132,710</span></li><li><span><span class="t-name">Wet kitten food</span><span class="t-hub">Kitten &amp; cat food &middot; 5 subtopics</span></span><span class="t-val">130,300</span></li><li><span><span class="t-name">Symptoms of dog food allergies</span><span class="t-hub">Sensitive stomachs &amp; allergies &middot; 2 subtopics</span></span><span class="t-val">121,000</span></li><li><span><span class="t-name">Best dog food for allergies</span><span class="t-hub">Sensitive stomachs &amp; allergies &middot; 6 subtopics</span></span><span class="t-val">104,700</span></li><li><span><span class="t-name">Best dry cat food</span><span class="t-hub">Kitten &amp; cat food &middot; 6 subtopics</span></span><span class="t-val">103,460</span></li><li><span><span class="t-name">Senior dog food</span><span class="t-hub">Grain-free, senior &amp; wet food &middot; 5 subtopics</span></span><span class="t-val">83,020</span></li><li><span><span class="t-name">Wet dog food</span><span class="t-hub">Grain-free, senior &amp; wet food &middot; 4 subtopics</span></span><span class="t-val">73,380</span></li><li><span><span class="t-name">Best dog food sensitive stomach</span><span class="t-hub">Sensitive stomachs &amp; allergies &middot; 16 subtopics</span></span><span class="t-val">65,920</span></li><li><span><span class="t-name">Dog food large breed puppy</span><span class="t-hub">Puppy food &middot; 3 subtopics</span></span><span class="t-val">44,400</span></li><li><span><span class="t-name">Puppy food for sensitive stomach</span><span class="t-hub">Sensitive stomachs &amp; allergies &middot; 3 subtopics</span></span><span class="t-val">37,130</span></li><li><span><span class="t-name">Freeze-dried dog food</span><span class="t-hub">Freeze-dried &amp; raw &middot; 16 subtopics</span></span><span class="t-val">33,560</span></li><li><span><span class="t-name">High fiber puppy food</span><span class="t-hub">Puppy food &middot; 1 subtopic</span></span><span class="t-val">33,100</span></li><li><span><span class="t-name">Cat senior food</span><span class="t-hub">Kitten &amp; cat food &middot; 4 subtopics</span></span><span class="t-val">19,600</span></li><li><span><span class="t-name">Hypoallergenic kitten food</span><span class="t-hub">Sensitive stomachs &amp; allergies &middot; 1 subtopic</span></span><span class="t-val">18,100</span></li><li><span><span class="t-name">Dried kitten food</span><span class="t-hub">Kitten &amp; cat food &middot; 1 subtopic</span></span><span class="t-val">14,800</span></li><li><span><span class="t-name">Can puppy eat cat food?</span><span class="t-hub">Kitten &amp; cat food &middot; 1 subtopic</span></span><span class="t-val">14,800</span></li><li><span><span class="t-name">Limited-ingredient dog food</span><span class="t-hub">Sensitive stomachs &amp; allergies &middot; 6 subtopics</span></span><span class="t-val">14,580</span></li><li><span><span class="t-name">Adult cat food for kitten</span><span class="t-hub">Kitten &amp; cat food &middot; 2 subtopics</span></span><span class="t-val">13,200</span></li><li><span><span class="t-name">High protein cat food wet</span><span class="t-hub">Kitten &amp; cat food &middot; 2 subtopics</span></span><span class="t-val">10,800</span></li><li><span><span class="t-name">Cat treats lickable</span><span class="t-hub">Treats &amp; toppers &middot; 8 subtopics</span></span><span class="t-val">10,760</span></li><li><span><span class="t-name">Cat food for picky eater</span><span class="t-hub">Kitten &amp; cat food &middot; 2 subtopics</span></span><span class="t-val">8,420</span></li><li><span><span class="t-name">Treats for cats with UTIs</span><span class="t-hub">Treats &amp; toppers &middot; 1 subtopic</span></span><span class="t-val">8,100</span></li><li><span><span class="t-name">Healthy homemade dog treats</span><span class="t-hub">Treats &amp; toppers &middot; 7 subtopics</span></span><span class="t-val">7,850</span></li><li><span><span class="t-name">Wet kitten food grain free</span><span class="t-hub">Kitten &amp; cat food &middot; 1 subtopic</span></span><span class="t-val">6,600</span></li><li><span><span class="t-name">Grain free cat food wet</span><span class="t-hub">Kitten &amp; cat food &middot; 1 subtopic</span></span><span class="t-val">6,600</span></li><li><span><span class="t-name">Dry cat food high protein</span><span class="t-hub">Kitten &amp; cat food &middot; 1 subtopic</span></span><span class="t-val">3,600</span></li><li><span><span class="t-name">Freeze-dried liver dog treats</span><span class="t-hub">Treats &amp; toppers &middot; 1 subtopic</span></span><span class="t-val">3,600</span></li><li><span><span class="t-name">Raw dog food chicken feet</span><span class="t-hub">Freeze-dried &amp; raw &middot; 1 subtopic</span></span><span class="t-val">2,900</span></li><li><span><span class="t-name">High protein cat treats</span><span class="t-hub">Treats &amp; toppers &middot; 1 subtopic</span></span><span class="t-val">2,900</span></li><li><span><span class="t-name">Can a cat eat dog treats?</span><span class="t-hub">Treats &amp; toppers &middot; 2 subtopics</span></span><span class="t-val">2,410</span></li><li><span><span class="t-name">Dog food senior small breed</span><span class="t-hub">Grain-free, senior &amp; wet food &middot; 1 subtopic</span></span><span class="t-val">1,600</span></li><li><span><span class="t-name">Homemade dog food toppers</span><span class="t-hub">Treats &amp; toppers &middot; 8 subtopics</span></span><span class="t-val">1,530</span></li><li><span><span class="t-name">Dog food senior sensitive stomach</span><span class="t-hub">Sensitive stomachs &amp; allergies &middot; 2 subtopics</span></span><span class="t-val">1,340</span></li><li><span><span class="t-name">Affordable freeze-dried dog food</span><span class="t-hub">Freeze-dried &amp; raw &middot; 6 subtopics</span></span><span class="t-val">1,310</span></li><li><span><span class="t-name">Dry limited ingredient dog food</span><span class="t-hub">Sensitive stomachs &amp; allergies &middot; 2 subtopics</span></span><span class="t-val">1,140</span></li><li><span><span class="t-name">Grain-free vs. grain dog food</span><span class="t-hub">Grain-free, senior &amp; wet food &middot; 1 subtopic</span></span><span class="t-val">880</span></li><li><span><span class="t-name">Grain-free chicken free dog food</span><span class="t-hub">Grain-free, senior &amp; wet food &middot; 1 subtopic</span></span><span class="t-val">880</span></li><li><span><span class="t-name">Cat food transition</span><span class="t-hub">Kitten &amp; cat food &middot; 5 subtopics</span></span><span class="t-val">660</span></li><li><span><span class="t-name">Dog food with freeze-dried meat</span><span class="t-hub">Freeze-dried &amp; raw &middot; 2 subtopics</span></span><span class="t-val">660</span></li><li><span><span class="t-name">Best dog food for sensitive stomach and skin allergies</span><span class="t-hub">Sensitive stomachs &amp; allergies &middot; 3 subtopics</span></span><span class="t-val">640</span></li><li><span><span class="t-name">Limited ingredient dog food for sensitive stomach</span><span class="t-hub">Sensitive stomachs &amp; allergies &middot; 2 subtopics</span></span><span class="t-val">620</span></li><li><span><span class="t-name">Sensitive stomach dog food small breed</span><span class="t-hub">Sensitive stomachs &amp; allergies &middot; 3 subtopics</span></span><span class="t-val">570</span></li><li><span><span class="t-name">Senior cat food for sensitive stomach</span><span class="t-hub">Sensitive stomachs &amp; allergies &middot; 2 subtopics</span></span><span class="t-val">520</span></li><li><span><span class="t-name">Best large breed dog food for sensitive stomach</span><span class="t-hub">Sensitive stomachs &amp; allergies &middot; 7 subtopics</span></span><span class="t-val">280</span></li><li><span><span class="t-name">Cheapest sensitive stomach dog food</span><span class="t-hub">Sensitive stomachs &amp; allergies &middot; 4 subtopics</span></span><span class="t-val">250</span></li><li><span><span class="t-name">Best freeze dried dog food for small breeds</span><span class="t-hub">Freeze-dried &amp; raw &middot; 3 subtopics</span></span><span class="t-val">250</span></li><li><span><span class="t-name">Homemade dehydrated dog food</span><span class="t-hub">Freeze-dried &amp; raw &middot; 5 subtopics</span></span><span class="t-val">180</span></li><li><span><span class="t-name">Freeze-dried dog food vs. raw</span><span class="t-hub">Freeze-dried &amp; raw &middot; 5 subtopics</span></span><span class="t-val">180</span></li><li><span><span class="t-name">How to make freeze dried dog food</span><span class="t-hub">Freeze-dried &amp; raw &middot; 4 subtopics</span></span><span class="t-val">170</span></li><li><span><span class="t-name">Limited ingredient dog food lamb</span><span class="t-hub">Sensitive stomachs &amp; allergies &middot; 1 subtopic</span></span><span class="t-val">170</span></li><li><span><span class="t-name">Freeze dried vs. dehydrated dog food</span><span class="t-hub">Freeze-dried &amp; raw &middot; 4 subtopics</span></span><span class="t-val">160</span></li><li><span><span class="t-name">Cat broth for hydration</span><span class="t-hub">Kitten &amp; cat food &middot; 2 subtopics</span></span><span class="t-val">160</span></li><li><span><span class="t-name">Bulk freeze-dried dog food</span><span class="t-hub">Freeze-dried &amp; raw &middot; 1 subtopic</span></span><span class="t-val">140</span></li><li><span><span class="t-name">Sensitive stomach dog food no chicken</span><span class="t-hub">Sensitive stomachs &amp; allergies &middot; 5 subtopics</span></span><span class="t-val">110</span></li><li><span><span class="t-name">Best wet dog food for sensitive stomach small breed</span><span class="t-hub">Sensitive stomachs &amp; allergies &middot; 1 subtopic</span></span><span class="t-val">110</span></li><li><span><span class="t-name">Freeze dried lamb dog treats</span><span class="t-hub">Treats &amp; toppers &middot; 1 subtopic</span></span><span class="t-val">110</span></li><li><span><span class="t-name">Freeze dried dog and cat food</span><span class="t-hub">Freeze-dried &amp; raw &middot; 1 subtopic</span></span><span class="t-val">90</span></li><li><span><span class="t-name">Freeze dried dog food for picky eaters</span><span class="t-hub">Freeze-dried &amp; raw &middot; 1 subtopic</span></span><span class="t-val">70</span></li><li><span><span class="t-name">Limited ingredient dog food fish</span><span class="t-hub">Sensitive stomachs &amp; allergies &middot; 2 subtopics</span></span><span class="t-val">50</span></li><li><span><span class="t-name">Cheap dog food toppers</span><span class="t-hub">Treats &amp; toppers &middot; 1 subtopic</span></span><span class="t-val">20</span></li><li><span><span class="t-name">Freeze dried vs. fresh dog food</span><span class="t-hub">Freeze-dried &amp; raw &middot; 1 subtopic</span></span><span class="t-val">20</span></li><li><span><span class="t-name">Can dogs eat lickable cat treats?</span><span class="t-hub">Treats &amp; toppers &middot; 1 subtopic</span></span><span class="t-val">20</span></li><li><span><span class="t-name">Dehydrated poultry protein in dog food</span><span class="t-hub">Freeze-dried &amp; raw &middot; 1 subtopic</span></span><span class="t-val">10</span></li><li><span><span class="t-name">Freeze dried vegan dog food</span><span class="t-hub">Freeze-dried &amp; raw &middot; 1 subtopic</span></span><span class="t-val">10</span></li></ul></div>
+    </details>
+  </div>
+</section>
+
+<!-- ============ 10 - BEHAVIOR ============ -->
+<section class="slide s-paper" id="behavior">
+  <span class="marker">10 - Behavior</span>
+  <div class="slide-inner">
+    <div class="step-row" style="margin-bottom:22px;">
+      <div class="eyebrow" style="margin-bottom:0;">Hub 05 &middot; Behavior, Training &amp; Enrichment</div>
+      <span class="week week-l">47 pages</span>
+    </div>
+    <h2>Crate training, barking and toys that keep pets busy</h2>
+    <p class="lead muted-l" style="margin-top:14px; max-width:760px;">Dog crate training tips lead the hub at 480,140 searches a month and are the deepest page in the plan, with 153 subtopics. Dog barking training follows at 409,150 and cat scratching posts at 316,530. The hub covers crate and potty training, barking, separation anxiety, puppy and clicker training, chew and enrichment toys, and cat scratching and play.</p>
+    <p class="cap muted-l45" style="margin-top:10px;">2,649,770 monthly searches across 47 pages and 756 subtopics.</p>
+    <p class="later-hint"><span class="later-n">+94</span> more topics planned for this hub after March</p>
+    <div class="grid g2" style="margin-top:28px;">
+      <div class="card card-light">
+        <h4 class="title-sm">Biggest demand</h4>
+        <p class="cap muted-l45" style="margin-top:6px;">Monthly searches for the hub&#x27;s largest pages</p>
+        <ul class="tlist"><li><span><span class="t-name">Dog crate training tips</span><span class="t-hub">Crate &amp; potty training &middot; 153 subtopics</span></span><span class="t-val">480,140</span></li><li><span><span class="t-name">Dog barking training</span><span class="t-hub">Barking &middot; 44 subtopics</span></span><span class="t-val">409,150</span></li><li><span><span class="t-name">Cat scratching posts</span><span class="t-hub">Cat scratching &amp; play &middot; 10 subtopics</span></span><span class="t-val">316,530</span></li><li><span><span class="t-name">Chew toys for puppies</span><span class="t-hub">Chew &amp; enrichment toys &middot; 6 subtopics</span></span><span class="t-val">235,800</span></li><li><span><span class="t-name">Dog separation anxiety</span><span class="t-hub">Separation anxiety &middot; 112 subtopics</span></span><span class="t-val">187,120</span></li><li><span><span class="t-name">Puppy potty training tips</span><span class="t-hub">Crate &amp; potty training &middot; 25 subtopics</span></span><span class="t-val">153,290</span></li></ul>
+      </div>
+      <div class="card card-light">
+        <h4 class="title-sm">What the hub covers</h4>
+        <p class="cap muted-l45" style="margin-top:6px;">Scheduled pages by theme</p>
+        <ul class="tlist"><li><span><span class="t-name">Cat scratching &amp; play</span><span class="t-hub">28% of the hub</span></span><span class="t-val">13 pages</span></li><li><span><span class="t-name">Chew &amp; enrichment toys</span><span class="t-hub">21% of the hub</span></span><span class="t-val">10 pages</span></li><li><span><span class="t-name">Barking</span><span class="t-hub">17% of the hub</span></span><span class="t-val">8 pages</span></li><li><span><span class="t-name">Crate &amp; potty training</span><span class="t-hub">13% of the hub</span></span><span class="t-val">6 pages</span></li><li><span><span class="t-name">Separation anxiety</span><span class="t-hub">13% of the hub</span></span><span class="t-val">6 pages</span></li><li><span><span class="t-name">Puppy &amp; clicker training</span><span class="t-hub">9% of the hub</span></span><span class="t-val">4 pages</span></li></ul>
+      </div>
+    </div>
+    <details class="all">
+      <summary>All 47 Behavior, Training &amp; Enrichment pages</summary>
+      <div class="card card-light allcard"><ul class="tlist cols"><li><span><span class="t-name">Dog crate training tips</span><span class="t-hub">Crate &amp; potty training &middot; 153 subtopics</span></span><span class="t-val">480,140</span></li><li><span><span class="t-name">Dog barking training</span><span class="t-hub">Barking &middot; 44 subtopics</span></span><span class="t-val">409,150</span></li><li><span><span class="t-name">Cat scratching posts</span><span class="t-hub">Cat scratching &amp; play &middot; 10 subtopics</span></span><span class="t-val">316,530</span></li><li><span><span class="t-name">Chew toys for puppies</span><span class="t-hub">Chew &amp; enrichment toys &middot; 6 subtopics</span></span><span class="t-val">235,800</span></li><li><span><span class="t-name">Dog separation anxiety</span><span class="t-hub">Separation anxiety &middot; 112 subtopics</span></span><span class="t-val">187,120</span></li><li><span><span class="t-name">Puppy potty training tips</span><span class="t-hub">Crate &amp; potty training &middot; 25 subtopics</span></span><span class="t-val">153,290</span></li><li><span><span class="t-name">Safe dog chew toys</span><span class="t-hub">Chew &amp; enrichment toys &middot; 5 subtopics</span></span><span class="t-val">140,820</span></li><li><span><span class="t-name">How to stop a puppy from nipping and biting</span><span class="t-hub">Puppy &amp; clicker training &middot; 18 subtopics</span></span><span class="t-val">135,600</span></li><li><span><span class="t-name">Training a dog with treats</span><span class="t-hub">Puppy &amp; clicker training &middot; 1 subtopic</span></span><span class="t-val">110,000</span></li><li><span><span class="t-name">Dog enrichment toys</span><span class="t-hub">Chew &amp; enrichment toys &middot; 23 subtopics</span></span><span class="t-val">95,500</span></li><li><span><span class="t-name">How to train a puppy</span><span class="t-hub">Puppy &amp; clicker training &middot; 3 subtopics</span></span><span class="t-val">84,300</span></li><li><span><span class="t-name">Clicker training for dogs</span><span class="t-hub">Chew &amp; enrichment toys &middot; 8 subtopics</span></span><span class="t-val">73,140</span></li><li><span><span class="t-name">Best slow feeder dog bowl</span><span class="t-hub">Chew &amp; enrichment toys &middot; 10 subtopics</span></span><span class="t-val">46,520</span></li><li><span><span class="t-name">Training collar puppy</span><span class="t-hub">Puppy &amp; clicker training &middot; 1 subtopic</span></span><span class="t-val">27,100</span></li><li><span><span class="t-name">Dog separation anxiety medication</span><span class="t-hub">Separation anxiety &middot; 5 subtopics</span></span><span class="t-val">20,070</span></li><li><span><span class="t-name">Anti barking dog device</span><span class="t-hub">Barking &middot; 8 subtopics</span></span><span class="t-val">18,380</span></li><li><span><span class="t-name">Cat scratching guards for furniture</span><span class="t-hub">Cat scratching &amp; play &middot; 10 subtopics</span></span><span class="t-val">16,440</span></li><li><span><span class="t-name">Training a puppy to sleep in crate</span><span class="t-hub">Crate &amp; potty training &middot; 52 subtopics</span></span><span class="t-val">15,200</span></li><li><span><span class="t-name">Toys for cats that chew</span><span class="t-hub">Cat scratching &amp; play &middot; 2 subtopics</span></span><span class="t-val">14,300</span></li><li><span><span class="t-name">Cat training treats</span><span class="t-hub">Cat scratching &amp; play &middot; 1 subtopic</span></span><span class="t-val">9,900</span></li><li><span><span class="t-name">Cat enrichment ideas</span><span class="t-hub">Cat scratching &amp; play &middot; 37 subtopics</span></span><span class="t-val">8,710</span></li><li><span><span class="t-name">Dog enrichment ideas</span><span class="t-hub">Chew &amp; enrichment toys &middot; 25 subtopics</span></span><span class="t-val">7,640</span></li><li><span><span class="t-name">Kitten litter box training</span><span class="t-hub">Crate &amp; potty training &middot; 27 subtopics</span></span><span class="t-val">7,050</span></li><li><span><span class="t-name">How long can a dog stay home alone?</span><span class="t-hub">Separation anxiety &middot; 72 subtopics</span></span><span class="t-val">6,890</span></li><li><span><span class="t-name">Will a dog whistle stop a dog from barking?</span><span class="t-hub">Barking &middot; 3 subtopics</span></span><span class="t-val">5,680</span></li><li><span><span class="t-name">Aggressive barking</span><span class="t-hub">Barking &middot; 7 subtopics</span></span><span class="t-val">5,370</span></li><li><span><span class="t-name">Barking puppies</span><span class="t-hub">Barking &middot; 1 subtopic</span></span><span class="t-val">4,400</span></li><li><span><span class="t-name">Loud barking</span><span class="t-hub">Barking &middot; 1 subtopic</span></span><span class="t-val">3,600</span></li><li><span><span class="t-name">Cat puzzle toys</span><span class="t-hub">Cat scratching &amp; play &middot; 6 subtopics</span></span><span class="t-val">3,190</span></li><li><span><span class="t-name">Dog lick mat recipe</span><span class="t-hub">Chew &amp; enrichment toys &middot; 36 subtopics</span></span><span class="t-val">2,940</span></li><li><span><span class="t-name">Alsatian barking</span><span class="t-hub">Barking &middot; 1 subtopic</span></span><span class="t-val">1,600</span></li><li><span><span class="t-name">Beagle barking</span><span class="t-hub">Barking &middot; 1 subtopic</span></span><span class="t-val">1,300</span></li><li><span><span class="t-name">Cat nail file enrichment</span><span class="t-hub">Cat scratching &amp; play &middot; 3 subtopics</span></span><span class="t-val">340</span></li><li><span><span class="t-name">Crate training a puppy pros and cons</span><span class="t-hub">Crate &amp; potty training &middot; 13 subtopics</span></span><span class="t-val">330</span></li><li><span><span class="t-name">Interactive cat toys laser light</span><span class="t-hub">Cat scratching &amp; play &middot; 1 subtopic</span></span><span class="t-val">320</span></li><li><span><span class="t-name">Interactive bird cat toys</span><span class="t-hub">Cat scratching &amp; play &middot; 1 subtopic</span></span><span class="t-val">260</span></li><li><span><span class="t-name">Enrichment videos for cats</span><span class="t-hub">Cat scratching &amp; play &middot; 1 subtopic</span></span><span class="t-val">210</span></li><li><span><span class="t-name">Rescue dog separation anxiety</span><span class="t-hub">Separation anxiety &middot; 5 subtopics</span></span><span class="t-val">150</span></li><li><span><span class="t-name">Dog separation anxiety night</span><span class="t-hub">Separation anxiety &middot; 5 subtopics</span></span><span class="t-val">150</span></li><li><span><span class="t-name">Stop dog chewing furniture spray</span><span class="t-hub">Chew &amp; enrichment toys &middot; 3 subtopics</span></span><span class="t-val">150</span></li><li><span><span class="t-name">Dog enrichment box</span><span class="t-hub">Chew &amp; enrichment toys &middot; 1 subtopic</span></span><span class="t-val">50</span></li><li><span><span class="t-name">CBD for dog separation anxiety</span><span class="t-hub">Separation anxiety &middot; 1 subtopic</span></span><span class="t-val">50</span></li><li><span><span class="t-name">Crate training vs. puppy pads</span><span class="t-hub">Crate &amp; potty training &middot; 4 subtopics</span></span><span class="t-val">40</span></li><li><span><span class="t-name">Dog enrichment programs</span><span class="t-hub">Chew &amp; enrichment toys &middot; 1 subtopic</span></span><span class="t-val">20</span></li><li><span><span class="t-name">Cat food boredom</span><span class="t-hub">Cat scratching &amp; play &middot; 1 subtopic</span></span><span class="t-val">10</span></li><li><span><span class="t-name">Interactive windmill cat toys with catnip</span><span class="t-hub">Cat scratching &amp; play &middot; 1 subtopic</span></span><span class="t-val">10</span></li><li><span><span class="t-name">Smart sensing snake electron interactive cat toys</span><span class="t-hub">Cat scratching &amp; play &middot; 1 subtopic</span></span><span class="t-val">10</span></li></ul></div>
+    </details>
+  </div>
+</section>
+
+<!-- ============ 11 - TRAVEL ============ -->
+<section class="slide s-light" id="travel">
+  <span class="marker">11 - Travel</span>
+  <div class="slide-inner">
+    <div class="step-row" style="margin-bottom:22px;">
+      <div class="eyebrow" style="margin-bottom:0;">Hub 06 &middot; Walking, Travel &amp; Safety</div>
+      <span class="week week-l">45 pages</span>
+    </div>
+    <h2>Harnesses, carriers and safe travel with pets</h2>
+    <p class="lead muted-l" style="margin-top:14px; max-width:760px;">Dog harnesses lead the hub at 181,980 searches a month, with dog car seats at 161,320 and cat carriers at 132,400. The hub covers harnesses and how to size them, leashes and collars, carriers, car seats and car travel, strollers, and life jackets for water safety, all matching Baxter Boo&#x27;s collars, harnesses, leashes and travel gear.</p>
+    <p class="cap muted-l45" style="margin-top:10px;">1,687,710 monthly searches across 45 pages and 600 subtopics.</p>
+    <p class="later-hint"><span class="later-n">+170</span> more topics planned for this hub after March</p>
+    <div class="grid g2" style="margin-top:28px;">
+      <div class="card card-light">
+        <h4 class="title-sm">Biggest demand</h4>
+        <p class="cap muted-l45" style="margin-top:6px;">Monthly searches for the hub&#x27;s largest pages</p>
+        <ul class="tlist"><li><span><span class="t-name">Dog harnesses</span><span class="t-hub">Harnesses &middot; 4 subtopics</span></span><span class="t-val">181,980</span></li><li><span><span class="t-name">Dog car seats</span><span class="t-hub">Car seats &amp; car travel &middot; 36 subtopics</span></span><span class="t-val">161,320</span></li><li><span><span class="t-name">Cat carriers</span><span class="t-hub">Carriers &middot; 15 subtopics</span></span><span class="t-val">132,400</span></li><li><span><span class="t-name">No-pull dog harnesses</span><span class="t-hub">Harnesses &middot; 10 subtopics</span></span><span class="t-val">131,710</span></li><li><span><span class="t-name">How to size a dog harness</span><span class="t-hub">Harnesses &middot; 17 subtopics</span></span><span class="t-val">125,280</span></li><li><span><span class="t-name">Shock collars for dogs</span><span class="t-hub">Leashes &amp; collars &middot; 4 subtopics</span></span><span class="t-val">96,400</span></li></ul>
+      </div>
+      <div class="card card-light">
+        <h4 class="title-sm">What the hub covers</h4>
+        <p class="cap muted-l45" style="margin-top:6px;">Scheduled pages by theme</p>
+        <ul class="tlist"><li><span><span class="t-name">Harnesses</span><span class="t-hub">22% of the hub</span></span><span class="t-val">10 pages</span></li><li><span><span class="t-name">Car seats &amp; car travel</span><span class="t-hub">22% of the hub</span></span><span class="t-val">10 pages</span></li><li><span><span class="t-name">Carriers</span><span class="t-hub">22% of the hub</span></span><span class="t-val">10 pages</span></li><li><span><span class="t-name">Leashes &amp; collars</span><span class="t-hub">13% of the hub</span></span><span class="t-val">6 pages</span></li><li><span><span class="t-name">Strollers</span><span class="t-hub">11% of the hub</span></span><span class="t-val">5 pages</span></li><li><span><span class="t-name">Life jackets &amp; water safety</span><span class="t-hub">9% of the hub</span></span><span class="t-val">4 pages</span></li></ul>
+      </div>
+    </div>
+    <details class="all">
+      <summary>All 45 Walking, Travel &amp; Safety pages</summary>
+      <div class="card card-light allcard"><ul class="tlist cols"><li><span><span class="t-name">Dog harnesses</span><span class="t-hub">Harnesses &middot; 4 subtopics</span></span><span class="t-val">181,980</span></li><li><span><span class="t-name">Dog car seats</span><span class="t-hub">Car seats &amp; car travel &middot; 36 subtopics</span></span><span class="t-val">161,320</span></li><li><span><span class="t-name">Cat carriers</span><span class="t-hub">Carriers &middot; 15 subtopics</span></span><span class="t-val">132,400</span></li><li><span><span class="t-name">No-pull dog harnesses</span><span class="t-hub">Harnesses &middot; 10 subtopics</span></span><span class="t-val">131,710</span></li><li><span><span class="t-name">How to size a dog harness</span><span class="t-hub">Harnesses &middot; 17 subtopics</span></span><span class="t-val">125,280</span></li><li><span><span class="t-name">Shock collars for dogs</span><span class="t-hub">Leashes &amp; collars &middot; 4 subtopics</span></span><span class="t-val">96,400</span></li><li><span><span class="t-name">Dog strollers</span><span class="t-hub">Strollers &middot; 86 subtopics</span></span><span class="t-val">94,410</span></li><li><span><span class="t-name">Terrier dog carriers</span><span class="t-hub">Carriers &middot; 1 subtopic</span></span><span class="t-val">90,500</span></li><li><span><span class="t-name">Cat harness</span><span class="t-hub">Harnesses &middot; 8 subtopics</span></span><span class="t-val">83,060</span></li><li><span><span class="t-name">Dog training collars</span><span class="t-hub">Leashes &amp; collars &middot; 3 subtopics</span></span><span class="t-val">81,300</span></li><li><span><span class="t-name">Dog carriers</span><span class="t-hub">Carriers &middot; 44 subtopics</span></span><span class="t-val">72,090</span></li><li><span><span class="t-name">Dog life jackets</span><span class="t-hub">Life jackets &amp; water safety &middot; 82 subtopics</span></span><span class="t-val">66,690</span></li><li><span><span class="t-name">How to get a cat into a carrier</span><span class="t-hub">Carriers &middot; 1 subtopic</span></span><span class="t-val">60,500</span></li><li><span><span class="t-name">Puppy harnesses</span><span class="t-hub">Harnesses &middot; 25 subtopics</span></span><span class="t-val">51,540</span></li><li><span><span class="t-name">Dog carrier soft sided</span><span class="t-hub">Carriers &middot; 30 subtopics</span></span><span class="t-val">49,490</span></li><li><span><span class="t-name">Dog crate travel</span><span class="t-hub">Car seats &amp; car travel &middot; 13 subtopics</span></span><span class="t-val">45,140</span></li><li><span><span class="t-name">Loose leash walking</span><span class="t-hub">Leashes &amp; collars &middot; 63 subtopics</span></span><span class="t-val">41,220</span></li><li><span><span class="t-name">Best dog harnesses</span><span class="t-hub">Harnesses &middot; 3 subtopics</span></span><span class="t-val">36,300</span></li><li><span><span class="t-name">Best dog harness no pull</span><span class="t-hub">Harnesses &middot; 5 subtopics</span></span><span class="t-val">17,610</span></li><li><span><span class="t-name">Motor bike dog carrier</span><span class="t-hub">Carriers &middot; 7 subtopics</span></span><span class="t-val">14,900</span></li><li><span><span class="t-name">Retractable dog leash</span><span class="t-hub">Leashes &amp; collars &middot; 7 subtopics</span></span><span class="t-val">12,120</span></li><li><span><span class="t-name">Best dog life jacket</span><span class="t-hub">Life jackets &amp; water safety &middot; 12 subtopics</span></span><span class="t-val">8,980</span></li><li><span><span class="t-name">Dog travel sickness medication</span><span class="t-hub">Car seats &amp; car travel &middot; 1 subtopic</span></span><span class="t-val">8,100</span></li><li><span><span class="t-name">Leash for pulling dog</span><span class="t-hub">Leashes &amp; collars &middot; 8 subtopics</span></span><span class="t-val">5,240</span></li><li><span><span class="t-name">Dog harness vs. collar</span><span class="t-hub">Harnesses &middot; 40 subtopics</span></span><span class="t-val">5,080</span></li><li><span><span class="t-name">Travel cat litter</span><span class="t-hub">Car seats &amp; car travel &middot; 1 subtopic</span></span><span class="t-val">2,900</span></li><li><span><span class="t-name">How to help dog car anxiety</span><span class="t-hub">Car seats &amp; car travel &middot; 11 subtopics</span></span><span class="t-val">2,030</span></li><li><span><span class="t-name">Airline approved pet carrier cargo</span><span class="t-hub">Carriers &middot; 3 subtopics</span></span><span class="t-val">1,880</span></li><li><span><span class="t-name">Ebike with dog carrier</span><span class="t-hub">Carriers &middot; 2 subtopics</span></span><span class="t-val">1,760</span></li><li><span><span class="t-name">Dog car seat center console</span><span class="t-hub">Car seats &amp; car travel &middot; 3 subtopics</span></span><span class="t-val">1,740</span></li><li><span><span class="t-name">Dog car restraint seat belt</span><span class="t-hub">Car seats &amp; car travel &middot; 7 subtopics</span></span><span class="t-val">1,300</span></li><li><span><span class="t-name">All terrain dog stroller</span><span class="t-hub">Strollers &middot; 11 subtopics</span></span><span class="t-val">850</span></li><li><span><span class="t-name">Dog stroller wagon</span><span class="t-hub">Strollers &middot; 3 subtopics</span></span><span class="t-val">510</span></li><li><span><span class="t-name">Toy dog carriers</span><span class="t-hub">Carriers &middot; 1 subtopic</span></span><span class="t-val">390</span></li><li><span><span class="t-name">Does a dog need a life jacket?</span><span class="t-hub">Life jackets &amp; water safety &middot; 6 subtopics</span></span><span class="t-val">260</span></li><li><span><span class="t-name">Dog car seat for golf cart</span><span class="t-hub">Car seats &amp; car travel &middot; 2 subtopics</span></span><span class="t-val">250</span></li><li><span><span class="t-name">Dog seat belt for car sickness</span><span class="t-hub">Car seats &amp; car travel &middot; 1 subtopic</span></span><span class="t-val">140</span></li><li><span><span class="t-name">Martingale collar vs. harness</span><span class="t-hub">Harnesses &middot; 6 subtopics</span></span><span class="t-val">130</span></li><li><span><span class="t-name">Dog life vest vs. life jacket</span><span class="t-hub">Life jackets &amp; water safety &middot; 8 subtopics</span></span><span class="t-val">70</span></li><li><span><span class="t-name">Dog stroller rain cover</span><span class="t-hub">Strollers &middot; 2 subtopics</span></span><span class="t-val">50</span></li><li><span><span class="t-name">DIY pet ID tags</span><span class="t-hub">Leashes &amp; collars &middot; 3 subtopics</span></span><span class="t-val">30</span></li><li><span><span class="t-name">Dog head collar vs. harness</span><span class="t-hub">Harnesses &middot; 2 subtopics</span></span><span class="t-val">20</span></li><li><span><span class="t-name">Strollers with a dog compartment</span><span class="t-hub">Strollers &middot; 1 subtopic</span></span><span class="t-val">20</span></li><li><span><span class="t-name">Dog-friendly national parks road trip</span><span class="t-hub">Car seats &amp; car travel &middot; 1 subtopic</span></span><span class="t-val">10</span></li><li><span><span class="t-name">Airline approved pet carrier water bowl</span><span class="t-hub">Carriers &middot; 1 subtopic</span></span><span class="t-val">10</span></li></ul></div>
+    </details>
+  </div>
+</section>
+
+<!-- ============ 12 - SLEEP ============ -->
+<section class="slide s-paper" id="sleep">
+  <span class="marker">12 - Sleep</span>
+  <div class="slide-inner">
+    <div class="step-row" style="margin-bottom:22px;">
+      <div class="eyebrow" style="margin-bottom:0;">Hub 07 &middot; Sleep, Home &amp; Comfort</div>
+      <span class="week week-l">41 pages</span>
+    </div>
+    <h2>Dog beds, cat trees and cozy spots at home</h2>
+    <p class="lead muted-l" style="margin-top:14px; max-width:760px;">Cat trees are the biggest page in the plan at 561,300 searches a month, with dog beds at 220,140 and large dog beds at 133,200. The hub covers dog beds, cat trees and window perches, heated and cave cat beds, how pets sleep, and blankets, mats and couch protectors, plus settling a new cat into the home.</p>
+    <p class="cap muted-l45" style="margin-top:10px;">1,464,410 monthly searches across 41 pages and 415 subtopics.</p>
+    <p class="later-hint"><span class="later-n">+142</span> more topics planned for this hub after March</p>
+    <div class="grid g2" style="margin-top:28px;">
+      <div class="card card-light">
+        <h4 class="title-sm">Biggest demand</h4>
+        <p class="cap muted-l45" style="margin-top:6px;">Monthly searches for the hub&#x27;s largest pages</p>
+        <ul class="tlist"><li><span><span class="t-name">Cat trees</span><span class="t-hub">Cat trees &amp; perches &middot; 7 subtopics</span></span><span class="t-val">561,300</span></li><li><span><span class="t-name">Dog beds</span><span class="t-hub">Settling cats at home &middot; 3 subtopics</span></span><span class="t-val">220,140</span></li><li><span><span class="t-name">Large dog beds</span><span class="t-hub">Dog beds &middot; 6 subtopics</span></span><span class="t-val">133,200</span></li><li><span><span class="t-name">Large cat tree for big cats</span><span class="t-hub">Cat trees &amp; perches &middot; 5 subtopics</span></span><span class="t-val">120,500</span></li><li><span><span class="t-name">Cat bed heater</span><span class="t-hub">Cat beds &middot; 4 subtopics</span></span><span class="t-val">44,490</span></li><li><span><span class="t-name">How many hours does a cat sleep?</span><span class="t-hub">How pets sleep &middot; 11 subtopics</span></span><span class="t-val">43,680</span></li></ul>
+      </div>
+      <div class="card card-light">
+        <h4 class="title-sm">What the hub covers</h4>
+        <p class="cap muted-l45" style="margin-top:6px;">Scheduled pages by theme</p>
+        <ul class="tlist"><li><span><span class="t-name">How pets sleep</span><span class="t-hub">46% of the hub</span></span><span class="t-val">19 pages</span></li><li><span><span class="t-name">Blankets, mats &amp; home</span><span class="t-hub">17% of the hub</span></span><span class="t-val">7 pages</span></li><li><span><span class="t-name">Settling cats at home</span><span class="t-hub">12% of the hub</span></span><span class="t-val">5 pages</span></li><li><span><span class="t-name">Cat trees &amp; perches</span><span class="t-hub">10% of the hub</span></span><span class="t-val">4 pages</span></li><li><span><span class="t-name">Dog beds</span><span class="t-hub">7% of the hub</span></span><span class="t-val">3 pages</span></li><li><span><span class="t-name">Cat beds</span><span class="t-hub">7% of the hub</span></span><span class="t-val">3 pages</span></li></ul>
+      </div>
+    </div>
+    <details class="all">
+      <summary>All 41 Sleep, Home &amp; Comfort pages</summary>
+      <div class="card card-light allcard"><ul class="tlist cols"><li><span><span class="t-name">Cat trees</span><span class="t-hub">Cat trees &amp; perches &middot; 7 subtopics</span></span><span class="t-val">561,300</span></li><li><span><span class="t-name">Dog beds</span><span class="t-hub">Settling cats at home &middot; 3 subtopics</span></span><span class="t-val">220,140</span></li><li><span><span class="t-name">Large dog beds</span><span class="t-hub">Dog beds &middot; 6 subtopics</span></span><span class="t-val">133,200</span></li><li><span><span class="t-name">Large cat tree for big cats</span><span class="t-hub">Cat trees &amp; perches &middot; 5 subtopics</span></span><span class="t-val">120,500</span></li><li><span><span class="t-name">Cat bed heater</span><span class="t-hub">Cat beds &middot; 4 subtopics</span></span><span class="t-val">44,490</span></li><li><span><span class="t-name">How many hours does a cat sleep?</span><span class="t-hub">How pets sleep &middot; 11 subtopics</span></span><span class="t-val">43,680</span></li><li><span><span class="t-name">Cats and Christmas trees</span><span class="t-hub">Settling cats at home &middot; 3 subtopics</span></span><span class="t-val">38,400</span></li><li><span><span class="t-name">Why did my cat pee on my bed?</span><span class="t-hub">Settling cats at home &middot; 9 subtopics</span></span><span class="t-val">35,600</span></li><li><span><span class="t-name">Elevated pet dog bed</span><span class="t-hub">Dog beds &middot; 2 subtopics</span></span><span class="t-val">29,600</span></li><li><span><span class="t-name">Cat perch window</span><span class="t-hub">Cat trees &amp; perches &middot; 20 subtopics</span></span><span class="t-val">28,430</span></li><li><span><span class="t-name">Dog sleeping positions</span><span class="t-hub">How pets sleep &middot; 25 subtopics</span></span><span class="t-val">20,970</span></li><li><span><span class="t-name">Why does my dog twitch in her sleep?</span><span class="t-hub">How pets sleep &middot; 19 subtopics</span></span><span class="t-val">20,120</span></li><li><span><span class="t-name">Why does my cat sleep on me?</span><span class="t-hub">How pets sleep &middot; 9 subtopics</span></span><span class="t-val">19,800</span></li><li><span><span class="t-name">Crate mat</span><span class="t-hub">Blankets, mats &amp; home &middot; 17 subtopics</span></span><span class="t-val">19,610</span></li><li><span><span class="t-name">Puppy sleeping schedule by age</span><span class="t-hub">How pets sleep &middot; 84 subtopics</span></span><span class="t-val">17,970</span></li><li><span><span class="t-name">Dog breathing rapidly in sleep</span><span class="t-hub">How pets sleep &middot; 52 subtopics</span></span><span class="t-val">16,900</span></li><li><span><span class="t-name">Cat bed cave</span><span class="t-hub">Cat beds &middot; 17 subtopics</span></span><span class="t-val">15,610</span></li><li><span><span class="t-name">Custom dog blanket</span><span class="t-hub">Blankets, mats &amp; home &middot; 6 subtopics</span></span><span class="t-val">11,400</span></li><li><span><span class="t-name">Pet couch protector cover</span><span class="t-hub">Blankets, mats &amp; home &middot; 16 subtopics</span></span><span class="t-val">10,910</span></li><li><span><span class="t-name">Dog sleep pills</span><span class="t-hub">How pets sleep &middot; 6 subtopics</span></span><span class="t-val">8,810</span></li><li><span><span class="t-name">Why is my cat twitching in his sleep?</span><span class="t-hub">How pets sleep &middot; 5 subtopics</span></span><span class="t-val">8,740</span></li><li><span><span class="t-name">Cat tree/litter box enclosure</span><span class="t-hub">Cat trees &amp; perches &middot; 1 subtopic</span></span><span class="t-val">8,100</span></li><li><span><span class="t-name">Cat bed self-warming</span><span class="t-hub">Cat beds &middot; 4 subtopics</span></span><span class="t-val">8,010</span></li><li><span><span class="t-name">Dachshund dog blanket</span><span class="t-hub">Blankets, mats &amp; home &middot; 3 subtopics</span></span><span class="t-val">4,800</span></li><li><span><span class="t-name">Dog sleep disorder</span><span class="t-hub">How pets sleep &middot; 2 subtopics</span></span><span class="t-val">4,500</span></li><li><span><span class="t-name">Puppy sleeping through the night</span><span class="t-hub">How pets sleep &middot; 39 subtopics</span></span><span class="t-val">3,910</span></li><li><span><span class="t-name">Dog electric blanket</span><span class="t-hub">Blankets, mats &amp; home &middot; 2 subtopics</span></span><span class="t-val">3,800</span></li><li><span><span class="t-name">Egg crate mats</span><span class="t-hub">Blankets, mats &amp; home &middot; 1 subtopic</span></span><span class="t-val">2,400</span></li><li><span><span class="t-name">Dog sleeping positions when sick</span><span class="t-hub">How pets sleep &middot; 3 subtopics</span></span><span class="t-val">1,030</span></li><li><span><span class="t-name">How to bring new cat home to another cat</span><span class="t-hub">Settling cats at home &middot; 14 subtopics</span></span><span class="t-val">780</span></li><li><span><span class="t-name">Orthopedic dog bed for hip dysplasia</span><span class="t-hub">Dog beds &middot; 1 subtopic</span></span><span class="t-val">320</span></li><li><span><span class="t-name">Puppy sleeping toy</span><span class="t-hub">How pets sleep &middot; 4 subtopics</span></span><span class="t-val">190</span></li><li><span><span class="t-name">Pet pool ramp</span><span class="t-hub">Blankets, mats &amp; home &middot; 1 subtopic</span></span><span class="t-val">140</span></li><li><span><span class="t-name">German Shepherd puppy sleep</span><span class="t-hub">How pets sleep &middot; 1 subtopic</span></span><span class="t-val">70</span></li><li><span><span class="t-name">French Bulldog puppy sleep</span><span class="t-hub">How pets sleep &middot; 2 subtopics</span></span><span class="t-val">50</span></li><li><span><span class="t-name">Border collie puppy sleep</span><span class="t-hub">How pets sleep &middot; 1 subtopic</span></span><span class="t-val">40</span></li><li><span><span class="t-name">How to litter train a cat in a new home</span><span class="t-hub">Settling cats at home &middot; 4 subtopics</span></span><span class="t-val">20</span></li><li><span><span class="t-name">Puppy sleeping on pee tray</span><span class="t-hub">How pets sleep &middot; 2 subtopics</span></span><span class="t-val">20</span></li><li><span><span class="t-name">Puppy snores while sleeping</span><span class="t-hub">How pets sleep &middot; 2 subtopics</span></span><span class="t-val">20</span></li><li><span><span class="t-name">Vizsla puppy sleep</span><span class="t-hub">How pets sleep &middot; 1 subtopic</span></span><span class="t-val">20</span></li><li><span><span class="t-name">Puppy sleeping outside in kennel</span><span class="t-hub">How pets sleep &middot; 1 subtopic</span></span><span class="t-val">10</span></li></ul></div>
+    </details>
+  </div>
+</section>
+
+<!-- ============ 13 - CLOSE ============ -->
+<section class="slide s-dark hero-dark">
+  <span class="marker">13 - Next</span>
+  <div class="slide-inner" style="text-align:center;">
+    <div class="eyebrow" style="justify-content:center;"><span class="dot"></span> Where this goes from here</div>
+    <h1 class="display" style="max-width:880px; margin:0 auto;">The topics are chosen.<br>Now they become <span class="flip">pages.</span></h1>
+    <p class="lead muted-d80" style="max-width:660px; margin:24px auto 0;">
+      Six months, 532 pages across seven hubs, running alongside the SEO audit, AI visibility
+      and Reddit tracking. Everything is in your dashboard as it goes live.
+    </p>
+    <p class="footer-note muted-d" style="margin-top:56px;">FlyRank &middot; Baxter Boo content roadmap, Oct 2026 - Mar 2027</p>
+  </div>
+</section>
+
+<script>
+  const rail = document.getElementById('rail');
+  let ticking = false;
+  function updateRail() {
+    const max = document.documentElement.scrollHeight - window.innerHeight;
+    const pct = max > 0 ? (window.scrollY / max) * 100 : 0;
+    rail.style.width = Math.min(100, Math.max(0, pct)) + '%';
+    ticking = false;
+  }
+  window.addEventListener('scroll', () => {
+    if (!ticking) { window.requestAnimationFrame(updateRail); ticking = true; }
+  }, {passive:true});
+  window.addEventListener('resize', updateRail, {passive:true});
+  updateRail();
+</script>
+
+</body></html>
+</body></html>
