@@ -1,0 +1,936 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Korendy Content Roadmap</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;700&display=swap">
+<style>
+
+  :root {
+    --mint-300:#7EEFC1; --mint-400:#54E399; --mint-500:#31C97A; --mint-700:#1A7A4A;
+    --ink-800:#0A2224; --ink-850:#071E20; --ink-900:#051F21; --ink-950:#030F10;
+    --paper:#F8FAF9; --paper-sunken:#F0F4F2;
+    --teal-300:#5EC6A9; --teal-400:#3AADA6; --teal-500:#2A8C8A;
+    color-scheme:light;
+  }
+
+  * { margin:0; padding:0; box-sizing:border-box; }
+
+  html { scroll-behavior:smooth; }
+
+  body {
+    font-family:'Geist',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+    color:var(--ink-900);
+    background:var(--ink-950);
+    -webkit-font-smoothing:antialiased;
+    line-height:1.6;
+  }
+  @media (prefers-reduced-motion:reduce) { html { scroll-behavior:auto; } }
+
+  .mono { font-family:'Geist Mono',ui-monospace,Consolas,monospace; }
+
+  /* ---------- Section frame ---------- */
+  .slide {
+    position:relative;
+    min-height:100vh;
+    display:flex; flex-direction:column; justify-content:center;
+    padding:96px 48px;
+  }
+  .slide-inner { width:100%; max-width:1080px; margin:0 auto; position:relative; z-index:2; }
+  .slide-inner.wide { max-width:1240px; }
+
+  .s-dark { background:var(--ink-900); color:#fff; }
+  .s-paper { background:var(--paper); }
+  .s-light { background:#fff; }
+  .s-sunken { background:var(--paper-sunken); }
+
+  .marker {
+    position:absolute; top:40px; right:48px; z-index:3;
+    font-family:'Geist Mono',ui-monospace,Consolas,monospace;
+    font-size:11px; font-weight:700; letter-spacing:0.14em; text-transform:uppercase;
+  }
+  .s-dark .marker { color:rgba(255,255,255,0.55); }
+  .s-paper .marker, .s-light .marker, .s-sunken .marker { color:rgba(5,31,33,0.40); }
+
+  .eyebrow {
+    font-family:'Geist Mono',ui-monospace,Consolas,monospace;
+    font-size:11px; font-weight:700; letter-spacing:0.14em; text-transform:uppercase;
+    display:inline-flex; align-items:center; gap:8px;
+    margin-bottom:24px;
+  }
+  .s-dark .eyebrow { color:var(--mint-400); }
+  .s-paper .eyebrow, .s-light .eyebrow, .s-sunken .eyebrow { color:var(--teal-500); }
+
+  .dot { width:6px; height:6px; border-radius:9999px; background:var(--mint-400); display:inline-block;
+         animation:pulse 2.4s ease-in-out infinite; }
+  @keyframes pulse { 0%,100%{opacity:1;transform:scale(1);} 50%{opacity:0.4;transform:scale(0.7);} }
+
+  h1.display { font-size:56px; font-weight:700; letter-spacing:-0.032em; line-height:1.06; }
+  h2 { font-size:32px; font-weight:700; letter-spacing:-0.028em; line-height:1.12; }
+  h3 { font-size:24px; font-weight:700; letter-spacing:-0.022em; line-height:1.2; }
+  h4 { font-size:20px; font-weight:600; letter-spacing:-0.015em; }
+  .lead { font-size:18px; font-weight:400; line-height:1.6; }
+  h4.title-sm { font-size:17px; letter-spacing:-0.01em; line-height:1.3; }
+  h4.title-xs { font-size:16px; letter-spacing:-0.008em; line-height:1.3; }
+  .body { font-size:16px; line-height:1.6; }
+  .bodys { font-size:14px; line-height:1.55; }
+  .cap { font-size:12px; line-height:1.5; }
+
+  .muted-d { color:rgba(255,255,255,0.55); }
+  .muted-d80 { color:rgba(255,255,255,0.80); }
+  .muted-l { color:rgba(5,31,33,0.55); }
+  .muted-l45 { color:rgba(5,31,33,0.45); }
+  .mint { color:var(--mint-400); }
+  .mint-dark { color:var(--mint-700); }
+
+  /* ---------- Cards ---------- */
+  .card { border-radius:20px; padding:28px; }
+  .card.compact { padding:20px 22px; border-radius:16px; }
+  .card-light { background:#fff; border:1px solid #DDE4E7; }
+  .card-paper { background:var(--paper); border:1px solid #E4EAED; }
+  .card-dark { background:var(--ink-900); color:#fff; }
+  .card-dark-el { background:var(--ink-850); border:1px solid rgba(255,255,255,0.10); border-radius:20px; padding:28px; color:#fff; }
+  .card-dark-el.compact { padding:20px 22px; border-radius:16px; }
+
+  .grid { display:grid; gap:16px; align-items:stretch; }
+  .grid > * { height:100%; }
+  .g2 { grid-template-columns:repeat(2,1fr); }
+  .g3 { grid-template-columns:repeat(3,1fr); }
+  .g4 { grid-template-columns:repeat(4,1fr); }
+  .g5 { grid-template-columns:repeat(5,1fr); }
+
+  .stat-num { font-size:34px; font-weight:700; letter-spacing:-0.03em; line-height:1.05; }
+  .stat-lbl { font-size:13px; margin-top:10px; }
+
+  .pill {
+    display:inline-flex; align-items:center; gap:7px;
+    border-radius:9999px; padding:5px 13px; font-size:12px;
+  }
+  .pill-tag-d { background:rgba(255,255,255,0.07); border:1px solid rgba(255,255,255,0.10); color:rgba(255,255,255,0.80); }
+  .pill-tag-l { background:rgba(5,31,33,0.06); border:1px solid rgba(5,31,33,0.08); color:rgba(5,31,33,0.55); }
+  .pill-lead { background:rgba(49,201,122,0.12); border:1px solid rgba(49,201,122,0.25); color:var(--mint-700); }
+  .pill-row { display:flex; flex-wrap:wrap; gap:8px; }
+
+  .badge {
+    display:inline-flex; align-items:center; border-radius:8px;
+    font-size:10px; font-weight:700; letter-spacing:0.06em; text-transform:uppercase; padding:3px 8px;
+  }
+  .b-done   { background:rgba(49,201,122,0.12); color:var(--mint-700); }
+  .b-done-d { background:rgba(84,227,153,0.14); color:var(--mint-300); }
+  .b-move-d { background:rgba(94,198,169,0.16); color:var(--teal-300); }
+
+  .flag {
+    display:inline-flex; align-items:center; gap:7px;
+    border-radius:8px; padding:4px 10px;
+    font-family:'Geist Mono',ui-monospace,Consolas,monospace;
+    font-size:10px; font-weight:700; letter-spacing:0.08em; text-transform:uppercase;
+    background:rgba(49,201,122,0.10); color:var(--mint-700); border:1px dashed rgba(26,122,74,0.45);
+  }
+
+  /* ---------- Topic lists ---------- */
+  .tlist { list-style:none; margin-top:16px; }
+  .tlist li {
+    display:flex; align-items:baseline; justify-content:space-between; gap:14px;
+    padding:10px 0; border-bottom:1px solid rgba(5,31,33,0.08);
+  }
+  .tlist li:last-child { border-bottom:none; }
+  .tlist li:first-child { padding-top:0; }
+  .s-dark .tlist li { border-bottom-color:rgba(255,255,255,0.10); }
+  .t-name { font-size:14px; font-weight:500; line-height:1.35; }
+  .t-hub {
+    display:block; margin-top:3px;
+    font-family:'Geist Mono',ui-monospace,Consolas,monospace;
+    font-size:10px; letter-spacing:0.06em; text-transform:uppercase;
+    color:rgba(5,31,33,0.40);
+  }
+  .s-dark .t-hub { color:rgba(255,255,255,0.45); }
+  .t-val {
+    font-family:'Geist Mono',ui-monospace,Consolas,monospace;
+    font-size:12px; font-weight:700; white-space:nowrap; color:var(--mint-700);
+  }
+  .s-dark .t-val { color:var(--mint-300); }
+  .t-sub { font-weight:400; color:rgba(5,31,33,0.40); }
+  .s-dark .t-sub { color:rgba(255,255,255,0.45); }
+
+  /* ---------- Hero backgrounds ---------- */
+  .hero-dark {
+    background:radial-gradient(ellipse at 60% 40%, rgba(84,227,153,0.09), transparent 55%), var(--ink-900);
+  }
+  .hero-dark::before {
+    content:''; position:absolute; inset:0; z-index:1; pointer-events:none;
+    background-image:linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+                     linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+    background-size:48px 48px;
+  }
+
+  .accent-bar { width:44px; height:4px; border-radius:9999px; background:var(--mint-400); margin-bottom:28px; }
+  .flip { color:var(--mint-400); }
+  .arrow { color:var(--mint-400); font-weight:700; padding:0 4px; }
+
+  ul.clean { list-style:none; }
+  ul.clean li { position:relative; padding-left:26px; margin-bottom:12px; }
+  ul.clean li:last-child { margin-bottom:0; }
+  ul.clean li::before {
+    content:''; position:absolute; left:0; top:9px; width:7px; height:7px;
+    border-radius:9999px; background:var(--mint-400);
+  }
+
+  .divider { height:1px; background:rgba(5,31,33,0.08); margin:28px 0; }
+  .s-dark .divider { background:rgba(255,255,255,0.10); }
+
+  .footer-note { font-size:12px; }
+
+  .step-n { font-family:'Geist Mono',ui-monospace,Consolas,monospace; font-size:12px; font-weight:700; letter-spacing:0.14em; }
+  .step-row { display:flex; align-items:center; justify-content:space-between; gap:10px; }
+  .week {
+    font-family:'Geist Mono',ui-monospace,Consolas,monospace;
+    font-size:10px; font-weight:700; letter-spacing:0.10em; text-transform:uppercase;
+    border-radius:9999px; padding:3px 10px; white-space:nowrap;
+  }
+  .week-l { background:rgba(5,31,33,0.06); color:rgba(5,31,33,0.55); }
+  .week-d { background:rgba(84,227,153,0.12); color:var(--mint-300); }
+
+  .rail { position:fixed; top:0; left:0; height:3px; background:var(--mint-400); z-index:99; width:0; }
+
+  /* ---------- Responsive ---------- */
+  @media (max-width:1100px) {
+    .g5 { grid-template-columns:repeat(3,1fr); }
+  }
+  @media (max-width:900px) {
+    .slide { padding:80px 32px; }
+    .g2,.g3,.g4,.g5 { grid-template-columns:1fr; }
+    .g4.keep2, .g5.keep2 { grid-template-columns:repeat(2,1fr); }
+    .marker { top:24px; right:32px; }
+  }
+  @media (max-width:560px) {
+    .slide { padding:72px 20px; }
+    h1.display { font-size:34px; }
+    h2 { font-size:26px; }
+    h3 { font-size:21px; }
+    .lead { font-size:16px; }
+    .g4.keep2, .g5.keep2 { grid-template-columns:1fr; }
+  }
+  @media (prefers-reduced-motion:reduce) { .dot { animation:none; } }
+
+  .tlist li > span:first-child { min-width:0; }
+  .t-name { overflow-wrap:anywhere; }
+  .stat-num, .t-val { font-variant-numeric:tabular-nums; }
+  :focus-visible { outline:2px solid var(--mint-500); outline-offset:2px; }
+
+
+  .hubhead { display:flex; flex-wrap:wrap; align-items:baseline; gap:6px 14px; margin-top:6px; }
+  .hubmeta { font-family:'Geist Mono',ui-monospace,Consolas,monospace; font-size:11px; letter-spacing:0.06em; text-transform:uppercase; }
+  .s-dark .hubmeta { color:rgba(255,255,255,0.55); }
+  .group-label {
+    font-family:'Geist Mono',ui-monospace,Consolas,monospace;
+    font-size:10px; font-weight:700; letter-spacing:0.14em; text-transform:uppercase;
+    color:rgba(255,255,255,0.45); margin:28px 0 12px;
+  }
+  .group-label { margin-top:32px; }
+  .mstrip { display:grid; grid-template-columns:repeat(6,1fr); gap:10px; margin-top:20px; }
+  .mcell { background:#fff; border:1px solid #DDE4E7; border-radius:14px; padding:14px 16px; }
+  .mcell .mnum { font-size:22px; font-weight:700; letter-spacing:-0.02em; color:var(--mint-700); font-variant-numeric:tabular-nums; }
+  .mcell .mlbl { font-family:'Geist Mono',ui-monospace,Consolas,monospace; font-size:10px; font-weight:700; letter-spacing:0.10em; text-transform:uppercase; color:rgba(5,31,33,0.45); }
+  details.all { margin-top:22px; border-top:1px solid rgba(5,31,33,0.08); padding-top:18px; }
+  details.all summary {
+    cursor:pointer; list-style:none; display:inline-flex; align-items:center; gap:8px;
+    font-family:'Geist Mono',ui-monospace,Consolas,monospace;
+    font-size:11px; font-weight:700; letter-spacing:0.10em; text-transform:uppercase;
+    color:var(--teal-500); border-radius:9999px; padding:6px 14px;
+    background:rgba(42,140,138,0.08); border:1px solid rgba(42,140,138,0.22);
+  }
+  details.all summary::-webkit-details-marker { display:none; }
+  details.all summary::before { content:'+'; font-size:13px; line-height:1; }
+  details.all[open] summary::before { content:'\2212'; }
+  .allgrid { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin-top:18px; }
+  .allgrid .card { padding:20px 22px; border-radius:16px; }
+  .allgrid h5 { font-family:'Geist Mono',ui-monospace,Consolas,monospace; font-size:10px; font-weight:700; letter-spacing:0.12em; text-transform:uppercase; color:var(--teal-500); display:flex; justify-content:space-between; gap:10px; }
+  .allgrid h5 span { color:rgba(5,31,33,0.40); }
+  .allgrid .tlist li { padding:8px 0; }
+  .allgrid .t-name { font-size:13px; }
+  @media (max-width:900px) {
+    .mstrip { grid-template-columns:repeat(3,1fr); }
+    .allgrid { grid-template-columns:1fr; }
+  }
+  @media (max-width:560px) { .mstrip { grid-template-columns:repeat(2,1fr); } }
+
+
+  /* Scrolling fix: sections size to their content, the page always scrolls */
+  html, body { height:auto; }
+  html { overflow-y:auto; scroll-behavior:auto; }
+  .slide { min-height:0; }
+  .slide.hero-dark { padding-block:140px; }
+  @media (max-width:560px) { .slide.hero-dark { padding-block:96px; } }
+
+  /* GetBuddy additions */
+  .svc-grid { margin-top:40px; }
+  .svc h4 { margin-top:14px; }
+  .svc ul.clean { margin-top:14px; }
+  .svc ul.clean li { font-size:14px; line-height:1.5; color:rgba(5,31,33,0.72); margin-bottom:10px; }
+  .svc ul.clean li::before { top:7px; }
+  .svc-n { font-family:'Geist Mono',ui-monospace,Consolas,monospace; font-size:10px; font-weight:700; letter-spacing:0.10em; text-transform:uppercase; color:rgba(5,31,33,0.45); margin-top:18px; padding-top:14px; border-top:1px solid rgba(5,31,33,0.08); }
+  .b-teal { background:rgba(42,140,138,0.10); color:var(--teal-500); }
+  .dash {
+    margin-top:16px; display:flex; flex-wrap:wrap; align-items:center; gap:14px 24px;
+    background:rgba(49,201,122,0.07); border:1px solid rgba(49,201,122,0.25); border-radius:16px; padding:18px 22px;
+  }
+  .dash p { min-width:0; flex:1 1 360px; }
+  .svc { display:flex; flex-direction:column; }
+  .svc .svc-n { margin-top:auto; }
+  .svc ul.clean { margin-bottom:18px; }
+  a.hublink { color:inherit; text-decoration:none; }
+  a.hublink:hover { color:var(--mint-300); }
+
+  /* All topics: one card, three even columns */
+  .allcard { margin-top:18px; padding:22px 26px; border-radius:16px; }
+  .tlist.cols { columns:3 240px; column-gap:36px; margin-top:0; }
+  .tlist.cols li { break-inside:avoid; padding:9px 0; }
+  .tlist.cols .t-name { font-size:13px; }
+
+  /* Hugger Mugger: one width for every section, safe-area side gutters */
+  .slide { padding-block:96px; padding-left:max(48px, env(safe-area-inset-left, 0px)); padding-right:max(48px, env(safe-area-inset-right, 0px)); }
+  .slide-inner, .slide-inner.wide { max-width:1080px; }
+  .marker { right:max(48px, env(safe-area-inset-right, 0px)); }
+  h1.display, h2, h3 { text-wrap:balance; }
+  .svc .bodys { color:rgba(5,31,33,0.72); }
+  .svc ul.ex li { color:var(--ink-900); font-weight:500; }
+  .later-hint {
+    margin-top:14px; display:inline-flex; align-items:center; gap:10px;
+    font-family:'Geist Mono',ui-monospace,Consolas,monospace; font-size:11px; font-weight:700;
+    letter-spacing:0.08em; text-transform:uppercase; color:rgba(5,31,33,0.55);
+    border:1px dashed rgba(42,140,138,0.40); border-radius:9999px; padding:5px 14px 5px 6px;
+  }
+  .later-n { background:rgba(42,140,138,0.10); color:var(--teal-500); border-radius:9999px; padding:2px 9px; font-variant-numeric:tabular-nums; }
+  @media (max-width:900px) {
+    .slide { padding-block:80px; padding-left:max(32px, env(safe-area-inset-left, 0px)); padding-right:max(32px, env(safe-area-inset-right, 0px)); }
+    .marker { right:max(32px, env(safe-area-inset-right, 0px)); }
+    .g3.keep2 { grid-template-columns:repeat(2,1fr); }
+  }
+  @media (max-width:560px) {
+    .slide { padding-block:72px; padding-left:max(20px, env(safe-area-inset-left, 0px)); padding-right:max(20px, env(safe-area-inset-right, 0px)); }
+    .marker { right:max(20px, env(safe-area-inset-right, 0px)); }
+    .g3.keep2 { grid-template-columns:1fr; }
+    .later-hint { letter-spacing:0.04em; }
+  }
+  .slide.hero-dark { padding-block:140px; }
+  @media (max-width:560px) { .slide.hero-dark { padding-block:96px; } }
+
+</style>
+
+<div class="rail" id="rail"></div>
+
+<!-- ============ 01 - COVER ============ -->
+<section class="slide s-dark hero-dark">
+  <span class="marker">01 - The roadmap</span>
+  <div class="slide-inner">
+    <div class="eyebrow"><span class="dot"></span> Content roadmap &middot; FlyRank &times; Korendy</div>
+    <h1 class="display">Clear skin, healthy hair <span class="flip">&amp;</span> the best of K-beauty</h1>
+    <p class="lead muted-d80" style="max-width:680px; margin-top:24px;">
+      Six months of content for korendy.com.tr, already scheduled. Eleven hubs covering body and hand care, hair
+      and scalp, everyday makeup, dark spots and skin tone, skincare ingredients, acne and pores, dryness and the
+      skin barrier, sun protection, routines, aging skin and baby care, each page built around one main topic.
+    </p>
+    <div class="pill-row" style="margin-top:36px;">
+      <span class="pill pill-tag-d">542 pages scheduled</span>
+      <span class="pill pill-tag-d">8,286 subtopics</span>
+      <span class="pill pill-tag-d">11 content hubs</span>
+      <span class="pill pill-tag-d">Oct 2026 - Mar 2027</span>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 02 - SERVICES ============ -->
+<section class="slide s-light">
+  <span class="marker">02 - The work</span>
+  <div class="slide-inner">
+    <div class="eyebrow">What we&#x27;re doing for Korendy</div>
+    <h2 style="max-width:820px;">Six workstreams, one dashboard</h2>
+    <p class="lead muted-l" style="margin-top:16px; max-width:760px;">
+      Content, SEO, product page work, AI visibility, ecommerce and Reddit tracking run side by side.
+      Log in to your own dashboard to follow every page as it goes live, see where Korendy is mentioned across
+      AI engines and Reddit, and track the sales that come from search and AI.
+    </p>
+    <div class="grid g3 keep2 svc-grid" style="gap:14px;">
+      <div class="card card-paper compact svc">
+        <span class="badge b-done" style="align-self:flex-start;">Content</span>
+        <h4 class="title-sm">New content strategy</h4>
+        <ul class="clean"><li>Each page has one main topic and the subtopics that belong to it</li><li>Pages go more in-depth, answering the full set of related questions in one place</li><li>Every page belongs to a hub, so it links to related pages the day it goes live</li></ul>
+        <p class="svc-n">542 pages &middot; 8,286 subtopics</p>
+      </div>
+      <div class="card card-paper compact svc">
+        <span class="badge b-teal" style="align-self:flex-start;">Technical</span>
+        <h4 class="title-sm">Website SEO audit</h4>
+        <ul class="clean"><li>On-page SEO audit of korendy.com.tr, page by page</li><li>Covers all on-page elements, from titles and headings to internal links</li><li>Each issue comes with a clear fix, so the team knows exactly what to change</li></ul>
+        <p class="svc-n">Every on-page element checked</p>
+      </div>
+      <div class="card card-paper compact svc">
+        <span class="badge b-done" style="align-self:flex-start;">Store</span>
+        <h4 class="title-sm">Product &amp; collection optimizations</h4>
+        <ul class="clean"><li>Analysis of Korendy&#x27;s product and collection pages</li><li>Pages optimized based on SEO and GEO best practices, so they rank and get cited</li><li>Covers skincare, makeup, hair and body, with clear fixes for each</li></ul>
+        <p class="svc-n">Product and collection pages</p>
+      </div>
+      <div class="card card-paper compact svc">
+        <span class="badge b-teal" style="align-self:flex-start;">Visibility</span>
+        <h4 class="title-sm">AI visibility tracking</h4>
+        <ul class="clean"><li>Shows whether AI assistants mention the brand, and how they describe it</li><li>Turns missed, high-scoring prompts into a clear to-do list of content to create</li><li>Citations and fan-out show why AI picks a competitor, with trends over time</li></ul>
+        <p class="svc-n">Mentions, citations, competitors</p>
+      </div>
+      <div class="card card-paper compact svc">
+        <span class="badge b-done" style="align-self:flex-start;">Revenue</span>
+        <h4 class="title-sm">Ecommerce tracking</h4>
+        <ul class="clean"><li>Connects SEO, content and AI visibility to sales, not just traffic or rankings</li><li>Measures sales from AI tools, a channel most analytics tools don&#x27;t track yet</li><li>Every number shows its change, with plain definitions and no double counting</li></ul>
+        <p class="svc-n">Sales, traffic and AI orders in one place</p>
+      </div>
+      <div class="card card-paper compact svc">
+        <span class="badge b-teal" style="align-self:flex-start;">Community</span>
+        <h4 class="title-sm">Reddit mentions tracking</h4>
+        <ul class="clean"><li>Finds threads asking for advice, the moments a good answer wins a customer</li><li>A sorted inbox with drafted replies, and Reddit answers also lift AI visibility</li><li>Spots mentions and complaints early, and collects the words shoppers use</li></ul>
+        <p class="svc-n">Mentions and ready-to-use replies</p>
+      </div>
+    </div>
+    <div class="dash">
+      <span class="flag">Your dashboard</span>
+      <p class="bodys muted-l">Log in to see the content calendar, AI visibility, Reddit mentions and ecommerce sales in one place, updated as the work moves.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 03 - SIX MONTH PLAN ============ -->
+<section class="slide s-paper">
+  <span class="marker">03 - The plan</span>
+  <div class="slide-inner">
+    <div class="eyebrow">Six month content plan</div>
+    <h2 style="max-width:820px;">542 pages are scheduled<br>for the next six months.</h2>
+    <p class="lead muted-l" style="margin-top:16px; max-width:760px;">
+      Every page targets one main topic and groups the subtopics people search around it, 8,286 in total.
+      Together the pages carry 13,861,630 monthly searches across eleven content hubs, from clogged pores
+      and dry skin to hair care, sunscreen and K-beauty ingredients.
+    </p>
+    <div class="grid g4 keep2" style="margin-top:40px;">
+      <div class="card card-light"><div class="stat-num mint-dark">542</div><p class="stat-lbl muted-l">Pages scheduled from October to March</p></div>
+      <div class="card card-light"><div class="stat-num mint-dark">8,286</div><p class="stat-lbl muted-l">Subtopics inside those pages, about 15 per page</p></div>
+      <div class="card card-light"><div class="stat-num mint-dark">13,861,630</div><p class="stat-lbl muted-l">Monthly searches across the targeted keywords</p></div>
+      <div class="card card-light"><div class="stat-num mint-dark">826,410</div><p class="stat-lbl muted-l">Searches a month for the top page, dry skin moisturizers</p></div>
+    </div>
+    <div class="card card-dark" style="margin-top:20px; padding:22px 26px;">
+      <p class="bodys muted-d80">
+        <span class="mint" style="font-weight:600;">How the pages are built.</span>
+        Each page is built around one main topic, with its subtopics as sections, so a single page answers what used
+        to take several thin posts. The deepest page, how to unclog clogged pores, covers 361 subtopics. Publishing runs every
+        month from October to March, at 100 pages a month after a shorter October start.
+      </p>
+    </div>
+    <div class="dash">
+      <span class="flag">After March</span>
+      <p class="bodys muted-l"><strong class="mint-dark">2,114 more topics</strong> are already mapped for after March 2027, across the same eleven hubs.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 04 - PAGE TYPES ============ -->
+<section class="slide s-light">
+  <span class="marker">04 - Page types</span>
+  <div class="slide-inner">
+    <div class="eyebrow">How each page is shaped</div>
+    <h2 style="max-width:820px;">Six kinds of pages, each matched to the search behind it</h2>
+    <p class="lead muted-l" style="margin-top:16px; max-width:760px;">
+      Each topic gets the format that fits what people want when they search it. Someone dealing with clogged
+      pores needs a guide, while someone choosing a Korean sunscreen needs a listicle or a collection page.
+    </p>
+    <div class="grid g3 keep2 svc-grid" style="gap:14px;">
+      <div class="card card-paper compact svc">
+        <span class="badge b-done" style="align-self:flex-start;">Guide</span>
+        <h4 class="title-sm">Guides &amp; explainers</h4>
+        <p class="bodys muted-l" style="margin-top:10px;">In-depth answers to what-is and how-to questions, with each subtopic as a section, so one page covers it all.</p>
+        <p class="svc-n">Example topics</p>
+        <ul class="clean ex"><li>How to unclog clogged pores</li><li>Melasma</li><li>Keratosis pilaris</li></ul>
+      </div>
+      <div class="card card-paper compact svc">
+        <span class="badge b-teal" style="align-self:flex-start;">Listicle</span>
+        <h4 class="title-sm">Listicles</h4>
+        <p class="bodys muted-l" style="margin-top:10px;">Ranked or grouped lists of products that let readers scan the options quickly and pick the one for their skin.</p>
+        <p class="svc-n">Example topics</p>
+        <ul class="clean ex"><li>Best moisturizers for dry skin</li><li>Best mineral sunscreens</li><li>Best hand creams</li></ul>
+      </div>
+      <div class="card card-paper compact svc">
+        <span class="badge b-done" style="align-self:flex-start;">Collection</span>
+        <h4 class="title-sm">Collection pages</h4>
+        <p class="bodys muted-l" style="margin-top:10px;">Category pages for shopping searches that pair the right Korendy products with buying advice for that need.</p>
+        <p class="svc-n">Example topics</p>
+        <ul class="clean ex"><li>Non-comedogenic face cleansers</li><li>K-beauty vitamin C serums</li><li>Korean SPF sunscreens</li></ul>
+      </div>
+      <div class="card card-paper compact svc">
+        <span class="badge b-teal" style="align-self:flex-start;">Comparison</span>
+        <h4 class="title-sm">Comparisons</h4>
+        <p class="bodys muted-l" style="margin-top:10px;">Side-by-side looks at two options, for readers choosing between ingredients, formulas or treatments.</p>
+        <p class="svc-n">Example topics</p>
+        <ul class="clean ex"><li>Retinol vs. tretinoin</li><li>Mineral vs. chemical sunscreen</li><li>Dandruff vs. dry scalp</li></ul>
+      </div>
+      <div class="card card-paper compact svc">
+        <span class="badge b-done" style="align-self:flex-start;">Product</span>
+        <h4 class="title-sm">Product pages</h4>
+        <p class="bodys muted-l" style="margin-top:10px;">Pages for searches that name a product type, explaining what it does, who it suits and how to use it.</p>
+        <p class="svc-n">Example topics</p>
+        <ul class="clean ex"><li>Air cushion foundation</li><li>Magnesium niacinamide cream</li><li>Bio-active ceramide moisturizer</li></ul>
+      </div>
+      <div class="card card-paper compact svc">
+        <span class="badge b-teal" style="align-self:flex-start;">Tool</span>
+        <h4 class="title-sm">Tools &amp; finders</h4>
+        <p class="bodys muted-l" style="margin-top:10px;">Hands-on pages people use rather than read: undertone, shade and routine finders that point to the right products.</p>
+        <p class="svc-n">Example topics</p>
+        <ul class="clean ex"><li>Skin undertone finder</li><li>Foundation shade match</li><li>Personalized skincare routine</li></ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 05 - CONTENT HUBS ============ -->
+<section class="slide s-dark">
+  <span class="marker">05 - Coverage</span>
+  <div class="slide-inner">
+    <div class="eyebrow"><span class="dot"></span> What the plan covers</div>
+    <h2>Eleven hubs across skin, hair, body, makeup and sun care</h2>
+    <p class="group-label">Largest hubs &middot; 320 pages &middot; 7,081,570 searches / mo</p>
+    <div class="grid g4 keep2" style="gap:14px;">
+      <div class="card-dark-el compact">
+        <span class="badge b-done-d">123 pages</span>
+        <h4 class="title-xs" style="margin-top:12px;"><a class="hublink" href="#vucut">Vücut ve El Bakımı</a></h4>
+        <p class="hubmeta" style="margin-top:4px;">2,219,730 searches / mo &middot; 937 subtopics</p>
+        <p class="bodys muted-d80" style="margin-top:8px;">Keratosis pilaris, body washes and scrubs, lotions, oils and mists, hand care, heels and perfume.</p>
+      </div><div class="card-dark-el compact">
+        <span class="badge b-done-d">90 pages</span>
+        <h4 class="title-xs" style="margin-top:12px;"><a class="hublink" href="#sac">Saç ve Saç Derisi Bakımı</a></h4>
+        <p class="hubmeta" style="margin-top:4px;">2,526,190 searches / mo &middot; 1,508 subtopics</p>
+        <p class="bodys muted-d80" style="margin-top:8px;">Scalp care, clarifying shampoo, leave-in conditioners and masks, frizz and split ends, and supplements.</p>
+      </div><div class="card-dark-el compact">
+        <span class="badge b-done-d">55 pages</span>
+        <h4 class="title-xs" style="margin-top:12px;"><a class="hublink" href="#makyaj">Günlük Makyaj ve Cilt Görünümü</a></h4>
+        <p class="hubmeta" style="margin-top:4px;">792,640 searches / mo &middot; 1,291 subtopics</p>
+        <p class="bodys muted-d80" style="margin-top:8px;">Foundations, skin tints, primers, color correction, tools and natural looks.</p>
+      </div><div class="card-dark-el compact">
+        <span class="badge b-done-d">52 pages</span>
+        <h4 class="title-xs" style="margin-top:12px;"><a class="hublink" href="#leke">Leke Görünümü ve Cilt Tonu</a></h4>
+        <p class="hubmeta" style="margin-top:4px;">1,543,010 searches / mo &middot; 706 subtopics</p>
+        <p class="bodys muted-d80" style="margin-top:8px;">Melasma, sun spots, vitamin C, glycolic and mandelic acid, alpha arbutin and uneven tone.</p>
+      </div>
+    </div>
+    <p class="group-label">Mid-size hubs &middot; 181 pages &middot; 5,986,700 searches / mo</p>
+    <div class="grid g4 keep2" style="gap:14px;">
+      <div class="card-dark-el compact">
+        <span class="badge b-done-d">51 pages</span>
+        <h4 class="title-xs" style="margin-top:12px;"><a class="hublink" href="#icerikler">Cilt Bakım İçerikleri</a></h4>
+        <p class="hubmeta" style="margin-top:4px;">1,352,720 searches / mo &middot; 396 subtopics</p>
+        <p class="bodys muted-d80" style="margin-top:8px;">Retinol and tretinoin, niacinamide, bakuchiol, collagen, peptides and PDRN, and ingredients by need.</p>
+      </div><div class="card-dark-el compact">
+        <span class="badge b-done-d">50 pages</span>
+        <h4 class="title-xs" style="margin-top:12px;"><a class="hublink" href="#akne">Akne, Yağlanma ve Gözenek Görünümü</a></h4>
+        <p class="hubmeta" style="margin-top:4px;">2,149,290 searches / mo &middot; 1,110 subtopics</p>
+        <p class="bodys muted-d80" style="margin-top:8px;">Clogged pores, blackheads, oily skin, non-comedogenic care and acne actives.</p>
+      </div><div class="card-dark-el compact">
+        <span class="badge b-done-d">43 pages</span>
+        <h4 class="title-xs" style="margin-top:12px;"><a class="hublink" href="#kuruluk">Kuruluk ve Cilt Bariyeri</a></h4>
+        <p class="hubmeta" style="margin-top:4px;">1,889,960 searches / mo &middot; 645 subtopics</p>
+        <p class="bodys muted-d80" style="margin-top:8px;">Dry and dehydrated skin, moisturizers and barrier creams, gentle cleansers, hydrating toners and pH.</p>
+      </div><div class="card-dark-el compact">
+        <span class="badge b-done-d">37 pages</span>
+        <h4 class="title-xs" style="margin-top:12px;"><a class="hublink" href="#gunes">Günlük Güneş Koruması</a></h4>
+        <p class="hubmeta" style="margin-top:4px;">594,730 searches / mo &middot; 857 subtopics</p>
+        <p class="bodys muted-d80" style="margin-top:8px;">Mineral vs. chemical, Korean and Japanese sunscreens, picks by skin type, sprays, sticks and reapplying.</p>
+      </div>
+    </div>
+    <p class="group-label">Focused hubs &middot; 41 pages &middot; 793,360 searches / mo</p>
+    <div class="grid g3" style="gap:14px;">
+      <div class="card-dark-el compact">
+        <span class="badge b-done-d">24 pages</span>
+        <h4 class="title-xs" style="margin-top:12px;"><a class="hublink" href="#rutinler">Cilt Bakım Rutinleri</a></h4>
+        <p class="hubmeta" style="margin-top:4px;">447,280 searches / mo &middot; 407 subtopics</p>
+        <p class="bodys muted-d80" style="margin-top:8px;">Building a routine, product order, double cleansing, routines by concern, seasonal routines and tools.</p>
+      </div><div class="card-dark-el compact">
+        <span class="badge b-done-d">13 pages</span>
+        <h4 class="title-xs" style="margin-top:12px;"><a class="hublink" href="#yas">Yaş Alan Cilt Bakımı</a></h4>
+        <p class="hubmeta" style="margin-top:4px;">277,190 searches / mo &middot; 399 subtopics</p>
+        <p class="bodys muted-d80" style="margin-top:8px;">Anti-wrinkle serums, under-eye and neck wrinkles, retinol for beginners, purging and peptides.</p>
+      </div><div class="card-dark-el compact">
+        <span class="badge b-done-d">4 pages</span>
+        <h4 class="title-xs" style="margin-top:12px;"><a class="hublink" href="#bebek">Bebekler İçin Günlük Bakım</a></h4>
+        <p class="hubmeta" style="margin-top:4px;">68,890 searches / mo &middot; 30 subtopics</p>
+        <p class="bodys muted-d80" style="margin-top:8px;">Baby wipes, infant sunscreen picks, when babies can wear sunscreen, and diaper changes on the go.</p>
+      </div>
+    </div>
+    <p class="bodys muted-d" style="margin-top:24px;">
+      Every scheduled page belongs to one of these hubs, so each new page has a home and an
+      internal link path the day it publishes.
+    </p>
+  </div>
+</section>
+
+<!-- ============ 06 - VÜCUT ============ -->
+<section class="slide s-paper" id="vucut">
+  <span class="marker">06 - Vücut</span>
+  <div class="slide-inner">
+    <div class="step-row" style="margin-bottom:22px;">
+      <div class="eyebrow" style="margin-bottom:0;">Hub 01 &middot; Vücut ve El Bakımı</div>
+      <span class="week week-l">123 pages</span>
+    </div>
+    <h2>Body washes, hand creams, keratosis pilaris and scent</h2>
+    <p class="lead muted-l" style="margin-top:14px; max-width:760px;">Keratosis pilaris leads the hub at 503,880 searches a month, with best body washes at 376,200 and best hand creams at 237,530. The hub covers keratosis pilaris, body washes and scrubs, body lotions, oils and mists, hand and cuticle care, cracked heels, and perfume notes, matching Korendy&#x27;s body care and fragrance range.</p>
+    <p class="cap muted-l45" style="margin-top:10px;">2,219,730 monthly searches across 123 pages and 937 subtopics.</p>
+    <p class="later-hint"><span class="later-n">+380</span> more topics planned for this hub after March</p>
+    <div class="grid g2" style="margin-top:28px;">
+      <div class="card card-light">
+        <h4 class="title-sm">Biggest demand</h4>
+        <p class="cap muted-l45" style="margin-top:6px;">Monthly searches for the hub&#x27;s largest pages</p>
+        <ul class="tlist"><li><span><span class="t-name">Keratosis pilaris</span><span class="t-hub">Keratosis pilaris &middot; 97 subtopics</span></span><span class="t-val">503,880</span></li><li><span><span class="t-name">Best body washes and shower gels</span><span class="t-hub">Body wash, scrubs &amp; body acne &middot; 26 subtopics</span></span><span class="t-val">376,200</span></li><li><span><span class="t-name">Best hand creams</span><span class="t-hub">Hand &amp; cuticle care &middot; 85 subtopics</span></span><span class="t-val">237,530</span></li><li><span><span class="t-name">Best body oils</span><span class="t-hub">Body lotions, oils &amp; mists &middot; 30 subtopics</span></span><span class="t-val">163,100</span></li><li><span><span class="t-name">Best moisturizing body washes</span><span class="t-hub">Body wash, scrubs &amp; body acne &middot; 7 subtopics</span></span><span class="t-val">135,900</span></li><li><span><span class="t-name">Long-lasting perfumes</span><span class="t-hub">Perfume &amp; scent &middot; 43 subtopics</span></span><span class="t-val">109,200</span></li></ul>
+      </div>
+      <div class="card card-light">
+        <h4 class="title-sm">What the hub covers</h4>
+        <p class="cap muted-l45" style="margin-top:6px;">Scheduled pages by theme</p>
+        <ul class="tlist"><li><span><span class="t-name">Hand &amp; cuticle care</span><span class="t-hub">28% of the hub</span></span><span class="t-val">34 pages</span></li><li><span><span class="t-name">Body lotions, oils &amp; mists</span><span class="t-hub">25% of the hub</span></span><span class="t-val">31 pages</span></li><li><span><span class="t-name">Body wash, scrubs &amp; body acne</span><span class="t-hub">19% of the hub</span></span><span class="t-val">23 pages</span></li><li><span><span class="t-name">Perfume &amp; scent</span><span class="t-hub">13% of the hub</span></span><span class="t-val">16 pages</span></li><li><span><span class="t-name">Keratosis pilaris</span><span class="t-hub">8% of the hub</span></span><span class="t-val">10 pages</span></li><li><span><span class="t-name">Cracked heels</span><span class="t-hub">7% of the hub</span></span><span class="t-val">9 pages</span></li></ul>
+      </div>
+    </div>
+    <details class="all">
+      <summary>All 123 Vücut ve El Bakımı pages</summary>
+      <div class="card card-light allcard"><ul class="tlist cols"><li><span><span class="t-name">Keratosis pilaris</span><span class="t-hub">Keratosis pilaris &middot; 97 subtopics</span></span><span class="t-val">503,880</span></li><li><span><span class="t-name">Best body washes and shower gels</span><span class="t-hub">Body wash, scrubs &amp; body acne &middot; 26 subtopics</span></span><span class="t-val">376,200</span></li><li><span><span class="t-name">Best hand creams</span><span class="t-hub">Hand &amp; cuticle care &middot; 85 subtopics</span></span><span class="t-val">237,530</span></li><li><span><span class="t-name">Best body oils</span><span class="t-hub">Body lotions, oils &amp; mists &middot; 30 subtopics</span></span><span class="t-val">163,100</span></li><li><span><span class="t-name">Best moisturizing body washes</span><span class="t-hub">Body wash, scrubs &amp; body acne &middot; 7 subtopics</span></span><span class="t-val">135,900</span></li><li><span><span class="t-name">Long-lasting perfumes</span><span class="t-hub">Perfume &amp; scent &middot; 43 subtopics</span></span><span class="t-val">109,200</span></li><li><span><span class="t-name">Best lotions for keratosis pilaris</span><span class="t-hub">Keratosis pilaris &middot; 9 subtopics</span></span><span class="t-val">83,580</span></li><li><span><span class="t-name">Body mists</span><span class="t-hub">Body lotions, oils &amp; mists &middot; 29 subtopics</span></span><span class="t-val">63,880</span></li><li><span><span class="t-name">Body scrubs</span><span class="t-hub">Body wash, scrubs &amp; body acne &middot; 41 subtopics</span></span><span class="t-val">53,500</span></li><li><span><span class="t-name">What causes dry hands?</span><span class="t-hub">Hand &amp; cuticle care &middot; 77 subtopics</span></span><span class="t-val">48,970</span></li><li><span><span class="t-name">Best creams for cracked heels</span><span class="t-hub">Cracked heels &middot; 26 subtopics</span></span><span class="t-val">45,650</span></li><li><span><span class="t-name">Best sensitive skin body wash</span><span class="t-hub">Body wash, scrubs &amp; body acne &middot; 7 subtopics</span></span><span class="t-val">42,600</span></li><li><span><span class="t-name">Best natural body washes</span><span class="t-hub">Body wash, scrubs &amp; body acne &middot; 6 subtopics</span></span><span class="t-val">33,300</span></li><li><span><span class="t-name">Best body cream for aging skin</span><span class="t-hub">Body lotions, oils &amp; mists &middot; 12 subtopics</span></span><span class="t-val">28,370</span></li><li><span><span class="t-name">pH-balanced body wash</span><span class="t-hub">Body wash, scrubs &amp; body acne &middot; 4 subtopics</span></span><span class="t-val">23,000</span></li><li><span><span class="t-name">Perfume notes explained</span><span class="t-hub">Perfume &amp; scent &middot; 23 subtopics</span></span><span class="t-val">19,500</span></li><li><span><span class="t-name">Good cuticle oil</span><span class="t-hub">Hand &amp; cuticle care &middot; 23 subtopics</span></span><span class="t-val">19,150</span></li><li><span><span class="t-name">Difference between body cream and lotion</span><span class="t-hub">Body lotions, oils &amp; mists &middot; 8 subtopics</span></span><span class="t-val">16,550</span></li><li><span><span class="t-name">Best body skin firming lotion</span><span class="t-hub">Body lotions, oils &amp; mists &middot; 6 subtopics</span></span><span class="t-val">13,200</span></li><li><span><span class="t-name">Cuticle oil what does it do</span><span class="t-hub">Hand &amp; cuticle care &middot; 22 subtopics</span></span><span class="t-val">13,040</span></li><li><span><span class="t-name">Body wash recommended by dermatologist</span><span class="t-hub">Body wash, scrubs &amp; body acne &middot; 2 subtopics</span></span><span class="t-val">12,000</span></li><li><span><span class="t-name">Body lotion vegan</span><span class="t-hub">Body lotions, oils &amp; mists &middot; 2 subtopics</span></span><span class="t-val">10,800</span></li><li><span><span class="t-name">Anti ageing best hand cream</span><span class="t-hub">Hand &amp; cuticle care &middot; 9 subtopics</span></span><span class="t-val">9,700</span></li><li><span><span class="t-name">Body lotion natural</span><span class="t-hub">Body lotions, oils &amp; mists &middot; 9 subtopics</span></span><span class="t-val">8,800</span></li><li><span><span class="t-name">Hand cream eczema</span><span class="t-hub">Hand &amp; cuticle care &middot; 3 subtopics</span></span><span class="t-val">7,270</span></li><li><span><span class="t-name">Body lotion sensitive skin</span><span class="t-hub">Body lotions, oils &amp; mists &middot; 4 subtopics</span></span><span class="t-val">6,900</span></li><li><span><span class="t-name">How to use a body wash</span><span class="t-hub">Body wash, scrubs &amp; body acne &middot; 3 subtopics</span></span><span class="t-val">6,700</span></li><li><span><span class="t-name">Unscented body oil</span><span class="t-hub">Body lotions, oils &amp; mists &middot; 5 subtopics</span></span><span class="t-val">6,680</span></li><li><span><span class="t-name">Keratosis pilaris face cream</span><span class="t-hub">Keratosis pilaris &middot; 1 subtopic</span></span><span class="t-val">6,600</span></li><li><span><span class="t-name">Epsom salt body lotion</span><span class="t-hub">Body lotions, oils &amp; mists &middot; 1 subtopic</span></span><span class="t-val">6,600</span></li><li><span><span class="t-name">Solid perfume brands</span><span class="t-hub">Perfume &amp; scent &middot; 22 subtopics</span></span><span class="t-val">5,840</span></li><li><span><span class="t-name">Hyper pigmentation cream for body</span><span class="t-hub">Body lotions, oils &amp; mists &middot; 7 subtopics</span></span><span class="t-val">5,300</span></li><li><span><span class="t-name">Cracked heels pumice stone</span><span class="t-hub">Cracked heels &middot; 6 subtopics</span></span><span class="t-val">5,230</span></li><li><span><span class="t-name">Moisturizing body mist</span><span class="t-hub">Body lotions, oils &amp; mists &middot; 5 subtopics</span></span><span class="t-val">5,000</span></li><li><span><span class="t-name">Fragrance-free hand cream</span><span class="t-hub">Hand &amp; cuticle care &middot; 4 subtopics</span></span><span class="t-val">4,780</span></li><li><span><span class="t-name">Keratosis pilaris urea cream</span><span class="t-hub">Keratosis pilaris &middot; 6 subtopics</span></span><span class="t-val">4,290</span></li><li><span><span class="t-name">Keratosis pilaris lactic acid</span><span class="t-hub">Keratosis pilaris &middot; 2 subtopics</span></span><span class="t-val">3,860</span></li><li><span><span class="t-name">Hand cream vegan</span><span class="t-hub">Hand &amp; cuticle care &middot; 2 subtopics</span></span><span class="t-val">3,800</span></li><li><span><span class="t-name">Dry brush keratosis pilaris</span><span class="t-hub">Keratosis pilaris &middot; 2 subtopics</span></span><span class="t-val">3,770</span></li><li><span><span class="t-name">Cracked heels natural remedies</span><span class="t-hub">Cracked heels &middot; 33 subtopics</span></span><span class="t-val">3,630</span></li><li><span><span class="t-name">Why are my hands so dry even when I moisturize?</span><span class="t-hub">Hand &amp; cuticle care &middot; 19 subtopics</span></span><span class="t-val">3,490</span></li><li><span><span class="t-name">Exfoliating body scrub ingrown hair</span><span class="t-hub">Body wash, scrubs &amp; body acne &middot; 3 subtopics</span></span><span class="t-val">3,220</span></li><li><span><span class="t-name">Hand cream urea</span><span class="t-hub">Hand &amp; cuticle care &middot; 2 subtopics</span></span><span class="t-val">3,200</span></li><li><span><span class="t-name">Recipe for homemade hand cream</span><span class="t-hub">Hand &amp; cuticle care &middot; 6 subtopics</span></span><span class="t-val">3,040</span></li><li><span><span class="t-name">Body wash that is cruelty free</span><span class="t-hub">Body wash, scrubs &amp; body acne &middot; 1 subtopic</span></span><span class="t-val">2,900</span></li><li><span><span class="t-name">Hand cream that smells good</span><span class="t-hub">Hand &amp; cuticle care &middot; 6 subtopics</span></span><span class="t-val">2,430</span></li><li><span><span class="t-name">Earth friendly body wash</span><span class="t-hub">Body wash, scrubs &amp; body acne &middot; 1 subtopic</span></span><span class="t-val">2,400</span></li><li><span><span class="t-name">Can you use body lotion on face?</span><span class="t-hub">Body lotions, oils &amp; mists &middot; 4 subtopics</span></span><span class="t-val">2,220</span></li><li><span><span class="t-name">Coconut oil body moisturizer</span><span class="t-hub">Body lotions, oils &amp; mists &middot; 3 subtopics</span></span><span class="t-val">2,160</span></li><li><span><span class="t-name">Moisturizing gloves for dry hands</span><span class="t-hub">Hand &amp; cuticle care &middot; 4 subtopics</span></span><span class="t-val">2,070</span></li><li><span><span class="t-name">Paraben-free hand cream</span><span class="t-hub">Hand &amp; cuticle care &middot; 1 subtopic</span></span><span class="t-val">1,900</span></li><li><span><span class="t-name">Dry hands rash</span><span class="t-hub">Hand &amp; cuticle care &middot; 6 subtopics</span></span><span class="t-val">1,740</span></li><li><span><span class="t-name">Can body wash be used as bubble bath?</span><span class="t-hub">Body wash, scrubs &amp; body acne &middot; 1 subtopic</span></span><span class="t-val">1,600</span></li><li><span><span class="t-name">Cracked heels foot soak</span><span class="t-hub">Cracked heels &middot; 3 subtopics</span></span><span class="t-val">1,530</span></li><li><span><span class="t-name">When can I use scented lotion on my tattoo?</span><span class="t-hub">Body lotions, oils &amp; mists &middot; 22 subtopics</span></span><span class="t-val">1,380</span></li><li><span><span class="t-name">Body care routine</span><span class="t-hub">Body lotions, oils &amp; mists &middot; 16 subtopics</span></span><span class="t-val">1,350</span></li><li><span><span class="t-name">Hand cream natural</span><span class="t-hub">Hand &amp; cuticle care &middot; 3 subtopics</span></span><span class="t-val">1,310</span></li><li><span><span class="t-name">Yeast infection from body wash</span><span class="t-hub">Body wash, scrubs &amp; body acne &middot; 2 subtopics</span></span><span class="t-val">1,310</span></li><li><span><span class="t-name">Almond body oil</span><span class="t-hub">Body lotions, oils &amp; mists &middot; 1 subtopic</span></span><span class="t-val">1,300</span></li><li><span><span class="t-name">Cashmere body wash</span><span class="t-hub">Body wash, scrubs &amp; body acne &middot; 1 subtopic</span></span><span class="t-val">1,300</span></li><li><span><span class="t-name">Body mists for travel</span><span class="t-hub">Body lotions, oils &amp; mists &middot; 1 subtopic</span></span><span class="t-val">1,300</span></li><li><span><span class="t-name">Keratosis pilaris salicylic acid</span><span class="t-hub">Keratosis pilaris &middot; 1 subtopic</span></span><span class="t-val">1,000</span></li><li><span><span class="t-name">Liquid bandage cracked heels</span><span class="t-hub">Cracked heels &middot; 6 subtopics</span></span><span class="t-val">970</span></li><li><span><span class="t-name">Udder cream hand lotion</span><span class="t-hub">Hand &amp; cuticle care &middot; 1 subtopic</span></span><span class="t-val">880</span></li><li><span><span class="t-name">Antimicrobial body scrub</span><span class="t-hub">Body wash, scrubs &amp; body acne &middot; 1 subtopic</span></span><span class="t-val">880</span></li><li><span><span class="t-name">Hand cream Japanese</span><span class="t-hub">Hand &amp; cuticle care &middot; 2 subtopics</span></span><span class="t-val">780</span></li><li><span><span class="t-name">Cracked heels diabetes</span><span class="t-hub">Cracked heels &middot; 2 subtopics</span></span><span class="t-val">750</span></li><li><span><span class="t-name">French hand cream</span><span class="t-hub">Hand &amp; cuticle care &middot; 1 subtopic</span></span><span class="t-val">720</span></li><li><span><span class="t-name">What is a Korean body scrub?</span><span class="t-hub">Body wash, scrubs &amp; body acne &middot; 2 subtopics</span></span><span class="t-val">650</span></li><li><span><span class="t-name">Body acne exfoliation</span><span class="t-hub">Body wash, scrubs &amp; body acne &middot; 6 subtopics</span></span><span class="t-val">640</span></li><li><span><span class="t-name">Hand soap that doesn&#x27;t dry out hands</span><span class="t-hub">Hand &amp; cuticle care &middot; 4 subtopics</span></span><span class="t-val">590</span></li><li><span><span class="t-name">Floral body mist</span><span class="t-hub">Body lotions, oils &amp; mists &middot; 1 subtopic</span></span><span class="t-val">590</span></li><li><span><span class="t-name">Body mist gourmand</span><span class="t-hub">Body lotions, oils &amp; mists &middot; 1 subtopic</span></span><span class="t-val">590</span></li><li><span><span class="t-name">Coconut oil keratosis pilaris</span><span class="t-hub">Keratosis pilaris &middot; 3 subtopics</span></span><span class="t-val">520</span></li><li><span><span class="t-name">Dry hands pregnancy</span><span class="t-hub">Hand &amp; cuticle care &middot; 2 subtopics</span></span><span class="t-val">520</span></li><li><span><span class="t-name">Glycerin hand cream</span><span class="t-hub">Hand &amp; cuticle care &middot; 1 subtopic</span></span><span class="t-val">480</span></li><li><span><span class="t-name">Hand cream lanolin</span><span class="t-hub">Hand &amp; cuticle care &middot; 1 subtopic</span></span><span class="t-val">480</span></li><li><span><span class="t-name">Dry hands that crack and bleed</span><span class="t-hub">Hand &amp; cuticle care &middot; 5 subtopics</span></span><span class="t-val">470</span></li><li><span><span class="t-name">How to apply body lotion after shower</span><span class="t-hub">Body lotions, oils &amp; mists &middot; 10 subtopics</span></span><span class="t-val">460</span></li><li><span><span class="t-name">Citrus notes perfume</span><span class="t-hub">Perfume &amp; scent &middot; 2 subtopics</span></span><span class="t-val">400</span></li><li><span><span class="t-name">Whip cream body wash</span><span class="t-hub">Body wash, scrubs &amp; body acne &middot; 1 subtopic</span></span><span class="t-val">390</span></li><li><span><span class="t-name">Hand cream hemp</span><span class="t-hub">Hand &amp; cuticle care &middot; 1 subtopic</span></span><span class="t-val">390</span></li><li><span><span class="t-name">Green hand creams</span><span class="t-hub">Hand &amp; cuticle care &middot; 1 subtopic</span></span><span class="t-val">390</span></li><li><span><span class="t-name">Body mist set</span><span class="t-hub">Body lotions, oils &amp; mists &middot; 1 subtopic</span></span><span class="t-val">390</span></li><li><span><span class="t-name">Paraffin hand cream</span><span class="t-hub">Hand &amp; cuticle care &middot; 1 subtopic</span></span><span class="t-val">320</span></li><li><span><span class="t-name">Handmade hand cream</span><span class="t-hub">Hand &amp; cuticle care &middot; 1 subtopic</span></span><span class="t-val">320</span></li><li><span><span class="t-name">Silk body scrubs</span><span class="t-hub">Body wash, scrubs &amp; body acne &middot; 1 subtopic</span></span><span class="t-val">320</span></li><li><span><span class="t-name">Solid perfume vs. spray</span><span class="t-hub">Perfume &amp; scent &middot; 12 subtopics</span></span><span class="t-val">280</span></li><li><span><span class="t-name">Body cream set</span><span class="t-hub">Body lotions, oils &amp; mists &middot; 2 subtopics</span></span><span class="t-val">270</span></li><li><span><span class="t-name">Perfume with violet notes</span><span class="t-hub">Perfume &amp; scent &middot; 1 subtopic</span></span><span class="t-val">260</span></li><li><span><span class="t-name">Is body scrub the same as body wash?</span><span class="t-hub">Body wash, scrubs &amp; body acne &middot; 1 subtopic</span></span><span class="t-val">260</span></li><li><span><span class="t-name">Hand mask for dry hands</span><span class="t-hub">Hand &amp; cuticle care &middot; 1 subtopic</span></span><span class="t-val">260</span></li><li><span><span class="t-name">Body cream with glycerin</span><span class="t-hub">Body lotions, oils &amp; mists &middot; 1 subtopic</span></span><span class="t-val">260</span></li><li><span><span class="t-name">Eczema vs. dry skin on hands</span><span class="t-hub">Hand &amp; cuticle care &middot; 3 subtopics</span></span><span class="t-val">250</span></li><li><span><span class="t-name">Woody notes perfume</span><span class="t-hub">Perfume &amp; scent &middot; 1 subtopic</span></span><span class="t-val">210</span></li><li><span><span class="t-name">Diabetic dry hands</span><span class="t-hub">Hand &amp; cuticle care &middot; 1 subtopic</span></span><span class="t-val">210</span></li><li><span><span class="t-name">Lilac body mist</span><span class="t-hub">Body lotions, oils &amp; mists &middot; 1 subtopic</span></span><span class="t-val">170</span></li><li><span><span class="t-name">Cracked yellow heels</span><span class="t-hub">Cracked heels &middot; 4 subtopics</span></span><span class="t-val">150</span></li><li><span><span class="t-name">Cracked heels fungus</span><span class="t-hub">Cracked heels &middot; 4 subtopics</span></span><span class="t-val">140</span></li><li><span><span class="t-name">Scrub for dry hands</span><span class="t-hub">Hand &amp; cuticle care &middot; 1 subtopic</span></span><span class="t-val">140</span></li><li><span><span class="t-name">Keratosis pilaris hard water</span><span class="t-hub">Keratosis pilaris &middot; 1 subtopic</span></span><span class="t-val">110</span></li><li><span><span class="t-name">Does paraffin wax help dry hands?</span><span class="t-hub">Hand &amp; cuticle care &middot; 1 subtopic</span></span><span class="t-val">110</span></li><li><span><span class="t-name">Floral scented lotion</span><span class="t-hub">Body lotions, oils &amp; mists &middot; 2 subtopics</span></span><span class="t-val">100</span></li><li><span><span class="t-name">Keratosis pilaris and diabetes</span><span class="t-hub">Keratosis pilaris &middot; 1 subtopic</span></span><span class="t-val">90</span></li><li><span><span class="t-name">Long lasting summer perfume</span><span class="t-hub">Perfume &amp; scent &middot; 1 subtopic</span></span><span class="t-val">70</span></li><li><span><span class="t-name">Cake temptation perfume notes</span><span class="t-hub">Perfume &amp; scent &middot; 1 subtopic</span></span><span class="t-val">70</span></li><li><span><span class="t-name">Caramel scented lotion</span><span class="t-hub">Body lotions, oils &amp; mists &middot; 1 subtopic</span></span><span class="t-val">70</span></li><li><span><span class="t-name">Perfume with fruity notes</span><span class="t-hub">Perfume &amp; scent &middot; 1 subtopic</span></span><span class="t-val">70</span></li><li><span><span class="t-name">Perfume with oud notes</span><span class="t-hub">Perfume &amp; scent &middot; 2 subtopics</span></span><span class="t-val">50</span></li><li><span><span class="t-name">Cracked heels postpartum</span><span class="t-hub">Cracked heels &middot; 1 subtopic</span></span><span class="t-val">50</span></li><li><span><span class="t-name">Beach scented lotion</span><span class="t-hub">Body lotions, oils &amp; mists &middot; 1 subtopic</span></span><span class="t-val">50</span></li><li><span><span class="t-name">How to get rid of body acne while pregnant</span><span class="t-hub">Body wash, scrubs &amp; body acne &middot; 5 subtopics</span></span><span class="t-val">40</span></li><li><span><span class="t-name">Perfume with mango notes</span><span class="t-hub">Perfume &amp; scent &middot; 1 subtopic</span></span><span class="t-val">40</span></li><li><span><span class="t-name">Perfume with watermelon notes</span><span class="t-hub">Perfume &amp; scent &middot; 1 subtopic</span></span><span class="t-val">40</span></li><li><span><span class="t-name">Perfume with passion fruit notes</span><span class="t-hub">Perfume &amp; scent &middot; 1 subtopic</span></span><span class="t-val">40</span></li><li><span><span class="t-name">Acne clear body spray</span><span class="t-hub">Body wash, scrubs &amp; body acne &middot; 1 subtopic</span></span><span class="t-val">40</span></li><li><span><span class="t-name">Perfume with vetiver notes</span><span class="t-hub">Perfume &amp; scent &middot; 1 subtopic</span></span><span class="t-val">40</span></li><li><span><span class="t-name">Woody scented lotion</span><span class="t-hub">Body lotions, oils &amp; mists &middot; 2 subtopics</span></span><span class="t-val">20</span></li><li><span><span class="t-name">Seashell solid perfume</span><span class="t-hub">Perfume &amp; scent &middot; 1 subtopic</span></span><span class="t-val">20</span></li><li><span><span class="t-name">Dermatologist recommended cuticle oil</span><span class="t-hub">Hand &amp; cuticle care &middot; 1 subtopic</span></span><span class="t-val">20</span></li><li><span><span class="t-name">Lime scented lotion</span><span class="t-hub">Body lotions, oils &amp; mists &middot; 1 subtopic</span></span><span class="t-val">20</span></li><li><span><span class="t-name">Urea vs. retinol body lotion</span><span class="t-hub">Body lotions, oils &amp; mists &middot; 1 subtopic</span></span><span class="t-val">10</span></li><li><span><span class="t-name">Witch hazel spray for body acne</span><span class="t-hub">Body wash, scrubs &amp; body acne &middot; 1 subtopic</span></span><span class="t-val">10</span></li></ul></div>
+    </details>
+  </div>
+</section>
+
+<!-- ============ 07 - SAÇ ============ -->
+<section class="slide s-light" id="sac">
+  <span class="marker">07 - Saç</span>
+  <div class="slide-inner">
+    <div class="step-row" style="margin-bottom:22px;">
+      <div class="eyebrow" style="margin-bottom:0;">Hub 02 &middot; Saç ve Saç Derisi Bakımı</div>
+      <span class="week week-l">90 pages</span>
+    </div>
+    <h2>Scalp care, frizz, split ends and hair growth</h2>
+    <p class="lead muted-l" style="margin-top:14px; max-width:760px;">Hair growth supplements lead the hub at 300,710 searches a month, with itchy scalp at 275,390 and heat protectants at 157,740. Split ends covers 166 subtopics. The hub covers scalp care, clarifying and everyday shampoo, leave-in conditioners and hair masks, frizz, breakage and split ends, and hair growth supplements.</p>
+    <p class="cap muted-l45" style="margin-top:10px;">2,526,190 monthly searches across 90 pages and 1,508 subtopics.</p>
+    <p class="later-hint"><span class="later-n">+287</span> more topics planned for this hub after March</p>
+    <div class="grid g2" style="margin-top:28px;">
+      <div class="card card-light">
+        <h4 class="title-sm">Biggest demand</h4>
+        <p class="cap muted-l45" style="margin-top:6px;">Monthly searches for the hub&#x27;s largest pages</p>
+        <ul class="tlist"><li><span><span class="t-name">Hair growth supplements</span><span class="t-hub">Hair growth supplements &middot; 92 subtopics</span></span><span class="t-val">300,710</span></li><li><span><span class="t-name">Itchy scalp</span><span class="t-hub">Scalp care &middot; 85 subtopics</span></span><span class="t-val">275,390</span></li><li><span><span class="t-name">Best heat protectants</span><span class="t-hub">Frizz, breakage &amp; split ends &middot; 49 subtopics</span></span><span class="t-val">157,740</span></li><li><span><span class="t-name">Best hair masks</span><span class="t-hub">Leave-in conditioners &amp; masks &middot; 24 subtopics</span></span><span class="t-val">153,980</span></li><li><span><span class="t-name">Frizzy hair</span><span class="t-hub">Frizz, breakage &amp; split ends &middot; 79 subtopics</span></span><span class="t-val">139,190</span></li><li><span><span class="t-name">Clarifying shampoo</span><span class="t-hub">Shampoo &amp; washing &middot; 34 subtopics</span></span><span class="t-val">129,640</span></li></ul>
+      </div>
+      <div class="card card-light">
+        <h4 class="title-sm">What the hub covers</h4>
+        <p class="cap muted-l45" style="margin-top:6px;">Scheduled pages by theme</p>
+        <ul class="tlist"><li><span><span class="t-name">Hair growth supplements</span><span class="t-hub">24% of the hub</span></span><span class="t-val">22 pages</span></li><li><span><span class="t-name">Leave-in conditioners &amp; masks</span><span class="t-hub">20% of the hub</span></span><span class="t-val">18 pages</span></li><li><span><span class="t-name">Scalp care</span><span class="t-hub">18% of the hub</span></span><span class="t-val">16 pages</span></li><li><span><span class="t-name">Frizz, breakage &amp; split ends</span><span class="t-hub">18% of the hub</span></span><span class="t-val">16 pages</span></li><li><span><span class="t-name">Shampoo &amp; washing</span><span class="t-hub">16% of the hub</span></span><span class="t-val">14 pages</span></li><li><span><span class="t-name">Hair care routines</span><span class="t-hub">4% of the hub</span></span><span class="t-val">4 pages</span></li></ul>
+      </div>
+    </div>
+    <details class="all">
+      <summary>All 90 Saç ve Saç Derisi Bakımı pages</summary>
+      <div class="card card-light allcard"><ul class="tlist cols"><li><span><span class="t-name">Hair growth supplements</span><span class="t-hub">Hair growth supplements &middot; 92 subtopics</span></span><span class="t-val">300,710</span></li><li><span><span class="t-name">Itchy scalp</span><span class="t-hub">Scalp care &middot; 85 subtopics</span></span><span class="t-val">275,390</span></li><li><span><span class="t-name">Best heat protectants</span><span class="t-hub">Frizz, breakage &amp; split ends &middot; 49 subtopics</span></span><span class="t-val">157,740</span></li><li><span><span class="t-name">Best hair masks</span><span class="t-hub">Leave-in conditioners &amp; masks &middot; 24 subtopics</span></span><span class="t-val">153,980</span></li><li><span><span class="t-name">Frizzy hair</span><span class="t-hub">Frizz, breakage &amp; split ends &middot; 79 subtopics</span></span><span class="t-val">139,190</span></li><li><span><span class="t-name">Clarifying shampoo</span><span class="t-hub">Shampoo &amp; washing &middot; 34 subtopics</span></span><span class="t-val">129,640</span></li><li><span><span class="t-name">Best leave-in conditioners</span><span class="t-hub">Leave-in conditioners &amp; masks &middot; 15 subtopics</span></span><span class="t-val">127,100</span></li><li><span><span class="t-name">Best shampoos for an oily scalp</span><span class="t-hub">Scalp care &middot; 24 subtopics</span></span><span class="t-val">125,660</span></li><li><span><span class="t-name">Split ends</span><span class="t-hub">Frizz, breakage &amp; split ends &middot; 166 subtopics</span></span><span class="t-val">116,280</span></li><li><span><span class="t-name">Best hair care products for frizzy hair</span><span class="t-hub">Frizz, breakage &amp; split ends &middot; 32 subtopics</span></span><span class="t-val">82,590</span></li><li><span><span class="t-name">How to fix hair breakage</span><span class="t-hub">Frizz, breakage &amp; split ends &middot; 132 subtopics</span></span><span class="t-val">76,810</span></li><li><span><span class="t-name">Best shampoos for color-treated hair</span><span class="t-hub">Shampoo &amp; washing &middot; 26 subtopics</span></span><span class="t-val">58,600</span></li><li><span><span class="t-name">Dandruff vs. dry scalp</span><span class="t-hub">Scalp care &middot; 33 subtopics</span></span><span class="t-val">55,740</span></li><li><span><span class="t-name">Leave in conditioner wavy hair</span><span class="t-hub">Leave-in conditioners &amp; masks &middot; 1 subtopic</span></span><span class="t-val">49,500</span></li><li><span><span class="t-name">Damaged hair mask</span><span class="t-hub">Leave-in conditioners &amp; masks &middot; 10 subtopics</span></span><span class="t-val">45,070</span></li><li><span><span class="t-name">Dry hair leave-in conditioner</span><span class="t-hub">Leave-in conditioners &amp; masks &middot; 7 subtopics</span></span><span class="t-val">39,900</span></li><li><span><span class="t-name">Leave-in conditioner natural hair</span><span class="t-hub">Leave-in conditioners &amp; masks &middot; 11 subtopics</span></span><span class="t-val">39,300</span></li><li><span><span class="t-name">Shampoo for a dry scalp</span><span class="t-hub">Scalp care &middot; 6 subtopics</span></span><span class="t-val">36,880</span></li><li><span><span class="t-name">How to use a leave in conditioner</span><span class="t-hub">Leave-in conditioners &amp; masks &middot; 8 subtopics</span></span><span class="t-val">34,200</span></li><li><span><span class="t-name">Best hair products for breakage and split ends</span><span class="t-hub">Frizz, breakage &amp; split ends &middot; 45 subtopics</span></span><span class="t-val">33,530</span></li><li><span><span class="t-name">Biotin supplements hair growth</span><span class="t-hub">Hair growth supplements &middot; 6 subtopics</span></span><span class="t-val">32,440</span></li><li><span><span class="t-name">Hair skin nail supplements</span><span class="t-hub">Hair growth supplements &middot; 19 subtopics</span></span><span class="t-val">28,100</span></li><li><span><span class="t-name">What is a clarifying shampoo?</span><span class="t-hub">Shampoo &amp; washing &middot; 26 subtopics</span></span><span class="t-val">26,990</span></li><li><span><span class="t-name">Clarifying shampoo locs</span><span class="t-hub">Shampoo &amp; washing &middot; 5 subtopics</span></span><span class="t-val">25,370</span></li><li><span><span class="t-name">Hair mask to help hair grow</span><span class="t-hub">Leave-in conditioners &amp; masks &middot; 6 subtopics</span></span><span class="t-val">22,680</span></li><li><span><span class="t-name">Clarifying shampoo sulfate-free</span><span class="t-hub">Shampoo &amp; washing &middot; 5 subtopics</span></span><span class="t-val">20,190</span></li><li><span><span class="t-name">Scalp exfoliation</span><span class="t-hub">Scalp care &middot; 22 subtopics</span></span><span class="t-val">19,890</span></li><li><span><span class="t-name">Dry scalp moisturizer</span><span class="t-hub">Scalp care &middot; 7 subtopics</span></span><span class="t-val">17,300</span></li><li><span><span class="t-name">Clarifying shampoo color-safe</span><span class="t-hub">Shampoo &amp; washing &middot; 11 subtopics</span></span><span class="t-val">16,620</span></li><li><span><span class="t-name">Clarifying dandruff shampoo</span><span class="t-hub">Scalp care &middot; 9 subtopics</span></span><span class="t-val">15,220</span></li><li><span><span class="t-name">Protein supplements hair growth</span><span class="t-hub">Hair growth supplements &middot; 2 subtopics</span></span><span class="t-val">14,700</span></li><li><span><span class="t-name">Vegan hair growth supplements</span><span class="t-hub">Hair growth supplements &middot; 5 subtopics</span></span><span class="t-val">14,190</span></li><li><span><span class="t-name">How to remove buildup from scalp</span><span class="t-hub">Scalp care &middot; 64 subtopics</span></span><span class="t-val">14,160</span></li><li><span><span class="t-name">Hair treatments for color treated hair</span><span class="t-hub">Hair care routines &middot; 18 subtopics</span></span><span class="t-val">13,600</span></li><li><span><span class="t-name">Oily scalp</span><span class="t-hub">Scalp care &middot; 75 subtopics</span></span><span class="t-val">12,380</span></li><li><span><span class="t-name">Clarifying shampoo low porosity hair</span><span class="t-hub">Shampoo &amp; washing &middot; 3 subtopics</span></span><span class="t-val">10,210</span></li><li><span><span class="t-name">How to use heat protectant spray</span><span class="t-hub">Frizz, breakage &amp; split ends &middot; 18 subtopics</span></span><span class="t-val">8,860</span></li><li><span><span class="t-name">Frizzy hair oil</span><span class="t-hub">Frizz, breakage &amp; split ends &middot; 3 subtopics</span></span><span class="t-val">8,680</span></li><li><span><span class="t-name">Hair care routine</span><span class="t-hub">Hair care routines &middot; 36 subtopics</span></span><span class="t-val">8,440</span></li><li><span><span class="t-name">Zinc for hair growth</span><span class="t-hub">Hair growth supplements &middot; 60 subtopics</span></span><span class="t-val">6,940</span></li><li><span><span class="t-name">Hair mask vegan</span><span class="t-hub">Leave-in conditioners &amp; masks &middot; 2 subtopics</span></span><span class="t-val">6,700</span></li><li><span><span class="t-name">Split ends tool</span><span class="t-hub">Frizz, breakage &amp; split ends &middot; 7 subtopics</span></span><span class="t-val">6,430</span></li><li><span><span class="t-name">Weightless heat protectant</span><span class="t-hub">Frizz, breakage &amp; split ends &middot; 5 subtopics</span></span><span class="t-val">5,710</span></li><li><span><span class="t-name">Hair care for dry hair oily scalp</span><span class="t-hub">Scalp care &middot; 20 subtopics</span></span><span class="t-val">5,570</span></li><li><span><span class="t-name">Clarifying shampoo fine hair</span><span class="t-hub">Shampoo &amp; washing &middot; 4 subtopics</span></span><span class="t-val">5,520</span></li><li><span><span class="t-name">Hair mask leave-in</span><span class="t-hub">Leave-in conditioners &amp; masks &middot; 1 subtopic</span></span><span class="t-val">5,400</span></li><li><span><span class="t-name">Oils that are heat protectant</span><span class="t-hub">Frizz, breakage &amp; split ends &middot; 9 subtopics</span></span><span class="t-val">5,350</span></li><li><span><span class="t-name">Shampoo conditioner for itchy scalp</span><span class="t-hub">Scalp care &middot; 4 subtopics</span></span><span class="t-val">5,160</span></li><li><span><span class="t-name">Correct way of washing hair</span><span class="t-hub">Shampoo &amp; washing &middot; 24 subtopics</span></span><span class="t-val">4,930</span></li><li><span><span class="t-name">MSM and hair growth</span><span class="t-hub">Hair growth supplements &middot; 46 subtopics</span></span><span class="t-val">4,810</span></li><li><span><span class="t-name">Leave-in conditioner for 3C hair</span><span class="t-hub">Leave-in conditioners &amp; masks &middot; 3 subtopics</span></span><span class="t-val">4,500</span></li><li><span><span class="t-name">Leave-in conditioner for high porosity hair</span><span class="t-hub">Leave-in conditioners &amp; masks &middot; 1 subtopic</span></span><span class="t-val">4,400</span></li><li><span><span class="t-name">Co washing curly hair</span><span class="t-hub">Shampoo &amp; washing &middot; 9 subtopics</span></span><span class="t-val">4,350</span></li><li><span><span class="t-name">Scalp exfoliation products</span><span class="t-hub">Scalp care &middot; 11 subtopics</span></span><span class="t-val">3,780</span></li><li><span><span class="t-name">Hair mask protein</span><span class="t-hub">Leave-in conditioners &amp; masks &middot; 1 subtopic</span></span><span class="t-val">3,600</span></li><li><span><span class="t-name">Vegan leave-in conditioner</span><span class="t-hub">Leave-in conditioners &amp; masks &middot; 1 subtopic</span></span><span class="t-val">3,600</span></li><li><span><span class="t-name">Itchy scalp allergic reaction</span><span class="t-hub">Scalp care &middot; 5 subtopics</span></span><span class="t-val">3,420</span></li><li><span><span class="t-name">Burning itchy scalp</span><span class="t-hub">Scalp care &middot; 5 subtopics</span></span><span class="t-val">3,260</span></li><li><span><span class="t-name">Fenugreek hair mask</span><span class="t-hub">Leave-in conditioners &amp; masks &middot; 2 subtopics</span></span><span class="t-val">3,200</span></li><li><span><span class="t-name">Olive oil as hair mask</span><span class="t-hub">Leave-in conditioners &amp; masks &middot; 1 subtopic</span></span><span class="t-val">2,400</span></li><li><span><span class="t-name">B12 supplements for hair growth</span><span class="t-hub">Hair growth supplements &middot; 1 subtopic</span></span><span class="t-val">2,400</span></li><li><span><span class="t-name">Fish oil supplements hair growth</span><span class="t-hub">Hair growth supplements &middot; 2 subtopics</span></span><span class="t-val">2,380</span></li><li><span><span class="t-name">Hair loss supplements saw palmetto</span><span class="t-hub">Hair growth supplements &middot; 2 subtopics</span></span><span class="t-val">2,160</span></li><li><span><span class="t-name">Alopecia oily scalp</span><span class="t-hub">Scalp care &middot; 9 subtopics</span></span><span class="t-val">1,840</span></li><li><span><span class="t-name">ACV hair mask</span><span class="t-hub">Leave-in conditioners &amp; masks &middot; 2 subtopics</span></span><span class="t-val">1,440</span></li><li><span><span class="t-name">How to refresh hair without washing</span><span class="t-hub">Shampoo &amp; washing &middot; 9 subtopics</span></span><span class="t-val">1,270</span></li><li><span><span class="t-name">Straight hair care routine</span><span class="t-hub">Hair care routines &middot; 5 subtopics</span></span><span class="t-val">1,180</span></li><li><span><span class="t-name">Supplements for hair loss on GLP-1 medications</span><span class="t-hub">Hair growth supplements &middot; 2 subtopics</span></span><span class="t-val">830</span></li><li><span><span class="t-name">Turmeric hair mask</span><span class="t-hub">Leave-in conditioners &amp; masks &middot; 1 subtopic</span></span><span class="t-val">720</span></li><li><span><span class="t-name">Silica supplements for hair</span><span class="t-hub">Hair growth supplements &middot; 1 subtopic</span></span><span class="t-val">720</span></li><li><span><span class="t-name">Vitamin C supplements for hair growth</span><span class="t-hub">Hair growth supplements &middot; 1 subtopic</span></span><span class="t-val">590</span></li><li><span><span class="t-name">Thick hair care routine</span><span class="t-hub">Hair care routines &middot; 1 subtopic</span></span><span class="t-val">390</span></li><li><span><span class="t-name">ACV clarifying shampoo</span><span class="t-hub">Shampoo &amp; washing &middot; 1 subtopic</span></span><span class="t-val">390</span></li><li><span><span class="t-name">Heat protectant for beard</span><span class="t-hub">Frizz, breakage &amp; split ends &middot; 1 subtopic</span></span><span class="t-val">390</span></li><li><span><span class="t-name">Hair breakage vs. split ends</span><span class="t-hub">Frizz, breakage &amp; split ends &middot; 7 subtopics</span></span><span class="t-val">370</span></li><li><span><span class="t-name">Hair breakage menopause</span><span class="t-hub">Frizz, breakage &amp; split ends &middot; 4 subtopics</span></span><span class="t-val">330</span></li><li><span><span class="t-name">Straighteners for frizzy hair</span><span class="t-hub">Frizz, breakage &amp; split ends &middot; 1 subtopic</span></span><span class="t-val">320</span></li><li><span><span class="t-name">Biotin free hair supplements</span><span class="t-hub">Hair growth supplements &middot; 2 subtopics</span></span><span class="t-val">310</span></li><li><span><span class="t-name">Vitamin E supplements for hair growth</span><span class="t-hub">Hair growth supplements &middot; 1 subtopic</span></span><span class="t-val">210</span></li><li><span><span class="t-name">Revive hair supplements</span><span class="t-hub">Hair growth supplements &middot; 1 subtopic</span></span><span class="t-val">210</span></li><li><span><span class="t-name">Anti breakage hair brush</span><span class="t-hub">Frizz, breakage &amp; split ends &middot; 3 subtopics</span></span><span class="t-val">180</span></li><li><span><span class="t-name">Zinc for grey hair</span><span class="t-hub">Hair growth supplements &middot; 2 subtopics</span></span><span class="t-val">160</span></li><li><span><span class="t-name">Herbal supplements for hair regrowth</span><span class="t-hub">Hair growth supplements &middot; 1 subtopic</span></span><span class="t-val">140</span></li><li><span><span class="t-name">Washing hair with epsom salt</span><span class="t-hub">Shampoo &amp; washing &middot; 1 subtopic</span></span><span class="t-val">90</span></li><li><span><span class="t-name">Can you take hair skin and nails vitamins while pregnant?</span><span class="t-hub">Hair growth supplements &middot; 1 subtopic</span></span><span class="t-val">90</span></li><li><span><span class="t-name">Washing hair with coffee</span><span class="t-hub">Shampoo &amp; washing &middot; 1 subtopic</span></span><span class="t-val">90</span></li><li><span><span class="t-name">Can beef liver supplements cause hair loss?</span><span class="t-hub">Hair growth supplements &middot; 1 subtopic</span></span><span class="t-val">50</span></li><li><span><span class="t-name">Micellar water for oily scalp</span><span class="t-hub">Scalp care &middot; 1 subtopic</span></span><span class="t-val">40</span></li><li><span><span class="t-name">Zinc blood test for hair loss</span><span class="t-hub">Hair growth supplements &middot; 2 subtopics</span></span><span class="t-val">30</span></li><li><span><span class="t-name">Supplement for oily scalp</span><span class="t-hub">Hair growth supplements &middot; 1 subtopic</span></span><span class="t-val">10</span></li></ul></div>
+    </details>
+  </div>
+</section>
+
+<!-- ============ 08 - MAKYAJ ============ -->
+<section class="slide s-paper" id="makyaj">
+  <span class="marker">08 - Makyaj</span>
+  <div class="slide-inner">
+    <div class="step-row" style="margin-bottom:22px;">
+      <div class="eyebrow" style="margin-bottom:0;">Hub 03 &middot; Günlük Makyaj ve Cilt Görünümü</div>
+      <span class="week week-l">55 pages</span>
+    </div>
+    <h2>Natural makeup, skin tints and a flawless-looking base</h2>
+    <p class="lead muted-l" style="margin-top:14px; max-width:760px;">Best foundation brushes lead the hub at 106,090 searches a month, with skin tints at 94,810 and color correctors at 85,480. Natural makeup for beginners covers 166 subtopics. The hub covers foundations, skin tints and BB creams, primers and setting powders, color correction and undertones, brushes and tools, and natural everyday looks.</p>
+    <p class="cap muted-l45" style="margin-top:10px;">792,640 monthly searches across 55 pages and 1,291 subtopics.</p>
+    <p class="later-hint"><span class="later-n">+191</span> more topics planned for this hub after March</p>
+    <div class="grid g2" style="margin-top:28px;">
+      <div class="card card-light">
+        <h4 class="title-sm">Biggest demand</h4>
+        <p class="cap muted-l45" style="margin-top:6px;">Monthly searches for the hub&#x27;s largest pages</p>
+        <ul class="tlist"><li><span><span class="t-name">Best foundation brushes</span><span class="t-hub">Brushes &amp; tools &middot; 93 subtopics</span></span><span class="t-val">106,090</span></li><li><span><span class="t-name">Skin tints</span><span class="t-hub">Foundations &amp; skin tints &middot; 36 subtopics</span></span><span class="t-val">94,810</span></li><li><span><span class="t-name">Color corrector guide</span><span class="t-hub">Color correction &amp; undertone &middot; 87 subtopics</span></span><span class="t-val">85,480</span></li><li><span><span class="t-name">Best setting powders</span><span class="t-hub">Primers &amp; setting &middot; 52 subtopics</span></span><span class="t-val">76,530</span></li><li><span><span class="t-name">Natural makeup for beginners, step by step</span><span class="t-hub">Natural makeup looks &middot; 166 subtopics</span></span><span class="t-val">65,360</span></li><li><span><span class="t-name">Best makeup primers</span><span class="t-hub">Primers &amp; setting &middot; 66 subtopics</span></span><span class="t-val">48,280</span></li></ul>
+      </div>
+      <div class="card card-light">
+        <h4 class="title-sm">What the hub covers</h4>
+        <p class="cap muted-l45" style="margin-top:6px;">Scheduled pages by theme</p>
+        <ul class="tlist"><li><span><span class="t-name">Foundations &amp; skin tints</span><span class="t-hub">29% of the hub</span></span><span class="t-val">16 pages</span></li><li><span><span class="t-name">Natural makeup looks</span><span class="t-hub">25% of the hub</span></span><span class="t-val">14 pages</span></li><li><span><span class="t-name">Primers &amp; setting</span><span class="t-hub">16% of the hub</span></span><span class="t-val">9 pages</span></li><li><span><span class="t-name">Color correction &amp; undertone</span><span class="t-hub">15% of the hub</span></span><span class="t-val">8 pages</span></li><li><span><span class="t-name">Brushes &amp; tools</span><span class="t-hub">7% of the hub</span></span><span class="t-val">4 pages</span></li><li><span><span class="t-name">Makeup basics &amp; prep</span><span class="t-hub">7% of the hub</span></span><span class="t-val">4 pages</span></li></ul>
+      </div>
+    </div>
+    <details class="all">
+      <summary>All 55 Günlük Makyaj ve Cilt Görünümü pages</summary>
+      <div class="card card-light allcard"><ul class="tlist cols"><li><span><span class="t-name">Best foundation brushes</span><span class="t-hub">Brushes &amp; tools &middot; 93 subtopics</span></span><span class="t-val">106,090</span></li><li><span><span class="t-name">Skin tints</span><span class="t-hub">Foundations &amp; skin tints &middot; 36 subtopics</span></span><span class="t-val">94,810</span></li><li><span><span class="t-name">Color corrector guide</span><span class="t-hub">Color correction &amp; undertone &middot; 87 subtopics</span></span><span class="t-val">85,480</span></li><li><span><span class="t-name">Best setting powders</span><span class="t-hub">Primers &amp; setting &middot; 52 subtopics</span></span><span class="t-val">76,530</span></li><li><span><span class="t-name">Natural makeup for beginners, step by step</span><span class="t-hub">Natural makeup looks &middot; 166 subtopics</span></span><span class="t-val">65,360</span></li><li><span><span class="t-name">Best makeup primers</span><span class="t-hub">Primers &amp; setting &middot; 66 subtopics</span></span><span class="t-val">48,280</span></li><li><span><span class="t-name">Skin undertone finder</span><span class="t-hub">Color correction &amp; undertone &middot; 127 subtopics</span></span><span class="t-val">42,740</span></li><li><span><span class="t-name">Best foundations for dry skin</span><span class="t-hub">Foundations &amp; skin tints &middot; 73 subtopics</span></span><span class="t-val">40,610</span></li><li><span><span class="t-name">Best foundations for oily skin</span><span class="t-hub">Foundations &amp; skin tints &middot; 95 subtopics</span></span><span class="t-val">34,000</span></li><li><span><span class="t-name">Foundation shade match</span><span class="t-hub">Color correction &amp; undertone &middot; 84 subtopics</span></span><span class="t-val">32,810</span></li><li><span><span class="t-name">Best BB creams</span><span class="t-hub">Foundations &amp; skin tints &middot; 39 subtopics</span></span><span class="t-val">29,870</span></li><li><span><span class="t-name">Best dark circle color corrector</span><span class="t-hub">Color correction &amp; undertone &middot; 14 subtopics</span></span><span class="t-val">17,910</span></li><li><span><span class="t-name">Makeup application order</span><span class="t-hub">Makeup basics &amp; prep &middot; 71 subtopics</span></span><span class="t-val">15,670</span></li><li><span><span class="t-name">Best matte foundation</span><span class="t-hub">Foundations &amp; skin tints &middot; 37 subtopics</span></span><span class="t-val">14,100</span></li><li><span><span class="t-name">How to apply skin tint</span><span class="t-hub">Foundations &amp; skin tints &middot; 18 subtopics</span></span><span class="t-val">9,400</span></li><li><span><span class="t-name">BB cream dry skin</span><span class="t-hub">Foundations &amp; skin tints &middot; 7 subtopics</span></span><span class="t-val">9,190</span></li><li><span><span class="t-name">Best sunscreen under makeup</span><span class="t-hub">Makeup basics &amp; prep &middot; 30 subtopics</span></span><span class="t-val">8,360</span></li><li><span><span class="t-name">Natural glam makeup</span><span class="t-hub">Natural makeup looks &middot; 13 subtopics</span></span><span class="t-val">7,520</span></li><li><span><span class="t-name">Talc-free setting powder</span><span class="t-hub">Primers &amp; setting &middot; 2 subtopics</span></span><span class="t-val">7,320</span></li><li><span><span class="t-name">Dry skin makeup primer</span><span class="t-hub">Primers &amp; setting &middot; 3 subtopics</span></span><span class="t-val">6,700</span></li><li><span><span class="t-name">Best BB cream oily skin</span><span class="t-hub">Foundations &amp; skin tints &middot; 8 subtopics</span></span><span class="t-val">4,870</span></li><li><span><span class="t-name">Foundation brush vs. sponge</span><span class="t-hub">Brushes &amp; tools &middot; 24 subtopics</span></span><span class="t-val">4,190</span></li><li><span><span class="t-name">Foundation medium coverage</span><span class="t-hub">Foundations &amp; skin tints &middot; 3 subtopics</span></span><span class="t-val">3,630</span></li><li><span><span class="t-name">How to achieve a dewy makeup look</span><span class="t-hub">Natural makeup looks &middot; 42 subtopics</span></span><span class="t-val">3,240</span></li><li><span><span class="t-name">Vegan setting powder</span><span class="t-hub">Primers &amp; setting &middot; 4 subtopics</span></span><span class="t-val">3,120</span></li><li><span><span class="t-name">Skin tint for dry skin</span><span class="t-hub">Foundations &amp; skin tints &middot; 3 subtopics</span></span><span class="t-val">3,080</span></li><li><span><span class="t-name">Skin care prep for makeup</span><span class="t-hub">Makeup basics &amp; prep &middot; 10 subtopics</span></span><span class="t-val">2,850</span></li><li><span><span class="t-name">Makeup primer for mature skin</span><span class="t-hub">Primers &amp; setting &middot; 4 subtopics</span></span><span class="t-val">2,640</span></li><li><span><span class="t-name">Good setting powder for dry skin</span><span class="t-hub">Primers &amp; setting &middot; 2 subtopics</span></span><span class="t-val">1,880</span></li><li><span><span class="t-name">Makeup primer for redness</span><span class="t-hub">Primers &amp; setting &middot; 5 subtopics</span></span><span class="t-val">1,670</span></li><li><span><span class="t-name">Color corrector for beard shadow</span><span class="t-hub">Color correction &amp; undertone &middot; 6 subtopics</span></span><span class="t-val">1,470</span></li><li><span><span class="t-name">Natural beauty makeup</span><span class="t-hub">Natural makeup looks &middot; 1 subtopic</span></span><span class="t-val">1,300</span></li><li><span><span class="t-name">Setting powder SPF</span><span class="t-hub">Primers &amp; setting &middot; 2 subtopics</span></span><span class="t-val">1,180</span></li><li><span><span class="t-name">Best foundation for dry oily skin</span><span class="t-hub">Foundations &amp; skin tints &middot; 10 subtopics</span></span><span class="t-val">790</span></li><li><span><span class="t-name">Natural makeup for older women</span><span class="t-hub">Natural makeup looks &middot; 12 subtopics</span></span><span class="t-val">760</span></li><li><span><span class="t-name">Matte vs. dewy foundation</span><span class="t-hub">Foundations &amp; skin tints &middot; 11 subtopics</span></span><span class="t-val">750</span></li><li><span><span class="t-name">Natural makeup for passport photo</span><span class="t-hub">Natural makeup looks &middot; 1 subtopic</span></span><span class="t-val">720</span></li><li><span><span class="t-name">Natural brow makeup</span><span class="t-hub">Natural makeup looks &middot; 3 subtopics</span></span><span class="t-val">290</span></li><li><span><span class="t-name">Natural makeup for headshots</span><span class="t-hub">Natural makeup looks &middot; 2 subtopics</span></span><span class="t-val">240</span></li><li><span><span class="t-name">Luxury natural makeup</span><span class="t-hub">Natural makeup looks &middot; 1 subtopic</span></span><span class="t-val">210</span></li><li><span><span class="t-name">Shade adjusting foundation</span><span class="t-hub">Color correction &amp; undertone &middot; 3 subtopics</span></span><span class="t-val">200</span></li><li><span><span class="t-name">Makeup sponge case</span><span class="t-hub">Brushes &amp; tools &middot; 3 subtopics</span></span><span class="t-val">170</span></li><li><span><span class="t-name">Seamless skin enhancing tint</span><span class="t-hub">Foundations &amp; skin tints &middot; 1 subtopic</span></span><span class="t-val">140</span></li><li><span><span class="t-name">Natural liquid foundation makeup</span><span class="t-hub">Foundations &amp; skin tints &middot; 1 subtopic</span></span><span class="t-val">90</span></li><li><span><span class="t-name">Natural makeup kits</span><span class="t-hub">Natural makeup looks &middot; 1 subtopic</span></span><span class="t-val">90</span></li><li><span><span class="t-name">Where can I order makeup online?</span><span class="t-hub">Makeup basics &amp; prep &middot; 4 subtopics</span></span><span class="t-val">60</span></li><li><span><span class="t-name">Always on full coverage creamy foundation</span><span class="t-hub">Foundations &amp; skin tints &middot; 1 subtopic</span></span><span class="t-val">50</span></li><li><span><span class="t-name">Mushroom head air cushion foundation</span><span class="t-hub">Foundations &amp; skin tints &middot; 1 subtopic</span></span><span class="t-val">50</span></li><li><span><span class="t-name">Everyday hooded eye makeup</span><span class="t-hub">Natural makeup looks &middot; 1 subtopic</span></span><span class="t-val">40</span></li><li><span><span class="t-name">Foundation with brush attached</span><span class="t-hub">Brushes &amp; tools &middot; 1 subtopic</span></span><span class="t-val">30</span></li><li><span><span class="t-name">Foundation shade samples</span><span class="t-hub">Color correction &amp; undertone &middot; 1 subtopic</span></span><span class="t-val">30</span></li><li><span><span class="t-name">Everyday vintage makeup</span><span class="t-hub">Natural makeup looks &middot; 2 subtopics</span></span><span class="t-val">20</span></li><li><span><span class="t-name">Soft autumn skin undertone</span><span class="t-hub">Color correction &amp; undertone &middot; 2 subtopics</span></span><span class="t-val">20</span></li><li><span><span class="t-name">Best makeup brand for everyday use</span><span class="t-hub">Natural makeup looks &middot; 1 subtopic</span></span><span class="t-val">10</span></li><li><span><span class="t-name">Everyday spring makeup</span><span class="t-hub">Natural makeup looks &middot; 1 subtopic</span></span><span class="t-val">10</span></li></ul></div>
+    </details>
+  </div>
+</section>
+
+<!-- ============ 09 - LEKE ============ -->
+<section class="slide s-light" id="leke">
+  <span class="marker">09 - Leke</span>
+  <div class="slide-inner">
+    <div class="step-row" style="margin-bottom:22px;">
+      <div class="eyebrow" style="margin-bottom:0;">Hub 04 &middot; Leke Görünümü ve Cilt Tonu</div>
+      <span class="week week-l">52 pages</span>
+    </div>
+    <h2>Melasma, sun spots and a more even skin tone</h2>
+    <p class="lead muted-l" style="margin-top:14px; max-width:760px;">Melasma leads the hub at 565,690 searches a month, with K-beauty vitamin C serums at 302,290 and best vitamin C serums at 144,710. The hub covers melasma, sun spots, vitamin C serums, glycolic and mandelic acid, alpha arbutin and kojic acid, and evening out skin tone, a natural fit for Korendy&#x27;s brightening serums.</p>
+    <p class="cap muted-l45" style="margin-top:10px;">1,543,010 monthly searches across 52 pages and 706 subtopics.</p>
+    <p class="later-hint"><span class="later-n">+308</span> more topics planned for this hub after March</p>
+    <div class="grid g2" style="margin-top:28px;">
+      <div class="card card-light">
+        <h4 class="title-sm">Biggest demand</h4>
+        <p class="cap muted-l45" style="margin-top:6px;">Monthly searches for the hub&#x27;s largest pages</p>
+        <ul class="tlist"><li><span><span class="t-name">Melasma</span><span class="t-hub">Melasma &middot; 80 subtopics</span></span><span class="t-val">565,690</span></li><li><span><span class="t-name">K-beauty vitamin C serums</span><span class="t-hub">Vitamin C serums &middot; 34 subtopics</span></span><span class="t-val">302,290</span></li><li><span><span class="t-name">Best vitamin C serums</span><span class="t-hub">Vitamin C serums &middot; 17 subtopics</span></span><span class="t-val">144,710</span></li><li><span><span class="t-name">How to get rid of sun spots</span><span class="t-hub">Sun spots &middot; 107 subtopics</span></span><span class="t-val">83,600</span></li><li><span><span class="t-name">Best SPF for hyperpigmentation</span><span class="t-hub">Uneven tone &amp; dark marks &middot; 8 subtopics</span></span><span class="t-val">73,020</span></li><li><span><span class="t-name">Best glycolic acid cleansers</span><span class="t-hub">Glycolic &amp; mandelic acid &middot; 6 subtopics</span></span><span class="t-val">73,000</span></li></ul>
+      </div>
+      <div class="card card-light">
+        <h4 class="title-sm">What the hub covers</h4>
+        <p class="cap muted-l45" style="margin-top:6px;">Scheduled pages by theme</p>
+        <ul class="tlist"><li><span><span class="t-name">Glycolic &amp; mandelic acid</span><span class="t-hub">27% of the hub</span></span><span class="t-val">14 pages</span></li><li><span><span class="t-name">Alpha arbutin &amp; kojic acid</span><span class="t-hub">27% of the hub</span></span><span class="t-val">14 pages</span></li><li><span><span class="t-name">Uneven tone &amp; dark marks</span><span class="t-hub">19% of the hub</span></span><span class="t-val">10 pages</span></li><li><span><span class="t-name">Vitamin C serums</span><span class="t-hub">10% of the hub</span></span><span class="t-val">5 pages</span></li><li><span><span class="t-name">Sun spots</span><span class="t-hub">10% of the hub</span></span><span class="t-val">5 pages</span></li><li><span><span class="t-name">Melasma</span><span class="t-hub">8% of the hub</span></span><span class="t-val">4 pages</span></li></ul>
+      </div>
+    </div>
+    <details class="all">
+      <summary>All 52 Leke Görünümü ve Cilt Tonu pages</summary>
+      <div class="card card-light allcard"><ul class="tlist cols"><li><span><span class="t-name">Melasma</span><span class="t-hub">Melasma &middot; 80 subtopics</span></span><span class="t-val">565,690</span></li><li><span><span class="t-name">K-beauty vitamin C serums</span><span class="t-hub">Vitamin C serums &middot; 34 subtopics</span></span><span class="t-val">302,290</span></li><li><span><span class="t-name">Best vitamin C serums</span><span class="t-hub">Vitamin C serums &middot; 17 subtopics</span></span><span class="t-val">144,710</span></li><li><span><span class="t-name">How to get rid of sun spots</span><span class="t-hub">Sun spots &middot; 107 subtopics</span></span><span class="t-val">83,600</span></li><li><span><span class="t-name">Best SPF for hyperpigmentation</span><span class="t-hub">Uneven tone &amp; dark marks &middot; 8 subtopics</span></span><span class="t-val">73,020</span></li><li><span><span class="t-name">Best glycolic acid cleansers</span><span class="t-hub">Glycolic &amp; mandelic acid &middot; 6 subtopics</span></span><span class="t-val">73,000</span></li><li><span><span class="t-name">Mandelic acid</span><span class="t-hub">Glycolic &amp; mandelic acid &middot; 81 subtopics</span></span><span class="t-val">57,590</span></li><li><span><span class="t-name">What does glycolic acid do?</span><span class="t-hub">Glycolic &amp; mandelic acid &middot; 51 subtopics</span></span><span class="t-val">55,140</span></li><li><span><span class="t-name">Best skincare products for uneven skin tone</span><span class="t-hub">Uneven tone &amp; dark marks &middot; 53 subtopics</span></span><span class="t-val">41,010</span></li><li><span><span class="t-name">Glycolic acid face peel</span><span class="t-hub">Glycolic &amp; mandelic acid &middot; 6 subtopics</span></span><span class="t-val">40,960</span></li><li><span><span class="t-name">Salicylic acid vs. glycolic acid</span><span class="t-hub">Glycolic &amp; mandelic acid &middot; 8 subtopics</span></span><span class="t-val">27,900</span></li><li><span><span class="t-name">Alpha-arbutin</span><span class="t-hub">Alpha arbutin &amp; kojic acid &middot; 60 subtopics</span></span><span class="t-val">21,330</span></li><li><span><span class="t-name">Glycolic acid underarm</span><span class="t-hub">Glycolic &amp; mandelic acid &middot; 1 subtopic</span></span><span class="t-val">12,100</span></li><li><span><span class="t-name">Melasma skincare products</span><span class="t-hub">Melasma &middot; 19 subtopics</span></span><span class="t-val">9,890</span></li><li><span><span class="t-name">When to worry about sun spots</span><span class="t-hub">Sun spots &middot; 16 subtopics</span></span><span class="t-val">8,570</span></li><li><span><span class="t-name">Uneven skin tone meaning</span><span class="t-hub">Uneven tone &amp; dark marks &middot; 61 subtopics</span></span><span class="t-val">4,430</span></li><li><span><span class="t-name">Best mandelic acid products</span><span class="t-hub">Glycolic &amp; mandelic acid &middot; 3 subtopics</span></span><span class="t-val">3,060</span></li><li><span><span class="t-name">Best vitamin C serum recommended by dermatologist</span><span class="t-hub">Vitamin C serums &middot; 2 subtopics</span></span><span class="t-val">2,900</span></li><li><span><span class="t-name">How to cover melasma with makeup</span><span class="t-hub">Melasma &middot; 18 subtopics</span></span><span class="t-val">2,840</span></li><li><span><span class="t-name">Difference between freckles and sun spots</span><span class="t-hub">Sun spots &middot; 8 subtopics</span></span><span class="t-val">2,050</span></li><li><span><span class="t-name">Kojic acid for dark spots on face</span><span class="t-hub">Alpha arbutin &amp; kojic acid &middot; 4 subtopics</span></span><span class="t-val">2,030</span></li><li><span><span class="t-name">Glycolic acid milia</span><span class="t-hub">Glycolic &amp; mandelic acid &middot; 1 subtopic</span></span><span class="t-val">1,900</span></li><li><span><span class="t-name">Does azelaic acid help with hyperpigmentation?</span><span class="t-hub">Alpha arbutin &amp; kojic acid &middot; 4 subtopics</span></span><span class="t-val">1,350</span></li><li><span><span class="t-name">Green light therapy hyperpigmentation</span><span class="t-hub">Uneven tone &amp; dark marks &middot; 1 subtopic</span></span><span class="t-val">1,300</span></li><li><span><span class="t-name">Is mandelic acid safe for pregnancy?</span><span class="t-hub">Glycolic &amp; mandelic acid &middot; 8 subtopics</span></span><span class="t-val">840</span></li><li><span><span class="t-name">Glycolic acid stick</span><span class="t-hub">Glycolic &amp; mandelic acid &middot; 1 subtopic</span></span><span class="t-val">720</span></li><li><span><span class="t-name">Alpha arbutin serum for dark spots</span><span class="t-hub">Alpha arbutin &amp; kojic acid &middot; 4 subtopics</span></span><span class="t-val">480</span></li><li><span><span class="t-name">Best toner for uneven skin tone</span><span class="t-hub">Uneven tone &amp; dark marks &middot; 4 subtopics</span></span><span class="t-val">430</span></li><li><span><span class="t-name">SPF lip balm for hyperpigmentation</span><span class="t-hub">Uneven tone &amp; dark marks &middot; 1 subtopic</span></span><span class="t-val">260</span></li><li><span><span class="t-name">Glycolic acid mask</span><span class="t-hub">Glycolic &amp; mandelic acid &middot; 1 subtopic</span></span><span class="t-val">260</span></li><li><span><span class="t-name">Tea tree oil acne marks</span><span class="t-hub">Uneven tone &amp; dark marks &middot; 4 subtopics</span></span><span class="t-val">220</span></li><li><span><span class="t-name">Alpha arbutin 2% + HA serum</span><span class="t-hub">Alpha arbutin &amp; kojic acid &middot; 1 subtopic</span></span><span class="t-val">210</span></li><li><span><span class="t-name">Mandelic acid for scalp</span><span class="t-hub">Glycolic &amp; mandelic acid &middot; 2 subtopics</span></span><span class="t-val">130</span></li><li><span><span class="t-name">Which alpha arbutin is best?</span><span class="t-hub">Alpha arbutin &amp; kojic acid &middot; 3 subtopics</span></span><span class="t-val">110</span></li><li><span><span class="t-name">Green light therapy for melasma</span><span class="t-hub">Melasma &middot; 1 subtopic</span></span><span class="t-val">110</span></li><li><span><span class="t-name">Kojic acid alpha arbutin niacinamide cream</span><span class="t-hub">Alpha arbutin &amp; kojic acid &middot; 2 subtopics</span></span><span class="t-val">80</span></li><li><span><span class="t-name">Retinol body lotion for dark spots</span><span class="t-hub">Uneven tone &amp; dark marks &middot; 1 subtopic</span></span><span class="t-val">70</span></li><li><span><span class="t-name">Does alpha arbutin oxidise?</span><span class="t-hub">Alpha arbutin &amp; kojic acid &middot; 6 subtopics</span></span><span class="t-val">60</span></li><li><span><span class="t-name">Tranexamic acid vitamin C serum</span><span class="t-hub">Vitamin C serums &middot; 2 subtopics</span></span><span class="t-val">60</span></li><li><span><span class="t-name">Sulfur for acne marks</span><span class="t-hub">Uneven tone &amp; dark marks &middot; 1 subtopic</span></span><span class="t-val">50</span></li><li><span><span class="t-name">Mandelic acid vs. benzoyl peroxide</span><span class="t-hub">Glycolic &amp; mandelic acid &middot; 2 subtopics</span></span><span class="t-val">40</span></li><li><span><span class="t-name">Best alpha arbutin and kojic acid serum</span><span class="t-hub">Alpha arbutin &amp; kojic acid &middot; 2 subtopics</span></span><span class="t-val">40</span></li><li><span><span class="t-name">10% alpha arbutin</span><span class="t-hub">Alpha arbutin &amp; kojic acid &middot; 1 subtopic</span></span><span class="t-val">30</span></li><li><span><span class="t-name">Large sun spots</span><span class="t-hub">Sun spots &middot; 1 subtopic</span></span><span class="t-val">30</span></li><li><span><span class="t-name">Combining AHA, BHA, retinol, vitamin C and niacinamide</span><span class="t-hub">Vitamin C serums &middot; 2 subtopics</span></span><span class="t-val">20</span></li><li><span><span class="t-name">Sun spots vs. tinea versicolor</span><span class="t-hub">Sun spots &middot; 1 subtopic</span></span><span class="t-val">20</span></li><li><span><span class="t-name">Mandelic acid on lips</span><span class="t-hub">Glycolic &amp; mandelic acid &middot; 1 subtopic</span></span><span class="t-val">20</span></li><li><span><span class="t-name">Alpha arbutin for underarm</span><span class="t-hub">Alpha arbutin &amp; kojic acid &middot; 1 subtopic</span></span><span class="t-val">20</span></li><li><span><span class="t-name">Multi peptide serum and alpha arbutin</span><span class="t-hub">Alpha arbutin &amp; kojic acid &middot; 1 subtopic</span></span><span class="t-val">10</span></li><li><span><span class="t-name">1% kojic acid face wash with niacinamide</span><span class="t-hub">Alpha arbutin &amp; kojic acid &middot; 1 subtopic</span></span><span class="t-val">10</span></li><li><span><span class="t-name">Wild berries and alpha arbutin</span><span class="t-hub">Alpha arbutin &amp; kojic acid &middot; 1 subtopic</span></span><span class="t-val">10</span></li><li><span><span class="t-name">Dull skin after COVID</span><span class="t-hub">Uneven tone &amp; dark marks &middot; 1 subtopic</span></span><span class="t-val">10</span></li></ul></div>
+    </details>
+  </div>
+</section>
+
+<!-- ============ 10 - İÇERIKLER ============ -->
+<section class="slide s-paper" id="icerikler">
+  <span class="marker">10 - İçerikler</span>
+  <div class="slide-inner">
+    <div class="step-row" style="margin-bottom:22px;">
+      <div class="eyebrow" style="margin-bottom:0;">Hub 05 &middot; Cilt Bakım İçerikleri</div>
+      <span class="week week-l">51 pages</span>
+    </div>
+    <h2>Retinol, niacinamide and the ingredients behind K-beauty</h2>
+    <p class="lead muted-l" style="margin-top:14px; max-width:760px;">What niacinamide does for skin leads the hub at 353,810 searches a month, with retinol benefits at 262,410 and creams with retinol at 162,400. The hub covers retinol and how it compares with tretinoin and retinal, niacinamide, bakuchiol, collagen, peptides and PDRN, and the right ingredients for each skin need.</p>
+    <p class="cap muted-l45" style="margin-top:10px;">1,352,720 monthly searches across 51 pages and 396 subtopics.</p>
+    <p class="later-hint"><span class="later-n">+219</span> more topics planned for this hub after March</p>
+    <div class="grid g2" style="margin-top:28px;">
+      <div class="card card-light">
+        <h4 class="title-sm">Biggest demand</h4>
+        <p class="cap muted-l45" style="margin-top:6px;">Monthly searches for the hub&#x27;s largest pages</p>
+        <ul class="tlist"><li><span><span class="t-name">What niacinamide does for skin</span><span class="t-hub">Niacinamide &middot; 53 subtopics</span></span><span class="t-val">353,810</span></li><li><span><span class="t-name">Retinol benefits</span><span class="t-hub">Retinol &middot; 28 subtopics</span></span><span class="t-val">262,410</span></li><li><span><span class="t-name">Creams with retinol</span><span class="t-hub">Retinol &middot; 18 subtopics</span></span><span class="t-val">162,400</span></li><li><span><span class="t-name">Best retinol products</span><span class="t-hub">Retinol &middot; 17 subtopics</span></span><span class="t-val">112,100</span></li><li><span><span class="t-name">Retinol vs. tretinoin</span><span class="t-hub">Retinol &middot; 10 subtopics</span></span><span class="t-val">102,900</span></li><li><span><span class="t-name">Retinol face products</span><span class="t-hub">Retinol &middot; 17 subtopics</span></span><span class="t-val">69,400</span></li></ul>
+      </div>
+      <div class="card card-light">
+        <h4 class="title-sm">What the hub covers</h4>
+        <p class="cap muted-l45" style="margin-top:6px;">Scheduled pages by theme</p>
+        <ul class="tlist"><li><span><span class="t-name">Retinol</span><span class="t-hub">31% of the hub</span></span><span class="t-val">16 pages</span></li><li><span><span class="t-name">Bakuchiol</span><span class="t-hub">18% of the hub</span></span><span class="t-val">9 pages</span></li><li><span><span class="t-name">Ingredients by skin need</span><span class="t-hub">18% of the hub</span></span><span class="t-val">9 pages</span></li><li><span><span class="t-name">Collagen, peptides &amp; PDRN</span><span class="t-hub">18% of the hub</span></span><span class="t-val">9 pages</span></li><li><span><span class="t-name">Niacinamide</span><span class="t-hub">12% of the hub</span></span><span class="t-val">6 pages</span></li><li><span><span class="t-name">Other actives &amp; essences</span><span class="t-hub">4% of the hub</span></span><span class="t-val">2 pages</span></li></ul>
+      </div>
+    </div>
+    <details class="all">
+      <summary>All 51 Cilt Bakım İçerikleri pages</summary>
+      <div class="card card-light allcard"><ul class="tlist cols"><li><span><span class="t-name">What niacinamide does for skin</span><span class="t-hub">Niacinamide &middot; 53 subtopics</span></span><span class="t-val">353,810</span></li><li><span><span class="t-name">Retinol benefits</span><span class="t-hub">Retinol &middot; 28 subtopics</span></span><span class="t-val">262,410</span></li><li><span><span class="t-name">Creams with retinol</span><span class="t-hub">Retinol &middot; 18 subtopics</span></span><span class="t-val">162,400</span></li><li><span><span class="t-name">Best retinol products</span><span class="t-hub">Retinol &middot; 17 subtopics</span></span><span class="t-val">112,100</span></li><li><span><span class="t-name">Retinol vs. tretinoin</span><span class="t-hub">Retinol &middot; 10 subtopics</span></span><span class="t-val">102,900</span></li><li><span><span class="t-name">Retinol face products</span><span class="t-hub">Retinol &middot; 17 subtopics</span></span><span class="t-val">69,400</span></li><li><span><span class="t-name">Retinol serums</span><span class="t-hub">Retinol &middot; 3 subtopics</span></span><span class="t-val">67,800</span></li><li><span><span class="t-name">Retinal vs. retinol</span><span class="t-hub">Retinol &middot; 33 subtopics</span></span><span class="t-val">55,510</span></li><li><span><span class="t-name">Bakuchiol benefits</span><span class="t-hub">Bakuchiol &middot; 37 subtopics</span></span><span class="t-val">31,920</span></li><li><span><span class="t-name">Niacinamide supplements</span><span class="t-hub">Niacinamide &middot; 19 subtopics</span></span><span class="t-val">29,570</span></li><li><span><span class="t-name">Retinol products acne</span><span class="t-hub">Retinol &middot; 3 subtopics</span></span><span class="t-val">22,000</span></li><li><span><span class="t-name">Skincare ingredients to avoid while breastfeeding</span><span class="t-hub">Ingredients by skin need &middot; 14 subtopics</span></span><span class="t-val">15,950</span></li><li><span><span class="t-name">Retinol sensitive skin</span><span class="t-hub">Retinol &middot; 4 subtopics</span></span><span class="t-val">15,100</span></li><li><span><span class="t-name">PDRN skincare</span><span class="t-hub">Collagen, peptides &amp; PDRN &middot; 12 subtopics</span></span><span class="t-val">12,770</span></li><li><span><span class="t-name">Hand cream retinol</span><span class="t-hub">Retinol &middot; 2 subtopics</span></span><span class="t-val">10,800</span></li><li><span><span class="t-name">Milia retinol</span><span class="t-hub">Retinol &middot; 1 subtopic</span></span><span class="t-val">5,400</span></li><li><span><span class="t-name">Retinol for stretch marks</span><span class="t-hub">Retinol &middot; 2 subtopics</span></span><span class="t-val">4,200</span></li><li><span><span class="t-name">Skincare ingredients for wrinkles</span><span class="t-hub">Ingredients by skin need &middot; 12 subtopics</span></span><span class="t-val">2,460</span></li><li><span><span class="t-name">Cellulite cream retinol</span><span class="t-hub">Retinol &middot; 1 subtopic</span></span><span class="t-val">2,400</span></li><li><span><span class="t-name">Hydrating toner for retinol</span><span class="t-hub">Retinol &middot; 1 subtopic</span></span><span class="t-val">1,600</span></li><li><span><span class="t-name">Collagen skincare</span><span class="t-hub">Collagen, peptides &amp; PDRN &middot; 17 subtopics</span></span><span class="t-val">1,570</span></li><li><span><span class="t-name">Niacinamide for post inflammatory erythema</span><span class="t-hub">Niacinamide &middot; 3 subtopics</span></span><span class="t-val">1,480</span></li><li><span><span class="t-name">The original retinol serum</span><span class="t-hub">Retinol &middot; 1 subtopic</span></span><span class="t-val">1,300</span></li><li><span><span class="t-name">Vegan skincare retinol and vitamin C face essence</span><span class="t-hub">Retinol &middot; 3 subtopics</span></span><span class="t-val">950</span></li><li><span><span class="t-name">Collagen vs. peptides skincare</span><span class="t-hub">Collagen, peptides &amp; PDRN &middot; 2 subtopics</span></span><span class="t-val">900</span></li><li><span><span class="t-name">Collagen skincare products</span><span class="t-hub">Collagen, peptides &amp; PDRN &middot; 4 subtopics</span></span><span class="t-val">860</span></li><li><span><span class="t-name">Bakuchiol oil serum</span><span class="t-hub">Bakuchiol &middot; 9 subtopics</span></span><span class="t-val">560</span></li><li><span><span class="t-name">Skincare ingredients for hyperpigmentation</span><span class="t-hub">Ingredients by skin need &middot; 7 subtopics</span></span><span class="t-val">540</span></li><li><span><span class="t-name">Best bakuchiol serum for sensitive skin</span><span class="t-hub">Bakuchiol &middot; 2 subtopics</span></span><span class="t-val">510</span></li><li><span><span class="t-name">Magnesium niacinamide cream</span><span class="t-hub">Niacinamide &middot; 1 subtopic</span></span><span class="t-val">480</span></li><li><span><span class="t-name">Best bakuchiol</span><span class="t-hub">Bakuchiol &middot; 6 subtopics</span></span><span class="t-val">470</span></li><li><span><span class="t-name">Skincare ingredients for eczema</span><span class="t-hub">Ingredients by skin need &middot; 3 subtopics</span></span><span class="t-val">440</span></li><li><span><span class="t-name">How to use bakuchiol</span><span class="t-hub">Bakuchiol &middot; 13 subtopics</span></span><span class="t-val">350</span></li><li><span><span class="t-name">Snail mucin skincare routine</span><span class="t-hub">Other actives &amp; essences &middot; 7 subtopics</span></span><span class="t-val">330</span></li><li><span><span class="t-name">Niacinamide cleansing gelée</span><span class="t-hub">Niacinamide &middot; 1 subtopic</span></span><span class="t-val">320</span></li><li><span><span class="t-name">Bakuchiol body lotion</span><span class="t-hub">Bakuchiol &middot; 4 subtopics</span></span><span class="t-val">270</span></li><li><span><span class="t-name">Niacinamide dark circles</span><span class="t-hub">Niacinamide &middot; 1 subtopic</span></span><span class="t-val">210</span></li><li><span><span class="t-name">Antioxidant skincare ingredients</span><span class="t-hub">Ingredients by skin need &middot; 2 subtopics</span></span><span class="t-val">180</span></li><li><span><span class="t-name">Bakuchiol eye serum</span><span class="t-hub">Bakuchiol &middot; 1 subtopic</span></span><span class="t-val">90</span></li><li><span><span class="t-name">New skincare ingredients</span><span class="t-hub">Ingredients by skin need &middot; 6 subtopics</span></span><span class="t-val">80</span></li><li><span><span class="t-name">Skincare sea collagen protection serum</span><span class="t-hub">Collagen, peptides &amp; PDRN &middot; 1 subtopic</span></span><span class="t-val">70</span></li><li><span><span class="t-name">Minimal ingredients skincare</span><span class="t-hub">Ingredients by skin need &middot; 4 subtopics</span></span><span class="t-val">50</span></li><li><span><span class="t-name">Bakuchiol face wash</span><span class="t-hub">Bakuchiol &middot; 2 subtopics</span></span><span class="t-val">40</span></li><li><span><span class="t-name">Collagen mask before or after skincare</span><span class="t-hub">Collagen, peptides &amp; PDRN &middot; 1 subtopic</span></span><span class="t-val">30</span></li><li><span><span class="t-name">Skincare vitamin C brightening jelly eye mask</span><span class="t-hub">Other actives &amp; essences &middot; 1 subtopic</span></span><span class="t-val">30</span></li><li><span><span class="t-name">Retinol bakuchiol bubble toner</span><span class="t-hub">Bakuchiol &middot; 1 subtopic</span></span><span class="t-val">30</span></li><li><span><span class="t-name">Skincare ingredients for combination skin</span><span class="t-hub">Ingredients by skin need &middot; 2 subtopics</span></span><span class="t-val">20</span></li><li><span><span class="t-name">Occlusive skincare ingredients</span><span class="t-hub">Ingredients by skin need &middot; 1 subtopic</span></span><span class="t-val">20</span></li><li><span><span class="t-name">PDRN skincare mask</span><span class="t-hub">Collagen, peptides &amp; PDRN &middot; 1 subtopic</span></span><span class="t-val">20</span></li><li><span><span class="t-name">Optimal oil collagen boost firming &amp; lifting skincare oil</span><span class="t-hub">Collagen, peptides &amp; PDRN &middot; 1 subtopic</span></span><span class="t-val">10</span></li><li><span><span class="t-name">The collagen glow a guide to ingestible skincare</span><span class="t-hub">Collagen, peptides &amp; PDRN &middot; 1 subtopic</span></span><span class="t-val">10</span></li></ul></div>
+    </details>
+  </div>
+</section>
+
+<!-- ============ 11 - AKNE ============ -->
+<section class="slide s-light" id="akne">
+  <span class="marker">11 - Akne</span>
+  <div class="slide-inner">
+    <div class="step-row" style="margin-bottom:22px;">
+      <div class="eyebrow" style="margin-bottom:0;">Hub 06 &middot; Akne, Yağlanma ve Gözenek Görünümü</div>
+      <span class="week week-l">50 pages</span>
+    </div>
+    <h2>Clogged pores, blackheads and oily skin, under control</h2>
+    <p class="lead muted-l" style="margin-top:14px; max-width:760px;">How to unclog clogged pores leads the hub at 824,790 searches a month and is the deepest page in the plan, with 361 subtopics. Non-comedogenic face cleansers follow at 327,170 and non-comedogenic moisturizers at 248,400. The hub covers clogged pores and blackheads, non-comedogenic skincare, oily skin care and makeup, niacinamide, and acne treatments.</p>
+    <p class="cap muted-l45" style="margin-top:10px;">2,149,290 monthly searches across 50 pages and 1,110 subtopics.</p>
+    <p class="later-hint"><span class="later-n">+223</span> more topics planned for this hub after March</p>
+    <div class="grid g2" style="margin-top:28px;">
+      <div class="card card-light">
+        <h4 class="title-sm">Biggest demand</h4>
+        <p class="cap muted-l45" style="margin-top:6px;">Monthly searches for the hub&#x27;s largest pages</p>
+        <ul class="tlist"><li><span><span class="t-name">How to unclog clogged pores</span><span class="t-hub">Clogged pores &amp; blackheads &middot; 361 subtopics</span></span><span class="t-val">824,790</span></li><li><span><span class="t-name">Non-comedogenic face cleansers</span><span class="t-hub">Non-comedogenic skincare &middot; 85 subtopics</span></span><span class="t-val">327,170</span></li><li><span><span class="t-name">Non-comedogenic moisturizers</span><span class="t-hub">Non-comedogenic skincare &middot; 102 subtopics</span></span><span class="t-val">248,400</span></li><li><span><span class="t-name">Sebaceous filaments</span><span class="t-hub">Clogged pores &amp; blackheads &middot; 146 subtopics</span></span><span class="t-val">105,360</span></li><li><span><span class="t-name">Best non-comedogenic sunscreens</span><span class="t-hub">Non-comedogenic skincare &middot; 31 subtopics</span></span><span class="t-val">103,060</span></li><li><span><span class="t-name">Niacinamide serums</span><span class="t-hub">Niacinamide &middot; 68 subtopics</span></span><span class="t-val">98,330</span></li></ul>
+      </div>
+      <div class="card card-light">
+        <h4 class="title-sm">What the hub covers</h4>
+        <p class="cap muted-l45" style="margin-top:6px;">Scheduled pages by theme</p>
+        <ul class="tlist"><li><span><span class="t-name">Clogged pores &amp; blackheads</span><span class="t-hub">22% of the hub</span></span><span class="t-val">11 pages</span></li><li><span><span class="t-name">Oily skin care</span><span class="t-hub">20% of the hub</span></span><span class="t-val">10 pages</span></li><li><span><span class="t-name">Niacinamide</span><span class="t-hub">18% of the hub</span></span><span class="t-val">9 pages</span></li><li><span><span class="t-name">Non-comedogenic skincare</span><span class="t-hub">16% of the hub</span></span><span class="t-val">8 pages</span></li><li><span><span class="t-name">Acne treatments &amp; actives</span><span class="t-hub">14% of the hub</span></span><span class="t-val">7 pages</span></li><li><span><span class="t-name">Makeup for oily skin</span><span class="t-hub">10% of the hub</span></span><span class="t-val">5 pages</span></li></ul>
+      </div>
+    </div>
+    <details class="all">
+      <summary>All 50 Akne, Yağlanma ve Gözenek Görünümü pages</summary>
+      <div class="card card-light allcard"><ul class="tlist cols"><li><span><span class="t-name">How to unclog clogged pores</span><span class="t-hub">Clogged pores &amp; blackheads &middot; 361 subtopics</span></span><span class="t-val">824,790</span></li><li><span><span class="t-name">Non-comedogenic face cleansers</span><span class="t-hub">Non-comedogenic skincare &middot; 85 subtopics</span></span><span class="t-val">327,170</span></li><li><span><span class="t-name">Non-comedogenic moisturizers</span><span class="t-hub">Non-comedogenic skincare &middot; 102 subtopics</span></span><span class="t-val">248,400</span></li><li><span><span class="t-name">Sebaceous filaments</span><span class="t-hub">Clogged pores &amp; blackheads &middot; 146 subtopics</span></span><span class="t-val">105,360</span></li><li><span><span class="t-name">Best non-comedogenic sunscreens</span><span class="t-hub">Non-comedogenic skincare &middot; 31 subtopics</span></span><span class="t-val">103,060</span></li><li><span><span class="t-name">Niacinamide serums</span><span class="t-hub">Niacinamide &middot; 68 subtopics</span></span><span class="t-val">98,330</span></li><li><span><span class="t-name">Non-comedogenic skincare products</span><span class="t-hub">Non-comedogenic skincare &middot; 67 subtopics</span></span><span class="t-val">96,120</span></li><li><span><span class="t-name">Blackheads and hair</span><span class="t-hub">Clogged pores &amp; blackheads &middot; 1 subtopic</span></span><span class="t-val">60,500</span></li><li><span><span class="t-name">Blackheads salicylic acid</span><span class="t-hub">Clogged pores &amp; blackheads &middot; 8 subtopics</span></span><span class="t-val">51,310</span></li><li><span><span class="t-name">How to get deep blackheads out</span><span class="t-hub">Clogged pores &amp; blackheads &middot; 16 subtopics</span></span><span class="t-val">41,100</span></li><li><span><span class="t-name">Clogged pores body</span><span class="t-hub">Clogged pores &amp; blackheads &middot; 24 subtopics</span></span><span class="t-val">36,320</span></li><li><span><span class="t-name">Facial mask for blackheads</span><span class="t-hub">Clogged pores &amp; blackheads &middot; 17 subtopics</span></span><span class="t-val">24,610</span></li><li><span><span class="t-name">Non-comedogenic oils for face</span><span class="t-hub">Non-comedogenic skincare &middot; 30 subtopics</span></span><span class="t-val">22,690</span></li><li><span><span class="t-name">Should people with acne use moisturizer?</span><span class="t-hub">Oily skin care &middot; 12 subtopics</span></span><span class="t-val">14,920</span></li><li><span><span class="t-name">Oil cleanser oily skin</span><span class="t-hub">Oily skin care &middot; 16 subtopics</span></span><span class="t-val">14,590</span></li><li><span><span class="t-name">Oily skin setting powder</span><span class="t-hub">Makeup for oily skin &middot; 5 subtopics</span></span><span class="t-val">13,660</span></li><li><span><span class="t-name">Face tonic for oily skin</span><span class="t-hub">Oily skin care &middot; 12 subtopics</span></span><span class="t-val">11,820</span></li><li><span><span class="t-name">Oily skin primer</span><span class="t-hub">Makeup for oily skin &middot; 3 subtopics</span></span><span class="t-val">10,680</span></li><li><span><span class="t-name">Dermatologist advice for oily skin</span><span class="t-hub">Oily skin care &middot; 2 subtopics</span></span><span class="t-val">8,800</span></li><li><span><span class="t-name">Good setting spray for oily skin</span><span class="t-hub">Makeup for oily skin &middot; 3 subtopics</span></span><span class="t-val">8,200</span></li><li><span><span class="t-name">Blackheads cure</span><span class="t-hub">Clogged pores &amp; blackheads &middot; 2 subtopics</span></span><span class="t-val">7,000</span></li><li><span><span class="t-name">Deep whiteheads</span><span class="t-hub">Clogged pores &amp; blackheads &middot; 24 subtopics</span></span><span class="t-val">5,170</span></li><li><span><span class="t-name">Korean serums for acne prone skin</span><span class="t-hub">Oily skin care &middot; 19 subtopics</span></span><span class="t-val">3,210</span></li><li><span><span class="t-name">Topical retinoids for blackheads</span><span class="t-hub">Clogged pores &amp; blackheads &middot; 2 subtopics</span></span><span class="t-val">3,200</span></li><li><span><span class="t-name">Non comedogenic hair paste</span><span class="t-hub">Non-comedogenic skincare &middot; 2 subtopics</span></span><span class="t-val">3,010</span></li><li><span><span class="t-name">Best acne prone skin BB cream</span><span class="t-hub">Makeup for oily skin &middot; 7 subtopics</span></span><span class="t-val">1,470</span></li><li><span><span class="t-name">Salicylic acid vs. benzoyl peroxide for acne</span><span class="t-hub">Acne treatments &amp; actives &middot; 4 subtopics</span></span><span class="t-val">840</span></li><li><span><span class="t-name">Niacinamide serum rosacea</span><span class="t-hub">Niacinamide &middot; 1 subtopic</span></span><span class="t-val">480</span></li><li><span><span class="t-name">Niacinamide scalp serum</span><span class="t-hub">Niacinamide &middot; 2 subtopics</span></span><span class="t-val">380</span></li><li><span><span class="t-name">Will moisturizer help acne scars?</span><span class="t-hub">Oily skin care &middot; 9 subtopics</span></span><span class="t-val">310</span></li><li><span><span class="t-name">Chemical exfoliation pads</span><span class="t-hub">Acne treatments &amp; actives &middot; 1 subtopic</span></span><span class="t-val">260</span></li><li><span><span class="t-name">Anti aging anti acne moisturizer</span><span class="t-hub">Oily skin care &middot; 5 subtopics</span></span><span class="t-val">230</span></li><li><span><span class="t-name">Best retinol for beginners acne prone skin</span><span class="t-hub">Acne treatments &amp; actives &middot; 3 subtopics</span></span><span class="t-val">220</span></li><li><span><span class="t-name">Non comedogenic azelaic acid serum</span><span class="t-hub">Non-comedogenic skincare &middot; 1 subtopic</span></span><span class="t-val">170</span></li><li><span><span class="t-name">Niacinamide serum vs. hyaluronic acid serum</span><span class="t-hub">Niacinamide &middot; 2 subtopics</span></span><span class="t-val">140</span></li><li><span><span class="t-name">Niacinamide serum for underarms</span><span class="t-hub">Niacinamide &middot; 1 subtopic</span></span><span class="t-val">110</span></li><li><span><span class="t-name">Non comedogenic moisturizer for perioral dermatitis</span><span class="t-hub">Non-comedogenic skincare &middot; 1 subtopic</span></span><span class="t-val">110</span></li><li><span><span class="t-name">Non exfoliating toner</span><span class="t-hub">Acne treatments &amp; actives &middot; 3 subtopics</span></span><span class="t-val">100</span></li><li><span><span class="t-name">Non comedogenic eyeshadow</span><span class="t-hub">Makeup for oily skin &middot; 1 subtopic</span></span><span class="t-val">90</span></li><li><span><span class="t-name">Dermatologist recommended pimple patches</span><span class="t-hub">Acne treatments &amp; actives &middot; 1 subtopic</span></span><span class="t-val">70</span></li><li><span><span class="t-name">Gluta-niacinamide serums</span><span class="t-hub">Niacinamide &middot; 1 subtopic</span></span><span class="t-val">50</span></li><li><span><span class="t-name">Watermelon niacinamide serum</span><span class="t-hub">Niacinamide &middot; 1 subtopic</span></span><span class="t-val">50</span></li><li><span><span class="t-name">Natural soaps for acne prone skin</span><span class="t-hub">Oily skin care &middot; 1 subtopic</span></span><span class="t-val">40</span></li><li><span><span class="t-name">Exfoliating toner for underarms</span><span class="t-hub">Acne treatments &amp; actives &middot; 1 subtopic</span></span><span class="t-val">30</span></li><li><span><span class="t-name">Steam for clogged pores</span><span class="t-hub">Clogged pores &amp; blackheads &middot; 1 subtopic</span></span><span class="t-val">30</span></li><li><span><span class="t-name">Niacinamide lip serum</span><span class="t-hub">Niacinamide &middot; 1 subtopic</span></span><span class="t-val">30</span></li><li><span><span class="t-name">Niacinamide serum with tretinoin</span><span class="t-hub">Niacinamide &middot; 1 subtopic</span></span><span class="t-val">30</span></li><li><span><span class="t-name">Green tea reduce sebum production</span><span class="t-hub">Oily skin care &middot; 1 subtopic</span></span><span class="t-val">10</span></li><li><span><span class="t-name">Exfoliating toners for autumn</span><span class="t-hub">Acne treatments &amp; actives &middot; 1 subtopic</span></span><span class="t-val">10</span></li><li><span><span class="t-name">Moisturizer fungal acne free</span><span class="t-hub">Oily skin care &middot; 1 subtopic</span></span><span class="t-val">10</span></li></ul></div>
+    </details>
+  </div>
+</section>
+
+<!-- ============ 12 - KURULUK ============ -->
+<section class="slide s-paper" id="kuruluk">
+  <span class="marker">12 - Kuruluk</span>
+  <div class="slide-inner">
+    <div class="step-row" style="margin-bottom:22px;">
+      <div class="eyebrow" style="margin-bottom:0;">Hub 07 &middot; Kuruluk ve Cilt Bariyeri</div>
+      <span class="week week-l">43 pages</span>
+    </div>
+    <h2>Dry skin, dehydration and a stronger skin barrier</h2>
+    <p class="lead muted-l" style="margin-top:14px; max-width:760px;">Best moisturizers for dry facial skin are the biggest page in the plan at 826,410 searches a month, with dry skin routines at 497,010 and best gentle cleansers at 219,660. The hub covers dry and dehydrated skin, moisturizers and barrier creams, gentle cleansers, hydrating toners and serums, and skin pH, matching Korendy&#x27;s ceramide and hydration picks.</p>
+    <p class="cap muted-l45" style="margin-top:10px;">1,889,960 monthly searches across 43 pages and 645 subtopics.</p>
+    <p class="later-hint"><span class="later-n">+161</span> more topics planned for this hub after March</p>
+    <div class="grid g2" style="margin-top:28px;">
+      <div class="card card-light">
+        <h4 class="title-sm">Biggest demand</h4>
+        <p class="cap muted-l45" style="margin-top:6px;">Monthly searches for the hub&#x27;s largest pages</p>
+        <ul class="tlist"><li><span><span class="t-name">Best moisturizers for dry facial skin</span><span class="t-hub">Moisturizers &amp; barrier creams &middot; 35 subtopics</span></span><span class="t-val">826,410</span></li><li><span><span class="t-name">Dry skin routine</span><span class="t-hub">Dry &amp; dehydrated skin &middot; 121 subtopics</span></span><span class="t-val">497,010</span></li><li><span><span class="t-name">Best gentle facial cleansers</span><span class="t-hub">Gentle cleansers &middot; 56 subtopics</span></span><span class="t-val">219,660</span></li><li><span><span class="t-name">Body moisturizers for dry skin</span><span class="t-hub">Moisturizers &amp; barrier creams &middot; 12 subtopics</span></span><span class="t-val">127,430</span></li><li><span><span class="t-name">Dehydrated skin</span><span class="t-hub">Dry &amp; dehydrated skin &middot; 144 subtopics</span></span><span class="t-val">27,930</span></li><li><span><span class="t-name">Dry skin care products face</span><span class="t-hub">Dry &amp; dehydrated skin &middot; 8 subtopics</span></span><span class="t-val">24,070</span></li></ul>
+      </div>
+      <div class="card card-light">
+        <h4 class="title-sm">What the hub covers</h4>
+        <p class="cap muted-l45" style="margin-top:6px;">Scheduled pages by theme</p>
+        <ul class="tlist"><li><span><span class="t-name">Dry &amp; dehydrated skin</span><span class="t-hub">21% of the hub</span></span><span class="t-val">9 pages</span></li><li><span><span class="t-name">Skin pH &amp; barrier science</span><span class="t-hub">21% of the hub</span></span><span class="t-val">9 pages</span></li><li><span><span class="t-name">Moisturizers &amp; barrier creams</span><span class="t-hub">19% of the hub</span></span><span class="t-val">8 pages</span></li><li><span><span class="t-name">Hydration habits</span><span class="t-hub">16% of the hub</span></span><span class="t-val">7 pages</span></li><li><span><span class="t-name">Hydrating toners, serums &amp; masks</span><span class="t-hub">14% of the hub</span></span><span class="t-val">6 pages</span></li><li><span><span class="t-name">Gentle cleansers</span><span class="t-hub">9% of the hub</span></span><span class="t-val">4 pages</span></li></ul>
+      </div>
+    </div>
+    <details class="all">
+      <summary>All 43 Kuruluk ve Cilt Bariyeri pages</summary>
+      <div class="card card-light allcard"><ul class="tlist cols"><li><span><span class="t-name">Best moisturizers for dry facial skin</span><span class="t-hub">Moisturizers &amp; barrier creams &middot; 35 subtopics</span></span><span class="t-val">826,410</span></li><li><span><span class="t-name">Dry skin routine</span><span class="t-hub">Dry &amp; dehydrated skin &middot; 121 subtopics</span></span><span class="t-val">497,010</span></li><li><span><span class="t-name">Best gentle facial cleansers</span><span class="t-hub">Gentle cleansers &middot; 56 subtopics</span></span><span class="t-val">219,660</span></li><li><span><span class="t-name">Body moisturizers for dry skin</span><span class="t-hub">Moisturizers &amp; barrier creams &middot; 12 subtopics</span></span><span class="t-val">127,430</span></li><li><span><span class="t-name">Dehydrated skin</span><span class="t-hub">Dry &amp; dehydrated skin &middot; 144 subtopics</span></span><span class="t-val">27,930</span></li><li><span><span class="t-name">Dry skin care products face</span><span class="t-hub">Dry &amp; dehydrated skin &middot; 8 subtopics</span></span><span class="t-val">24,070</span></li><li><span><span class="t-name">Skin barrier repair cream</span><span class="t-hub">Moisturizers &amp; barrier creams &middot; 31 subtopics</span></span><span class="t-val">23,600</span></li><li><span><span class="t-name">Dry skin or rash</span><span class="t-hub">Dry &amp; dehydrated skin &middot; 4 subtopics</span></span><span class="t-val">20,010</span></li><li><span><span class="t-name">Hydrating toner for dry skin</span><span class="t-hub">Hydrating toners, serums &amp; masks &middot; 7 subtopics</span></span><span class="t-val">18,950</span></li><li><span><span class="t-name">What&#x27;s a good foundation for dry skin?</span><span class="t-hub">Dry &amp; dehydrated skin &middot; 3 subtopics</span></span><span class="t-val">16,800</span></li><li><span><span class="t-name">Occlusive moisturizer</span><span class="t-hub">Skin pH &amp; barrier science &middot; 19 subtopics</span></span><span class="t-val">15,000</span></li><li><span><span class="t-name">Humidifier for skin hydration</span><span class="t-hub">Hydration habits &middot; 3 subtopics</span></span><span class="t-val">14,960</span></li><li><span><span class="t-name">What is a skin barrier?</span><span class="t-hub">Skin pH &amp; barrier science &middot; 12 subtopics</span></span><span class="t-val">11,120</span></li><li><span><span class="t-name">Hydrating serums for dehydrated skin</span><span class="t-hub">Hydrating toners, serums &amp; masks &middot; 10 subtopics</span></span><span class="t-val">9,740</span></li><li><span><span class="t-name">Fragrance free Korean skincare</span><span class="t-hub">Hydration habits &middot; 10 subtopics</span></span><span class="t-val">9,620</span></li><li><span><span class="t-name">Beard oil dry skin</span><span class="t-hub">Dry &amp; dehydrated skin &middot; 1 subtopic</span></span><span class="t-val">6,600</span></li><li><span><span class="t-name">pH level of the skin</span><span class="t-hub">Skin pH &amp; barrier science &middot; 75 subtopics</span></span><span class="t-val">5,850</span></li><li><span><span class="t-name">Hand cream vs. body lotion</span><span class="t-hub">Moisturizers &amp; barrier creams &middot; 4 subtopics</span></span><span class="t-val">3,630</span></li><li><span><span class="t-name">Skin barrier repair product</span><span class="t-hub">Moisturizers &amp; barrier creams &middot; 5 subtopics</span></span><span class="t-val">3,490</span></li><li><span><span class="t-name">Gentle makeup remover cleanser</span><span class="t-hub">Gentle cleansers &middot; 3 subtopics</span></span><span class="t-val">3,360</span></li><li><span><span class="t-name">Hydrating ingredients for dehydrated skin</span><span class="t-hub">Dry &amp; dehydrated skin &middot; 5 subtopics</span></span><span class="t-val">970</span></li><li><span><span class="t-name">Dehydrated but oily skin</span><span class="t-hub">Dry &amp; dehydrated skin &middot; 27 subtopics</span></span><span class="t-val">810</span></li><li><span><span class="t-name">Coconut oil for skin hydration</span><span class="t-hub">Hydration habits &middot; 3 subtopics</span></span><span class="t-val">610</span></li><li><span><span class="t-name">Skin hydration spray</span><span class="t-hub">Hydrating toners, serums &amp; masks &middot; 3 subtopics</span></span><span class="t-val">500</span></li><li><span><span class="t-name">Hydrating mask for dehydrated skin</span><span class="t-hub">Hydrating toners, serums &amp; masks &middot; 8 subtopics</span></span><span class="t-val">480</span></li><li><span><span class="t-name">Water skin hydration</span><span class="t-hub">Hydration habits &middot; 5 subtopics</span></span><span class="t-val">320</span></li><li><span><span class="t-name">Gentle eyelid cleanser</span><span class="t-hub">Gentle cleansers &middot; 1 subtopic</span></span><span class="t-val">320</span></li><li><span><span class="t-name">What pH burns skin?</span><span class="t-hub">Skin pH &amp; barrier science &middot; 11 subtopics</span></span><span class="t-val">120</span></li><li><span><span class="t-name">Bio-active ceramide moisturizer</span><span class="t-hub">Moisturizers &amp; barrier creams &middot; 1 subtopic</span></span><span class="t-val">110</span></li><li><span><span class="t-name">Vitamin C for skin hydration</span><span class="t-hub">Hydration habits &middot; 3 subtopics</span></span><span class="t-val">70</span></li><li><span><span class="t-name">High pH in hot tub effects on skin</span><span class="t-hub">Skin pH &amp; barrier science &middot; 2 subtopics</span></span><span class="t-val">50</span></li><li><span><span class="t-name">National skin barrier day</span><span class="t-hub">Skin pH &amp; barrier science &middot; 1 subtopic</span></span><span class="t-val">50</span></li><li><span><span class="t-name">Soy milk gentle face cleanser</span><span class="t-hub">Gentle cleansers &middot; 1 subtopic</span></span><span class="t-val">50</span></li><li><span><span class="t-name">Ceramide body moisturizer</span><span class="t-hub">Moisturizers &amp; barrier creams &middot; 1 subtopic</span></span><span class="t-val">40</span></li><li><span><span class="t-name">Cucumber for skin hydration</span><span class="t-hub">Hydration habits &middot; 1 subtopic</span></span><span class="t-val">40</span></li><li><span><span class="t-name">Red light therapy for damaged skin barrier</span><span class="t-hub">Skin pH &amp; barrier science &middot; 1 subtopic</span></span><span class="t-val">40</span></li><li><span><span class="t-name">Skin hydration boosters</span><span class="t-hub">Hydrating toners, serums &amp; masks &middot; 1 subtopic</span></span><span class="t-val">40</span></li><li><span><span class="t-name">Skin hydration drink</span><span class="t-hub">Hydration habits &middot; 1 subtopic</span></span><span class="t-val">30</span></li><li><span><span class="t-name">Daily skin care routine for dry skin in summer</span><span class="t-hub">Dry &amp; dehydrated skin &middot; 2 subtopics</span></span><span class="t-val">20</span></li><li><span><span class="t-name">Does beef tallow repair skin barrier?</span><span class="t-hub">Skin pH &amp; barrier science &middot; 1 subtopic</span></span><span class="t-val">20</span></li><li><span><span class="t-name">Best barrier repair cream for tretinoin</span><span class="t-hub">Moisturizers &amp; barrier creams &middot; 1 subtopic</span></span><span class="t-val">10</span></li><li><span><span class="t-name">Flower essences for deep hydration</span><span class="t-hub">Hydrating toners, serums &amp; masks &middot; 1 subtopic</span></span><span class="t-val">10</span></li><li><span><span class="t-name">What skin pH tells you</span><span class="t-hub">Skin pH &amp; barrier science &middot; 1 subtopic</span></span><span class="t-val">10</span></li></ul></div>
+    </details>
+  </div>
+</section>
+
+<!-- ============ 13 - GÜNEŞ ============ -->
+<section class="slide s-light" id="gunes">
+  <span class="marker">13 - Güneş</span>
+  <div class="slide-inner">
+    <div class="step-row" style="margin-bottom:22px;">
+      <div class="eyebrow" style="margin-bottom:0;">Hub 08 &middot; Günlük Güneş Koruması</div>
+      <span class="week week-l">37 pages</span>
+    </div>
+    <h2>Mineral, chemical and Korean sunscreens, applied right</h2>
+    <p class="lead muted-l" style="margin-top:14px; max-width:760px;">Best mineral sunscreens lead the hub at 291,190 searches a month, with Korean SPF sunscreens at 79,730 and best face sunscreens for sensitive skin at 73,210. The hub covers mineral vs. chemical sunscreen, Korean and Japanese sunscreens, sunscreen for every skin type, sprays and sticks, and how much to apply and when to reapply.</p>
+    <p class="cap muted-l45" style="margin-top:10px;">594,730 monthly searches across 37 pages and 857 subtopics.</p>
+    <p class="later-hint"><span class="later-n">+94</span> more topics planned for this hub after March</p>
+    <div class="grid g2" style="margin-top:28px;">
+      <div class="card card-light">
+        <h4 class="title-sm">Biggest demand</h4>
+        <p class="cap muted-l45" style="margin-top:6px;">Monthly searches for the hub&#x27;s largest pages</p>
+        <ul class="tlist"><li><span><span class="t-name">Best mineral sunscreens</span><span class="t-hub">Mineral vs. chemical &middot; 53 subtopics</span></span><span class="t-val">291,190</span></li><li><span><span class="t-name">Korean SPF sunscreens</span><span class="t-hub">Korean &amp; Japanese sunscreen &middot; 61 subtopics</span></span><span class="t-val">79,730</span></li><li><span><span class="t-name">Best face sunscreens for sensitive skin</span><span class="t-hub">Sunscreen by skin type &middot; 70 subtopics</span></span><span class="t-val">73,210</span></li><li><span><span class="t-name">Mineral vs. chemical sunscreen</span><span class="t-hub">Mineral vs. chemical &middot; 84 subtopics</span></span><span class="t-val">28,080</span></li><li><span><span class="t-name">Best chemical sunscreen</span><span class="t-hub">Mineral vs. chemical &middot; 12 subtopics</span></span><span class="t-val">16,110</span></li><li><span><span class="t-name">Can you bring spray sunscreen on a plane?</span><span class="t-hub">Spray &amp; stick sunscreen &middot; 28 subtopics</span></span><span class="t-val">14,190</span></li></ul>
+      </div>
+      <div class="card card-light">
+        <h4 class="title-sm">What the hub covers</h4>
+        <p class="cap muted-l45" style="margin-top:6px;">Scheduled pages by theme</p>
+        <ul class="tlist"><li><span><span class="t-name">Spray &amp; stick sunscreen</span><span class="t-hub">30% of the hub</span></span><span class="t-val">11 pages</span></li><li><span><span class="t-name">Mineral vs. chemical</span><span class="t-hub">24% of the hub</span></span><span class="t-val">9 pages</span></li><li><span><span class="t-name">Korean &amp; Japanese sunscreen</span><span class="t-hub">16% of the hub</span></span><span class="t-val">6 pages</span></li><li><span><span class="t-name">Sunscreen by skin type</span><span class="t-hub">11% of the hub</span></span><span class="t-val">4 pages</span></li><li><span><span class="t-name">Applying &amp; reapplying</span><span class="t-hub">11% of the hub</span></span><span class="t-val">4 pages</span></li><li><span><span class="t-name">Sunscreen serums &amp; tints</span><span class="t-hub">8% of the hub</span></span><span class="t-val">3 pages</span></li></ul>
+      </div>
+    </div>
+    <details class="all">
+      <summary>All 37 Günlük Güneş Koruması pages</summary>
+      <div class="card card-light allcard"><ul class="tlist cols"><li><span><span class="t-name">Best mineral sunscreens</span><span class="t-hub">Mineral vs. chemical &middot; 53 subtopics</span></span><span class="t-val">291,190</span></li><li><span><span class="t-name">Korean SPF sunscreens</span><span class="t-hub">Korean &amp; Japanese sunscreen &middot; 61 subtopics</span></span><span class="t-val">79,730</span></li><li><span><span class="t-name">Best face sunscreens for sensitive skin</span><span class="t-hub">Sunscreen by skin type &middot; 70 subtopics</span></span><span class="t-val">73,210</span></li><li><span><span class="t-name">Mineral vs. chemical sunscreen</span><span class="t-hub">Mineral vs. chemical &middot; 84 subtopics</span></span><span class="t-val">28,080</span></li><li><span><span class="t-name">Best chemical sunscreen</span><span class="t-hub">Mineral vs. chemical &middot; 12 subtopics</span></span><span class="t-val">16,110</span></li><li><span><span class="t-name">Can you bring spray sunscreen on a plane?</span><span class="t-hub">Spray &amp; stick sunscreen &middot; 28 subtopics</span></span><span class="t-val">14,190</span></li><li><span><span class="t-name">Facial spray sunscreen</span><span class="t-hub">Spray &amp; stick sunscreen &middot; 31 subtopics</span></span><span class="t-val">11,400</span></li><li><span><span class="t-name">For oily skin which sunscreen is best</span><span class="t-hub">Sunscreen by skin type &middot; 30 subtopics</span></span><span class="t-val">9,690</span></li><li><span><span class="t-name">Sunscreen without white cast</span><span class="t-hub">Sunscreen by skin type &middot; 81 subtopics</span></span><span class="t-val">9,100</span></li><li><span><span class="t-name">Can you put sunscreen over a spray tan?</span><span class="t-hub">Spray &amp; stick sunscreen &middot; 6 subtopics</span></span><span class="t-val">8,080</span></li><li><span><span class="t-name">Spray sunscreen vs. lotion sunscreen</span><span class="t-hub">Spray &amp; stick sunscreen &middot; 21 subtopics</span></span><span class="t-val">6,200</span></li><li><span><span class="t-name">Should you wear sunscreen in winter?</span><span class="t-hub">Applying &amp; reapplying &middot; 56 subtopics</span></span><span class="t-val">5,870</span></li><li><span><span class="t-name">Korean tinted sunscreen</span><span class="t-hub">Korean &amp; Japanese sunscreen &middot; 13 subtopics</span></span><span class="t-val">4,880</span></li><li><span><span class="t-name">How to reapply sunscreen over makeup</span><span class="t-hub">Applying &amp; reapplying &middot; 30 subtopics</span></span><span class="t-val">4,620</span></li><li><span><span class="t-name">How much sunscreen to use on face?</span><span class="t-hub">Applying &amp; reapplying &middot; 26 subtopics</span></span><span class="t-val">4,170</span></li><li><span><span class="t-name">Spray sunscreen safety</span><span class="t-hub">Spray &amp; stick sunscreen &middot; 9 subtopics</span></span><span class="t-val">3,110</span></li><li><span><span class="t-name">Spray sunscreen travel size</span><span class="t-hub">Spray &amp; stick sunscreen &middot; 12 subtopics</span></span><span class="t-val">3,070</span></li><li><span><span class="t-name">Mineral powder sunscreen</span><span class="t-hub">Mineral vs. chemical &middot; 7 subtopics</span></span><span class="t-val">2,890</span></li><li><span><span class="t-name">Bug spray or sunscreen first</span><span class="t-hub">Spray &amp; stick sunscreen &middot; 5 subtopics</span></span><span class="t-val">2,870</span></li><li><span><span class="t-name">Best water-resistant sunscreen</span><span class="t-hub">Sunscreen by skin type &middot; 25 subtopics</span></span><span class="t-val">2,760</span></li><li><span><span class="t-name">What does mineral sunscreen mean?</span><span class="t-hub">Mineral vs. chemical &middot; 11 subtopics</span></span><span class="t-val">1,740</span></li><li><span><span class="t-name">Which sunscreen stick is best?</span><span class="t-hub">Spray &amp; stick sunscreen &middot; 38 subtopics</span></span><span class="t-val">1,610</span></li><li><span><span class="t-name">Japanese chemical sunscreen</span><span class="t-hub">Korean &amp; Japanese sunscreen &middot; 4 subtopics</span></span><span class="t-val">1,550</span></li><li><span><span class="t-name">Mineral sunscreen for sensitive eyes</span><span class="t-hub">Mineral vs. chemical &middot; 10 subtopics</span></span><span class="t-val">1,540</span></li><li><span><span class="t-name">Mineral sunscreen for tattoos</span><span class="t-hub">Mineral vs. chemical &middot; 1 subtopic</span></span><span class="t-val">1,300</span></li><li><span><span class="t-name">Sunscreen reapplication time</span><span class="t-hub">Applying &amp; reapplying &middot; 11 subtopics</span></span><span class="t-val">1,200</span></li><li><span><span class="t-name">Korean vegan sunscreen</span><span class="t-hub">Korean &amp; Japanese sunscreen &middot; 10 subtopics</span></span><span class="t-val">960</span></li><li><span><span class="t-name">Hybrid sunscreen</span><span class="t-hub">Mineral vs. chemical &middot; 6 subtopics</span></span><span class="t-val">940</span></li><li><span><span class="t-name">Serum moisturizer sunscreen order</span><span class="t-hub">Sunscreen serums &amp; tints &middot; 66 subtopics</span></span><span class="t-val">930</span></li><li><span><span class="t-name">Best sunscreen serum for face</span><span class="t-hub">Sunscreen serums &amp; tints &middot; 16 subtopics</span></span><span class="t-val">700</span></li><li><span><span class="t-name">Mineral sunscreen for eczema</span><span class="t-hub">Mineral vs. chemical &middot; 5 subtopics</span></span><span class="t-val">600</span></li><li><span><span class="t-name">How to apply stick sunscreen</span><span class="t-hub">Spray &amp; stick sunscreen &middot; 8 subtopics</span></span><span class="t-val">290</span></li><li><span><span class="t-name">Best Korean sunscreen for dark spots</span><span class="t-hub">Korean &amp; Japanese sunscreen &middot; 7 subtopics</span></span><span class="t-val">90</span></li><li><span><span class="t-name">Pink sunscreen sticks</span><span class="t-hub">Spray &amp; stick sunscreen &middot; 1 subtopic</span></span><span class="t-val">20</span></li><li><span><span class="t-name">Stick sunscreens</span><span class="t-hub">Spray &amp; stick sunscreen &middot; 1 subtopic</span></span><span class="t-val">20</span></li><li><span><span class="t-name">Best Korean sunscreen to use with tretinoin</span><span class="t-hub">Korean &amp; Japanese sunscreen &middot; 1 subtopic</span></span><span class="t-val">10</span></li><li><span><span class="t-name">Niacinamide serum sunscreens, SPF 50</span><span class="t-hub">Sunscreen serums &amp; tints &middot; 1 subtopic</span></span><span class="t-val">10</span></li></ul></div>
+    </details>
+  </div>
+</section>
+
+<!-- ============ 14 - RUTINLER ============ -->
+<section class="slide s-paper" id="rutinler">
+  <span class="marker">14 - Rutinler</span>
+  <div class="slide-inner">
+    <div class="step-row" style="margin-bottom:22px;">
+      <div class="eyebrow" style="margin-bottom:0;">Hub 09 &middot; Cilt Bakım Rutinleri</div>
+      <span class="week week-l">24 pages</span>
+    </div>
+    <h2>Building a routine, double cleansing and product order</h2>
+    <p class="lead muted-l" style="margin-top:14px; max-width:760px;">How to build a skincare routine leads the hub at 331,070 searches a month, with skincare product order at 39,580 and oil-based cleansers at 39,310. The hub covers building a routine and getting the product order right, double cleansing, routines for specific concerns, seasonal and special-occasion routines, and skincare tools.</p>
+    <p class="cap muted-l45" style="margin-top:10px;">447,280 monthly searches across 24 pages and 407 subtopics.</p>
+    <p class="later-hint"><span class="later-n">+123</span> more topics planned for this hub after March</p>
+    <div class="grid g2" style="margin-top:28px;">
+      <div class="card card-light">
+        <h4 class="title-sm">Biggest demand</h4>
+        <p class="cap muted-l45" style="margin-top:6px;">Monthly searches for the hub&#x27;s largest pages</p>
+        <ul class="tlist"><li><span><span class="t-name">How to build a skincare routine</span><span class="t-hub">Building a routine &middot; 92 subtopics</span></span><span class="t-val">331,070</span></li><li><span><span class="t-name">Skincare product order</span><span class="t-hub">Building a routine &middot; 69 subtopics</span></span><span class="t-val">39,580</span></li><li><span><span class="t-name">Oil-based cleansers</span><span class="t-hub">Double cleansing &middot; 45 subtopics</span></span><span class="t-val">39,310</span></li><li><span><span class="t-name">Double cleansing</span><span class="t-hub">Double cleansing &middot; 101 subtopics</span></span><span class="t-val">17,340</span></li><li><span><span class="t-name">Skincare routine for wrinkles</span><span class="t-hub">Routines by concern &middot; 8 subtopics</span></span><span class="t-val">4,480</span></li><li><span><span class="t-name">Dry skincare routine</span><span class="t-hub">Routines by concern &middot; 7 subtopics</span></span><span class="t-val">4,180</span></li></ul>
+      </div>
+      <div class="card card-light">
+        <h4 class="title-sm">What the hub covers</h4>
+        <p class="cap muted-l45" style="margin-top:6px;">Scheduled pages by theme</p>
+        <ul class="tlist"><li><span><span class="t-name">Routines by concern</span><span class="t-hub">33% of the hub</span></span><span class="t-val">8 pages</span></li><li><span><span class="t-name">Double cleansing</span><span class="t-hub">25% of the hub</span></span><span class="t-val">6 pages</span></li><li><span><span class="t-name">Seasonal &amp; special routines</span><span class="t-hub">17% of the hub</span></span><span class="t-val">4 pages</span></li><li><span><span class="t-name">Building a routine</span><span class="t-hub">12% of the hub</span></span><span class="t-val">3 pages</span></li><li><span><span class="t-name">Skincare tools</span><span class="t-hub">8% of the hub</span></span><span class="t-val">2 pages</span></li><li><span><span class="t-name">Personalized routines</span><span class="t-hub">4% of the hub</span></span><span class="t-val">1 page</span></li></ul>
+      </div>
+    </div>
+    <details class="all">
+      <summary>All 24 Cilt Bakım Rutinleri pages</summary>
+      <div class="card card-light allcard"><ul class="tlist cols"><li><span><span class="t-name">How to build a skincare routine</span><span class="t-hub">Building a routine &middot; 92 subtopics</span></span><span class="t-val">331,070</span></li><li><span><span class="t-name">Skincare product order</span><span class="t-hub">Building a routine &middot; 69 subtopics</span></span><span class="t-val">39,580</span></li><li><span><span class="t-name">Oil-based cleansers</span><span class="t-hub">Double cleansing &middot; 45 subtopics</span></span><span class="t-val">39,310</span></li><li><span><span class="t-name">Double cleansing</span><span class="t-hub">Double cleansing &middot; 101 subtopics</span></span><span class="t-val">17,340</span></li><li><span><span class="t-name">Skincare routine for wrinkles</span><span class="t-hub">Routines by concern &middot; 8 subtopics</span></span><span class="t-val">4,480</span></li><li><span><span class="t-name">Dry skincare routine</span><span class="t-hub">Routines by concern &middot; 7 subtopics</span></span><span class="t-val">4,180</span></li><li><span><span class="t-name">Skincare routine for pimples</span><span class="t-hub">Routines by concern &middot; 11 subtopics</span></span><span class="t-val">3,160</span></li><li><span><span class="t-name">Tools for skincare</span><span class="t-hub">Skincare tools &middot; 20 subtopics</span></span><span class="t-val">2,060</span></li><li><span><span class="t-name">Personalized skincare routine</span><span class="t-hub">Personalized routines &middot; 5 subtopics</span></span><span class="t-val">1,650</span></li><li><span><span class="t-name">Skincare routine for dark spots</span><span class="t-hub">Routines by concern &middot; 4 subtopics</span></span><span class="t-val">1,250</span></li><li><span><span class="t-name">Best double cleansing duo</span><span class="t-hub">Double cleansing &middot; 15 subtopics</span></span><span class="t-val">950</span></li><li><span><span class="t-name">Skincare routine for pores</span><span class="t-hub">Routines by concern &middot; 5 subtopics</span></span><span class="t-val">950</span></li><li><span><span class="t-name">Skincare routine with salicylic acid</span><span class="t-hub">Routines by concern &middot; 3 subtopics</span></span><span class="t-val">270</span></li><li><span><span class="t-name">Skincare routine summer</span><span class="t-hub">Seasonal &amp; special routines &middot; 2 subtopics</span></span><span class="t-val">220</span></li><li><span><span class="t-name">Oil based cleanser for eyelash glue</span><span class="t-hub">Double cleansing &middot; 1 subtopic</span></span><span class="t-val">210</span></li><li><span><span class="t-name">Bridal skincare routine</span><span class="t-hub">Seasonal &amp; special routines &middot; 3 subtopics</span></span><span class="t-val">180</span></li><li><span><span class="t-name">Under eye skincare routine</span><span class="t-hub">Routines by concern &middot; 2 subtopics</span></span><span class="t-val">140</span></li><li><span><span class="t-name">How to use coconut oil for makeup removal</span><span class="t-hub">Double cleansing &middot; 4 subtopics</span></span><span class="t-val">90</span></li><li><span><span class="t-name">Centella skincare routine</span><span class="t-hub">Seasonal &amp; special routines &middot; 2 subtopics</span></span><span class="t-val">70</span></li><li><span><span class="t-name">Travel skincare routine</span><span class="t-hub">Seasonal &amp; special routines &middot; 1 subtopic</span></span><span class="t-val">50</span></li><li><span><span class="t-name">Almond oil for double cleansing</span><span class="t-hub">Double cleansing &middot; 3 subtopics</span></span><span class="t-val">30</span></li><li><span><span class="t-name">Oily skin foundation routine</span><span class="t-hub">Routines by concern &middot; 2 subtopics</span></span><span class="t-val">20</span></li><li><span><span class="t-name">Skincare tool reviews</span><span class="t-hub">Skincare tools &middot; 1 subtopic</span></span><span class="t-val">10</span></li><li><span><span class="t-name">What order to apply skincare dermatologist?</span><span class="t-hub">Building a routine &middot; 1 subtopic</span></span><span class="t-val">10</span></li></ul></div>
+    </details>
+  </div>
+</section>
+
+<!-- ============ 15 - YAŞ ALAN ============ -->
+<section class="slide s-light" id="yas">
+  <span class="marker">15 - Yaş alan</span>
+  <div class="slide-inner">
+    <div class="step-row" style="margin-bottom:22px;">
+      <div class="eyebrow" style="margin-bottom:0;">Hub 10 &middot; Yaş Alan Cilt Bakımı</div>
+      <span class="week week-l">13 pages</span>
+    </div>
+    <h2>Wrinkles, retinol and peptides for aging skin</h2>
+    <p class="lead muted-l" style="margin-top:14px; max-width:760px;">Anti-wrinkle serums lead the hub at 132,970 searches a month, with peptide skincare at 50,620 and under-eye wrinkles at 38,180. The hub covers anti-wrinkle serums, under-eye and neck wrinkles, retinol for beginners and retinol purging, and peptides, all in 13 pages.</p>
+    <p class="cap muted-l45" style="margin-top:10px;">277,190 monthly searches across 13 pages and 399 subtopics.</p>
+    <p class="later-hint"><span class="later-n">+70</span> more topics planned for this hub after March</p>
+    <div class="grid g2" style="margin-top:28px;">
+      <div class="card card-light">
+        <h4 class="title-sm">Biggest demand</h4>
+        <p class="cap muted-l45" style="margin-top:6px;">Monthly searches for the hub&#x27;s largest pages</p>
+        <ul class="tlist"><li><span><span class="t-name">Anti-wrinkle serums</span><span class="t-hub">Anti-wrinkle serums &middot; 44 subtopics</span></span><span class="t-val">132,970</span></li><li><span><span class="t-name">Peptide skincare</span><span class="t-hub">Peptides &middot; 13 subtopics</span></span><span class="t-val">50,620</span></li><li><span><span class="t-name">Under-eye wrinkles</span><span class="t-hub">Under-eye wrinkles &middot; 62 subtopics</span></span><span class="t-val">38,180</span></li><li><span><span class="t-name">Neck wrinkles</span><span class="t-hub">Neck wrinkles &middot; 128 subtopics</span></span><span class="t-val">35,840</span></li><li><span><span class="t-name">Retinol purging</span><span class="t-hub">Retinol for beginners &middot; 42 subtopics</span></span><span class="t-val">6,830</span></li><li><span><span class="t-name">Retinol for beginners</span><span class="t-hub">Retinol for beginners &middot; 87 subtopics</span></span><span class="t-val">6,510</span></li></ul>
+      </div>
+      <div class="card card-light">
+        <h4 class="title-sm">What the hub covers</h4>
+        <p class="cap muted-l45" style="margin-top:6px;">Scheduled pages by theme</p>
+        <ul class="tlist"><li><span><span class="t-name">Under-eye wrinkles</span><span class="t-hub">38% of the hub</span></span><span class="t-val">5 pages</span></li><li><span><span class="t-name">Neck wrinkles</span><span class="t-hub">23% of the hub</span></span><span class="t-val">3 pages</span></li><li><span><span class="t-name">Retinol for beginners</span><span class="t-hub">23% of the hub</span></span><span class="t-val">3 pages</span></li><li><span><span class="t-name">Anti-wrinkle serums</span><span class="t-hub">8% of the hub</span></span><span class="t-val">1 page</span></li><li><span><span class="t-name">Peptides</span><span class="t-hub">8% of the hub</span></span><span class="t-val">1 page</span></li></ul>
+      </div>
+    </div>
+    <details class="all">
+      <summary>All 13 Yaş Alan Cilt Bakımı pages</summary>
+      <div class="card card-light allcard"><ul class="tlist cols"><li><span><span class="t-name">Anti-wrinkle serums</span><span class="t-hub">Anti-wrinkle serums &middot; 44 subtopics</span></span><span class="t-val">132,970</span></li><li><span><span class="t-name">Peptide skincare</span><span class="t-hub">Peptides &middot; 13 subtopics</span></span><span class="t-val">50,620</span></li><li><span><span class="t-name">Under-eye wrinkles</span><span class="t-hub">Under-eye wrinkles &middot; 62 subtopics</span></span><span class="t-val">38,180</span></li><li><span><span class="t-name">Neck wrinkles</span><span class="t-hub">Neck wrinkles &middot; 128 subtopics</span></span><span class="t-val">35,840</span></li><li><span><span class="t-name">Retinol purging</span><span class="t-hub">Retinol for beginners &middot; 42 subtopics</span></span><span class="t-val">6,830</span></li><li><span><span class="t-name">Retinol for beginners</span><span class="t-hub">Retinol for beginners &middot; 87 subtopics</span></span><span class="t-val">6,510</span></li><li><span><span class="t-name">Best products for neck wrinkles</span><span class="t-hub">Neck wrinkles &middot; 15 subtopics</span></span><span class="t-val">5,930</span></li><li><span><span class="t-name">Non-surgical treatments for under-eye wrinkles</span><span class="t-hub">Under-eye wrinkles &middot; 2 subtopics</span></span><span class="t-val">200</span></li><li><span><span class="t-name">Red light therapy for under eye wrinkles</span><span class="t-hub">Under-eye wrinkles &middot; 1 subtopic</span></span><span class="t-val">50</span></li><li><span><span class="t-name">Why do I have more wrinkles under one eye?</span><span class="t-hub">Under-eye wrinkles &middot; 2 subtopics</span></span><span class="t-val">30</span></li><li><span><span class="t-name">Best under eye cream for wrinkles dermatologist recommended</span><span class="t-hub">Under-eye wrinkles &middot; 1 subtopic</span></span><span class="t-val">10</span></li><li><span><span class="t-name">Dry brushing neck wrinkles</span><span class="t-hub">Neck wrinkles &middot; 1 subtopic</span></span><span class="t-val">10</span></li><li><span><span class="t-name">Retinol or retinal for beginners?</span><span class="t-hub">Retinol for beginners &middot; 1 subtopic</span></span><span class="t-val">10</span></li></ul></div>
+    </details>
+  </div>
+</section>
+
+<!-- ============ 16 - BEBEK ============ -->
+<section class="slide s-paper" id="bebek">
+  <span class="marker">16 - Bebek</span>
+  <div class="slide-inner">
+    <div class="step-row" style="margin-bottom:22px;">
+      <div class="eyebrow" style="margin-bottom:0;">Hub 11 &middot; Bebekler İçin Günlük Bakım</div>
+      <span class="week week-l">4 pages</span>
+    </div>
+    <h2>Everyday baby care: wipes, sunscreen and changes on the go</h2>
+    <p class="lead muted-l" style="margin-top:14px; max-width:760px;">The smallest hub, at 4 pages. Baby wipes lead at 54,900 searches a month, with infant sunscreen picks at 7,160 and when a baby can wear sunscreen at 5,880. The hub covers baby wipes, infant sunscreen and diaper changes on the go, matching Korendy&#x27;s baby care range.</p>
+    <p class="cap muted-l45" style="margin-top:10px;">68,890 monthly searches across 4 pages and 30 subtopics.</p>
+    <p class="later-hint"><span class="later-n">+58</span> more topics planned for this hub after March</p>
+    <div class="grid g2" style="margin-top:28px;">
+      <div class="card card-light">
+        <h4 class="title-sm">Biggest demand</h4>
+        <p class="cap muted-l45" style="margin-top:6px;">Monthly searches for the hub&#x27;s largest pages</p>
+        <ul class="tlist"><li><span><span class="t-name">Baby wipes</span><span class="t-hub">Baby wipes &middot; 7 subtopics</span></span><span class="t-val">54,900</span></li><li><span><span class="t-name">Infant sunscreen picks</span><span class="t-hub">Infant sunscreen &middot; 11 subtopics</span></span><span class="t-val">7,160</span></li><li><span><span class="t-name">When can a baby wear sunscreen?</span><span class="t-hub">Infant sunscreen &middot; 4 subtopics</span></span><span class="t-val">5,880</span></li><li><span><span class="t-name">Diaper changes on the go</span><span class="t-hub">Diaper changes &middot; 8 subtopics</span></span><span class="t-val">950</span></li></ul>
+      </div>
+      <div class="card card-light">
+        <h4 class="title-sm">What the hub covers</h4>
+        <p class="cap muted-l45" style="margin-top:6px;">Scheduled pages by theme</p>
+        <ul class="tlist"><li><span><span class="t-name">Infant sunscreen</span><span class="t-hub">50% of the hub</span></span><span class="t-val">2 pages</span></li><li><span><span class="t-name">Baby wipes</span><span class="t-hub">25% of the hub</span></span><span class="t-val">1 page</span></li><li><span><span class="t-name">Diaper changes</span><span class="t-hub">25% of the hub</span></span><span class="t-val">1 page</span></li></ul>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ============ 17 - CLOSE ============ -->
+<section class="slide s-dark hero-dark">
+  <span class="marker">17 - Next</span>
+  <div class="slide-inner" style="text-align:center;">
+    <div class="eyebrow" style="justify-content:center;"><span class="dot"></span> Where this goes from here</div>
+    <h1 class="display" style="max-width:880px; margin:0 auto;">The topics are chosen.<br>Now they become <span class="flip">pages.</span></h1>
+    <p class="lead muted-d80" style="max-width:660px; margin:24px auto 0;">
+      Six months, 542 pages across eleven hubs, running alongside the SEO audit, product and collection
+      optimizations, AI visibility, ecommerce and Reddit tracking. Everything is in your dashboard as it goes live.
+    </p>
+    <p class="footer-note muted-d" style="margin-top:56px;">FlyRank &middot; Korendy content roadmap, Oct 2026 - Mar 2027</p>
+  </div>
+</section>
+
+<script>
+  const rail = document.getElementById('rail');
+  let ticking = false;
+  function updateRail() {
+    const max = document.documentElement.scrollHeight - window.innerHeight;
+    const pct = max > 0 ? (window.scrollY / max) * 100 : 0;
+    rail.style.width = Math.min(100, Math.max(0, pct)) + '%';
+    ticking = false;
+  }
+  window.addEventListener('scroll', () => {
+    if (!ticking) { window.requestAnimationFrame(updateRail); ticking = true; }
+  }, {passive:true});
+  window.addEventListener('resize', updateRail, {passive:true});
+  updateRail();
+</script>
+
+</body></html>
+</body></html>
