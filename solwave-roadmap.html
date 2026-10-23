@@ -1,0 +1,791 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>SolaWave Content Roadmap</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;700&display=swap">
+<style>
+
+  :root {
+    --mint-300:#7EEFC1; --mint-400:#54E399; --mint-500:#31C97A; --mint-700:#1A7A4A;
+    --ink-800:#0A2224; --ink-850:#071E20; --ink-900:#051F21; --ink-950:#030F10;
+    --paper:#F8FAF9; --paper-sunken:#F0F4F2;
+    --teal-300:#5EC6A9; --teal-400:#3AADA6; --teal-500:#2A8C8A;
+    color-scheme:light;
+  }
+
+  * { margin:0; padding:0; box-sizing:border-box; }
+
+  html { scroll-behavior:smooth; }
+
+  body {
+    font-family:'Geist',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+    color:var(--ink-900);
+    background:var(--ink-950);
+    -webkit-font-smoothing:antialiased;
+    line-height:1.6;
+  }
+  @media (prefers-reduced-motion:reduce) { html { scroll-behavior:auto; } }
+
+  .mono { font-family:'Geist Mono',ui-monospace,Consolas,monospace; }
+
+  /* ---------- Section frame ---------- */
+  .slide {
+    position:relative;
+    min-height:100vh;
+    display:flex; flex-direction:column; justify-content:center;
+    padding:96px 48px;
+  }
+  .slide-inner { width:100%; max-width:1080px; margin:0 auto; position:relative; z-index:2; }
+  .slide-inner.wide { max-width:1240px; }
+
+  .s-dark { background:var(--ink-900); color:#fff; }
+  .s-paper { background:var(--paper); }
+  .s-light { background:#fff; }
+  .s-sunken { background:var(--paper-sunken); }
+
+  .marker {
+    position:absolute; top:40px; right:48px; z-index:3;
+    font-family:'Geist Mono',ui-monospace,Consolas,monospace;
+    font-size:11px; font-weight:700; letter-spacing:0.14em; text-transform:uppercase;
+  }
+  .s-dark .marker { color:rgba(255,255,255,0.55); }
+  .s-paper .marker, .s-light .marker, .s-sunken .marker { color:rgba(5,31,33,0.40); }
+
+  .eyebrow {
+    font-family:'Geist Mono',ui-monospace,Consolas,monospace;
+    font-size:11px; font-weight:700; letter-spacing:0.14em; text-transform:uppercase;
+    display:inline-flex; align-items:center; gap:8px;
+    margin-bottom:24px;
+  }
+  .s-dark .eyebrow { color:var(--mint-400); }
+  .s-paper .eyebrow, .s-light .eyebrow, .s-sunken .eyebrow { color:var(--teal-500); }
+
+  .dot { width:6px; height:6px; border-radius:9999px; background:var(--mint-400); display:inline-block;
+         animation:pulse 2.4s ease-in-out infinite; }
+  @keyframes pulse { 0%,100%{opacity:1;transform:scale(1);} 50%{opacity:0.4;transform:scale(0.7);} }
+
+  h1.display { font-size:56px; font-weight:700; letter-spacing:-0.032em; line-height:1.06; }
+  h2 { font-size:32px; font-weight:700; letter-spacing:-0.028em; line-height:1.12; }
+  h3 { font-size:24px; font-weight:700; letter-spacing:-0.022em; line-height:1.2; }
+  h4 { font-size:20px; font-weight:600; letter-spacing:-0.015em; }
+  .lead { font-size:18px; font-weight:400; line-height:1.6; }
+  h4.title-sm { font-size:17px; letter-spacing:-0.01em; line-height:1.3; }
+  h4.title-xs { font-size:16px; letter-spacing:-0.008em; line-height:1.3; }
+  .body { font-size:16px; line-height:1.6; }
+  .bodys { font-size:14px; line-height:1.55; }
+  .cap { font-size:12px; line-height:1.5; }
+
+  .muted-d { color:rgba(255,255,255,0.55); }
+  .muted-d80 { color:rgba(255,255,255,0.80); }
+  .muted-l { color:rgba(5,31,33,0.55); }
+  .muted-l45 { color:rgba(5,31,33,0.45); }
+  .mint { color:var(--mint-400); }
+  .mint-dark { color:var(--mint-700); }
+
+  /* ---------- Cards ---------- */
+  .card { border-radius:20px; padding:28px; }
+  .card.compact { padding:20px 22px; border-radius:16px; }
+  .card-light { background:#fff; border:1px solid #DDE4E7; }
+  .card-paper { background:var(--paper); border:1px solid #E4EAED; }
+  .card-dark { background:var(--ink-900); color:#fff; }
+  .card-dark-el { background:var(--ink-850); border:1px solid rgba(255,255,255,0.10); border-radius:20px; padding:28px; color:#fff; }
+  .card-dark-el.compact { padding:20px 22px; border-radius:16px; }
+
+  .grid { display:grid; gap:16px; align-items:stretch; }
+  .grid > * { height:100%; }
+  .g2 { grid-template-columns:repeat(2,1fr); }
+  .g3 { grid-template-columns:repeat(3,1fr); }
+  .g4 { grid-template-columns:repeat(4,1fr); }
+  .g5 { grid-template-columns:repeat(5,1fr); }
+
+  .stat-num { font-size:34px; font-weight:700; letter-spacing:-0.03em; line-height:1.05; }
+  .stat-lbl { font-size:13px; margin-top:10px; }
+
+  .pill {
+    display:inline-flex; align-items:center; gap:7px;
+    border-radius:9999px; padding:5px 13px; font-size:12px;
+  }
+  .pill-tag-d { background:rgba(255,255,255,0.07); border:1px solid rgba(255,255,255,0.10); color:rgba(255,255,255,0.80); }
+  .pill-tag-l { background:rgba(5,31,33,0.06); border:1px solid rgba(5,31,33,0.08); color:rgba(5,31,33,0.55); }
+  .pill-lead { background:rgba(49,201,122,0.12); border:1px solid rgba(49,201,122,0.25); color:var(--mint-700); }
+  .pill-row { display:flex; flex-wrap:wrap; gap:8px; }
+
+  .badge {
+    display:inline-flex; align-items:center; border-radius:8px;
+    font-size:10px; font-weight:700; letter-spacing:0.06em; text-transform:uppercase; padding:3px 8px;
+  }
+  .b-done   { background:rgba(49,201,122,0.12); color:var(--mint-700); }
+  .b-done-d { background:rgba(84,227,153,0.14); color:var(--mint-300); }
+  .b-move-d { background:rgba(94,198,169,0.16); color:var(--teal-300); }
+
+  .flag {
+    display:inline-flex; align-items:center; gap:7px;
+    border-radius:8px; padding:4px 10px;
+    font-family:'Geist Mono',ui-monospace,Consolas,monospace;
+    font-size:10px; font-weight:700; letter-spacing:0.08em; text-transform:uppercase;
+    background:rgba(49,201,122,0.10); color:var(--mint-700); border:1px dashed rgba(26,122,74,0.45);
+  }
+
+  /* ---------- Topic lists ---------- */
+  .tlist { list-style:none; margin-top:16px; }
+  .tlist li {
+    display:flex; align-items:baseline; justify-content:space-between; gap:14px;
+    padding:10px 0; border-bottom:1px solid rgba(5,31,33,0.08);
+  }
+  .tlist li:last-child { border-bottom:none; }
+  .tlist li:first-child { padding-top:0; }
+  .s-dark .tlist li { border-bottom-color:rgba(255,255,255,0.10); }
+  .t-name { font-size:14px; font-weight:500; line-height:1.35; }
+  .t-hub {
+    display:block; margin-top:3px;
+    font-family:'Geist Mono',ui-monospace,Consolas,monospace;
+    font-size:10px; letter-spacing:0.06em; text-transform:uppercase;
+    color:rgba(5,31,33,0.40);
+  }
+  .s-dark .t-hub { color:rgba(255,255,255,0.45); }
+  .t-val {
+    font-family:'Geist Mono',ui-monospace,Consolas,monospace;
+    font-size:12px; font-weight:700; white-space:nowrap; color:var(--mint-700);
+  }
+  .s-dark .t-val { color:var(--mint-300); }
+  .t-sub { font-weight:400; color:rgba(5,31,33,0.40); }
+  .s-dark .t-sub { color:rgba(255,255,255,0.45); }
+
+  /* ---------- Hero backgrounds ---------- */
+  .hero-dark {
+    background:radial-gradient(ellipse at 60% 40%, rgba(84,227,153,0.09), transparent 55%), var(--ink-900);
+  }
+  .hero-dark::before {
+    content:''; position:absolute; inset:0; z-index:1; pointer-events:none;
+    background-image:linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+                     linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+    background-size:48px 48px;
+  }
+
+  .accent-bar { width:44px; height:4px; border-radius:9999px; background:var(--mint-400); margin-bottom:28px; }
+  .flip { color:var(--mint-400); }
+  .arrow { color:var(--mint-400); font-weight:700; padding:0 4px; }
+
+  ul.clean { list-style:none; }
+  ul.clean li { position:relative; padding-left:26px; margin-bottom:12px; }
+  ul.clean li:last-child { margin-bottom:0; }
+  ul.clean li::before {
+    content:''; position:absolute; left:0; top:9px; width:7px; height:7px;
+    border-radius:9999px; background:var(--mint-400);
+  }
+
+  .divider { height:1px; background:rgba(5,31,33,0.08); margin:28px 0; }
+  .s-dark .divider { background:rgba(255,255,255,0.10); }
+
+  .footer-note { font-size:12px; }
+
+  .step-n { font-family:'Geist Mono',ui-monospace,Consolas,monospace; font-size:12px; font-weight:700; letter-spacing:0.14em; }
+  .step-row { display:flex; align-items:center; justify-content:space-between; gap:10px; }
+  .week {
+    font-family:'Geist Mono',ui-monospace,Consolas,monospace;
+    font-size:10px; font-weight:700; letter-spacing:0.10em; text-transform:uppercase;
+    border-radius:9999px; padding:3px 10px; white-space:nowrap;
+  }
+  .week-l { background:rgba(5,31,33,0.06); color:rgba(5,31,33,0.55); }
+  .week-d { background:rgba(84,227,153,0.12); color:var(--mint-300); }
+
+  .rail { position:fixed; top:0; left:0; height:3px; background:var(--mint-400); z-index:99; width:0; }
+
+  /* ---------- Responsive ---------- */
+  @media (max-width:1100px) {
+    .g5 { grid-template-columns:repeat(3,1fr); }
+  }
+  @media (max-width:900px) {
+    .slide { padding:80px 32px; }
+    .g2,.g3,.g4,.g5 { grid-template-columns:1fr; }
+    .g4.keep2, .g5.keep2 { grid-template-columns:repeat(2,1fr); }
+    .marker { top:24px; right:32px; }
+  }
+  @media (max-width:560px) {
+    .slide { padding:72px 20px; }
+    h1.display { font-size:34px; }
+    h2 { font-size:26px; }
+    h3 { font-size:21px; }
+    .lead { font-size:16px; }
+    .g4.keep2, .g5.keep2 { grid-template-columns:1fr; }
+  }
+  @media (prefers-reduced-motion:reduce) { .dot { animation:none; } }
+
+  .tlist li > span:first-child { min-width:0; }
+  .t-name { overflow-wrap:anywhere; }
+  .stat-num, .t-val { font-variant-numeric:tabular-nums; }
+  :focus-visible { outline:2px solid var(--mint-500); outline-offset:2px; }
+
+
+  .hubhead { display:flex; flex-wrap:wrap; align-items:baseline; gap:6px 14px; margin-top:6px; }
+  .hubmeta { font-family:'Geist Mono',ui-monospace,Consolas,monospace; font-size:11px; letter-spacing:0.06em; text-transform:uppercase; }
+  .s-dark .hubmeta { color:rgba(255,255,255,0.55); }
+  .group-label {
+    font-family:'Geist Mono',ui-monospace,Consolas,monospace;
+    font-size:10px; font-weight:700; letter-spacing:0.14em; text-transform:uppercase;
+    color:rgba(255,255,255,0.45); margin:28px 0 12px;
+  }
+  .group-label { margin-top:32px; }
+  .mstrip { display:grid; grid-template-columns:repeat(6,1fr); gap:10px; margin-top:20px; }
+  .mcell { background:#fff; border:1px solid #DDE4E7; border-radius:14px; padding:14px 16px; }
+  .mcell .mnum { font-size:22px; font-weight:700; letter-spacing:-0.02em; color:var(--mint-700); font-variant-numeric:tabular-nums; }
+  .mcell .mlbl { font-family:'Geist Mono',ui-monospace,Consolas,monospace; font-size:10px; font-weight:700; letter-spacing:0.10em; text-transform:uppercase; color:rgba(5,31,33,0.45); }
+  details.all { margin-top:22px; border-top:1px solid rgba(5,31,33,0.08); padding-top:18px; }
+  details.all summary {
+    cursor:pointer; list-style:none; display:inline-flex; align-items:center; gap:8px;
+    font-family:'Geist Mono',ui-monospace,Consolas,monospace;
+    font-size:11px; font-weight:700; letter-spacing:0.10em; text-transform:uppercase;
+    color:var(--teal-500); border-radius:9999px; padding:6px 14px;
+    background:rgba(42,140,138,0.08); border:1px solid rgba(42,140,138,0.22);
+  }
+  details.all summary::-webkit-details-marker { display:none; }
+  details.all summary::before { content:'+'; font-size:13px; line-height:1; }
+  details.all[open] summary::before { content:'\2212'; }
+  .allgrid { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin-top:18px; }
+  .allgrid .card { padding:20px 22px; border-radius:16px; }
+  .allgrid h5 { font-family:'Geist Mono',ui-monospace,Consolas,monospace; font-size:10px; font-weight:700; letter-spacing:0.12em; text-transform:uppercase; color:var(--teal-500); display:flex; justify-content:space-between; gap:10px; }
+  .allgrid h5 span { color:rgba(5,31,33,0.40); }
+  .allgrid .tlist li { padding:8px 0; }
+  .allgrid .t-name { font-size:13px; }
+  @media (max-width:900px) {
+    .mstrip { grid-template-columns:repeat(3,1fr); }
+    .allgrid { grid-template-columns:1fr; }
+  }
+  @media (max-width:560px) { .mstrip { grid-template-columns:repeat(2,1fr); } }
+
+
+  /* Scrolling fix: sections size to their content, the page always scrolls */
+  html, body { height:auto; }
+  html { overflow-y:auto; scroll-behavior:auto; }
+  .slide { min-height:0; }
+  .slide.hero-dark { padding-block:140px; }
+  @media (max-width:560px) { .slide.hero-dark { padding-block:96px; } }
+
+  /* GetBuddy additions */
+  .svc-grid { margin-top:40px; }
+  .svc h4 { margin-top:14px; }
+  .svc ul.clean { margin-top:14px; }
+  .svc ul.clean li { font-size:14px; line-height:1.5; color:rgba(5,31,33,0.72); margin-bottom:10px; }
+  .svc ul.clean li::before { top:7px; }
+  .svc-n { font-family:'Geist Mono',ui-monospace,Consolas,monospace; font-size:10px; font-weight:700; letter-spacing:0.10em; text-transform:uppercase; color:rgba(5,31,33,0.45); margin-top:18px; padding-top:14px; border-top:1px solid rgba(5,31,33,0.08); }
+  .b-teal { background:rgba(42,140,138,0.10); color:var(--teal-500); }
+  .dash {
+    margin-top:16px; display:flex; flex-wrap:wrap; align-items:center; gap:14px 24px;
+    background:rgba(49,201,122,0.07); border:1px solid rgba(49,201,122,0.25); border-radius:16px; padding:18px 22px;
+  }
+  .dash p { min-width:0; flex:1 1 360px; }
+  .svc { display:flex; flex-direction:column; }
+  .svc .svc-n { margin-top:auto; }
+  .svc ul.clean { margin-bottom:18px; }
+  a.hublink { color:inherit; text-decoration:none; }
+  a.hublink:hover { color:var(--mint-300); }
+
+  /* All topics: one card, three even columns */
+  .allcard { margin-top:18px; padding:22px 26px; border-radius:16px; }
+  .tlist.cols { columns:3 240px; column-gap:36px; margin-top:0; }
+  .tlist.cols li { break-inside:avoid; padding:9px 0; }
+  .tlist.cols .t-name { font-size:13px; }
+
+  /* Hugger Mugger: one width for every section, safe-area side gutters */
+  .slide { padding-block:96px; padding-left:max(48px, env(safe-area-inset-left, 0px)); padding-right:max(48px, env(safe-area-inset-right, 0px)); }
+  .slide-inner, .slide-inner.wide { max-width:1080px; }
+  .marker { right:max(48px, env(safe-area-inset-right, 0px)); }
+  h1.display, h2, h3 { text-wrap:balance; }
+  .svc .bodys { color:rgba(5,31,33,0.72); }
+  .svc ul.ex li { color:var(--ink-900); font-weight:500; }
+  .later-hint {
+    margin-top:14px; display:inline-flex; align-items:center; gap:10px;
+    font-family:'Geist Mono',ui-monospace,Consolas,monospace; font-size:11px; font-weight:700;
+    letter-spacing:0.08em; text-transform:uppercase; color:rgba(5,31,33,0.55);
+    border:1px dashed rgba(42,140,138,0.40); border-radius:9999px; padding:5px 14px 5px 6px;
+  }
+  .later-n { background:rgba(42,140,138,0.10); color:var(--teal-500); border-radius:9999px; padding:2px 9px; font-variant-numeric:tabular-nums; }
+  @media (max-width:900px) {
+    .slide { padding-block:80px; padding-left:max(32px, env(safe-area-inset-left, 0px)); padding-right:max(32px, env(safe-area-inset-right, 0px)); }
+    .marker { right:max(32px, env(safe-area-inset-right, 0px)); }
+    .g3.keep2 { grid-template-columns:repeat(2,1fr); }
+  }
+  @media (max-width:560px) {
+    .slide { padding-block:72px; padding-left:max(20px, env(safe-area-inset-left, 0px)); padding-right:max(20px, env(safe-area-inset-right, 0px)); }
+    .marker { right:max(20px, env(safe-area-inset-right, 0px)); }
+    .g3.keep2 { grid-template-columns:1fr; }
+    .later-hint { letter-spacing:0.04em; }
+  }
+  .slide.hero-dark { padding-block:140px; }
+  @media (max-width:560px) { .slide.hero-dark { padding-block:96px; } }
+
+</style>
+
+<div class="rail" id="rail"></div>
+
+<!-- ============ 01 - COVER ============ -->
+<section class="slide s-dark hero-dark">
+  <span class="marker">01 - The roadmap</span>
+  <div class="slide-inner">
+    <div class="eyebrow"><span class="dot"></span> Content roadmap &middot; FlyRank &times; SolaWave</div>
+    <h1 class="display">Red light, real routines <span class="flip">&amp;</span> visibly better skin</h1>
+    <p class="lead muted-d80" style="max-width:680px; margin-top:24px;">
+      Six months of content for solawave.co, already scheduled. Seven hubs covering glow, texture and tone, clear
+      skin and breakouts, skincare routines, healthy aging, under-eye care, skin conditions, and skincare devices,
+      with every page built around one main topic and its subtopics.
+    </p>
+    <div class="pill-row" style="margin-top:36px;">
+      <span class="pill pill-tag-d">532 pages scheduled</span>
+      <span class="pill pill-tag-d">5,836 subtopics</span>
+      <span class="pill pill-tag-d">7 content hubs</span>
+      <span class="pill pill-tag-d">Oct 2026 - Mar 2027</span>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 02 - SERVICES ============ -->
+<section class="slide s-light">
+  <span class="marker">02 - The work</span>
+  <div class="slide-inner">
+    <div class="eyebrow">What we&#x27;re doing for SolaWave</div>
+    <h2 style="max-width:820px;">Six workstreams, one dashboard</h2>
+    <p class="lead muted-l" style="margin-top:16px; max-width:760px;">
+      Content, SEO, product page work, AI visibility, ecommerce and Reddit tracking run side by side.
+      Log in to your own dashboard to follow every page as it goes live, see where SolaWave is mentioned across
+      AI engines and Reddit, and track the sales that come from search and AI.
+    </p>
+    <div class="grid g3 keep2 svc-grid" style="gap:14px;">
+      <div class="card card-paper compact svc">
+        <span class="badge b-done" style="align-self:flex-start;">Content</span>
+        <h4 class="title-sm">New content strategy</h4>
+        <ul class="clean"><li>Each page has one main topic and the subtopics that belong to it</li><li>Pages go more in-depth, answering the full set of related questions in one place</li><li>Every page belongs to a hub, so it links to related pages the day it goes live</li></ul>
+        <p class="svc-n">532 pages &middot; 5,836 subtopics</p>
+      </div>
+      <div class="card card-paper compact svc">
+        <span class="badge b-teal" style="align-self:flex-start;">Technical</span>
+        <h4 class="title-sm">Website SEO audit</h4>
+        <ul class="clean"><li>On-page SEO audit of solawave.co, covering every key page on the site</li><li>Covers all on-page elements, from titles and headings to internal links</li><li>Each issue comes with a clear fix, so the team knows exactly what to change</li></ul>
+        <p class="svc-n">Every on-page element checked</p>
+      </div>
+      <div class="card card-paper compact svc">
+        <span class="badge b-done" style="align-self:flex-start;">Store</span>
+        <h4 class="title-sm">Product &amp; collection optimizations</h4>
+        <ul class="clean"><li>Analysis of SolaWave&#x27;s product and collection pages, device by device</li><li>Pages optimized based on SEO and GEO best practices, so they rank and get cited</li><li>Covers devices, serums and sets, with clear fixes for every page we review</li></ul>
+        <p class="svc-n">Product and collection pages</p>
+      </div>
+      <div class="card card-paper compact svc">
+        <span class="badge b-teal" style="align-self:flex-start;">Visibility</span>
+        <h4 class="title-sm">AI visibility tracking</h4>
+        <ul class="clean"><li>Shows whether AI assistants mention SolaWave, and how they describe it</li><li>Turns missed, high-scoring prompts into a clear to-do list of content to create</li><li>Citations and fan-out show why AI picks a competitor, with trends over time</li></ul>
+        <p class="svc-n">Mentions, citations, competitors</p>
+      </div>
+      <div class="card card-paper compact svc">
+        <span class="badge b-done" style="align-self:flex-start;">Revenue</span>
+        <h4 class="title-sm">Ecommerce tracking</h4>
+        <ul class="clean"><li>Connects SEO, content and AI visibility to sales, not just traffic or rankings</li><li>Gets ahead on AI shopping by measuring sales from Shopify AI shopping</li><li>Every number shows its change, with plain definitions and no double counting</li></ul>
+        <p class="svc-n">Sales, traffic and AI orders in one place</p>
+      </div>
+      <div class="card card-paper compact svc">
+        <span class="badge b-teal" style="align-self:flex-start;">Community</span>
+        <h4 class="title-sm">Reddit mentions tracking</h4>
+        <ul class="clean"><li>Finds threads asking for advice, the moments a good answer wins a customer</li><li>A sorted inbox with drafted replies, and Reddit answers also lift AI visibility</li><li>Spots mentions and complaints early, and collects the words shoppers use</li></ul>
+        <p class="svc-n">Mentions and ready-to-use replies</p>
+      </div>
+    </div>
+    <div class="dash">
+      <span class="flag">Your dashboard</span>
+      <p class="bodys muted-l">Log in to see the content calendar, AI visibility, Reddit mentions and ecommerce sales in one place, updated as the work moves.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 03 - SIX MONTH PLAN ============ -->
+<section class="slide s-paper">
+  <span class="marker">03 - The plan</span>
+  <div class="slide-inner">
+    <div class="eyebrow">Six month content plan</div>
+    <h2 style="max-width:820px;">532 pages are scheduled<br>for the next six months.</h2>
+    <p class="lead muted-l" style="margin-top:16px; max-width:760px;">
+      Every page targets one main topic and groups the subtopics people search around it, 5,836 in total.
+      Together the pages carry 8,687,090 monthly searches across seven content hubs, from niacinamide,
+      blackheads and wrinkle creams to under-eye care and red light therapy.
+    </p>
+    <div class="grid g4 keep2" style="margin-top:40px;">
+      <div class="card card-light"><div class="stat-num mint-dark">532</div><p class="stat-lbl muted-l">Pages scheduled from October to March</p></div>
+      <div class="card card-light"><div class="stat-num mint-dark">5,836</div><p class="stat-lbl muted-l">Subtopics inside those pages, about 11 per page</p></div>
+      <div class="card card-light"><div class="stat-num mint-dark">8,687,090</div><p class="stat-lbl muted-l">Monthly searches across the targeted keywords</p></div>
+      <div class="card card-light"><div class="stat-num mint-dark">767,200</div><p class="stat-lbl muted-l">Searches a month for the top page, red light therapy</p></div>
+    </div>
+    <div class="card card-dark" style="margin-top:20px; padding:22px 26px;">
+      <p class="bodys muted-d80">
+        <span class="mint" style="font-weight:600;">How the pages are built.</span>
+        Each page is built around one main topic, with its subtopics as sections, so a single page answers what used
+        to take several thin posts. The deepest pages, how to brighten dull skin and how to build a skincare routine, cover 193 subtopics each. Publishing runs every
+        month from October to March, at 100 pages a month after a shorter October start.
+      </p>
+    </div>
+    <div class="dash">
+      <span class="flag">After March</span>
+      <p class="bodys muted-l"><strong class="mint-dark">314 more topics</strong> are already mapped for after March 2027, across the same seven hubs.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 04 - PAGE TYPES ============ -->
+<section class="slide s-light">
+  <span class="marker">04 - Page types</span>
+  <div class="slide-inner">
+    <div class="eyebrow">How each page is shaped</div>
+    <h2 style="max-width:820px;">Six kinds of pages, each matched to the search behind it</h2>
+    <p class="lead muted-l" style="margin-top:16px; max-width:760px;">
+      Each topic gets the format that fits what people want when they search it. Someone wondering how red light
+      works needs a guide, while someone choosing a mask needs a listicle or a product page.
+    </p>
+    <div class="grid g3 keep2 svc-grid" style="gap:14px;">
+      <div class="card card-paper compact svc">
+        <span class="badge b-done" style="align-self:flex-start;">Guide</span>
+        <h4 class="title-sm">Guides &amp; explainers</h4>
+        <p class="bodys muted-l" style="margin-top:10px;">In-depth answers to what-is and how-to questions, with each subtopic as a section, so one page covers it all.</p>
+        <p class="svc-n">Example topics</p>
+        <ul class="clean ex"><li>Red light therapy for skin health</li><li>How to remove dark circles</li><li>How to brighten dull skin</li></ul>
+      </div>
+      <div class="card card-paper compact svc">
+        <span class="badge b-teal" style="align-self:flex-start;">Listicle</span>
+        <h4 class="title-sm">Listicles</h4>
+        <p class="bodys muted-l" style="margin-top:10px;">Ranked or grouped lists of products that let readers scan the options quickly and pick the one for their skin.</p>
+        <p class="svc-n">Example topics</p>
+        <ul class="clean ex"><li>Best face wrinkle creams</li><li>Best hydrating serums</li><li>Best red light therapy masks</li></ul>
+      </div>
+      <div class="card card-paper compact svc">
+        <span class="badge b-done" style="align-self:flex-start;">Comparison</span>
+        <h4 class="title-sm">Comparisons</h4>
+        <p class="bodys muted-l" style="margin-top:10px;">Side-by-side looks at two or three options, for readers choosing between devices, ingredients or products.</p>
+        <p class="svc-n">Example topics</p>
+        <ul class="clean ex"><li>Niacinamide vs. vitamin C</li><li>Red light wand vs. mask</li><li>Eye serum vs. eye cream</li></ul>
+      </div>
+      <div class="card card-paper compact svc">
+        <span class="badge b-teal" style="align-self:flex-start;">Product</span>
+        <h4 class="title-sm">Product pages</h4>
+        <p class="bodys muted-l" style="margin-top:10px;">Pages for searches that name a device or product, explaining what it does, who it suits and how to use it.</p>
+        <p class="svc-n">Example topics</p>
+        <ul class="clean ex"><li>At-home LED face masks</li><li>SolaWave Eye Recovery Pro mask</li><li>SolaWave conductive serum</li></ul>
+      </div>
+      <div class="card card-paper compact svc">
+        <span class="badge b-done" style="align-self:flex-start;">Collection</span>
+        <h4 class="title-sm">Collection pages</h4>
+        <p class="bodys muted-l" style="margin-top:10px;">Category pages for shopping searches that pair the right SolaWave devices and skincare with buying advice.</p>
+        <p class="svc-n">Example topics</p>
+        <ul class="clean ex"><li>At-home beauty devices</li><li>Hydrating face mists</li><li>Red light therapy serums</li></ul>
+      </div>
+      <div class="card card-paper compact svc">
+        <span class="badge b-teal" style="align-self:flex-start;">Recipe</span>
+        <h4 class="title-sm">Recipes</h4>
+        <p class="bodys muted-l" style="margin-top:10px;">Simple DIY recipes for serums, cleansers and creams, for readers who like to make some of their skincare at home.</p>
+        <p class="svc-n">Example topics</p>
+        <ul class="clean ex"><li>DIY hyaluronic acid serum</li><li>Homemade glowing-skin face wash</li><li>DIY hyaluronic acid moisturizer</li></ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 05 - CONTENT HUBS ============ -->
+<section class="slide s-dark">
+  <span class="marker">05 - Coverage</span>
+  <div class="slide-inner">
+    <div class="eyebrow"><span class="dot"></span> What the plan covers</div>
+    <h2>Seven hubs across glow, clear skin, routines, aging and red light</h2>
+    <p class="group-label">Largest hubs &middot; 329 pages &middot; 3,613,240 searches / mo</p>
+    <div class="grid g3" style="gap:14px;">
+      <div class="card-dark-el compact">
+        <span class="badge b-done-d">140 pages</span>
+        <h4 class="title-xs" style="margin-top:12px;"><a class="hublink" href="#glow">Glow, Texture &amp; Tone</a></h4>
+        <p class="hubmeta" style="margin-top:4px;">1,392,610 searches / mo &middot; 1,229 subtopics</p>
+        <p class="bodys muted-d80" style="margin-top:8px;">Niacinamide, dark spots and uneven tone, skin texture, hydrating serums, and brightening and glow.</p>
+      </div><div class="card-dark-el compact">
+        <span class="badge b-done-d">114 pages</span>
+        <h4 class="title-xs" style="margin-top:12px;"><a class="hublink" href="#clear">Clear Skin &amp; Breakouts</a></h4>
+        <p class="hubmeta" style="margin-top:4px;">1,551,720 searches / mo &middot; 1,252 subtopics</p>
+        <p class="bodys muted-d80" style="margin-top:8px;">Blackheads and clogged pores, closed comedones, acne scars and marks, pimple patches and spot care.</p>
+      </div><div class="card-dark-el compact">
+        <span class="badge b-done-d">75 pages</span>
+        <h4 class="title-xs" style="margin-top:12px;"><a class="hublink" href="#routines">Skincare Routines &amp; Pairings</a></h4>
+        <p class="hubmeta" style="margin-top:4px;">668,910 searches / mo &middot; 877 subtopics</p>
+        <p class="bodys muted-d80" style="margin-top:8px;">Routines by skin type, global routines, layering actives, hyaluronic acid moisturizers and face mists.</p>
+      </div>
+    </div>
+    <p class="group-label">Supporting hubs &middot; 203 pages &middot; 5,073,850 searches / mo</p>
+    <div class="grid g4 keep2" style="gap:14px;">
+      <div class="card-dark-el compact">
+        <span class="badge b-done-d">68 pages</span>
+        <h4 class="title-xs" style="margin-top:12px;"><a class="hublink" href="#aging">Healthy Aging Skin</a></h4>
+        <p class="hubmeta" style="margin-top:4px;">1,132,460 searches / mo &middot; 1,107 subtopics</p>
+        <p class="bodys muted-d80" style="margin-top:8px;">Wrinkle creams and serums, forehead and mouth lines, the neck and chest, collagen, elasticity and retinol.</p>
+      </div><div class="card-dark-el compact">
+        <span class="badge b-done-d">65 pages</span>
+        <h4 class="title-xs" style="margin-top:12px;"><a class="hublink" href="#eyes">Under-Eye Care</a></h4>
+        <p class="hubmeta" style="margin-top:4px;">1,708,760 searches / mo &middot; 616 subtopics</p>
+        <p class="bodys muted-d80" style="margin-top:8px;">Dark circles, puffy eyes and bags, under-eye wrinkles, eye creams, and patches, masks and tools.</p>
+      </div><div class="card-dark-el compact">
+        <span class="badge b-done-d">45 pages</span>
+        <h4 class="title-xs" style="margin-top:12px;"><a class="hublink" href="#conditions">Skin Conditions &amp; Concerns</a></h4>
+        <p class="hubmeta" style="margin-top:4px;">781,390 searches / mo &middot; 592 subtopics</p>
+        <p class="bodys muted-d80" style="margin-top:8px;">Dry and flaky skin, rosacea and redness, sensitive skin, eczema, the skin barrier and microbiome.</p>
+      </div><div class="card-dark-el compact">
+        <span class="badge b-done-d">25 pages</span>
+        <h4 class="title-xs" style="margin-top:12px;"><a class="hublink" href="#devices">Skincare Devices, Tools &amp; Technology</a></h4>
+        <p class="hubmeta" style="margin-top:4px;">1,451,240 searches / mo &middot; 163 subtopics</p>
+        <p class="bodys muted-d80" style="margin-top:8px;">Red light basics, LED masks, wands, galvanic devices, tightening and rejuvenation.</p>
+      </div>
+    </div>
+    <p class="bodys muted-d" style="margin-top:24px;">
+      Every scheduled page belongs to one of these hubs, so each new page has a home and an
+      internal link path the day it publishes.
+    </p>
+  </div>
+</section>
+
+<!-- ============ 06 - GLOW ============ -->
+<section class="slide s-paper" id="glow">
+  <span class="marker">06 - Glow</span>
+  <div class="slide-inner">
+    <div class="step-row" style="margin-bottom:22px;">
+      <div class="eyebrow" style="margin-bottom:0;">Hub 01 &middot; Glow, Texture &amp; Tone</div>
+      <span class="week week-l">140 pages</span>
+    </div>
+    <h2>Niacinamide, dark spots and a smoother, brighter glow</h2>
+    <p class="lead muted-l" style="margin-top:14px; max-width:760px;">Best hydrating serums lead the hub at 369,860 searches a month, with what niacinamide does for skin at 353,790 and how to get rid of dark spots at 155,650. How to brighten dull skin is one of the two deepest pages in the plan, with 193 subtopics. The hub covers niacinamide, dark spots and uneven tone, skin texture, hydrating serums and brightening, a natural home for the LightBoost serum.</p>
+    <p class="cap muted-l45" style="margin-top:10px;">1,392,610 monthly searches across 140 pages and 1,229 subtopics.</p>
+    <p class="later-hint"><span class="later-n">+51</span> more topics planned for this hub after March</p>
+    <div class="grid g2" style="margin-top:28px;">
+      <div class="card card-light">
+        <h4 class="title-sm">Biggest demand</h4>
+        <p class="cap muted-l45" style="margin-top:6px;">Monthly searches for the hub&#x27;s largest pages</p>
+        <ul class="tlist"><li><span><span class="t-name">Best hydrating serums</span><span class="t-hub">Hydrating serums &amp; moisturizers &middot; 115 subtopics</span></span><span class="t-val">369,860</span></li><li><span><span class="t-name">What does niacinamide do for skin?</span><span class="t-hub">Niacinamide &middot; 54 subtopics</span></span><span class="t-val">353,790</span></li><li><span><span class="t-name">How to get rid of dark spots on your face</span><span class="t-hub">Dark spots &amp; uneven tone &middot; 43 subtopics</span></span><span class="t-val">155,650</span></li><li><span><span class="t-name">Niacinamide face serums</span><span class="t-hub">Niacinamide &middot; 23 subtopics</span></span><span class="t-val">96,300</span></li><li><span><span class="t-name">How to brighten dull skin</span><span class="t-hub">Brightening &amp; vitamin C &middot; 193 subtopics</span></span><span class="t-val">38,300</span></li><li><span><span class="t-name">How to improve skin texture</span><span class="t-hub">Skin texture &middot; 85 subtopics</span></span><span class="t-val">37,480</span></li></ul>
+      </div>
+      <div class="card card-light">
+        <h4 class="title-sm">What the hub covers</h4>
+        <p class="cap muted-l45" style="margin-top:6px;">Scheduled pages by theme</p>
+        <ul class="tlist"><li><span><span class="t-name">Niacinamide</span><span class="t-hub">27% of the hub</span></span><span class="t-val">38 pages</span></li><li><span><span class="t-name">Skin texture</span><span class="t-hub">22% of the hub</span></span><span class="t-val">31 pages</span></li><li><span><span class="t-name">Dark spots &amp; uneven tone</span><span class="t-hub">18% of the hub</span></span><span class="t-val">25 pages</span></li><li><span><span class="t-name">Hydrating serums &amp; moisturizers</span><span class="t-hub">17% of the hub</span></span><span class="t-val">24 pages</span></li><li><span><span class="t-name">Glowing skin</span><span class="t-hub">9% of the hub</span></span><span class="t-val">12 pages</span></li><li><span><span class="t-name">Brightening &amp; vitamin C</span><span class="t-hub">7% of the hub</span></span><span class="t-val">10 pages</span></li></ul>
+      </div>
+    </div>
+    <details class="all">
+      <summary>All 140 Glow, Texture &amp; Tone pages</summary>
+      <div class="card card-light allcard"><ul class="tlist cols"><li><span><span class="t-name">Best hydrating serums</span><span class="t-hub">Hydrating serums &amp; moisturizers &middot; 115 subtopics</span></span><span class="t-val">369,860</span></li><li><span><span class="t-name">What does niacinamide do for skin?</span><span class="t-hub">Niacinamide &middot; 54 subtopics</span></span><span class="t-val">353,790</span></li><li><span><span class="t-name">How to get rid of dark spots on your face</span><span class="t-hub">Dark spots &amp; uneven tone &middot; 43 subtopics</span></span><span class="t-val">155,650</span></li><li><span><span class="t-name">Niacinamide face serums</span><span class="t-hub">Niacinamide &middot; 23 subtopics</span></span><span class="t-val">96,300</span></li><li><span><span class="t-name">How to brighten dull skin</span><span class="t-hub">Brightening &amp; vitamin C &middot; 193 subtopics</span></span><span class="t-val">38,300</span></li><li><span><span class="t-name">How to improve skin texture</span><span class="t-hub">Skin texture &middot; 85 subtopics</span></span><span class="t-val">37,480</span></li><li><span><span class="t-name">Best niacinamide products</span><span class="t-hub">Niacinamide &middot; 7 subtopics</span></span><span class="t-val">35,590</span></li><li><span><span class="t-name">Best brightening serum</span><span class="t-hub">Brightening &amp; vitamin C &middot; 58 subtopics</span></span><span class="t-val">21,840</span></li><li><span><span class="t-name">Best product for dark spots and uneven skin tone</span><span class="t-hub">Dark spots &amp; uneven tone &middot; 18 subtopics</span></span><span class="t-val">19,350</span></li><li><span><span class="t-name">How to remove sun spots from face</span><span class="t-hub">Dark spots &amp; uneven tone &middot; 41 subtopics</span></span><span class="t-val">18,260</span></li><li><span><span class="t-name">Skin hydration moisturizer</span><span class="t-hub">Hydrating serums &amp; moisturizers &middot; 29 subtopics</span></span><span class="t-val">15,890</span></li><li><span><span class="t-name">Niacinamide vs. niacin</span><span class="t-hub">Niacinamide &middot; 9 subtopics</span></span><span class="t-val">14,030</span></li><li><span><span class="t-name">Hydration toner for dry skin</span><span class="t-hub">Hydrating serums &amp; moisturizers &middot; 12 subtopics</span></span><span class="t-val">12,810</span></li><li><span><span class="t-name">Niacinamide flushing</span><span class="t-hub">Niacinamide &middot; 1 subtopic</span></span><span class="t-val">12,100</span></li><li><span><span class="t-name">Moisturizer niacinamide</span><span class="t-hub">Niacinamide &middot; 7 subtopics</span></span><span class="t-val">12,060</span></li><li><span><span class="t-name">How to get rid of dark spots on black face</span><span class="t-hub">Dark spots &amp; uneven tone &middot; 7 subtopics</span></span><span class="t-val">10,560</span></li><li><span><span class="t-name">Best face mask glowing skin</span><span class="t-hub">Glowing skin &middot; 24 subtopics</span></span><span class="t-val">10,350</span></li><li><span><span class="t-name">Niacinamide side effect</span><span class="t-hub">Niacinamide &middot; 6 subtopics</span></span><span class="t-val">9,620</span></li><li><span><span class="t-name">How to fix uneven skin tone</span><span class="t-hub">Dark spots &amp; uneven tone &middot; 51 subtopics</span></span><span class="t-val">9,580</span></li><li><span><span class="t-name">Home remedies for dark spots and uneven skin tone</span><span class="t-hub">Dark spots &amp; uneven tone &middot; 49 subtopics</span></span><span class="t-val">8,500</span></li><li><span><span class="t-name">What helps even skin tone and texture?</span><span class="t-hub">Skin texture &middot; 5 subtopics</span></span><span class="t-val">8,190</span></li><li><span><span class="t-name">What is a good face cream for dark spots?</span><span class="t-hub">Dark spots &amp; uneven tone &middot; 12 subtopics</span></span><span class="t-val">8,010</span></li><li><span><span class="t-name">Skincare products for glowing skin</span><span class="t-hub">Glowing skin &middot; 13 subtopics</span></span><span class="t-val">7,970</span></li><li><span><span class="t-name">Can you use niacinamide with vitamin C?</span><span class="t-hub">Niacinamide &middot; 7 subtopics</span></span><span class="t-val">6,820</span></li><li><span><span class="t-name">Sunscreen for uneven skin tone</span><span class="t-hub">Dark spots &amp; uneven tone &middot; 7 subtopics</span></span><span class="t-val">5,920</span></li><li><span><span class="t-name">Body skin texture</span><span class="t-hub">Skin texture &middot; 7 subtopics</span></span><span class="t-val">5,550</span></li><li><span><span class="t-name">How to improve skin hydration</span><span class="t-hub">Hydrating serums &amp; moisturizers &middot; 49 subtopics</span></span><span class="t-val">5,190</span></li><li><span><span class="t-name">What is a hydrating serum?</span><span class="t-hub">Hydrating serums &amp; moisturizers &middot; 19 subtopics</span></span><span class="t-val">4,940</span></li><li><span><span class="t-name">Can you use niacinamide while pregnant?</span><span class="t-hub">Niacinamide &middot; 5 subtopics</span></span><span class="t-val">4,260</span></li><li><span><span class="t-name">Niacinamide vs. hyaluronic acid</span><span class="t-hub">Niacinamide &middot; 5 subtopics</span></span><span class="t-val">3,920</span></li><li><span><span class="t-name">Female skin texture</span><span class="t-hub">Skin texture &middot; 1 subtopic</span></span><span class="t-val">2,900</span></li><li><span><span class="t-name">Niacinamide and hyaluronic acid together</span><span class="t-hub">Niacinamide &middot; 4 subtopics</span></span><span class="t-val">2,870</span></li><li><span><span class="t-name">How to use niacinamide serum</span><span class="t-hub">Niacinamide &middot; 6 subtopics</span></span><span class="t-val">2,710</span></li><li><span><span class="t-name">Best vitamin C serum for brightening skin</span><span class="t-hub">Brightening &amp; vitamin C &middot; 11 subtopics</span></span><span class="t-val">2,640</span></li><li><span><span class="t-name">Best face wash glowing skin</span><span class="t-hub">Glowing skin &middot; 11 subtopics</span></span><span class="t-val">2,570</span></li><li><span><span class="t-name">Niacinamide for post inflammatory erythema</span><span class="t-hub">Niacinamide &middot; 4 subtopics</span></span><span class="t-val">2,430</span></li><li><span><span class="t-name">Best dark spots face wash</span><span class="t-hub">Dark spots &amp; uneven tone &middot; 6 subtopics</span></span><span class="t-val">2,340</span></li><li><span><span class="t-name">Best product for skin texture</span><span class="t-hub">Skin texture &middot; 10 subtopics</span></span><span class="t-val">2,320</span></li><li><span><span class="t-name">Homemade facial mask for glowing skin</span><span class="t-hub">Glowing skin &middot; 13 subtopics</span></span><span class="t-val">2,220</span></li><li><span><span class="t-name">Face oil for glowing skin</span><span class="t-hub">Glowing skin &middot; 9 subtopics</span></span><span class="t-val">2,130</span></li><li><span><span class="t-name">Niacinamide rosacea</span><span class="t-hub">Niacinamide &middot; 2 subtopics</span></span><span class="t-val">2,080</span></li><li><span><span class="t-name">Toner with niacinamide</span><span class="t-hub">Niacinamide &middot; 1 subtopic</span></span><span class="t-val">1,900</span></li><li><span><span class="t-name">Can I use niacinamide with tretinoin?</span><span class="t-hub">Niacinamide &middot; 2 subtopics</span></span><span class="t-val">1,890</span></li><li><span><span class="t-name">Niacinamide vs. vitamin C</span><span class="t-hub">Niacinamide &middot; 3 subtopics</span></span><span class="t-val">1,760</span></li><li><span><span class="t-name">Where to buy niacinamide</span><span class="t-hub">Niacinamide &middot; 4 subtopics</span></span><span class="t-val">1,700</span></li><li><span><span class="t-name">Dark spots from pimples on face</span><span class="t-hub">Dark spots &amp; uneven tone &middot; 3 subtopics</span></span><span class="t-val">1,620</span></li><li><span><span class="t-name">Does niacinamide cause purging?</span><span class="t-hub">Niacinamide &middot; 3 subtopics</span></span><span class="t-val">1,590</span></li><li><span><span class="t-name">Vitamin C for dark spots on face</span><span class="t-hub">Dark spots &amp; uneven tone &middot; 4 subtopics</span></span><span class="t-val">1,570</span></li><li><span><span class="t-name">Azelaic acid vs. niacinamide</span><span class="t-hub">Niacinamide &middot; 2 subtopics</span></span><span class="t-val">1,310</span></li><li><span><span class="t-name">Niacinamide salicylic acid</span><span class="t-hub">Niacinamide &middot; 1 subtopic</span></span><span class="t-val">1,300</span></li><li><span><span class="t-name">Niacinamide dosing</span><span class="t-hub">Niacinamide &middot; 2 subtopics</span></span><span class="t-val">1,200</span></li><li><span><span class="t-name">Tan skin texture</span><span class="t-hub">Skin texture &middot; 2 subtopics</span></span><span class="t-val">1,180</span></li><li><span><span class="t-name">Hyaluronic acid serum for pregnancy</span><span class="t-hub">Hydrating serums &amp; moisturizers &middot; 2 subtopics</span></span><span class="t-val">1,090</span></li><li><span><span class="t-name">Best hydrating serum for under makeup</span><span class="t-hub">Hydrating serums &amp; moisturizers &middot; 2 subtopics</span></span><span class="t-val">1,050</span></li><li><span><span class="t-name">DIY hyaluronic acid serum</span><span class="t-hub">Hydrating serums &amp; moisturizers &middot; 5 subtopics</span></span><span class="t-val">1,020</span></li><li><span><span class="t-name">Over-the-counter niacinamide</span><span class="t-hub">Niacinamide &middot; 2 subtopics</span></span><span class="t-val">980</span></li><li><span><span class="t-name">Niacinamide and zinc benefits</span><span class="t-hub">Niacinamide &middot; 3 subtopics</span></span><span class="t-val">950</span></li><li><span><span class="t-name">Skin test for hydration</span><span class="t-hub">Hydrating serums &amp; moisturizers &middot; 6 subtopics</span></span><span class="t-val">930</span></li><li><span><span class="t-name">Hydrating retinol serum</span><span class="t-hub">Hydrating serums &amp; moisturizers &middot; 2 subtopics</span></span><span class="t-val">930</span></li><li><span><span class="t-name">Eye hydrating serum</span><span class="t-hub">Hydrating serums &amp; moisturizers &middot; 3 subtopics</span></span><span class="t-val">890</span></li><li><span><span class="t-name">Magnesium and niacinamide</span><span class="t-hub">Niacinamide &middot; 1 subtopic</span></span><span class="t-val">880</span></li><li><span><span class="t-name">Glutathione and niacinamide</span><span class="t-hub">Niacinamide &middot; 1 subtopic</span></span><span class="t-val">880</span></li><li><span><span class="t-name">Red light therapy for skin texture</span><span class="t-hub">Skin texture &middot; 1 subtopic</span></span><span class="t-val">880</span></li><li><span><span class="t-name">Niacinamide vs. salicylic acid</span><span class="t-hub">Niacinamide &middot; 2 subtopics</span></span><span class="t-val">800</span></li><li><span><span class="t-name">Caucasian skin texture</span><span class="t-hub">Skin texture &middot; 1 subtopic</span></span><span class="t-val">720</span></li><li><span><span class="t-name">Crepey skin texture</span><span class="t-hub">Skin texture &middot; 8 subtopics</span></span><span class="t-val">630</span></li><li><span><span class="t-name">Niacinamide dark circles</span><span class="t-hub">Niacinamide &middot; 2 subtopics</span></span><span class="t-val">600</span></li><li><span><span class="t-name">Niacinamide as a medication</span><span class="t-hub">Niacinamide &middot; 1 subtopic</span></span><span class="t-val">590</span></li><li><span><span class="t-name">Moisturizer without niacinamide</span><span class="t-hub">Niacinamide &middot; 2 subtopics</span></span><span class="t-val">580</span></li><li><span><span class="t-name">AHA for skin texture</span><span class="t-hub">Skin texture &middot; 4 subtopics</span></span><span class="t-val">570</span></li><li><span><span class="t-name">Liquid niacinamide</span><span class="t-hub">Niacinamide &middot; 2 subtopics</span></span><span class="t-val">530</span></li><li><span><span class="t-name">Body uneven skin tone</span><span class="t-hub">Dark spots &amp; uneven tone &middot; 5 subtopics</span></span><span class="t-val">490</span></li><li><span><span class="t-name">Antioxidants for glowing skin</span><span class="t-hub">Glowing skin &middot; 1 subtopic</span></span><span class="t-val">480</span></li><li><span><span class="t-name">Best serum for skin texture</span><span class="t-hub">Skin texture &middot; 2 subtopics</span></span><span class="t-val">460</span></li><li><span><span class="t-name">Sun spots on face vs. skin cancer</span><span class="t-hub">Dark spots &amp; uneven tone &middot; 4 subtopics</span></span><span class="t-val">390</span></li><li><span><span class="t-name">Niacinamide and benzoyl peroxide</span><span class="t-hub">Niacinamide &middot; 1 subtopic</span></span><span class="t-val">390</span></li><li><span><span class="t-name">Glowing skin care</span><span class="t-hub">Glowing skin &middot; 1 subtopic</span></span><span class="t-val">390</span></li><li><span><span class="t-name">Hydroquinone for dark spots on face</span><span class="t-hub">Dark spots &amp; uneven tone &middot; 1 subtopic</span></span><span class="t-val">320</span></li><li><span><span class="t-name">Can I use azelaic acid with niacinamide?</span><span class="t-hub">Niacinamide &middot; 1 subtopic</span></span><span class="t-val">320</span></li><li><span><span class="t-name">Retinol for skin texture</span><span class="t-hub">Skin texture &middot; 3 subtopics</span></span><span class="t-val">310</span></li><li><span><span class="t-name">Neck skin texture</span><span class="t-hub">Skin texture &middot; 2 subtopics</span></span><span class="t-val">310</span></li><li><span><span class="t-name">Niacinamide eczema</span><span class="t-hub">Niacinamide &middot; 1 subtopic</span></span><span class="t-val">260</span></li><li><span><span class="t-name">Red spots on face after sun exposure</span><span class="t-hub">Dark spots &amp; uneven tone &middot; 2 subtopics</span></span><span class="t-val">250</span></li><li><span><span class="t-name">Instant glowing skin</span><span class="t-hub">Glowing skin &middot; 4 subtopics</span></span><span class="t-val">240</span></li><li><span><span class="t-name">Can you use vitamin C serum and hyaluronic acid together?</span><span class="t-hub">Brightening &amp; vitamin C &middot; 2 subtopics</span></span><span class="t-val">220</span></li><li><span><span class="t-name">Hyaluronic acid serum vs. vitamin C serum</span><span class="t-hub">Brightening &amp; vitamin C &middot; 2 subtopics</span></span><span class="t-val">220</span></li><li><span><span class="t-name">Ceramide vs. niacinamide</span><span class="t-hub">Niacinamide &middot; 1 subtopic</span></span><span class="t-val">210</span></li><li><span><span class="t-name">Tranexamic acid and niacinamide</span><span class="t-hub">Niacinamide &middot; 1 subtopic</span></span><span class="t-val">210</span></li><li><span><span class="t-name">Niacinamide drug interactions</span><span class="t-hub">Niacinamide &middot; 1 subtopic</span></span><span class="t-val">210</span></li><li><span><span class="t-name">Shiny skin texture</span><span class="t-hub">Skin texture &middot; 1 subtopic</span></span><span class="t-val">210</span></li><li><span><span class="t-name">Melasma niacinamide</span><span class="t-hub">Niacinamide &middot; 1 subtopic</span></span><span class="t-val">210</span></li><li><span><span class="t-name">Men&#x27;s skin texture</span><span class="t-hub">Skin texture &middot; 2 subtopics</span></span><span class="t-val">190</span></li><li><span><span class="t-name">Hydration vs. moisturizing skin</span><span class="t-hub">Hydrating serums &amp; moisturizers &middot; 7 subtopics</span></span><span class="t-val">180</span></li><li><span><span class="t-name">Azelaic acid for uneven skin tone</span><span class="t-hub">Dark spots &amp; uneven tone &middot; 2 subtopics</span></span><span class="t-val">180</span></li><li><span><span class="t-name">What is a brightening serum?</span><span class="t-hub">Brightening &amp; vitamin C &middot; 3 subtopics</span></span><span class="t-val">170</span></li><li><span><span class="t-name">Damaged skin barrier texture</span><span class="t-hub">Skin texture &middot; 1 subtopic</span></span><span class="t-val">170</span></li><li><span><span class="t-name">Water hydration for skin</span><span class="t-hub">Hydrating serums &amp; moisturizers &middot; 1 subtopic</span></span><span class="t-val">170</span></li><li><span><span class="t-name">Alligator-like skin texture</span><span class="t-hub">Skin texture &middot; 1 subtopic</span></span><span class="t-val">170</span></li><li><span><span class="t-name">Hyaluronic acid serum side effects</span><span class="t-hub">Hydrating serums &amp; moisturizers &middot; 1 subtopic</span></span><span class="t-val">170</span></li><li><span><span class="t-name">Skin hydration kits</span><span class="t-hub">Hydrating serums &amp; moisturizers &middot; 3 subtopics</span></span><span class="t-val">140</span></li><li><span><span class="t-name">Hyaluronic acid serum vs. retinol</span><span class="t-hub">Hydrating serums &amp; moisturizers &middot; 2 subtopics</span></span><span class="t-val">140</span></li><li><span><span class="t-name">Humidifier for skin hydration</span><span class="t-hub">Hydrating serums &amp; moisturizers &middot; 1 subtopic</span></span><span class="t-val">140</span></li><li><span><span class="t-name">Moisturizer for skin texture</span><span class="t-hub">Skin texture &middot; 1 subtopic</span></span><span class="t-val">140</span></li><li><span><span class="t-name">Skincare for redness and uneven skin tone</span><span class="t-hub">Dark spots &amp; uneven tone &middot; 4 subtopics</span></span><span class="t-val">120</span></li><li><span><span class="t-name">Peptides for skin hydration</span><span class="t-hub">Hydrating serums &amp; moisturizers &middot; 2 subtopics</span></span><span class="t-val">120</span></li><li><span><span class="t-name">Fair skin texture</span><span class="t-hub">Skin texture &middot; 1 subtopic</span></span><span class="t-val">110</span></li><li><span><span class="t-name">Black skin texture</span><span class="t-hub">Skin texture &middot; 1 subtopic</span></span><span class="t-val">110</span></li><li><span><span class="t-name">Skin texture up close</span><span class="t-hub">Skin texture &middot; 2 subtopics</span></span><span class="t-val">100</span></li><li><span><span class="t-name">Uneven skin tone vs. hyperpigmentation</span><span class="t-hub">Dark spots &amp; uneven tone &middot; 5 subtopics</span></span><span class="t-val">90</span></li><li><span><span class="t-name">How to get glowing body skin</span><span class="t-hub">Glowing skin &middot; 4 subtopics</span></span><span class="t-val">90</span></li><li><span><span class="t-name">Active ingredients for uneven skin tone</span><span class="t-hub">Dark spots &amp; uneven tone &middot; 2 subtopics</span></span><span class="t-val">90</span></li><li><span><span class="t-name">Adapalene skin texture</span><span class="t-hub">Skin texture &middot; 1 subtopic</span></span><span class="t-val">90</span></li><li><span><span class="t-name">Homemade face wash for glowing skin</span><span class="t-hub">Glowing skin &middot; 1 subtopic</span></span><span class="t-val">90</span></li><li><span><span class="t-name">Gold kiwi brightening serums</span><span class="t-hub">Brightening &amp; vitamin C &middot; 1 subtopic</span></span><span class="t-val">90</span></li><li><span><span class="t-name">Dark spots on face from hormones</span><span class="t-hub">Dark spots &amp; uneven tone &middot; 1 subtopic</span></span><span class="t-val">90</span></li><li><span><span class="t-name">Hydration patches for skin</span><span class="t-hub">Hydrating serums &amp; moisturizers &middot; 1 subtopic</span></span><span class="t-val">70</span></li><li><span><span class="t-name">Uneven skin tone neck</span><span class="t-hub">Dark spots &amp; uneven tone &middot; 1 subtopic</span></span><span class="t-val">70</span></li><li><span><span class="t-name">Uneven skin tone toner</span><span class="t-hub">Dark spots &amp; uneven tone &middot; 1 subtopic</span></span><span class="t-val">70</span></li><li><span><span class="t-name">How to remove dark spots from shaving face</span><span class="t-hub">Dark spots &amp; uneven tone &middot; 1 subtopic</span></span><span class="t-val">70</span></li><li><span><span class="t-name">Hyaluronic acid serum for gua sha</span><span class="t-hub">Hydrating serums &amp; moisturizers &middot; 1 subtopic</span></span><span class="t-val">50</span></li><li><span><span class="t-name">Homemade face cream for glowing skin</span><span class="t-hub">Glowing skin &middot; 1 subtopic</span></span><span class="t-val">50</span></li><li><span><span class="t-name">Wet skin texture</span><span class="t-hub">Skin texture &middot; 1 subtopic</span></span><span class="t-val">50</span></li><li><span><span class="t-name">Cleanser for skin texture</span><span class="t-hub">Skin texture &middot; 2 subtopics</span></span><span class="t-val">40</span></li><li><span><span class="t-name">Skin hydration boosters</span><span class="t-hub">Hydrating serums &amp; moisturizers &middot; 1 subtopic</span></span><span class="t-val">40</span></li><li><span><span class="t-name">Triple vitamin C brightening drops</span><span class="t-hub">Brightening &amp; vitamin C &middot; 1 subtopic</span></span><span class="t-val">40</span></li><li><span><span class="t-name">Glowing skin vs. oily skin</span><span class="t-hub">Glowing skin &middot; 1 subtopic</span></span><span class="t-val">40</span></li><li><span><span class="t-name">Velvety skin texture</span><span class="t-hub">Skin texture &middot; 1 subtopic</span></span><span class="t-val">40</span></li><li><span><span class="t-name">Red light therapy for dark spots on face</span><span class="t-hub">Dark spots &amp; uneven tone &middot; 1 subtopic</span></span><span class="t-val">40</span></li><li><span><span class="t-name">Best product to even skin tone and texture</span><span class="t-hub">Skin texture &middot; 2 subtopics</span></span><span class="t-val">30</span></li><li><span><span class="t-name">Salicylic acid for skin texture</span><span class="t-hub">Skin texture &middot; 1 subtopic</span></span><span class="t-val">30</span></li><li><span><span class="t-name">From thirsty skin to hydrated skin</span><span class="t-hub">Hydrating serums &amp; moisturizers &middot; 1 subtopic</span></span><span class="t-val">30</span></li><li><span><span class="t-name">Waxy skin texture</span><span class="t-hub">Skin texture &middot; 1 subtopic</span></span><span class="t-val">30</span></li><li><span><span class="t-name">Pregnancy safe brightening serum</span><span class="t-hub">Brightening &amp; vitamin C &middot; 1 subtopic</span></span><span class="t-val">30</span></li><li><span><span class="t-name">Scaly skin texture</span><span class="t-hub">Skin texture &middot; 1 subtopic</span></span><span class="t-val">20</span></li><li><span><span class="t-name">Thick skin texture</span><span class="t-hub">Skin texture &middot; 1 subtopic</span></span><span class="t-val">20</span></li><li><span><span class="t-name">Hydrating toner vs. serum</span><span class="t-hub">Hydrating serums &amp; moisturizers &middot; 1 subtopic</span></span><span class="t-val">20</span></li><li><span><span class="t-name">Red light therapy for uneven skin tone</span><span class="t-hub">Dark spots &amp; uneven tone &middot; 1 subtopic</span></span><span class="t-val">20</span></li><li><span><span class="t-name">Korean skin texture</span><span class="t-hub">Skin texture &middot; 1 subtopic</span></span><span class="t-val">20</span></li><li><span><span class="t-name">Skin hydration heroes</span><span class="t-hub">Hydrating serums &amp; moisturizers &middot; 1 subtopic</span></span><span class="t-val">10</span></li><li><span><span class="t-name">Dull skin after covid</span><span class="t-hub">Brightening &amp; vitamin C &middot; 1 subtopic</span></span><span class="t-val">10</span></li></ul></div>
+    </details>
+  </div>
+</section>
+
+<!-- ============ 07 - CLEAR SKIN ============ -->
+<section class="slide s-light" id="clear">
+  <span class="marker">07 - Clear skin</span>
+  <div class="slide-inner">
+    <div class="step-row" style="margin-bottom:22px;">
+      <div class="eyebrow" style="margin-bottom:0;">Hub 02 &middot; Clear Skin &amp; Breakouts</div>
+      <span class="week week-l">114 pages</span>
+    </div>
+    <h2>Blackheads, acne scars and calmer, clearer skin</h2>
+    <p class="lead muted-l" style="margin-top:14px; max-width:760px;">Best ways to get rid of blackheads lead the hub at 559,900 searches a month, with acne scar treatments at 223,240 and closed comedones at 126,720. The hub covers blackheads and clogged pores, closed comedones, acne scars and dark marks, pimple patches and spot treatments, and skincare for acne-prone skin, matching Bye Acne.</p>
+    <p class="cap muted-l45" style="margin-top:10px;">1,551,720 monthly searches across 114 pages and 1,252 subtopics.</p>
+    <p class="later-hint"><span class="later-n">+90</span> more topics planned for this hub after March</p>
+    <div class="grid g2" style="margin-top:28px;">
+      <div class="card card-light">
+        <h4 class="title-sm">Biggest demand</h4>
+        <p class="cap muted-l45" style="margin-top:6px;">Monthly searches for the hub&#x27;s largest pages</p>
+        <ul class="tlist"><li><span><span class="t-name">Best ways to get rid of blackheads</span><span class="t-hub">Blackheads &amp; clogged pores &middot; 63 subtopics</span></span><span class="t-val">559,900</span></li><li><span><span class="t-name">Best acne scar treatments</span><span class="t-hub">Acne scars &middot; 43 subtopics</span></span><span class="t-val">223,240</span></li><li><span><span class="t-name">How to get rid of closed comedones</span><span class="t-hub">Closed comedones &middot; 104 subtopics</span></span><span class="t-val">126,720</span></li><li><span><span class="t-name">How to get rid of a pimple overnight</span><span class="t-hub">Pimple patches &amp; spot care &middot; 79 subtopics</span></span><span class="t-val">103,690</span></li><li><span><span class="t-name">Best face washes for acne-prone skin</span><span class="t-hub">Acne-prone skincare &middot; 75 subtopics</span></span><span class="t-val">82,050</span></li><li><span><span class="t-name">Clogged pores</span><span class="t-hub">Blackheads &amp; clogged pores &middot; 140 subtopics</span></span><span class="t-val">67,860</span></li></ul>
+      </div>
+      <div class="card card-light">
+        <h4 class="title-sm">What the hub covers</h4>
+        <p class="cap muted-l45" style="margin-top:6px;">Scheduled pages by theme</p>
+        <ul class="tlist"><li><span><span class="t-name">Acne scars</span><span class="t-hub">29% of the hub</span></span><span class="t-val">33 pages</span></li><li><span><span class="t-name">Blackheads &amp; clogged pores</span><span class="t-hub">19% of the hub</span></span><span class="t-val">22 pages</span></li><li><span><span class="t-name">Acne-prone skincare</span><span class="t-hub">15% of the hub</span></span><span class="t-val">17 pages</span></li><li><span><span class="t-name">Pimple patches &amp; spot care</span><span class="t-hub">14% of the hub</span></span><span class="t-val">16 pages</span></li><li><span><span class="t-name">Closed comedones</span><span class="t-hub">12% of the hub</span></span><span class="t-val">14 pages</span></li><li><span><span class="t-name">Dark marks &amp; redness</span><span class="t-hub">11% of the hub</span></span><span class="t-val">12 pages</span></li></ul>
+      </div>
+    </div>
+    <details class="all">
+      <summary>All 114 Clear Skin &amp; Breakouts pages</summary>
+      <div class="card card-light allcard"><ul class="tlist cols"><li><span><span class="t-name">Best ways to get rid of blackheads</span><span class="t-hub">Blackheads &amp; clogged pores &middot; 63 subtopics</span></span><span class="t-val">559,900</span></li><li><span><span class="t-name">Best acne scar treatments</span><span class="t-hub">Acne scars &middot; 43 subtopics</span></span><span class="t-val">223,240</span></li><li><span><span class="t-name">How to get rid of closed comedones</span><span class="t-hub">Closed comedones &middot; 104 subtopics</span></span><span class="t-val">126,720</span></li><li><span><span class="t-name">How to get rid of a pimple overnight</span><span class="t-hub">Pimple patches &amp; spot care &middot; 79 subtopics</span></span><span class="t-val">103,690</span></li><li><span><span class="t-name">Best face washes for acne-prone skin</span><span class="t-hub">Acne-prone skincare &middot; 75 subtopics</span></span><span class="t-val">82,050</span></li><li><span><span class="t-name">Clogged pores</span><span class="t-hub">Blackheads &amp; clogged pores &middot; 140 subtopics</span></span><span class="t-val">67,860</span></li><li><span><span class="t-name">Closed comedones salicylic acid</span><span class="t-hub">Closed comedones &middot; 9 subtopics</span></span><span class="t-val">47,280</span></li><li><span><span class="t-name">Post inflammatory hyperpigmentation</span><span class="t-hub">Dark marks &amp; redness &middot; 97 subtopics</span></span><span class="t-val">44,660</span></li><li><span><span class="t-name">How do pimple patches work?</span><span class="t-hub">Pimple patches &amp; spot care &middot; 43 subtopics</span></span><span class="t-val">41,390</span></li><li><span><span class="t-name">Back blackheads</span><span class="t-hub">Blackheads &amp; clogged pores &middot; 9 subtopics</span></span><span class="t-val">31,550</span></li><li><span><span class="t-name">Best on the spot treatment for acne</span><span class="t-hub">Pimple patches &amp; spot care &middot; 9 subtopics</span></span><span class="t-val">25,610</span></li><li><span><span class="t-name">Extract clogged pores</span><span class="t-hub">Blackheads &amp; clogged pores &middot; 15 subtopics</span></span><span class="t-val">21,640</span></li><li><span><span class="t-name">Best skin care products for clogged pores</span><span class="t-hub">Blackheads &amp; clogged pores &middot; 32 subtopics</span></span><span class="t-val">16,780</span></li><li><span><span class="t-name">Blue red light therapy for acne</span><span class="t-hub">Acne-prone skincare &middot; 5 subtopics</span></span><span class="t-val">16,040</span></li><li><span><span class="t-name">Blackheads inside nose</span><span class="t-hub">Blackheads &amp; clogged pores &middot; 1 subtopic</span></span><span class="t-val">14,800</span></li><li><span><span class="t-name">Acne scars skin care products</span><span class="t-hub">Acne scars &middot; 41 subtopics</span></span><span class="t-val">12,250</span></li><li><span><span class="t-name">Blackheads vs. sebaceous filaments</span><span class="t-hub">Blackheads &amp; clogged pores &middot; 7 subtopics</span></span><span class="t-val">11,020</span></li><li><span><span class="t-name">How can you get rid of redness from acne?</span><span class="t-hub">Dark marks &amp; redness &middot; 39 subtopics</span></span><span class="t-val">10,750</span></li><li><span><span class="t-name">How to use pimple patches</span><span class="t-hub">Pimple patches &amp; spot care &middot; 30 subtopics</span></span><span class="t-val">8,220</span></li><li><span><span class="t-name">Blackheads around lip line</span><span class="t-hub">Blackheads &amp; clogged pores &middot; 8 subtopics</span></span><span class="t-val">7,430</span></li><li><span><span class="t-name">How to get rid acne scars naturally</span><span class="t-hub">Acne scars &middot; 19 subtopics</span></span><span class="t-val">6,450</span></li><li><span><span class="t-name">How long will acne scars last?</span><span class="t-hub">Acne scars &middot; 18 subtopics</span></span><span class="t-val">5,760</span></li><li><span><span class="t-name">Whiteheads vs. blackheads</span><span class="t-hub">Blackheads &amp; clogged pores &middot; 7 subtopics</span></span><span class="t-val">4,870</span></li><li><span><span class="t-name">Clogged pores on neck and chest</span><span class="t-hub">Blackheads &amp; clogged pores &middot; 5 subtopics</span></span><span class="t-val">4,840</span></li><li><span><span class="t-name">Types of acne scars photos</span><span class="t-hub">Acne scars &middot; 19 subtopics</span></span><span class="t-val">4,050</span></li><li><span><span class="t-name">Sensitive acne prone skin care</span><span class="t-hub">Acne-prone skincare &middot; 29 subtopics</span></span><span class="t-val">3,920</span></li><li><span><span class="t-name">Topical retinoids acne scars</span><span class="t-hub">Acne scars &middot; 8 subtopics</span></span><span class="t-val">3,910</span></li><li><span><span class="t-name">Clogged pores retinol</span><span class="t-hub">Blackheads &amp; clogged pores &middot; 7 subtopics</span></span><span class="t-val">3,820</span></li><li><span><span class="t-name">How to get rid of pimple on lip overnight</span><span class="t-hub">Pimple patches &amp; spot care &middot; 2 subtopics</span></span><span class="t-val">3,800</span></li><li><span><span class="t-name">How to get rid of cystic pimple overnight</span><span class="t-hub">Pimple patches &amp; spot care &middot; 20 subtopics</span></span><span class="t-val">3,650</span></li><li><span><span class="t-name">Acne adult causes</span><span class="t-hub">Acne-prone skincare &middot; 24 subtopics</span></span><span class="t-val">3,460</span></li><li><span><span class="t-name">Best pimple patches that actually work</span><span class="t-hub">Pimple patches &amp; spot care &middot; 10 subtopics</span></span><span class="t-val">2,710</span></li><li><span><span class="t-name">Cystic acne vs. blackheads</span><span class="t-hub">Blackheads &amp; clogged pores &middot; 2 subtopics</span></span><span class="t-val">2,600</span></li><li><span><span class="t-name">Adapalene for closed comedones</span><span class="t-hub">Closed comedones &middot; 3 subtopics</span></span><span class="t-val">2,550</span></li><li><span><span class="t-name">Solar blackheads</span><span class="t-hub">Blackheads &amp; clogged pores &middot; 1 subtopic</span></span><span class="t-val">1,900</span></li><li><span><span class="t-name">Acne scars with aloe vera</span><span class="t-hub">Acne scars &middot; 7 subtopics</span></span><span class="t-val">1,750</span></li><li><span><span class="t-name">Blackheads infected</span><span class="t-hub">Blackheads &amp; clogged pores &middot; 1 subtopic</span></span><span class="t-val">1,600</span></li><li><span><span class="t-name">Are pimple patches safe?</span><span class="t-hub">Pimple patches &amp; spot care &middot; 6 subtopics</span></span><span class="t-val">1,570</span></li><li><span><span class="t-name">Does niacinamide help with dark spots?</span><span class="t-hub">Dark marks &amp; redness &middot; 5 subtopics</span></span><span class="t-val">1,170</span></li><li><span><span class="t-name">Closed comedones vs. milia</span><span class="t-hub">Closed comedones &middot; 7 subtopics</span></span><span class="t-val">1,130</span></li><li><span><span class="t-name">Do pimple patches work on cysts?</span><span class="t-hub">Pimple patches &amp; spot care &middot; 1 subtopic</span></span><span class="t-val">1,000</span></li><li><span><span class="t-name">Pimple patches alternative</span><span class="t-hub">Pimple patches &amp; spot care &middot; 5 subtopics</span></span><span class="t-val">990</span></li><li><span><span class="t-name">Azelaic acid for closed comedones</span><span class="t-hub">Closed comedones &middot; 5 subtopics</span></span><span class="t-val">900</span></li><li><span><span class="t-name">How much niacinamide for acne?</span><span class="t-hub">Acne-prone skincare &middot; 3 subtopics</span></span><span class="t-val">900</span></li><li><span><span class="t-name">How to reduce red scars from acne</span><span class="t-hub">Acne scars &middot; 15 subtopics</span></span><span class="t-val">800</span></li><li><span><span class="t-name">Benzoyl peroxide closed comedones</span><span class="t-hub">Closed comedones &middot; 6 subtopics</span></span><span class="t-val">480</span></li><li><span><span class="t-name">Azelaic acid for post inflammatory hyperpigmentation</span><span class="t-hub">Dark marks &amp; redness &middot; 1 subtopic</span></span><span class="t-val">480</span></li><li><span><span class="t-name">Is it bad to leave toothpaste on a pimple overnight?</span><span class="t-hub">Pimple patches &amp; spot care &middot; 5 subtopics</span></span><span class="t-val">450</span></li><li><span><span class="t-name">Hydrocolloid bandages vs. pimple patches</span><span class="t-hub">Pimple patches &amp; spot care &middot; 4 subtopics</span></span><span class="t-val">440</span></li><li><span><span class="t-name">Does sunscreen heal acne scars?</span><span class="t-hub">Acne scars &middot; 3 subtopics</span></span><span class="t-val">420</span></li><li><span><span class="t-name">Best toner sensitive acne prone skin</span><span class="t-hub">Acne-prone skincare &middot; 2 subtopics</span></span><span class="t-val">420</span></li><li><span><span class="t-name">Chemical exfoliants for acne scars</span><span class="t-hub">Acne scars &middot; 3 subtopics</span></span><span class="t-val">370</span></li><li><span><span class="t-name">Inflamed clogged pores</span><span class="t-hub">Blackheads &amp; clogged pores &middot; 4 subtopics</span></span><span class="t-val">340</span></li><li><span><span class="t-name">Essential oils for acne scars and dark spots</span><span class="t-hub">Acne scars &middot; 7 subtopics</span></span><span class="t-val">310</span></li><li><span><span class="t-name">Niacinamide topical acne</span><span class="t-hub">Acne-prone skincare &middot; 9 subtopics</span></span><span class="t-val">260</span></li><li><span><span class="t-name">Facials for closed comedones</span><span class="t-hub">Closed comedones &middot; 1 subtopic</span></span><span class="t-val">260</span></li><li><span><span class="t-name">Forehead closed comedones vs. fungal acne</span><span class="t-hub">Closed comedones &middot; 6 subtopics</span></span><span class="t-val">230</span></li><li><span><span class="t-name">Closed comedones purging</span><span class="t-hub">Closed comedones &middot; 3 subtopics</span></span><span class="t-val">230</span></li><li><span><span class="t-name">Can a damaged skin barrier cause closed comedones?</span><span class="t-hub">Closed comedones &middot; 6 subtopics</span></span><span class="t-val">220</span></li><li><span><span class="t-name">Acne scars and honey</span><span class="t-hub">Acne scars &middot; 3 subtopics</span></span><span class="t-val">210</span></li><li><span><span class="t-name">Perimenopause hormonal acne</span><span class="t-hub">Acne-prone skincare &middot; 4 subtopics</span></span><span class="t-val">190</span></li><li><span><span class="t-name">Can clogged pores be itchy?</span><span class="t-hub">Blackheads &amp; clogged pores &middot; 4 subtopics</span></span><span class="t-val">180</span></li><li><span><span class="t-name">Clogged pores from makeup</span><span class="t-hub">Blackheads &amp; clogged pores &middot; 2 subtopics</span></span><span class="t-val">180</span></li><li><span><span class="t-name">Copper peptide for acne scars</span><span class="t-hub">Acne scars &middot; 1 subtopic</span></span><span class="t-val">170</span></li><li><span><span class="t-name">Bee venom acne scars</span><span class="t-hub">Acne scars &middot; 1 subtopic</span></span><span class="t-val">170</span></li><li><span><span class="t-name">Korean skincare routine for acne skin</span><span class="t-hub">Acne-prone skincare &middot; 2 subtopics</span></span><span class="t-val">160</span></li><li><span><span class="t-name">Acne scars castor oil</span><span class="t-hub">Acne scars &middot; 2 subtopics</span></span><span class="t-val">150</span></li><li><span><span class="t-name">How to get rid of acne scars using baking soda</span><span class="t-hub">Acne scars &middot; 3 subtopics</span></span><span class="t-val">140</span></li><li><span><span class="t-name">Vitamins for acne scars</span><span class="t-hub">Acne scars &middot; 1 subtopic</span></span><span class="t-val">140</span></li><li><span><span class="t-name">Korean skincare for acne scars and hyperpigmentation</span><span class="t-hub">Acne scars &middot; 3 subtopics</span></span><span class="t-val">130</span></li><li><span><span class="t-name">Tea tree oil as a spot treatment for acne</span><span class="t-hub">Pimple patches &amp; spot care &middot; 7 subtopics</span></span><span class="t-val">120</span></li><li><span><span class="t-name">How to remove clogged pores under eyes</span><span class="t-hub">Blackheads &amp; clogged pores &middot; 3 subtopics</span></span><span class="t-val">110</span></li><li><span><span class="t-name">Post inflammatory hyperpigmentation around mouth</span><span class="t-hub">Dark marks &amp; redness &middot; 2 subtopics</span></span><span class="t-val">110</span></li><li><span><span class="t-name">Clogged pores jojoba oil</span><span class="t-hub">Blackheads &amp; clogged pores &middot; 1 subtopic</span></span><span class="t-val">110</span></li><li><span><span class="t-name">Does benzoyl peroxide reduce acne scars?</span><span class="t-hub">Acne scars &middot; 1 subtopic</span></span><span class="t-val">110</span></li><li><span><span class="t-name">Should you use moisturizer when you have acne?</span><span class="t-hub">Acne-prone skincare &middot; 8 subtopics</span></span><span class="t-val">100</span></li><li><span><span class="t-name">Acne scars witch hazel</span><span class="t-hub">Acne scars &middot; 3 subtopics</span></span><span class="t-val">90</span></li><li><span><span class="t-name">Post inflammatory erythema vs. post inflammatory hyperpigmentation</span><span class="t-hub">Dark marks &amp; redness &middot; 2 subtopics</span></span><span class="t-val">90</span></li><li><span><span class="t-name">Salt on pimple overnight</span><span class="t-hub">Pimple patches &amp; spot care &middot; 1 subtopic</span></span><span class="t-val">90</span></li><li><span><span class="t-name">Acne scars and lemon juice</span><span class="t-hub">Acne scars &middot; 4 subtopics</span></span><span class="t-val">80</span></li><li><span><span class="t-name">Best niacinamide for oily acne-prone skin</span><span class="t-hub">Acne-prone skincare &middot; 6 subtopics</span></span><span class="t-val">70</span></li><li><span><span class="t-name">Glycolic acid for post inflammatory hyperpigmentation</span><span class="t-hub">Dark marks &amp; redness &middot; 1 subtopic</span></span><span class="t-val">70</span></li><li><span><span class="t-name">Aloe vera as moisturizer acne</span><span class="t-hub">Acne-prone skincare &middot; 5 subtopics</span></span><span class="t-val">50</span></li><li><span><span class="t-name">Are cold sore patches the same as pimple patches?</span><span class="t-hub">Pimple patches &amp; spot care &middot; 1 subtopic</span></span><span class="t-val">50</span></li><li><span><span class="t-name">Clogged pores and hair follicles</span><span class="t-hub">Blackheads &amp; clogged pores &middot; 1 subtopic</span></span><span class="t-val">50</span></li><li><span><span class="t-name">Sulfur for closed comedones</span><span class="t-hub">Closed comedones &middot; 1 subtopic</span></span><span class="t-val">50</span></li><li><span><span class="t-name">Blue light treatment for acne scars</span><span class="t-hub">Acne scars &middot; 1 subtopic</span></span><span class="t-val">50</span></li><li><span><span class="t-name">Dark spots acne marks vs. acne scars</span><span class="t-hub">Acne scars &middot; 4 subtopics</span></span><span class="t-val">40</span></li><li><span><span class="t-name">Acne hormonal or bacterial</span><span class="t-hub">Acne-prone skincare &middot; 2 subtopics</span></span><span class="t-val">40</span></li><li><span><span class="t-name">Face oil acne scars</span><span class="t-hub">Acne scars &middot; 2 subtopics</span></span><span class="t-val">40</span></li><li><span><span class="t-name">Keratosis pilaris vs. closed comedones</span><span class="t-hub">Closed comedones &middot; 2 subtopics</span></span><span class="t-val">40</span></li><li><span><span class="t-name">Witch hazel for clogged pores</span><span class="t-hub">Blackheads &amp; clogged pores &middot; 2 subtopics</span></span><span class="t-val">40</span></li><li><span><span class="t-name">Melasma vs. post inflammatory hyperpigmentation</span><span class="t-hub">Dark marks &amp; redness &middot; 2 subtopics</span></span><span class="t-val">40</span></li><li><span><span class="t-name">Post-inflammatory hyperpigmentation or hypopigmentation</span><span class="t-hub">Dark marks &amp; redness &middot; 2 subtopics</span></span><span class="t-val">40</span></li><li><span><span class="t-name">Baking soda for clogged pores</span><span class="t-hub">Blackheads &amp; clogged pores &middot; 1 subtopic</span></span><span class="t-val">40</span></li><li><span><span class="t-name">Sulfur and acne scars</span><span class="t-hub">Acne scars &middot; 1 subtopic</span></span><span class="t-val">40</span></li><li><span><span class="t-name">Is coconut oil a good moisturizer for acne prone skin?</span><span class="t-hub">Acne-prone skincare &middot; 3 subtopics</span></span><span class="t-val">30</span></li><li><span><span class="t-name">Niacinamide or salicylic acid for acne prone skin</span><span class="t-hub">Acne-prone skincare &middot; 2 subtopics</span></span><span class="t-val">20</span></li><li><span><span class="t-name">Why is my face red after using acne wash?</span><span class="t-hub">Acne-prone skincare &middot; 2 subtopics</span></span><span class="t-val">20</span></li><li><span><span class="t-name">Collagen for acne scars: before and after</span><span class="t-hub">Acne scars &middot; 1 subtopic</span></span><span class="t-val">20</span></li><li><span><span class="t-name">Acne scar erasers</span><span class="t-hub">Acne scars &middot; 1 subtopic</span></span><span class="t-val">20</span></li><li><span><span class="t-name">Calamine acne scars</span><span class="t-hub">Acne scars &middot; 1 subtopic</span></span><span class="t-val">20</span></li><li><span><span class="t-name">Raw potato for acne scars</span><span class="t-hub">Acne scars &middot; 1 subtopic</span></span><span class="t-val">10</span></li><li><span><span class="t-name">Ice cubes for acne redness</span><span class="t-hub">Dark marks &amp; redness &middot; 1 subtopic</span></span><span class="t-val">10</span></li><li><span><span class="t-name">Azelaic acid vs. salicylic acid for closed comedones</span><span class="t-hub">Closed comedones &middot; 1 subtopic</span></span><span class="t-val">10</span></li><li><span><span class="t-name">Jojoba oil or rosehip oil for acne scars</span><span class="t-hub">Acne scars &middot; 1 subtopic</span></span><span class="t-val">10</span></li><li><span><span class="t-name">Cucumber for acne redness</span><span class="t-hub">Dark marks &amp; redness &middot; 1 subtopic</span></span><span class="t-val">10</span></li><li><span><span class="t-name">Hemp seed oil closed comedones</span><span class="t-hub">Closed comedones &middot; 1 subtopic</span></span><span class="t-val">10</span></li><li><span><span class="t-name">Does shea butter clear acne scars?</span><span class="t-hub">Acne scars &middot; 1 subtopic</span></span><span class="t-val">10</span></li><li><span><span class="t-name">Wash face before or after shaving acne</span><span class="t-hub">Acne-prone skincare &middot; 1 subtopic</span></span><span class="t-val">10</span></li><li><span><span class="t-name">Activated charcoal acne scars</span><span class="t-hub">Acne scars &middot; 1 subtopic</span></span><span class="t-val">10</span></li><li><span><span class="t-name">Tomato for acne redness</span><span class="t-hub">Dark marks &amp; redness &middot; 1 subtopic</span></span><span class="t-val">10</span></li><li><span><span class="t-name">Formulas for acne scars</span><span class="t-hub">Acne scars &middot; 1 subtopic</span></span><span class="t-val">10</span></li><li><span><span class="t-name">Red and blue light acne spot treatment</span><span class="t-hub">Pimple patches &amp; spot care &middot; 1 subtopic</span></span><span class="t-val">10</span></li></ul></div>
+    </details>
+  </div>
+</section>
+
+<!-- ============ 08 - ROUTINES ============ -->
+<section class="slide s-paper" id="routines">
+  <span class="marker">08 - Routines</span>
+  <div class="slide-inner">
+    <div class="step-row" style="margin-bottom:22px;">
+      <div class="eyebrow" style="margin-bottom:0;">Hub 03 &middot; Skincare Routines &amp; Pairings</div>
+      <span class="week week-l">75 pages</span>
+    </div>
+    <h2>Building a routine and layering it with red light</h2>
+    <p class="lead muted-l" style="margin-top:14px; max-width:760px;">How to build a skincare routine leads the hub at 477,370 searches a month and ties for the deepest page in the plan, with 193 subtopics. Hydrating face mists follow at 34,090 and dry skin routines at 18,990. The hub covers routines by skin type and goal, routines from around the world, layering actives, hyaluronic acid moisturizers and face mists, and where red light fits in.</p>
+    <p class="cap muted-l45" style="margin-top:10px;">668,910 monthly searches across 75 pages and 877 subtopics.</p>
+    <p class="later-hint"><span class="later-n">+54</span> more topics planned for this hub after March</p>
+    <div class="grid g2" style="margin-top:28px;">
+      <div class="card card-light">
+        <h4 class="title-sm">Biggest demand</h4>
+        <p class="cap muted-l45" style="margin-top:6px;">Monthly searches for the hub&#x27;s largest pages</p>
+        <ul class="tlist"><li><span><span class="t-name">How to build a skincare routine</span><span class="t-hub">Routine basics &amp; red light &middot; 193 subtopics</span></span><span class="t-val">477,370</span></li><li><span><span class="t-name">Hydrating face mists</span><span class="t-hub">Face mists &middot; 56 subtopics</span></span><span class="t-val">34,090</span></li><li><span><span class="t-name">Skincare routine for dry skin</span><span class="t-hub">Routines by skin type &amp; goal &middot; 56 subtopics</span></span><span class="t-val">18,990</span></li><li><span><span class="t-name">Double cleansing</span><span class="t-hub">Routine basics &amp; red light &middot; 99 subtopics</span></span><span class="t-val">18,820</span></li><li><span><span class="t-name">Hyaluronic acid moisturizer cream</span><span class="t-hub">Hyaluronic acid moisturizers &middot; 16 subtopics</span></span><span class="t-val">15,710</span></li><li><span><span class="t-name">Moisturizer before or after sunscreen</span><span class="t-hub">Routine basics &amp; red light &middot; 40 subtopics</span></span><span class="t-val">13,300</span></li></ul>
+      </div>
+      <div class="card card-light">
+        <h4 class="title-sm">What the hub covers</h4>
+        <p class="cap muted-l45" style="margin-top:6px;">Scheduled pages by theme</p>
+        <ul class="tlist"><li><span><span class="t-name">Layering actives</span><span class="t-hub">29% of the hub</span></span><span class="t-val">22 pages</span></li><li><span><span class="t-name">Routines by skin type &amp; goal</span><span class="t-hub">28% of the hub</span></span><span class="t-val">21 pages</span></li><li><span><span class="t-name">Routine basics &amp; red light</span><span class="t-hub">13% of the hub</span></span><span class="t-val">10 pages</span></li><li><span><span class="t-name">Hyaluronic acid moisturizers</span><span class="t-hub">13% of the hub</span></span><span class="t-val">10 pages</span></li><li><span><span class="t-name">Routines from around the world</span><span class="t-hub">9% of the hub</span></span><span class="t-val">7 pages</span></li><li><span><span class="t-name">Face mists</span><span class="t-hub">7% of the hub</span></span><span class="t-val">5 pages</span></li></ul>
+      </div>
+    </div>
+    <details class="all">
+      <summary>All 75 Skincare Routines &amp; Pairings pages</summary>
+      <div class="card card-light allcard"><ul class="tlist cols"><li><span><span class="t-name">How to build a skincare routine</span><span class="t-hub">Routine basics &amp; red light &middot; 193 subtopics</span></span><span class="t-val">477,370</span></li><li><span><span class="t-name">Hydrating face mists</span><span class="t-hub">Face mists &middot; 56 subtopics</span></span><span class="t-val">34,090</span></li><li><span><span class="t-name">Skincare routine for dry skin</span><span class="t-hub">Routines by skin type &amp; goal &middot; 56 subtopics</span></span><span class="t-val">18,990</span></li><li><span><span class="t-name">Double cleansing</span><span class="t-hub">Routine basics &amp; red light &middot; 99 subtopics</span></span><span class="t-val">18,820</span></li><li><span><span class="t-name">Hyaluronic acid moisturizer cream</span><span class="t-hub">Hyaluronic acid moisturizers &middot; 16 subtopics</span></span><span class="t-val">15,710</span></li><li><span><span class="t-name">Moisturizer before or after sunscreen</span><span class="t-hub">Routine basics &amp; red light &middot; 40 subtopics</span></span><span class="t-val">13,300</span></li><li><span><span class="t-name">Oily skin skincare routine</span><span class="t-hub">Routines by skin type &amp; goal &middot; 10 subtopics</span></span><span class="t-val">10,130</span></li><li><span><span class="t-name">Can you use niacinamide with retinol?</span><span class="t-hub">Layering actives &middot; 77 subtopics</span></span><span class="t-val">9,900</span></li><li><span><span class="t-name">Korean skincare routine</span><span class="t-hub">Routines from around the world &middot; 15 subtopics</span></span><span class="t-val">8,790</span></li><li><span><span class="t-name">Skincare routine for dull skin</span><span class="t-hub">Routines by skin type &amp; goal &middot; 7 subtopics</span></span><span class="t-val">7,750</span></li><li><span><span class="t-name">Best niacinamide serum</span><span class="t-hub">Layering actives &middot; 2 subtopics</span></span><span class="t-val">4,720</span></li><li><span><span class="t-name">Red light therapy before or after skincare</span><span class="t-hub">Routine basics &amp; red light &middot; 15 subtopics</span></span><span class="t-val">3,980</span></li><li><span><span class="t-name">Moisturizer serums</span><span class="t-hub">Hyaluronic acid moisturizers &middot; 11 subtopics</span></span><span class="t-val">3,640</span></li><li><span><span class="t-name">When to use niacinamide serum</span><span class="t-hub">Layering actives &middot; 16 subtopics</span></span><span class="t-val">2,970</span></li><li><span><span class="t-name">Asian skincare routine</span><span class="t-hub">Routines from around the world &middot; 1 subtopic</span></span><span class="t-val">2,900</span></li><li><span><span class="t-name">When to use vitamin C in skincare routine</span><span class="t-hub">Layering actives &middot; 38 subtopics</span></span><span class="t-val">2,550</span></li><li><span><span class="t-name">Personalized skincare routine finder</span><span class="t-hub">Routine basics &amp; red light &middot; 9 subtopics</span></span><span class="t-val">2,460</span></li><li><span><span class="t-name">Combination skin skincare routine</span><span class="t-hub">Routines by skin type &amp; goal &middot; 9 subtopics</span></span><span class="t-val">2,270</span></li><li><span><span class="t-name">Azelaic acid skincare routine</span><span class="t-hub">Layering actives &middot; 2 subtopics</span></span><span class="t-val">2,220</span></li><li><span><span class="t-name">Skincare routine kits</span><span class="t-hub">Routine basics &amp; red light &middot; 9 subtopics</span></span><span class="t-val">2,090</span></li><li><span><span class="t-name">Skincare routine with retinol</span><span class="t-hub">Layering actives &middot; 8 subtopics</span></span><span class="t-val">2,010</span></li><li><span><span class="t-name">Skincare routine for 30 year olds</span><span class="t-hub">Routines by skin type &amp; goal &middot; 9 subtopics</span></span><span class="t-val">1,850</span></li><li><span><span class="t-name">What is a face mist?</span><span class="t-hub">Face mists &middot; 24 subtopics</span></span><span class="t-val">1,820</span></li><li><span><span class="t-name">Skincare routine teens</span><span class="t-hub">Routines by skin type &amp; goal &middot; 5 subtopics</span></span><span class="t-val">1,590</span></li><li><span><span class="t-name">Skincare routine for hyperpigmentation</span><span class="t-hub">Routines by skin type &amp; goal &middot; 4 subtopics</span></span><span class="t-val">1,480</span></li><li><span><span class="t-name">Niacinamide vs. retinol</span><span class="t-hub">Layering actives &middot; 22 subtopics</span></span><span class="t-val">1,400</span></li><li><span><span class="t-name">Natural skincare routine</span><span class="t-hub">Routines by skin type &amp; goal &middot; 5 subtopics</span></span><span class="t-val">1,340</span></li><li><span><span class="t-name">Hydrating skincare routine</span><span class="t-hub">Routines by skin type &amp; goal &middot; 4 subtopics</span></span><span class="t-val">1,040</span></li><li><span><span class="t-name">Affordable skincare routine</span><span class="t-hub">Routines by skin type &amp; goal &middot; 10 subtopics</span></span><span class="t-val">1,000</span></li><li><span><span class="t-name">Red light therapy serums</span><span class="t-hub">Routine basics &amp; red light &middot; 5 subtopics</span></span><span class="t-val">960</span></li><li><span><span class="t-name">Skincare routine for big pores</span><span class="t-hub">Routines by skin type &amp; goal &middot; 4 subtopics</span></span><span class="t-val">880</span></li><li><span><span class="t-name">Face mist hyaluronic acid</span><span class="t-hub">Face mists &middot; 1 subtopic</span></span><span class="t-val">880</span></li><li><span><span class="t-name">Eye cream niacinamide</span><span class="t-hub">Layering actives &middot; 1 subtopic</span></span><span class="t-val">880</span></li><li><span><span class="t-name">Tretinoin skincare routine</span><span class="t-hub">Layering actives &middot; 3 subtopics</span></span><span class="t-val">820</span></li><li><span><span class="t-name">Moisturizer without hyaluronic acid</span><span class="t-hub">Hyaluronic acid moisturizers &middot; 4 subtopics</span></span><span class="t-val">760</span></li><li><span><span class="t-name">Skincare routine for makeup</span><span class="t-hub">Routines by skin type &amp; goal &middot; 2 subtopics</span></span><span class="t-val">490</span></li><li><span><span class="t-name">Alpha arbutin niacinamide</span><span class="t-hub">Layering actives &middot; 1 subtopic</span></span><span class="t-val">480</span></li><li><span><span class="t-name">Japanese skincare routine</span><span class="t-hub">Routines from around the world &middot; 1 subtopic</span></span><span class="t-val">480</span></li><li><span><span class="t-name">Hyaluronic acid and ceramide moisturizer</span><span class="t-hub">Hyaluronic acid moisturizers &middot; 6 subtopics</span></span><span class="t-val">440</span></li><li><span><span class="t-name">Skincare routine for damaged skin barrier</span><span class="t-hub">Routines by skin type &amp; goal &middot; 1 subtopic</span></span><span class="t-val">320</span></li><li><span><span class="t-name">Hyaluronic acid glycerin moisturizer</span><span class="t-hub">Hyaluronic acid moisturizers &middot; 1 subtopic</span></span><span class="t-val">210</span></li><li><span><span class="t-name">Can double cleansing cause irritation?</span><span class="t-hub">Routine basics &amp; red light &middot; 13 subtopics</span></span><span class="t-val">190</span></li><li><span><span class="t-name">Skincare routine summer</span><span class="t-hub">Routines by skin type &amp; goal &middot; 2 subtopics</span></span><span class="t-val">180</span></li><li><span><span class="t-name">Bridal skincare routine</span><span class="t-hub">Routines by skin type &amp; goal &middot; 2 subtopics</span></span><span class="t-val">180</span></li><li><span><span class="t-name">Which oil to use for double cleansing?</span><span class="t-hub">Routine basics &amp; red light &middot; 9 subtopics</span></span><span class="t-val">170</span></li><li><span><span class="t-name">Hyaluronic acid serum for men</span><span class="t-hub">Hyaluronic acid moisturizers &middot; 1 subtopic</span></span><span class="t-val">170</span></li><li><span><span class="t-name">When to use hypochlorous acid spray in skincare routine</span><span class="t-hub">Layering actives &middot; 1 subtopic</span></span><span class="t-val">170</span></li><li><span><span class="t-name">Moisturizer with hyaluronic acid and niacinamide</span><span class="t-hub">Layering actives &middot; 5 subtopics</span></span><span class="t-val">150</span></li><li><span><span class="t-name">Snail mucin skincare routine</span><span class="t-hub">Layering actives &middot; 2 subtopics</span></span><span class="t-val">150</span></li><li><span><span class="t-name">Layering active ingredients skincare</span><span class="t-hub">Layering actives &middot; 6 subtopics</span></span><span class="t-val">140</span></li><li><span><span class="t-name">Face mist with glycerin</span><span class="t-hub">Face mists &middot; 1 subtopic</span></span><span class="t-val">140</span></li><li><span><span class="t-name">French skincare routine</span><span class="t-hub">Routines from around the world &middot; 1 subtopic</span></span><span class="t-val">140</span></li><li><span><span class="t-name">DIY skincare routine</span><span class="t-hub">Routines by skin type &amp; goal &middot; 2 subtopics</span></span><span class="t-val">120</span></li><li><span><span class="t-name">Preppy skincare routine</span><span class="t-hub">Routines by skin type &amp; goal &middot; 2 subtopics</span></span><span class="t-val">120</span></li><li><span><span class="t-name">Antioxidant skincare routine</span><span class="t-hub">Layering actives &middot; 1 subtopic</span></span><span class="t-val">110</span></li><li><span><span class="t-name">Model skincare routine</span><span class="t-hub">Routines by skin type &amp; goal &middot; 1 subtopic</span></span><span class="t-val">110</span></li><li><span><span class="t-name">Moroccan skincare routine</span><span class="t-hub">Routines from around the world &middot; 1 subtopic</span></span><span class="t-val">110</span></li><li><span><span class="t-name">Oil-free hyaluronic acid moisturizer</span><span class="t-hub">Hyaluronic acid moisturizers &middot; 2 subtopics</span></span><span class="t-val">80</span></li><li><span><span class="t-name">Centella skincare routine</span><span class="t-hub">Layering actives &middot; 1 subtopic</span></span><span class="t-val">70</span></li><li><span><span class="t-name">Can I use niacinamide azelaic acid and retinol together?</span><span class="t-hub">Layering actives &middot; 1 subtopic</span></span><span class="t-val">70</span></li><li><span><span class="t-name">Vegan skincare routine</span><span class="t-hub">Routines by skin type &amp; goal &middot; 1 subtopic</span></span><span class="t-val">70</span></li><li><span><span class="t-name">Retinol vs. niacinamide vs. hyaluronic acid</span><span class="t-hub">Layering actives &middot; 3 subtopics</span></span><span class="t-val">50</span></li><li><span><span class="t-name">Travel skincare routine</span><span class="t-hub">Routines by skin type &amp; goal &middot; 1 subtopic</span></span><span class="t-val">50</span></li><li><span><span class="t-name">Luxury skincare routine</span><span class="t-hub">Routines by skin type &amp; goal &middot; 1 subtopic</span></span><span class="t-val">50</span></li><li><span><span class="t-name">Chinese skincare routine</span><span class="t-hub">Routines from around the world &middot; 1 subtopic</span></span><span class="t-val">50</span></li><li><span><span class="t-name">When to apply benzoyl peroxide in skincare routine</span><span class="t-hub">Layering actives &middot; 1 subtopic</span></span><span class="t-val">50</span></li><li><span><span class="t-name">Ayurvedic skincare routine</span><span class="t-hub">Routines from around the world &middot; 1 subtopic</span></span><span class="t-val">50</span></li><li><span><span class="t-name">How to layer niacinamide vitamin C and retinol</span><span class="t-hub">Layering actives &middot; 3 subtopics</span></span><span class="t-val">40</span></li><li><span><span class="t-name">Toner vs. serum vs. moisturizer</span><span class="t-hub">Hyaluronic acid moisturizers &middot; 2 subtopics</span></span><span class="t-val">40</span></li><li><span><span class="t-name">Moisturizer and serum combo</span><span class="t-hub">Hyaluronic acid moisturizers &middot; 2 subtopics</span></span><span class="t-val">40</span></li><li><span><span class="t-name">Ceramide face mist</span><span class="t-hub">Face mists &middot; 1 subtopic</span></span><span class="t-val">30</span></li><li><span><span class="t-name">Retinol skin booster serum centella asiatica niacinamide reviews</span><span class="t-hub">Layering actives &middot; 1 subtopic</span></span><span class="t-val">10</span></li><li><span><span class="t-name">DIY hyaluronic acid moisturizer</span><span class="t-hub">Hyaluronic acid moisturizers &middot; 1 subtopic</span></span><span class="t-val">10</span></li><li><span><span class="t-name">Red light wand and serum kits</span><span class="t-hub">Routine basics &amp; red light &middot; 1 subtopic</span></span><span class="t-val">10</span></li><li><span><span class="t-name">Can I mix niacinamide powder with retinol?</span><span class="t-hub">Layering actives &middot; 1 subtopic</span></span><span class="t-val">10</span></li></ul></div>
+    </details>
+  </div>
+</section>
+
+<!-- ============ 09 - AGING ============ -->
+<section class="slide s-light" id="aging">
+  <span class="marker">09 - Aging</span>
+  <div class="slide-inner">
+    <div class="step-row" style="margin-bottom:22px;">
+      <div class="eyebrow" style="margin-bottom:0;">Hub 04 &middot; Healthy Aging Skin</div>
+      <span class="week week-l">68 pages</span>
+    </div>
+    <h2>Wrinkles, collagen and a firmer neck and jawline</h2>
+    <p class="lead muted-l" style="margin-top:14px; max-width:760px;">Best face wrinkle creams lead the hub at 765,900 searches a month, with forehead wrinkles at 127,010 and firming neck creams at 47,960. The hub covers wrinkle creams and serums, forehead and mouth lines, the neck, chest and jawline, collagen and elasticity, and treatments from retinol to red light, the focus of the Wrinkle Retreat Pro and Neck &amp; Chest Pro masks.</p>
+    <p class="cap muted-l45" style="margin-top:10px;">1,132,460 monthly searches across 68 pages and 1,107 subtopics.</p>
+    <p class="later-hint"><span class="later-n">+63</span> more topics planned for this hub after March</p>
+    <div class="grid g2" style="margin-top:28px;">
+      <div class="card card-light">
+        <h4 class="title-sm">Biggest demand</h4>
+        <p class="cap muted-l45" style="margin-top:6px;">Monthly searches for the hub&#x27;s largest pages</p>
+        <ul class="tlist"><li><span><span class="t-name">Best face wrinkle creams</span><span class="t-hub">Wrinkle creams &amp; serums &middot; 120 subtopics</span></span><span class="t-val">765,900</span></li><li><span><span class="t-name">Forehead wrinkles</span><span class="t-hub">Forehead &amp; mouth lines &middot; 155 subtopics</span></span><span class="t-val">127,010</span></li><li><span><span class="t-name">Best firming neck creams</span><span class="t-hub">Neck, chest &amp; jawline &middot; 52 subtopics</span></span><span class="t-val">47,960</span></li><li><span><span class="t-name">Anti-wrinkle eye creams</span><span class="t-hub">Wrinkle creams &amp; serums &middot; 7 subtopics</span></span><span class="t-val">46,830</span></li><li><span><span class="t-name">Neck wrinkles</span><span class="t-hub">Neck, chest &amp; jawline &middot; 132 subtopics</span></span><span class="t-val">35,830</span></li><li><span><span class="t-name">Mouth wrinkles</span><span class="t-hub">Forehead &amp; mouth lines &middot; 69 subtopics</span></span><span class="t-val">16,500</span></li></ul>
+      </div>
+      <div class="card card-light">
+        <h4 class="title-sm">What the hub covers</h4>
+        <p class="cap muted-l45" style="margin-top:6px;">Scheduled pages by theme</p>
+        <ul class="tlist"><li><span><span class="t-name">Neck, chest &amp; jawline</span><span class="t-hub">22% of the hub</span></span><span class="t-val">15 pages</span></li><li><span><span class="t-name">Forehead &amp; mouth lines</span><span class="t-hub">19% of the hub</span></span><span class="t-val">13 pages</span></li><li><span><span class="t-name">Collagen production</span><span class="t-hub">19% of the hub</span></span><span class="t-val">13 pages</span></li><li><span><span class="t-name">Retinol, peptides &amp; treatments</span><span class="t-hub">15% of the hub</span></span><span class="t-val">10 pages</span></li><li><span><span class="t-name">Skin elasticity</span><span class="t-hub">13% of the hub</span></span><span class="t-val">9 pages</span></li><li><span><span class="t-name">Wrinkle creams &amp; serums</span><span class="t-hub">12% of the hub</span></span><span class="t-val">8 pages</span></li></ul>
+      </div>
+    </div>
+    <details class="all">
+      <summary>All 68 Healthy Aging Skin pages</summary>
+      <div class="card card-light allcard"><ul class="tlist cols"><li><span><span class="t-name">Best face wrinkle creams</span><span class="t-hub">Wrinkle creams &amp; serums &middot; 120 subtopics</span></span><span class="t-val">765,900</span></li><li><span><span class="t-name">Forehead wrinkles</span><span class="t-hub">Forehead &amp; mouth lines &middot; 155 subtopics</span></span><span class="t-val">127,010</span></li><li><span><span class="t-name">Best firming neck creams</span><span class="t-hub">Neck, chest &amp; jawline &middot; 52 subtopics</span></span><span class="t-val">47,960</span></li><li><span><span class="t-name">Anti-wrinkle eye creams</span><span class="t-hub">Wrinkle creams &amp; serums &middot; 7 subtopics</span></span><span class="t-val">46,830</span></li><li><span><span class="t-name">Neck wrinkles</span><span class="t-hub">Neck, chest &amp; jawline &middot; 132 subtopics</span></span><span class="t-val">35,830</span></li><li><span><span class="t-name">Mouth wrinkles</span><span class="t-hub">Forehead &amp; mouth lines &middot; 69 subtopics</span></span><span class="t-val">16,500</span></li><li><span><span class="t-name">How to boost collagen production</span><span class="t-hub">Collagen production &middot; 31 subtopics</span></span><span class="t-val">13,130</span></li><li><span><span class="t-name">Anti wrinkle cream retinol</span><span class="t-hub">Retinol, peptides &amp; treatments &middot; 4 subtopics</span></span><span class="t-val">13,070</span></li><li><span><span class="t-name">How to improve skin elasticity</span><span class="t-hub">Skin elasticity &middot; 106 subtopics</span></span><span class="t-val">11,730</span></li><li><span><span class="t-name">Chest wrinkles</span><span class="t-hub">Neck, chest &amp; jawline &middot; 46 subtopics</span></span><span class="t-val">5,930</span></li><li><span><span class="t-name">Forehead patches wrinkles</span><span class="t-hub">Forehead &amp; mouth lines &middot; 5 subtopics</span></span><span class="t-val">4,550</span></li><li><span><span class="t-name">Bone broth for collagen production</span><span class="t-hub">Collagen production &middot; 2 subtopics</span></span><span class="t-val">4,510</span></li><li><span><span class="t-name">Photoaging</span><span class="t-hub">Retinol, peptides &amp; treatments &middot; 42 subtopics</span></span><span class="t-val">3,640</span></li><li><span><span class="t-name">Peptides for wrinkles</span><span class="t-hub">Retinol, peptides &amp; treatments &middot; 19 subtopics</span></span><span class="t-val">3,050</span></li><li><span><span class="t-name">Micro needling for collagen production</span><span class="t-hub">Collagen production &middot; 14 subtopics</span></span><span class="t-val">2,750</span></li><li><span><span class="t-name">Retinol for collagen production</span><span class="t-hub">Collagen production &middot; 6 subtopics</span></span><span class="t-val">2,710</span></li><li><span><span class="t-name">Korean skincare routine for mature skin over 60</span><span class="t-hub">Retinol, peptides &amp; treatments &middot; 2 subtopics</span></span><span class="t-val">2,430</span></li><li><span><span class="t-name">Collagen production vitamin C</span><span class="t-hub">Collagen production &middot; 7 subtopics</span></span><span class="t-val">2,420</span></li><li><span><span class="t-name">Collagen production</span><span class="t-hub">Collagen production &middot; 33 subtopics</span></span><span class="t-val">1,850</span></li><li><span><span class="t-name">Tretinoin forehead wrinkles</span><span class="t-hub">Forehead &amp; mouth lines &middot; 7 subtopics</span></span><span class="t-val">1,850</span></li><li><span><span class="t-name">Best skincare routine for mature skin</span><span class="t-hub">Retinol, peptides &amp; treatments &middot; 13 subtopics</span></span><span class="t-val">1,730</span></li><li><span><span class="t-name">Nutrients for skin elasticity</span><span class="t-hub">Skin elasticity &middot; 34 subtopics</span></span><span class="t-val">1,520</span></li><li><span><span class="t-name">Collagen production skin care</span><span class="t-hub">Collagen production &middot; 10 subtopics</span></span><span class="t-val">1,340</span></li><li><span><span class="t-name">Filler in forehead wrinkles</span><span class="t-hub">Forehead &amp; mouth lines &middot; 3 subtopics</span></span><span class="t-val">1,340</span></li><li><span><span class="t-name">Red light therapy for collagen production</span><span class="t-hub">Collagen production &middot; 2 subtopics</span></span><span class="t-val">1,310</span></li><li><span><span class="t-name">Peptides vs. retinol</span><span class="t-hub">Retinol, peptides &amp; treatments &middot; 12 subtopics</span></span><span class="t-val">1,070</span></li><li><span><span class="t-name">Neck tape for wrinkles</span><span class="t-hub">Neck, chest &amp; jawline &middot; 7 subtopics</span></span><span class="t-val">1,060</span></li><li><span><span class="t-name">Jawline sagging</span><span class="t-hub">Neck, chest &amp; jawline &middot; 30 subtopics</span></span><span class="t-val">990</span></li><li><span><span class="t-name">Silicone chest pads for wrinkles</span><span class="t-hub">Neck, chest &amp; jawline &middot; 5 subtopics</span></span><span class="t-val">940</span></li><li><span><span class="t-name">Best serum forehead wrinkles</span><span class="t-hub">Forehead &amp; mouth lines &middot; 6 subtopics</span></span><span class="t-val">820</span></li><li><span><span class="t-name">Neck device for wrinkles</span><span class="t-hub">Neck, chest &amp; jawline &middot; 8 subtopics</span></span><span class="t-val">670</span></li><li><span><span class="t-name">Niacinamide serum for wrinkles</span><span class="t-hub">Wrinkle creams &amp; serums &middot; 9 subtopics</span></span><span class="t-val">600</span></li><li><span><span class="t-name">Skin elasticity after weight loss</span><span class="t-hub">Skin elasticity &middot; 10 subtopics</span></span><span class="t-val">510</span></li><li><span><span class="t-name">Neck exercises wrinkles</span><span class="t-hub">Neck, chest &amp; jawline &middot; 9 subtopics</span></span><span class="t-val">450</span></li><li><span><span class="t-name">Exercises for forehead wrinkles</span><span class="t-hub">Forehead &amp; mouth lines &middot; 4 subtopics</span></span><span class="t-val">440</span></li><li><span><span class="t-name">How to measure skin elasticity</span><span class="t-hub">Skin elasticity &middot; 9 subtopics</span></span><span class="t-val">430</span></li><li><span><span class="t-name">Red light therapy for neck wrinkles</span><span class="t-hub">Neck, chest &amp; jawline &middot; 4 subtopics</span></span><span class="t-val">420</span></li><li><span><span class="t-name">Facial exercises for wrinkles around mouth</span><span class="t-hub">Forehead &amp; mouth lines &middot; 5 subtopics</span></span><span class="t-val">290</span></li><li><span><span class="t-name">Gua sha for forehead wrinkles</span><span class="t-hub">Forehead &amp; mouth lines &middot; 2 subtopics</span></span><span class="t-val">280</span></li><li><span><span class="t-name">Collagen production under eyes</span><span class="t-hub">Collagen production &middot; 2 subtopics</span></span><span class="t-val">270</span></li><li><span><span class="t-name">Best oil for skin elasticity</span><span class="t-hub">Skin elasticity &middot; 10 subtopics</span></span><span class="t-val">230</span></li><li><span><span class="t-name">Aloe vera collagen production</span><span class="t-hub">Collagen production &middot; 5 subtopics</span></span><span class="t-val">190</span></li><li><span><span class="t-name">Castor oil neck wrinkles</span><span class="t-hub">Neck, chest &amp; jawline &middot; 3 subtopics</span></span><span class="t-val">170</span></li><li><span><span class="t-name">Coconut oil for skin elasticity</span><span class="t-hub">Skin elasticity &middot; 5 subtopics</span></span><span class="t-val">150</span></li><li><span><span class="t-name">Argan oil for skin elasticity</span><span class="t-hub">Skin elasticity &middot; 1 subtopic</span></span><span class="t-val">140</span></li><li><span><span class="t-name">Bee venom wrinkle cream</span><span class="t-hub">Wrinkle creams &amp; serums &middot; 1 subtopic</span></span><span class="t-val">140</span></li><li><span><span class="t-name">Sagging jawline exercises</span><span class="t-hub">Neck, chest &amp; jawline &middot; 5 subtopics</span></span><span class="t-val">130</span></li><li><span><span class="t-name">Puppet mouth wrinkles</span><span class="t-hub">Forehead &amp; mouth lines &middot; 4 subtopics</span></span><span class="t-val">130</span></li><li><span><span class="t-name">Chin wrinkles when mouth closed</span><span class="t-hub">Forehead &amp; mouth lines &middot; 2 subtopics</span></span><span class="t-val">110</span></li><li><span><span class="t-name">Instant wrinkle cream</span><span class="t-hub">Wrinkle creams &amp; serums &middot; 1 subtopic</span></span><span class="t-val">110</span></li><li><span><span class="t-name">Retinol vs. hyaluronic acid for wrinkles</span><span class="t-hub">Retinol, peptides &amp; treatments &middot; 3 subtopics</span></span><span class="t-val">100</span></li><li><span><span class="t-name">Plant extracts for skin elasticity</span><span class="t-hub">Skin elasticity &middot; 3 subtopics</span></span><span class="t-val">90</span></li><li><span><span class="t-name">Dehydration lines vs. wrinkles forehead</span><span class="t-hub">Forehead &amp; mouth lines &middot; 3 subtopics</span></span><span class="t-val">90</span></li><li><span><span class="t-name">So-called magic wrinkle creams</span><span class="t-hub">Wrinkle creams &amp; serums &middot; 1 subtopic</span></span><span class="t-val">90</span></li><li><span><span class="t-name">Anti wrinkle face cream with SPF</span><span class="t-hub">Wrinkle creams &amp; serums &middot; 1 subtopic</span></span><span class="t-val">90</span></li><li><span><span class="t-name">Rosehip oil for neck wrinkles</span><span class="t-hub">Neck, chest &amp; jawline &middot; 1 subtopic</span></span><span class="t-val">80</span></li><li><span><span class="t-name">Collagen peptides vs. retinol</span><span class="t-hub">Collagen production &middot; 2 subtopics</span></span><span class="t-val">60</span></li><li><span><span class="t-name">Does collagen improve skin elasticity?</span><span class="t-hub">Collagen production &middot; 3 subtopics</span></span><span class="t-val">40</span></li><li><span><span class="t-name">Firming gua sha neck creams</span><span class="t-hub">Neck, chest &amp; jawline &middot; 1 subtopic</span></span><span class="t-val">40</span></li><li><span><span class="t-name">Mouth tape for wrinkles</span><span class="t-hub">Forehead &amp; mouth lines &middot; 1 subtopic</span></span><span class="t-val">40</span></li><li><span><span class="t-name">Hyaluronic acid masks for wrinkles</span><span class="t-hub">Wrinkle creams &amp; serums &middot; 1 subtopic</span></span><span class="t-val">30</span></li><li><span><span class="t-name">Gotu kola collagen production</span><span class="t-hub">Collagen production &middot; 1 subtopic</span></span><span class="t-val">20</span></li><li><span><span class="t-name">Niacinamide vs. peptides vs. retinol</span><span class="t-hub">Retinol, peptides &amp; treatments &middot; 1 subtopic</span></span><span class="t-val">10</span></li><li><span><span class="t-name">Pdrn vs. peptides vs. retinol</span><span class="t-hub">Retinol, peptides &amp; treatments &middot; 1 subtopic</span></span><span class="t-val">10</span></li><li><span><span class="t-name">Red light therapy vs. microneedling for wrinkles</span><span class="t-hub">Retinol, peptides &amp; treatments &middot; 1 subtopic</span></span><span class="t-val">10</span></li><li><span><span class="t-name">Rose nourishing oil regulates skin elasticity</span><span class="t-hub">Skin elasticity &middot; 1 subtopic</span></span><span class="t-val">10</span></li><li><span><span class="t-name">Glow neck firming creams</span><span class="t-hub">Neck, chest &amp; jawline &middot; 1 subtopic</span></span><span class="t-val">10</span></li><li><span><span class="t-name">Does spraying perfume on neck cause wrinkles?</span><span class="t-hub">Neck, chest &amp; jawline &middot; 1 subtopic</span></span><span class="t-val">10</span></li></ul></div>
+    </details>
+  </div>
+</section>
+
+<!-- ============ 10 - UNDER-EYE ============ -->
+<section class="slide s-paper" id="eyes">
+  <span class="marker">10 - Under-eye</span>
+  <div class="slide-inner">
+    <div class="step-row" style="margin-bottom:22px;">
+      <div class="eyebrow" style="margin-bottom:0;">Hub 05 &middot; Under-Eye Care</div>
+      <span class="week week-l">65 pages</span>
+    </div>
+    <h2>Dark circles, puffy eyes and under-eye lines</h2>
+    <p class="lead muted-l" style="margin-top:14px; max-width:760px;">How to remove dark circles leads the hub at 392,400 searches a month, with caffeine eye creams for puffiness at 353,700 and under-eye bags and puffiness at 348,090. The hub covers dark circles, puffy eyes and bags, under-eye wrinkles, eye creams and serums, and patches, masks and tools, all natural homes for Eye Recovery Pro.</p>
+    <p class="cap muted-l45" style="margin-top:10px;">1,708,760 monthly searches across 65 pages and 616 subtopics.</p>
+    <p class="later-hint"><span class="later-n">+17</span> more topics planned for this hub after March</p>
+    <div class="grid g2" style="margin-top:28px;">
+      <div class="card card-light">
+        <h4 class="title-sm">Biggest demand</h4>
+        <p class="cap muted-l45" style="margin-top:6px;">Monthly searches for the hub&#x27;s largest pages</p>
+        <ul class="tlist"><li><span><span class="t-name">How to remove dark circles</span><span class="t-hub">Dark circles &middot; 44 subtopics</span></span><span class="t-val">392,400</span></li><li><span><span class="t-name">Caffeine eye creams for puffiness</span><span class="t-hub">Eye creams &amp; serums &middot; 35 subtopics</span></span><span class="t-val">353,700</span></li><li><span><span class="t-name">How to reduce under-eye bags and puffiness</span><span class="t-hub">Puffy eyes &amp; bags &middot; 115 subtopics</span></span><span class="t-val">348,090</span></li><li><span><span class="t-name">Cold compress for puffy eyes</span><span class="t-hub">Puffy eyes &amp; bags &middot; 8 subtopics</span></span><span class="t-val">140,810</span></li><li><span><span class="t-name">Best products for dark circles</span><span class="t-hub">Dark circles &middot; 31 subtopics</span></span><span class="t-val">130,190</span></li><li><span><span class="t-name">Best product for under eye bags and puffiness</span><span class="t-hub">Puffy eyes &amp; bags &middot; 24 subtopics</span></span><span class="t-val">83,870</span></li></ul>
+      </div>
+      <div class="card card-light">
+        <h4 class="title-sm">What the hub covers</h4>
+        <p class="cap muted-l45" style="margin-top:6px;">Scheduled pages by theme</p>
+        <ul class="tlist"><li><span><span class="t-name">Puffy eyes &amp; bags</span><span class="t-hub">29% of the hub</span></span><span class="t-val">19 pages</span></li><li><span><span class="t-name">Under-eye wrinkles</span><span class="t-hub">22% of the hub</span></span><span class="t-val">14 pages</span></li><li><span><span class="t-name">Patches, masks &amp; tools</span><span class="t-hub">18% of the hub</span></span><span class="t-val">12 pages</span></li><li><span><span class="t-name">Eye creams &amp; serums</span><span class="t-hub">17% of the hub</span></span><span class="t-val">11 pages</span></li><li><span><span class="t-name">Dry skin &amp; hollows</span><span class="t-hub">8% of the hub</span></span><span class="t-val">5 pages</span></li><li><span><span class="t-name">Dark circles</span><span class="t-hub">6% of the hub</span></span><span class="t-val">4 pages</span></li></ul>
+      </div>
+    </div>
+    <details class="all">
+      <summary>All 65 Under-Eye Care pages</summary>
+      <div class="card card-light allcard"><ul class="tlist cols"><li><span><span class="t-name">How to remove dark circles</span><span class="t-hub">Dark circles &middot; 44 subtopics</span></span><span class="t-val">392,400</span></li><li><span><span class="t-name">Caffeine eye creams for puffiness</span><span class="t-hub">Eye creams &amp; serums &middot; 35 subtopics</span></span><span class="t-val">353,700</span></li><li><span><span class="t-name">How to reduce under-eye bags and puffiness</span><span class="t-hub">Puffy eyes &amp; bags &middot; 115 subtopics</span></span><span class="t-val">348,090</span></li><li><span><span class="t-name">Cold compress for puffy eyes</span><span class="t-hub">Puffy eyes &amp; bags &middot; 8 subtopics</span></span><span class="t-val">140,810</span></li><li><span><span class="t-name">Best products for dark circles</span><span class="t-hub">Dark circles &middot; 31 subtopics</span></span><span class="t-val">130,190</span></li><li><span><span class="t-name">Best product for under eye bags and puffiness</span><span class="t-hub">Puffy eyes &amp; bags &middot; 24 subtopics</span></span><span class="t-val">83,870</span></li><li><span><span class="t-name">Best under-eye cream for wrinkles</span><span class="t-hub">Under-eye wrinkles &middot; 40 subtopics</span></span><span class="t-val">70,250</span></li><li><span><span class="t-name">How to fix under eye wrinkles</span><span class="t-hub">Under-eye wrinkles &middot; 54 subtopics</span></span><span class="t-val">47,470</span></li><li><span><span class="t-name">How to get rid of under eye hollows</span><span class="t-hub">Dry skin &amp; hollows &middot; 20 subtopics</span></span><span class="t-val">29,160</span></li><li><span><span class="t-name">How to get rid of puffy eyes after crying</span><span class="t-hub">Puffy eyes &amp; bags &middot; 18 subtopics</span></span><span class="t-val">21,300</span></li><li><span><span class="t-name">Why are my eyes so puffy in the morning?</span><span class="t-hub">Puffy eyes &amp; bags &middot; 16 subtopics</span></span><span class="t-val">15,660</span></li><li><span><span class="t-name">How to get rid of dry skin under eyes</span><span class="t-hub">Dry skin &amp; hollows &middot; 40 subtopics</span></span><span class="t-val">13,400</span></li><li><span><span class="t-name">Masks for puffy eyes</span><span class="t-hub">Patches, masks &amp; tools &middot; 1 subtopic</span></span><span class="t-val">8,100</span></li><li><span><span class="t-name">Under eye patches that actually work</span><span class="t-hub">Patches, masks &amp; tools &middot; 5 subtopics</span></span><span class="t-val">7,140</span></li><li><span><span class="t-name">Best eye creams for men</span><span class="t-hub">Puffy eyes &amp; bags &middot; 10 subtopics</span></span><span class="t-val">4,570</span></li><li><span><span class="t-name">Do under eye patches work?</span><span class="t-hub">Patches, masks &amp; tools &middot; 6 subtopics</span></span><span class="t-val">4,430</span></li><li><span><span class="t-name">Eye masks for dark circles</span><span class="t-hub">Patches, masks &amp; tools &middot; 1 subtopic</span></span><span class="t-val">4,400</span></li><li><span><span class="t-name">Hemorrhoid cream for under eye bags</span><span class="t-hub">Puffy eyes &amp; bags &middot; 6 subtopics</span></span><span class="t-val">3,540</span></li><li><span><span class="t-name">Itchy dry skin under eyes</span><span class="t-hub">Dry skin &amp; hollows &middot; 7 subtopics</span></span><span class="t-val">3,150</span></li><li><span><span class="t-name">Sunscreen for dark circles</span><span class="t-hub">Dark circles &middot; 1 subtopic</span></span><span class="t-val">2,900</span></li><li><span><span class="t-name">SolaWave Eye Recovery Pro mask</span><span class="t-hub">Patches, masks &amp; tools &middot; 6 subtopics</span></span><span class="t-val">2,470</span></li><li><span><span class="t-name">Lymphatic massage for puffy eyes</span><span class="t-hub">Patches, masks &amp; tools &middot; 9 subtopics</span></span><span class="t-val">2,020</span></li><li><span><span class="t-name">Puffy eyes after sunburn</span><span class="t-hub">Puffy eyes &amp; bags &middot; 2 subtopics</span></span><span class="t-val">1,990</span></li><li><span><span class="t-name">Puffy eyes tea bags</span><span class="t-hub">Puffy eyes &amp; bags &middot; 3 subtopics</span></span><span class="t-val">1,700</span></li><li><span><span class="t-name">Under eyes red light therapy</span><span class="t-hub">Puffy eyes &amp; bags &middot; 6 subtopics</span></span><span class="t-val">1,620</span></li><li><span><span class="t-name">Vitamin C for dark eye circles</span><span class="t-hub">Dark circles &middot; 4 subtopics</span></span><span class="t-val">1,480</span></li><li><span><span class="t-name">Retinol under-eye wrinkles</span><span class="t-hub">Under-eye wrinkles &middot; 4 subtopics</span></span><span class="t-val">1,260</span></li><li><span><span class="t-name">Puffy face eyes</span><span class="t-hub">Puffy eyes &amp; bags &middot; 2 subtopics</span></span><span class="t-val">1,210</span></li><li><span><span class="t-name">Puffy eyes above eyelids</span><span class="t-hub">Puffy eyes &amp; bags &middot; 2 subtopics</span></span><span class="t-val">1,200</span></li><li><span><span class="t-name">Good under eye serum</span><span class="t-hub">Eye creams &amp; serums &middot; 3 subtopics</span></span><span class="t-val">900</span></li><li><span><span class="t-name">Eye serum vs. eye cream</span><span class="t-hub">Eye creams &amp; serums &middot; 9 subtopics</span></span><span class="t-val">860</span></li><li><span><span class="t-name">Puffy eyes after drinking alcohol</span><span class="t-hub">Puffy eyes &amp; bags &middot; 3 subtopics</span></span><span class="t-val">740</span></li><li><span><span class="t-name">Best oil for under eye wrinkles and dark circles</span><span class="t-hub">Under-eye wrinkles &middot; 10 subtopics</span></span><span class="t-val">700</span></li><li><span><span class="t-name">Why do people wear eye patches?</span><span class="t-hub">Patches, masks &amp; tools &middot; 3 subtopics</span></span><span class="t-val">680</span></li><li><span><span class="t-name">Does caffeine eye cream work?</span><span class="t-hub">Eye creams &amp; serums &middot; 5 subtopics</span></span><span class="t-val">550</span></li><li><span><span class="t-name">Benzoyl peroxide puffy eyes</span><span class="t-hub">Puffy eyes &amp; bags &middot; 1 subtopic</span></span><span class="t-val">480</span></li><li><span><span class="t-name">Aloe vera under eye wrinkles</span><span class="t-hub">Under-eye wrinkles &middot; 4 subtopics</span></span><span class="t-val">410</span></li><li><span><span class="t-name">Best peptide eye cream</span><span class="t-hub">Eye creams &amp; serums &middot; 1 subtopic</span></span><span class="t-val">390</span></li><li><span><span class="t-name">Best eye cream for dry under eyes</span><span class="t-hub">Dry skin &amp; hollows &middot; 3 subtopics</span></span><span class="t-val">330</span></li><li><span><span class="t-name">Hyaluronic acid serum under eyes</span><span class="t-hub">Eye creams &amp; serums &middot; 2 subtopics</span></span><span class="t-val">330</span></li><li><span><span class="t-name">Gua sha for under eye bags</span><span class="t-hub">Patches, masks &amp; tools &middot; 2 subtopics</span></span><span class="t-val">320</span></li><li><span><span class="t-name">Eye massagers for puffy eyes</span><span class="t-hub">Patches, masks &amp; tools &middot; 1 subtopic</span></span><span class="t-val">320</span></li><li><span><span class="t-name">Essential oil puffy eyes</span><span class="t-hub">Puffy eyes &amp; bags &middot; 3 subtopics</span></span><span class="t-val">260</span></li><li><span><span class="t-name">Puffy eyes in Korean skincare</span><span class="t-hub">Puffy eyes &amp; bags &middot; 1 subtopic</span></span><span class="t-val">260</span></li><li><span><span class="t-name">Face exercises for under eye wrinkles</span><span class="t-hub">Under-eye wrinkles &middot; 7 subtopics</span></span><span class="t-val">250</span></li><li><span><span class="t-name">Does eye cream work for wrinkles?</span><span class="t-hub">Under-eye wrinkles &middot; 6 subtopics</span></span><span class="t-val">200</span></li><li><span><span class="t-name">Coffee grounds for puffy eyes</span><span class="t-hub">Puffy eyes &amp; bags &middot; 2 subtopics</span></span><span class="t-val">180</span></li><li><span><span class="t-name">Are eye patches supposed to burn?</span><span class="t-hub">Patches, masks &amp; tools &middot; 1 subtopic</span></span><span class="t-val">170</span></li><li><span><span class="t-name">How to use brightening eye cream</span><span class="t-hub">Eye creams &amp; serums &middot; 9 subtopics</span></span><span class="t-val">120</span></li><li><span><span class="t-name">Witch hazel puffy eyes</span><span class="t-hub">Puffy eyes &amp; bags &middot; 2 subtopics</span></span><span class="t-val">120</span></li><li><span><span class="t-name">Best eyelid wrinkle cream</span><span class="t-hub">Under-eye wrinkles &middot; 1 subtopic</span></span><span class="t-val">110</span></li><li><span><span class="t-name">Saying bye to puffy eyes</span><span class="t-hub">Puffy eyes &amp; bags &middot; 1 subtopic</span></span><span class="t-val">110</span></li><li><span><span class="t-name">Best firming wrinkle cream</span><span class="t-hub">Under-eye wrinkles &middot; 1 subtopic</span></span><span class="t-val">90</span></li><li><span><span class="t-name">Best eye cream hyaluronic acid</span><span class="t-hub">Eye creams &amp; serums &middot; 1 subtopic</span></span><span class="t-val">90</span></li><li><span><span class="t-name">Jade roller for under eye bags</span><span class="t-hub">Patches, masks &amp; tools &middot; 1 subtopic</span></span><span class="t-val">90</span></li><li><span><span class="t-name">Under-eye massage tools</span><span class="t-hub">Patches, masks &amp; tools &middot; 1 subtopic</span></span><span class="t-val">50</span></li><li><span><span class="t-name">Instant brightening eye cream</span><span class="t-hub">Eye creams &amp; serums &middot; 1 subtopic</span></span><span class="t-val">40</span></li><li><span><span class="t-name">Vitamin E for under eye wrinkles</span><span class="t-hub">Under-eye wrinkles &middot; 2 subtopics</span></span><span class="t-val">30</span></li><li><span><span class="t-name">Caffeine eye cream side effects</span><span class="t-hub">Eye creams &amp; serums &middot; 2 subtopics</span></span><span class="t-val">20</span></li><li><span><span class="t-name">Caffeine vs. retinol eye cream</span><span class="t-hub">Eye creams &amp; serums &middot; 2 subtopics</span></span><span class="t-val">20</span></li><li><span><span class="t-name">Best eye cream for wrinkles without retinol</span><span class="t-hub">Under-eye wrinkles &middot; 1 subtopic</span></span><span class="t-val">20</span></li><li><span><span class="t-name">Lemon juice for under eye wrinkles</span><span class="t-hub">Under-eye wrinkles &middot; 1 subtopic</span></span><span class="t-val">10</span></li><li><span><span class="t-name">Baking soda for under eye wrinkles</span><span class="t-hub">Under-eye wrinkles &middot; 1 subtopic</span></span><span class="t-val">10</span></li><li><span><span class="t-name">Petroleum jelly for under eye wrinkles</span><span class="t-hub">Under-eye wrinkles &middot; 1 subtopic</span></span><span class="t-val">10</span></li><li><span><span class="t-name">Dry skin under eyes pregnancy</span><span class="t-hub">Dry skin &amp; hollows &middot; 1 subtopic</span></span><span class="t-val">10</span></li></ul></div>
+    </details>
+  </div>
+</section>
+
+<!-- ============ 11 - SKIN CONCERNS ============ -->
+<section class="slide s-light" id="conditions">
+  <span class="marker">11 - Skin concerns</span>
+  <div class="slide-inner">
+    <div class="step-row" style="margin-bottom:22px;">
+      <div class="eyebrow" style="margin-bottom:0;">Hub 06 &middot; Skin Conditions &amp; Concerns</div>
+      <span class="week week-l">45 pages</span>
+    </div>
+    <h2>Dry, sensitive and redness-prone skin, handled gently</h2>
+    <p class="lead muted-l" style="margin-top:14px; max-width:760px;">Best moisturizers for dry facial skin lead the hub at 334,940 searches a month, with gentle cleansers for sensitive skin at 64,760 and facial redness at 54,990. The hub covers dry and flaky skin, rosacea and redness, sensitive skin, eczema and perioral dermatitis, the skin barrier and the skin microbiome, linking to the Solabiome starter kit.</p>
+    <p class="cap muted-l45" style="margin-top:10px;">781,390 monthly searches across 45 pages and 592 subtopics.</p>
+    <p class="later-hint"><span class="later-n">+22</span> more topics planned for this hub after March</p>
+    <div class="grid g2" style="margin-top:28px;">
+      <div class="card card-light">
+        <h4 class="title-sm">Biggest demand</h4>
+        <p class="cap muted-l45" style="margin-top:6px;">Monthly searches for the hub&#x27;s largest pages</p>
+        <ul class="tlist"><li><span><span class="t-name">Best moisturizers for dry facial skin</span><span class="t-hub">Dry &amp; flaky skin &middot; 94 subtopics</span></span><span class="t-val">334,940</span></li><li><span><span class="t-name">Gentle cleansers for sensitive skin</span><span class="t-hub">Sensitive skin &middot; 30 subtopics</span></span><span class="t-val">64,760</span></li><li><span><span class="t-name">How to get rid of facial redness</span><span class="t-hub">Rosacea &amp; redness &middot; 64 subtopics</span></span><span class="t-val">54,990</span></li><li><span><span class="t-name">Best face cleanser rosacea</span><span class="t-hub">Rosacea &amp; redness &middot; 14 subtopics</span></span><span class="t-val">47,500</span></li><li><span><span class="t-name">Rosacea skin care routine</span><span class="t-hub">Rosacea &amp; redness &middot; 18 subtopics</span></span><span class="t-val">46,530</span></li><li><span><span class="t-name">Best sun cream for rosacea</span><span class="t-hub">Rosacea &amp; redness &middot; 8 subtopics</span></span><span class="t-val">44,420</span></li></ul>
+      </div>
+      <div class="card card-light">
+        <h4 class="title-sm">What the hub covers</h4>
+        <p class="cap muted-l45" style="margin-top:6px;">Scheduled pages by theme</p>
+        <ul class="tlist"><li><span><span class="t-name">Dry &amp; flaky skin</span><span class="t-hub">24% of the hub</span></span><span class="t-val">11 pages</span></li><li><span><span class="t-name">Sensitive skin</span><span class="t-hub">18% of the hub</span></span><span class="t-val">8 pages</span></li><li><span><span class="t-name">Rosacea &amp; redness</span><span class="t-hub">18% of the hub</span></span><span class="t-val">8 pages</span></li><li><span><span class="t-name">Eczema &amp; perioral dermatitis</span><span class="t-hub">16% of the hub</span></span><span class="t-val">7 pages</span></li><li><span><span class="t-name">Skin barrier &amp; ceramides</span><span class="t-hub">16% of the hub</span></span><span class="t-val">7 pages</span></li><li><span><span class="t-name">Skin microbiome</span><span class="t-hub">9% of the hub</span></span><span class="t-val">4 pages</span></li></ul>
+      </div>
+    </div>
+    <details class="all">
+      <summary>All 45 Skin Conditions &amp; Concerns pages</summary>
+      <div class="card card-light allcard"><ul class="tlist cols"><li><span><span class="t-name">Best moisturizers for dry facial skin</span><span class="t-hub">Dry &amp; flaky skin &middot; 94 subtopics</span></span><span class="t-val">334,940</span></li><li><span><span class="t-name">Gentle cleansers for sensitive skin</span><span class="t-hub">Sensitive skin &middot; 30 subtopics</span></span><span class="t-val">64,760</span></li><li><span><span class="t-name">How to get rid of facial redness</span><span class="t-hub">Rosacea &amp; redness &middot; 64 subtopics</span></span><span class="t-val">54,990</span></li><li><span><span class="t-name">Best face cleanser rosacea</span><span class="t-hub">Rosacea &amp; redness &middot; 14 subtopics</span></span><span class="t-val">47,500</span></li><li><span><span class="t-name">Rosacea skin care routine</span><span class="t-hub">Rosacea &amp; redness &middot; 18 subtopics</span></span><span class="t-val">46,530</span></li><li><span><span class="t-name">Best sun cream for rosacea</span><span class="t-hub">Rosacea &amp; redness &middot; 8 subtopics</span></span><span class="t-val">44,420</span></li><li><span><span class="t-name">Best moisturiser rosacea</span><span class="t-hub">Rosacea &amp; redness &middot; 9 subtopics</span></span><span class="t-val">28,900</span></li><li><span><span class="t-name">Best facial moisturizer sensitive skin</span><span class="t-hub">Sensitive skin &middot; 15 subtopics</span></span><span class="t-val">26,070</span></li><li><span><span class="t-name">How to get rid of dry flaky skin on face</span><span class="t-hub">Dry &amp; flaky skin &middot; 49 subtopics</span></span><span class="t-val">25,580</span></li><li><span><span class="t-name">Gentle cleanser for perioral dermatitis</span><span class="t-hub">Eczema &amp; perioral dermatitis &middot; 5 subtopics</span></span><span class="t-val">15,400</span></li><li><span><span class="t-name">Best facial product for sensitive skin</span><span class="t-hub">Sensitive skin &middot; 3 subtopics</span></span><span class="t-val">9,280</span></li><li><span><span class="t-name">Best skin barrier repair products</span><span class="t-hub">Skin barrier &amp; ceramides &middot; 21 subtopics</span></span><span class="t-val">8,460</span></li><li><span><span class="t-name">Best moisturizer for eczema on face</span><span class="t-hub">Eczema &amp; perioral dermatitis &middot; 5 subtopics</span></span><span class="t-val">7,810</span></li><li><span><span class="t-name">Best skin care products for facial redness</span><span class="t-hub">Rosacea &amp; redness &middot; 14 subtopics</span></span><span class="t-val">7,540</span></li><li><span><span class="t-name">How to fix dehydrated skin</span><span class="t-hub">Dry &amp; flaky skin &middot; 68 subtopics</span></span><span class="t-val">6,940</span></li><li><span><span class="t-name">Sensitive skin facial routine</span><span class="t-hub">Sensitive skin &middot; 6 subtopics</span></span><span class="t-val">6,720</span></li><li><span><span class="t-name">Facial exfoliator for sensitive skin</span><span class="t-hub">Sensitive skin &middot; 5 subtopics</span></span><span class="t-val">5,990</span></li><li><span><span class="t-name">Facial sunscreen sensitive skin</span><span class="t-hub">Sensitive skin &middot; 4 subtopics</span></span><span class="t-val">4,580</span></li><li><span><span class="t-name">Skincare products with ceramides</span><span class="t-hub">Skin barrier &amp; ceramides &middot; 9 subtopics</span></span><span class="t-val">4,300</span></li><li><span><span class="t-name">Best face moisturizer for perioral dermatitis</span><span class="t-hub">Eczema &amp; perioral dermatitis &middot; 4 subtopics</span></span><span class="t-val">3,830</span></li><li><span><span class="t-name">Cleanser for eczema on face</span><span class="t-hub">Eczema &amp; perioral dermatitis &middot; 3 subtopics</span></span><span class="t-val">3,830</span></li><li><span><span class="t-name">Ceramides skin benefits</span><span class="t-hub">Skin barrier &amp; ceramides &middot; 24 subtopics</span></span><span class="t-val">3,370</span></li><li><span><span class="t-name">Dry around eyes flaky skin</span><span class="t-hub">Dry &amp; flaky skin &middot; 8 subtopics</span></span><span class="t-val">2,800</span></li><li><span><span class="t-name">Best facial mask sensitive skin</span><span class="t-hub">Sensitive skin &middot; 2 subtopics</span></span><span class="t-val">2,600</span></li><li><span><span class="t-name">Facial redness and burning</span><span class="t-hub">Rosacea &amp; redness &middot; 10 subtopics</span></span><span class="t-val">2,220</span></li><li><span><span class="t-name">Best face cleanser and moisturizer for dry skin</span><span class="t-hub">Dry &amp; flaky skin &middot; 3 subtopics</span></span><span class="t-val">1,970</span></li><li><span><span class="t-name">Probiotic skincare</span><span class="t-hub">Skin microbiome &middot; 14 subtopics</span></span><span class="t-val">1,550</span></li><li><span><span class="t-name">Dry flaky skin under beard</span><span class="t-hub">Dry &amp; flaky skin &middot; 4 subtopics</span></span><span class="t-val">1,550</span></li><li><span><span class="t-name">Perioral dermatitis skin care routine</span><span class="t-hub">Eczema &amp; perioral dermatitis &middot; 7 subtopics</span></span><span class="t-val">1,480</span></li><li><span><span class="t-name">Dry flaky skin around mouth treatment</span><span class="t-hub">Dry &amp; flaky skin &middot; 5 subtopics</span></span><span class="t-val">1,100</span></li><li><span><span class="t-name">Best oils for skin barrier repair</span><span class="t-hub">Skin barrier &amp; ceramides &middot; 11 subtopics</span></span><span class="t-val">1,050</span></li><li><span><span class="t-name">Best facial serum for sensitive skin</span><span class="t-hub">Sensitive skin &middot; 3 subtopics</span></span><span class="t-val">850</span></li><li><span><span class="t-name">Best hydrating serum for dehydrated skin</span><span class="t-hub">Dry &amp; flaky skin &middot; 4 subtopics</span></span><span class="t-val">810</span></li><li><span><span class="t-name">Skincare for eczema on face</span><span class="t-hub">Eczema &amp; perioral dermatitis &middot; 8 subtopics</span></span><span class="t-val">490</span></li><li><span><span class="t-name">Dehydrated skin vs. wrinkles</span><span class="t-hub">Dry &amp; flaky skin &middot; 5 subtopics</span></span><span class="t-val">410</span></li><li><span><span class="t-name">How to restore your skin microbiome naturally</span><span class="t-hub">Skin microbiome &middot; 9 subtopics</span></span><span class="t-val">160</span></li><li><span><span class="t-name">Best probiotic skincare products</span><span class="t-hub">Skin microbiome &middot; 7 subtopics</span></span><span class="t-val">150</span></li><li><span><span class="t-name">Best face masks for dry flaky skin</span><span class="t-hub">Dry &amp; flaky skin &middot; 4 subtopics</span></span><span class="t-val">150</span></li><li><span><span class="t-name">Can ceramides cause skin irritation?</span><span class="t-hub">Skin barrier &amp; ceramides &middot; 6 subtopics</span></span><span class="t-val">100</span></li><li><span><span class="t-name">Peptides vs. ceramides for skin</span><span class="t-hub">Skin barrier &amp; ceramides &middot; 3 subtopics</span></span><span class="t-val">80</span></li><li><span><span class="t-name">Sunscreen for eczema on face</span><span class="t-hub">Eczema &amp; perioral dermatitis &middot; 1 subtopic</span></span><span class="t-val">70</span></li><li><span><span class="t-name">Dry flaky skin after waxing face</span><span class="t-hub">Dry &amp; flaky skin &middot; 3 subtopics</span></span><span class="t-val">30</span></li><li><span><span class="t-name">Microbiome method for skin</span><span class="t-hub">Skin microbiome &middot; 1 subtopic</span></span><span class="t-val">10</span></li><li><span><span class="t-name">Ceramides for glowing skin</span><span class="t-hub">Skin barrier &amp; ceramides &middot; 1 subtopic</span></span><span class="t-val">10</span></li><li><span><span class="t-name">How to reduce facial redness from sunburn</span><span class="t-hub">Rosacea &amp; redness &middot; 1 subtopic</span></span><span class="t-val">10</span></li></ul></div>
+    </details>
+  </div>
+</section>
+
+<!-- ============ 12 - DEVICES ============ -->
+<section class="slide s-paper" id="devices">
+  <span class="marker">12 - Devices</span>
+  <div class="slide-inner">
+    <div class="step-row" style="margin-bottom:22px;">
+      <div class="eyebrow" style="margin-bottom:0;">Hub 07 &middot; Skincare Devices, Tools &amp; Technology</div>
+      <span class="week week-l">25 pages</span>
+    </div>
+    <h2>Red light therapy, LED masks and at-home devices</h2>
+    <p class="lead muted-l" style="margin-top:14px; max-width:760px;">Red light therapy for skin health is the biggest page in the plan at 767,200 searches a month, with at-home LED face masks at 228,380 and skin tightening at 117,200. The hub explains how red light works and what results to expect, LED masks, wands and galvanic devices, and skin tightening and rejuvenation, SolaWave&#x27;s core category in 25 pages.</p>
+    <p class="cap muted-l45" style="margin-top:10px;">1,451,240 monthly searches across 25 pages and 163 subtopics.</p>
+    <p class="later-hint"><span class="later-n">+17</span> more topics planned for this hub after March</p>
+    <div class="grid g2" style="margin-top:28px;">
+      <div class="card card-light">
+        <h4 class="title-sm">Biggest demand</h4>
+        <p class="cap muted-l45" style="margin-top:6px;">Monthly searches for the hub&#x27;s largest pages</p>
+        <ul class="tlist"><li><span><span class="t-name">Red light therapy for skin health</span><span class="t-hub">Red light therapy basics &middot; 18 subtopics</span></span><span class="t-val">767,200</span></li><li><span><span class="t-name">At-home LED face masks</span><span class="t-hub">LED masks &middot; 10 subtopics</span></span><span class="t-val">228,380</span></li><li><span><span class="t-name">Skin tightening</span><span class="t-hub">Skin tightening &middot; 5 subtopics</span></span><span class="t-val">117,200</span></li><li><span><span class="t-name">At-home beauty devices</span><span class="t-hub">At-home devices &middot; 12 subtopics</span></span><span class="t-val">91,410</span></li><li><span><span class="t-name">Best red light therapy masks</span><span class="t-hub">LED masks &middot; 9 subtopics</span></span><span class="t-val">88,980</span></li><li><span><span class="t-name">Non-surgical skin rejuvenation</span><span class="t-hub">Skin rejuvenation &middot; 6 subtopics</span></span><span class="t-val">37,900</span></li></ul>
+      </div>
+      <div class="card card-light">
+        <h4 class="title-sm">What the hub covers</h4>
+        <p class="cap muted-l45" style="margin-top:6px;">Scheduled pages by theme</p>
+        <ul class="tlist"><li><span><span class="t-name">Wands &amp; galvanic devices</span><span class="t-hub">32% of the hub</span></span><span class="t-val">8 pages</span></li><li><span><span class="t-name">Skin rejuvenation</span><span class="t-hub">20% of the hub</span></span><span class="t-val">5 pages</span></li><li><span><span class="t-name">Red light therapy basics</span><span class="t-hub">16% of the hub</span></span><span class="t-val">4 pages</span></li><li><span><span class="t-name">At-home devices</span><span class="t-hub">16% of the hub</span></span><span class="t-val">4 pages</span></li><li><span><span class="t-name">LED masks</span><span class="t-hub">8% of the hub</span></span><span class="t-val">2 pages</span></li><li><span><span class="t-name">Skin tightening</span><span class="t-hub">8% of the hub</span></span><span class="t-val">2 pages</span></li></ul>
+      </div>
+    </div>
+    <details class="all">
+      <summary>All 25 Skincare Devices, Tools &amp; Technology pages</summary>
+      <div class="card card-light allcard"><ul class="tlist cols"><li><span><span class="t-name">Red light therapy for skin health</span><span class="t-hub">Red light therapy basics &middot; 18 subtopics</span></span><span class="t-val">767,200</span></li><li><span><span class="t-name">At-home LED face masks</span><span class="t-hub">LED masks &middot; 10 subtopics</span></span><span class="t-val">228,380</span></li><li><span><span class="t-name">Skin tightening</span><span class="t-hub">Skin tightening &middot; 5 subtopics</span></span><span class="t-val">117,200</span></li><li><span><span class="t-name">At-home beauty devices</span><span class="t-hub">At-home devices &middot; 12 subtopics</span></span><span class="t-val">91,410</span></li><li><span><span class="t-name">Best red light therapy masks</span><span class="t-hub">LED masks &middot; 9 subtopics</span></span><span class="t-val">88,980</span></li><li><span><span class="t-name">Non-surgical skin rejuvenation</span><span class="t-hub">Skin rejuvenation &middot; 6 subtopics</span></span><span class="t-val">37,900</span></li><li><span><span class="t-name">At home red light therapy</span><span class="t-hub">At-home devices &middot; 8 subtopics</span></span><span class="t-val">33,890</span></li><li><span><span class="t-name">FDA-cleared red light devices</span><span class="t-hub">At-home devices &middot; 1 subtopic</span></span><span class="t-val">33,100</span></li><li><span><span class="t-name">Results from red light therapy</span><span class="t-hub">Red light therapy basics &middot; 10 subtopics</span></span><span class="t-val">20,740</span></li><li><span><span class="t-name">Best face skin tightening cream</span><span class="t-hub">Skin tightening &middot; 4 subtopics</span></span><span class="t-val">17,600</span></li><li><span><span class="t-name">LED light therapy colors benefits</span><span class="t-hub">Red light therapy basics &middot; 24 subtopics</span></span><span class="t-val">6,430</span></li><li><span><span class="t-name">Skin rejuvenation products</span><span class="t-hub">Skin rejuvenation &middot; 1 subtopic</span></span><span class="t-val">1,900</span></li><li><span><span class="t-name">Skin rejuvenation peptides</span><span class="t-hub">Skin rejuvenation &middot; 1 subtopic</span></span><span class="t-val">1,900</span></li><li><span><span class="t-name">Best red light therapy wand</span><span class="t-hub">Wands &amp; galvanic devices &middot; 9 subtopics</span></span><span class="t-val">1,040</span></li><li><span><span class="t-name">Skin rejuvenation serums</span><span class="t-hub">Skin rejuvenation &middot; 1 subtopic</span></span><span class="t-val">1,000</span></li><li><span><span class="t-name">Ageless skin rejuvenation</span><span class="t-hub">Skin rejuvenation &middot; 1 subtopic</span></span><span class="t-val">1,000</span></li><li><span><span class="t-name">Red light therapy safety</span><span class="t-hub">Red light therapy basics &middot; 2 subtopics</span></span><span class="t-val">870</span></li><li><span><span class="t-name">Red light wand vs. mask</span><span class="t-hub">Wands &amp; galvanic devices &middot; 9 subtopics</span></span><span class="t-val">240</span></li><li><span><span class="t-name">Galvanic facial steps</span><span class="t-hub">Wands &amp; galvanic devices &middot; 11 subtopics</span></span><span class="t-val">120</span></li><li><span><span class="t-name">Best beauty device</span><span class="t-hub">At-home devices &middot; 2 subtopics</span></span><span class="t-val">110</span></li><li><span><span class="t-name">SolaWave conductive serum</span><span class="t-hub">Wands &amp; galvanic devices &middot; 5 subtopics</span></span><span class="t-val">90</span></li><li><span><span class="t-name">Best galvanic facial machine for home use</span><span class="t-hub">Wands &amp; galvanic devices &middot; 4 subtopics</span></span><span class="t-val">40</span></li><li><span><span class="t-name">Sonic facial wand</span><span class="t-hub">Wands &amp; galvanic devices &middot; 1 subtopic</span></span><span class="t-val">40</span></li><li><span><span class="t-name">Galvanic facial contraindications</span><span class="t-hub">Wands &amp; galvanic devices &middot; 6 subtopics</span></span><span class="t-val">30</span></li><li><span><span class="t-name">Galvanic facial vs. microcurrent</span><span class="t-hub">Wands &amp; galvanic devices &middot; 3 subtopics</span></span><span class="t-val">30</span></li></ul></div>
+    </details>
+  </div>
+</section>
+
+<!-- ============ 13 - CLOSE ============ -->
+<section class="slide s-dark hero-dark">
+  <span class="marker">13 - Next</span>
+  <div class="slide-inner" style="text-align:center;">
+    <div class="eyebrow" style="justify-content:center;"><span class="dot"></span> Where this goes from here</div>
+    <h1 class="display" style="max-width:880px; margin:0 auto;">The topics are chosen.<br>Now they become <span class="flip">pages.</span></h1>
+    <p class="lead muted-d80" style="max-width:660px; margin:24px auto 0;">
+      Six months, 532 pages across seven hubs, running alongside the SEO audit, product and collection
+      optimizations, AI visibility, ecommerce and Reddit tracking. Everything is in your dashboard as it goes live.
+    </p>
+    <p class="footer-note muted-d" style="margin-top:56px;">FlyRank &middot; SolaWave content roadmap, Oct 2026 - Mar 2027</p>
+  </div>
+</section>
+
+<script>
+  const rail = document.getElementById('rail');
+  let ticking = false;
+  function updateRail() {
+    const max = document.documentElement.scrollHeight - window.innerHeight;
+    const pct = max > 0 ? (window.scrollY / max) * 100 : 0;
+    rail.style.width = Math.min(100, Math.max(0, pct)) + '%';
+    ticking = false;
+  }
+  window.addEventListener('scroll', () => {
+    if (!ticking) { window.requestAnimationFrame(updateRail); ticking = true; }
+  }, {passive:true});
+  window.addEventListener('resize', updateRail, {passive:true});
+  updateRail();
+</script>
+
+</body></html>
+</body></html>
